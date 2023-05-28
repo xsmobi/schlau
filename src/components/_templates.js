@@ -47,6 +47,12 @@ const templates = [
       val1: 5,
       val2: 15
     },
+    {
+      name: "Brüche",
+      type: "frac",
+      val1: 20,
+      val2: 20
+    },
   ];
 
   export default templates

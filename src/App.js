@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import Header from "./components/Header";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
 import templates from "./components/_templates";
@@ -28,19 +27,22 @@ function App() {
   
   const types = [
     {typ: "add",    btn: "+ / -",       txt: "Plus und Minus auf dem Zahlenstrahl"},
-    {typ: "addsub", btn: "-(-+)",       txt:"Plus und Minus mit Klammern"},
-    {typ: "inhalt", btn: "a * b * c",   txt:"Strecke, Fläche, Volumen"},
-    {typ: "brac",   btn: "( () )",      txt:"Klammerregeln"},
+    {typ: "addsub", btn: "-(-+)",       txt: "Plus und Minus mit Klammern"},
+    {typ: "inhalt", btn: "a * b * c",   txt: "Strecke, Fläche, Volumen"},
+    {typ: "brac",   btn: "( (...) )",   txt: "Klammerregeln"},
     {typ: "frac",   btn: "2 / 3",       txt: "Bruchrechnung"},
-    {typ: "terme1", btn: "x + a",       txt:"Plus-Minus-Terme umstellen"},
-    {typ: "terme2", btn: "Terme */:",   txt: "Mal-Geteilt-Terme umstellen"},
-    {typ: "prop",   btn: "Linear 1",    txt: "Proportionalität, Anteil, Prozent"},
+    {typ: "terme1", btn: "x + a",       txt: "Terme 1: Plus-Minus-Terme umstellen"},
+    {typ: "terme2", btn: "Terme */:",   txt: "Terme 2: Mal-Geteilt-Terme umstellen"},
+    {typ: "power",  btn: "a^(n+m)",     txt: "Potenzen"},
+    {typ: "prop",   btn: "y = a * x",   txt: "Proportionalität, Anteil, Prozent"},
+    {typ: "terme3", btn: "Terme */:",   txt: "Terme 2: Terme umstellen + - * / ^n"},
     {typ: "zoom",   btn: "Zoom",        txt: "Strahlensatz, Ähnlichkeit, Zoom"},
     {typ: "drei",   btn: "ABCabc",      txt: "Dreiecke, Pythagoras"},
-    {typ: "lin1",   btn: "Linear 1",    txt: "Lineare Funktionen"},
-    {typ: "lin2",   btn: "Linear 2",    txt: "Lineare Gleichungssysteme"},
+    {typ: "lin1",   btn: "a * x + b",    txt: "Lineare Funktionen"},
+    {typ: "lin2",   btn: "I = II",    txt: "Lineare Gleichungssysteme"},
     {typ: "quad",   btn: "( )^2",       txt: "Quadratische Funktionen"},
-    {typ: "sincos", btn: "sin&cos",     txt: "Quadratische Funktionen"},
+    {typ: "sincos", btn: "sin&cos",     txt: "Sinus, Cosinus, Tangens"},
+    {typ: "sincos2", btn: "sin(a)/a",    txt: "Sinussatz, Cosinussatz"},
     {typ: "type1",  btn: "Test 1",      txt: "Test 1"},
     {typ: "type2",  btn: "Test 2",      txt: "Test 2"},
     {typ: "type3",  btn: "Test 3",      txt: "Test 3"},

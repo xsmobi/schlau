@@ -1,5 +1,6 @@
 import add from './components/add';
 import addsub from './components/addsub';
+import frac from './components/frac';
 import lin1 from './components/lin1';
 
 function CreateTask(task) {
@@ -17,6 +18,10 @@ function CreateTask(task) {
         case "addsub":
             //aufgabeDaten = addsub(val1,val2,explainer)  
             aufgabeDaten = addsub(val1,val2)
+        break;
+        case "frac":
+            //aufgabeDaten = addsub(val1,val2,explainer)  
+            aufgabeDaten = frac(val1,val2)
         break;
         case "lin1": 
             aufgabeDaten = lin1(val1,val2)
