@@ -1,37 +1,13 @@
 import { React, useState, useEffect } from "react";
+import Header from "./components/Header";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
 import templates from "./components/_templates";
 import {AiOutlinePlus} from 'react-icons/ai'
-import {AiOutlineQuestionCircle} from 'react-icons/ai'
-import {AiOutlineExclamationCircle} from 'react-icons/ai'
+import {AiOutlineQuestion} from 'react-icons/ai'
+// import {AiOutlineExclamation} from 'react-icons/ai'
+import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineEllipsis} from 'react-icons/ai'
-// import {TbMathXPlusY} from 'react-icons/tb'
-// import {TbMath1Divide3} from 'react-icons/tb'
-//import {TbBracketsContain} from 'react-icons/tb'
-// import {TbMathFunction} from 'react-icons/tb'
-
-/*
-4 Buttons oben
-
-plus minus Zahlenstrahl
-Bruchrechnung
-Klammer und Terme umstellen
-lineare Gleichungen, nach x auflösen
-
-4 Buttons mitte
-Flächen und  körper
-Strahlensatz
-Pythagoras
-Sin cos tan
-
-4 Buttons unten
-
-lineare Funktionen
-lineare Gleichungssysteme
-quadratische Funktionen
-Infinitesimalrechnung
-*/
 
 const style={
   bg:`h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -110,22 +86,31 @@ setSelectedType(type);
 };
 
 return (
+
 <div className={style.bg}>
     <div className={style.container}>
-        <h3 className={style.heading}>schlau.app</h3>
-            <img className="h-12 w-12" src="https://mathbydoing.app/apple-touch-icon.png" alt="logo" />
-            <h4 id="typedesc" className={style.subheading}>{selectedType ? types.find((type) => type.typ === selectedType).txt : 'Practice Math and Boost Your Brainpower!'}</h4>
-            
+        <nav className="relative flex w-full flex-wrap items-center justify-between bg-neutral-100 py-2 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4">
+            <div className="flex w-full flex-wrap items-center justify-between px-3">
+                  <div>
+                      <a href="#" className="my-1 mr-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 lg:mb-0 lg:mt-0">
+                        <img className="mr-2 h-12 w-12" src="https://mathbydoing.app/apple-touch-icon.png" alt="schlau.app Logo" loading="lazy" />
+                        <span className={style.heading}>schlau.app</span>
+                      </a>
+                  </div>
+              </div>
+        </nav>
 
+        <h4 id="typedesc" className={style.subheading}>{selectedType ? types.find((type) => type.typ === selectedType).txt : 'Practice Math and Boost Your Brainpower!'}</h4>
+            
         <main>
             <div className="buttons-container">
               <button  type="button" className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={getRandomTask}><AiOutlinePlus size={30} /></button>
               <button  type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                onClick={toggleShowHelp}><AiOutlineQuestionCircle size={30} /></button>
-              <button  type="button" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                onClick={toggleShowResult}><AiOutlineExclamationCircle size={30} /></button>
-              <button  type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                onClick={toggleShowHelp}><AiOutlineQuestion size={30} /></button>
+              <button  type="button" className="text-white bg-gradient-to-r from-black-400 via-black-500 to-black-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                onClick={toggleShowResult}><CgMathEqual size={30} /></button>
+              <button  type="button" className="text-gray-900 bg-gradient-to-r from-gray-200 via-gray-400 to-lime-gray hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={toggleShowExplainer}><AiOutlineEllipsis size={30} /></button>
             </div>
 
@@ -157,10 +142,9 @@ return (
             </div>
         </main>
 
-        <footer class="mt-12 bg-neutral-200 text-center dark:bg-neutral-700 lg:text-left">
-            <div class="p-4 text-center text-neutral-700 dark:text-neutral-200">
-              © 2023 Copyright:
-              <a class="text-neutral-800 dark:text-neutral-400" href="https:mathbydoing.app">Practice math, it powers your success!</a> 
+        <footer className="mt-12  text-center dark:bg-neutral-700 lg:text-left">
+            <div className="p-0 text-center text-neutral-700 dark:text-neutral-200">
+              Mathe macht schlau
             </div>
         </footer>
     </div>
