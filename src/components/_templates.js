@@ -42,16 +42,22 @@ const templates = [
       val2: 10000
     },
     {
+      name: "Brüche",
+      type: "frac",
+      val1: 20,
+      val2: 20
+    },
+    {
       name: "Lineare Gleichungen",
       type: "lin1",
       val1: 5,
       val2: 15
     },
     {
-      name: "Brüche",
-      type: "frac",
-      val1: 20,
-      val2: 20
+    name: "Lineare Gleichungen",
+      type: "lin2",
+      val1: 5,
+      val2: 15
     },
   ];
 
