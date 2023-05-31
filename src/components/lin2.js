@@ -1,33 +1,61 @@
 function lin2(min, max){
-    let problem, solution, help, explainer, a, b, c
+    let problem, solution, help, explainer, a, b, c, linpart
 
-    a = getRandomInt(2,10);
+    a = getRandomInt(-10,10);
+    if (a === 0) a-- 
     b = getRandomInt(-10,10);
     c = getRandomInt(-10,10);
+    if (c === 0) c++ 
 
-    help = "... help ..."
-
-    if (b < 0) {
-      problem = `\\[${a} \\cdot x - ${-b} = ${c} \\]`
-      help = `\\[${a} \\cdot x - ${-b} + ${-b} = ${c} + ${-b} \\]`
-      help = help + `\\[${a} \\cdot x = ${c+b} \\]`
-      help = `Addiere auf beiden Seiten ${-b}` + help
-    } else if (b === 0){
-      problem = `\\[${a} \\cdot x = ${c} \\]`
+    if (a === 1) {
+      linpart = `\\[x`
+    } else if (a === -1) {
+      linpart = `\\[-x`
     } else {
-      problem = `\\[${a} \\cdot x + ${b} = ${c} \\]`
+      linpart = `\\[${a} \\cdot x`
     }
 
-    //console.log(a)
-    //console.log(b)
-    //console.log(c)
+    if (b < 0) {
+      problem =     `${linpart} - ${-b} = ${c} \\]`
+      help =        `${linpart} - ${-b} + ${-b} = ${c} + ${-b} \\]`
+      help = help + `${linpart} = ${c-b} \\]`
+      help = `Addiere auf beiden Seiten ${-b}` + help
+    } else if (b === 0){
+      problem =      `${linpart} = ${c} \\]`
+      if (a === 1) {
+        help = `Die Lösung steht bereits da!`
+      } else if (a === -1) {
+        help = `Die Lösung für -x steht bereits da: multipliziere die Gleichung mit -1`
+      } else {
+        help = `Löse nach x auf: dividiere durch ${a}`
+      }
+    } else {
+      problem =     `${linpart} + ${b} = ${c} \\]`
+      help =        `${linpart} + ${b} - ${b} = ${c} - ${b} \\]`
+      help = help + `${linpart} = ${c-b} \\]`
+      help = `Subtrahiere auf beiden Seiten ${b}` + help
+    }
 
+
+    let solutionval = (c - b) / a;
+    if (Number.isInteger(solutionval)) {
+      if (Math.abs(solutionval) === 1) {
+        solution = `\\[x = ${solutionval}\\]`
+      } else {
+        solution =`\\[x = ${solutionval}\\]`
+      }
+    } else {
+      if (c === b) {
+        solution = `\\[x = 0\\]`
+      } else {
+        solution =`\\[x = \\frac{${c-b}}{${a}} = ${solutionval.toFixed(2)}\\]`
+      }
+    }
     
-    solution = (c - b) / a;
    
     explainer = "... explainer ..."
     
-   
+    //console.log(b)
 
     return [problem, solution, help, explainer];
 }

@@ -1,7 +1,12 @@
-function add(min, max){
+//function add(min, max){
+function add(){    
     let op, aufgabe, loesung, help, help1, help2
-    let op1 = getRandomInt(max-min) + min;
-    let op2 = getRandomInt(max-min) + min;
+    //let op1 = getRandomInt(max-min) + min;
+    //let op2 = getRandomInt(max-min) + min;
+    let op1 = getRandomInt(20) - 10;
+    if (op1 === 0) op1++
+    let op2 = getRandomInt(30) + 1;   
+
     if (op1 === 0) op1 = 4; // Null ausschließen
     if (op2 === 0) op2 = 5; // Null ausschließen
     if (Math.random() < 0.5){

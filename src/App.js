@@ -16,7 +16,7 @@ const style={
   //subheading: `text-1xl font-bold text-center text-gray-800 p-2`,
   subheading: `prose prose-xl p-2`,
   //taskbuttons: `text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
-  taskbuttons: `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
+  taskbuttons: `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-small rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
 }
 
 function App() {
@@ -28,15 +28,14 @@ function App() {
   //const types = ['add', 'addsub', 'lin1', 'type1', 'type2', 'type3'];
   
   const types = [
-    {typ: "add",    btn: "+ / -",       txt: "Plus und Minus auf dem Zahlenstrahl"},
-    {typ: "addsub", btn: "-(-+)",       txt: "Plus und Minus mit Klammern"},
-    {typ: "frac",   btn: "4/6 2/3",     txt: "Brüche kürzen"},
-    {typ: "lin1",   btn: "ax + b",   txt: "Lineare Funktionen"},
+    {typ: "add",    btn: "a +- b",      txt: "Plus und Minus auf dem Zahlenstrahl"},
+    {typ: "addsub", btn: "a-(-+b)",     txt: "Plus und Minus mit Klammern"},
+    {typ: "frac",   btn: "800/1000",     txt: "Brüche kürzen"},
+    {typ: "lin1",   btn: "x + a = b",   txt: "Lineare Funktionen"},
     {typ: "lin2",   btn: "y = ax + b",   txt: "Lineare Gleichungen"},
     {typ: "inhalt", btn: "a * b * c",   txt: "Strecke, Fläche, Volumen"},
     {typ: "brac",   btn: "( (...) )",   txt: "Klammerregeln"},
- 
-    
+
     {typ: "frac2",  btn: "1/2 + 1/3",   txt: "Brüche add/sub & mal/geteilt"},
     {typ: "terme1", btn: "x + a",       txt: "Terme 1: Plus-Minus-Terme umstellen"},
     {typ: "terme2", btn: "Terme */:",   txt: "Terme 2: Mal-Geteilt-Terme umstellen"},
@@ -44,8 +43,7 @@ function App() {
     {typ: "prop",   btn: "y = a * x",   txt: "Proportionalität, Anteil, Prozent"},
     {typ: "terme3", btn: "Terme */:",   txt: "Terme 2: Terme umstellen + - * / ^n"},
     {typ: "zoom",   btn: "Zoom",        txt: "Strahlensatz, Ähnlichkeit, Zoom"},
-    {typ: "drei",   btn: "ABCabc",      txt: "Dreiecke, Pythagoras"},
-    
+    {typ: "drei",   btn: "ABCabc",      txt: "Dreiecke, Pythagoras"}, 
     {typ: "lin3",   btn: "I = II",    txt: "Lineare Gleichungssysteme"},
     {typ: "quad",   btn: "( )^2",       txt: "Quadratische Funktionen"},
     {typ: "sincos", btn: "sin&cos",     txt: "Sinus, Cosinus, Tangens"},
@@ -56,6 +54,8 @@ function App() {
   ]
   
   const [selectedType, setSelectedType] = useState('addsub');
+
+
 
   useEffect(() => {
     getRandomTask();
@@ -74,7 +74,8 @@ function App() {
       setShowExplainer(false);
       //setDisabled(false);
     }
-};
+}; 
+
 
 const toggleShowHelp = () => {
 setShowHelp(!showHelp);
