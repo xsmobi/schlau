@@ -22,15 +22,14 @@ const templates = [
       type: "addsub",
       val1: 10,
       val2: 20,
-      help: "",
-      explainer:
-        "<p>Eine Zahl addieren heißt, die Gegenzahl subtrahieren.</p> <ul> <li>Beispiel, addiere 2: 3 + 2 = 3 - (-2), denn -2 ist die Gegenzahl zu </li> <li>Beispiel, addiere -2: 3 + (-2) = 3 - 2, denn 2 ist die Gegenzahl zu -2</li> </ul>"
+      //help: "",
+      //explainer:"<p>.Eine Zahl addieren heißt, die Gegenzahl subtrahieren.</p> <ul> <li>Beispiel, addiere 2: 3 + 2 = 3 - (-2), denn -2 ist die Gegenzahl zu </li> <li>Beispiel, addiere -2: 3 + (-2) = 3 - 2, denn 2 ist die Gegenzahl zu -2</li> </ul>"
     },
     {
       name: "Add",
       type: "add",
-      val1: -10,
-      val2: 10,
+      //val1: -10,
+      //val2: 10,
       help: "",
       explainer:
         "Eine Zahl addieren heißt, die Gegenzahl subtrahieren. Beispiel, addiere 2: 3 + 2 = 3 - (-2), denn -2 ist die Gegenzahl zu 2 Beispiel, addiere -2: 3 + (-2) = 3 - 2, denn 2 ist die Gegenzahl zu -2  Eine Zahl subtrahieren heißt, die Gegenzahl addieren. Beispiel, subtrahiere 2: 3 - 2 = 3 + (-2), denn +2 ist die Gegenzahl zu -2 Beispiel, subtrahiere -2: 3 - (-2) = 3 + 2, denn -2 ist die Gegenzahl zu 2"

@@ -1,14 +1,11 @@
-//function add(min, max){
 function add(){    
-    let op, aufgabe, loesung, help, help1, help2
-    //let op1 = getRandomInt(max-min) + min;
-    //let op2 = getRandomInt(max-min) + min;
+    let op, aufgabe, loesung, help, help1, help2, explainer
     let op1 = getRandomInt(20) - 10;
     if (op1 === 0) op1++
-    let op2 = getRandomInt(30) + 1;   
-
-    if (op1 === 0) op1 = 4; // Null ausschließen
-    if (op2 === 0) op2 = 5; // Null ausschließen
+    let op2 = getRandomInt(30) + 1;  
+    if (op1 === op2) op2++
+    if (op1 === 0) op1 = 4;
+    if (op2 === 0) op2 = 5;
     if (Math.random() < 0.5){
         op = "+";
         loesung = op1 + op2;
@@ -16,10 +13,13 @@ function add(){
         op = "-";
         loesung = op1 - op2;
     }
+    loesung = `\\[${loesung}\\]`
     if (op2 < 0) {
-        aufgabe = op1 + " " + op + " (" + op2 + ") =";
+        //aufgabe = op1 + " " + op + " (" + op2 + ") =";
+        aufgabe = `\\[${op1}${op}(${op2})=\\]`
     } else {
-        aufgabe = op1 + " "  + op + " " + op2 + " =";
+        //aufgabe = op1 + " "  + op + " " + op2 + " =";
+        aufgabe = `\\[${op1}${op}${op2}=\\]`
     }
     help1 = "";
     help2 = "";
@@ -39,7 +39,8 @@ function add(){
         }
     }
     help = help1 + help2;
-    return [aufgabe, loesung, help];
+    explainer = "Zahlenstrahl erklärt"
+    return [aufgabe, loesung, help, explainer];
 }
 
 export default add;

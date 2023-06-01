@@ -8,6 +8,7 @@ import {AiOutlineQuestion} from 'react-icons/ai'
 // import {AiOutlineExclamation} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
+//import {MdLinearScale} from 'react-icons/md'
 
 const style={
   bg:`h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -28,14 +29,14 @@ function App() {
   //const types = ['add', 'addsub', 'lin1', 'type1', 'type2', 'type3'];
   
   const types = [
-    {typ: "add",    btn: "a +- b",      txt: "Plus und Minus auf dem Zahlenstrahl"},
+    {typ: "add",    btn: "-a +b",      txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a-(-+b)",     txt: "Plus und Minus mit Klammern"},
-    {typ: "frac",   btn: "800/1000",     txt: "Brüche kürzen"},
+    {typ: "frac",   btn: "x/y",     txt: "Brüche kürzen"},
     {typ: "lin1",   btn: "x + a = b",   txt: "Lineare Funktionen"},
     {typ: "lin2",   btn: "y = ax + b",   txt: "Lineare Gleichungen"},
+    
     {typ: "inhalt", btn: "a * b * c",   txt: "Strecke, Fläche, Volumen"},
     {typ: "brac",   btn: "( (...) )",   txt: "Klammerregeln"},
-
     {typ: "frac2",  btn: "1/2 + 1/3",   txt: "Brüche add/sub & mal/geteilt"},
     {typ: "terme1", btn: "x + a",       txt: "Terme 1: Plus-Minus-Terme umstellen"},
     {typ: "terme2", btn: "Terme */:",   txt: "Terme 2: Mal-Geteilt-Terme umstellen"},
@@ -52,15 +53,15 @@ function App() {
     {typ: "type2",  btn: "Test 2",      txt: "Test 2"},
     {typ: "type3",  btn: "Test 3",      txt: "Test 3"},
   ]
-  
+
   const [selectedType, setSelectedType] = useState('addsub');
 
-
-
+  /*
   useEffect(() => {
     getRandomTask();
   }, [selectedType]);
-
+  */
+  
   const getRandomTask = () => {
     const filteredTasks = templates.filter((task) => task.type === selectedType);
     if (filteredTasks.length > 0) {
@@ -74,7 +75,11 @@ function App() {
       setShowExplainer(false);
       //setDisabled(false);
     }
-}; 
+};
+
+useEffect(() => {
+  getRandomTask();
+}, [selectedType]);
 
 
 const toggleShowHelp = () => {
@@ -161,7 +166,9 @@ return (
         </footer>
     </div>
 </div>
+
 );
 }
 
 export default App;
+

@@ -1,4 +1,4 @@
-function frac(min, max){
+function frac(){
     let aufgabe, loesung, help, num, den, explainer
     const divisors = [2,3,5,7,9]
     const randomDivisor = divisors[Math.floor(Math.random() * divisors.length)];
@@ -20,6 +20,13 @@ function frac(min, max){
     //let denprime = primeFactors(den).toString();
     //denprime = denprime.substring(0,denprime.length-1);
     let gcd = gcdTwoNumbers(num, den)
+
+    //help = `${num}:${gcd}/${den}:${gcd}`
+
+    help = `\\[\\frac{${num}}{${den}} = \\frac{${num}:${gcd}}{${den}:${gcd}}\\]`
+
+    explainer = `Den Zähler kannst du teilen durch ${numdiv}, den Nenner durch ${dendiv}. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte <i>gemeinsame</i> Teiler der Zahlen ${num} und ${den} ist ${gcd}. Wenn du den Zähler ${num} und den Nenner ${den} durch diese Zahl ${gcd} teilst, erhältst du den gekürzten Bruch.`
+    /*
     help = `Den Zähler kannst du teilen durch ${numdiv}, den Nenner durch ${dendiv}. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte <i>gemeinsame</i> Teiler der Zahlen ${num} und ${den} ist ${gcd}. Wenn du den Zähler ${num} und den Nenner ${den} durch diese Zahl ${gcd} teilst, erhältst du den gekürzten Bruch.`
     explainer = `
         <b>1.</b> Was willst du mit dem Bruch ${num}/${den} machen?<br>
@@ -32,7 +39,7 @@ function frac(min, max){
         Wir suchen jetzt den <i>größten</i> Teiler, den ${num} und ${den} <i>gemeinsam</i> haben. Dieser ist die Zahl ${gcd}!<br>
         Wenn du jetzt den Zähler ${num} durch ${gcd} teilst und auch den Nenner ${den} durch ${gcd} teilst, dann erhältst du den gesuchten vereinfachten Bruch ${loesungstring}.
     `;
-    
+    */
  
     return [aufgabe, loesung, help, explainer];
 }
@@ -77,10 +84,14 @@ function findDivisors(integer) { //https://dev.to/cesar__dlr/32-find-the-divisor
     for(let i = 2; i<integer; i++){
       if(integer%i === 0) r.push(i)
     }
-    let res = r.length !== 0 ? r : `${integer} is prime`
-    res = `${res} und die ${integer} selbst`
+    //let res = r.length !== 0 ? r : `${integer} is prime`
+    let res = r.length !== 0 ? r : `${integer}`
+    //res = `${res} und die ${integer} selbst`
+    //console.log(res)
     return res
   }
+
+
 
   function gcdTwoNumbers(x, y) {
     if ((typeof x !== 'number') || (typeof y !== 'number')) 
