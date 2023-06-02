@@ -1,0 +1,25 @@
+/* Text in Buttons lässt sich nicht zentrieren
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+*/
+  @media (max-width: 768px) {
+    .buttons-container {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+  
+  .types {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  
+  .taskbuttons {
+    flex: 0 0 calc(33.33% - 1rem);
+    margin-bottom: 1rem;
+  }
+  

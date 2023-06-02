@@ -7,7 +7,7 @@ import lin2 from './components/lin2';
 function CreateTask(task) {
     // const { id, type, val1, val2, explainer } = task;
     // const { id, type, val1, val2 } = task;
-    const { type, val1, val2 } = task;
+    const { type, val1, val2, explainer } = task;
     let aufgabeDaten = []
     //aufgabeDaten = add(val1,val2)
     //console.log(type)
@@ -25,7 +25,7 @@ function CreateTask(task) {
             aufgabeDaten = frac(val1,val2)
         break;
         case "lin1": 
-            aufgabeDaten = lin1(val1,val2)
+            aufgabeDaten = lin1(val1,val2,explainer)
         break;
         case "lin2": 
             aufgabeDaten = lin2(val1,val2)
@@ -47,6 +47,8 @@ function CreateTask(task) {
 }
     
 export default CreateTask;
+
+
 
 
 

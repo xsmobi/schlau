@@ -49,8 +49,8 @@ const templates = [
     {
       name: "Lineare Gleichungen",
       type: "lin1",
-      val1: 5,
-      val2: 15
+      val1: 3, // val1 > 0
+      val2: 25 // val2 > 0
     },
     {
     name: "Lineare Gleichungen",

@@ -8,9 +8,9 @@ function frac(){
     //aufgabe = num/den;
     aufgabe = `\\[\\frac{${num}}{${den}}\\]`;
     loesung = getlowestfraction(num/den, "jax");
-    let loesungstring = getlowestfraction(num/den, "string");
-    let loesungtext = getlowestfraction(num/den, "text");
-    let loesungdec = (num/den).toFixed(2)
+    //let loesungstring = getlowestfraction(num/den, "string");
+    //let loesungtext = getlowestfraction(num/den, "text");
+    //let loesungdec = (num/den).toFixed(2)
     let numdiv = findDivisors(num).toString() 
     //numdiv = numdiv.substring(0,numdiv.length-1);
     let dendiv = findDivisors(den).toString();

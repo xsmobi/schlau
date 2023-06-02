@@ -1,64 +1,89 @@
 function lin1(max, min) {
-    let aufgabe, loesung, help, help1, help2, help2a
+    let aufgabe, loesung, help, explainer, explainer1, explainer2, explainer2a
     let a = getRandomInt(max-min) + min; // > 0
     let b = getRandomInt(max-min) + min; // > 0
     if (b === a) b++
     //const casex = getRandomInt(8)
-    const casex = 3
-    help1 = `Ziel: das unbekannte <b>x</b> soll alleine stehen.`
-    help2 = ""
-    help2a = ""
+    const casex = 5
+    explainer1 = `Ziel: das unbekannte <b>x</b> soll alleine stehen. Du formst die Gleichung so um, dass sie mit "x =" beginnt. `
+    explainer2 = ""
+    //explainer2a = ""
     switch(casex) {
         case 0:
-            aufgabe = `x + ${a} = ${b}`;   // x + a = b
-            loesung = `Die Lösung ist x = ${b-a}`;
-            help2 = `<br>Dazu subtrahierst du auf beiden Seiten <b>${a}</b> und erhältst
+            //aufgabe = `x + ${a} = ${b}`;                      // x + a = b
+            aufgabe = `\\[x + ${a} = ${b}\\]`                   // x + a = b
+            loesung = `\\[x = ${b-a}\\]`;
+            help = `\\[x + ${a} - ${a} = ${b} - ${a}\\]`
+            explainer2 = `Dazu subtrahierst du auf beiden Seiten <b>${a}</b> und erhältst
             <br>x + ${a} <b>- ${a}</b> = ${b} <b>- ${a}</b>
             <br>x + 0 = ${b} - ${a}
             <br>x = ${b} - ${a}`
         break;
         case 1:
-            aufgabe = "x - " + a + " = " + b;   // x - a = b
-            loesung = `Die Lösung ist x = ${a+b}`;
-            help2 = `<br>Dazu addierst du auf beiden Seiten <b>${a}</b> und erhältst
+            //aufgabe = "x - " + a + " = " + b;                  // x - a = b
+            aufgabe = `\\[x - ${a} = ${b}\\]`
+            loesung = `\\[x = ${b+a}\\]`;
+            help = `\\[x - ${a} + ${a} = ${b} + ${a}\\]`
+            explainer2 = `Dazu addierst du auf beiden Seiten <b>${a}</b> und erhältst
             <br>x + ${a} <b>- ${a}</b> = ${b} <b>- ${a}</b>
             <br>x + 0 = ${b} + ${a}
             <br>x = ${b} + ${a}`
-            help2a = `Ich ziehe von einer Zahl ${a} ab und erhalte ${b}. Wie heißt die Zahl?`
+            //explainer2a = `Ich ziehe von einer Zahl ${a} ab und erhalte ${b}. Wie heißt die Zahl?`
         break;
         case 2:
-            aufgabe = "-x + " + a + " = " + b;  // -x + a = b
-            loesung = `Die Lösung ist x = ${a-b}`;
-            help2 = `<br>Dazu muss erstmal das <b>- x</b> alleine stehen:
+            //aufgabe = "-x + " + a + " = " + b;                      // -x + a = b
+            aufgabe = `\\[-x + ${a} = ${b}\\]` 
+            //loesung = `Die Lösung ist x = ${a-b}`;
+            loesung = `\\[x = ${a-b}\\]`
+            help = `\\[-x + ${a} - ${a} = ${b} - ${a}\\]`
+            explainer2 = `Dazu muss erstmal das <b>- x</b> alleine stehen:
             <br>Du subtrahierst auf beiden Seiten <b>${a}</b> und erhältst
             <br>-x + ${a} <b>- ${a}</b> = ${b} <b>- ${a}</b>
-            <br>-x + 0 = ${b} - ${a}. Jetzt alle Vorzeichen wechseln!
-            <br>x = ${a} - ${b}`
+            <br>-x + 0 = ${b} - ${a}. 
+            <br>-x = ${b-a} Jetzt auf beiden Seiten der Gleichung Vorzeichen wechseln. Mit anderen Worten: die Gleichung mit (-1) multiplizieren.`
         break;
         case 3:
-            aufgabe = "-x - " + a + " = " + b;  // -x - a = b
-            loesung = `Die Lösung ist x = ${-a-b}`;
-            help2 = `<br>Dazu muss erstmal das <b>- x</b> alleine stehen:
+            //aufgabe = "-x - " + a + " = " + b;                          // -x - a = b
+            aufgabe = `\\[-x - ${a} = ${b}\\]`
+            //loesung = `Die Lösung ist x = ${-a-b}`;
+            loesung = `\\[x = ${-b-a}\\]`
+            help = `\\[-x - ${a} + ${a} = ${b} +  ${a}\\]`
+            explainer2 = `Dazu muss erstmal das <b>- x</b> alleine stehen:
             <br>Du addierst auf beiden Seiten <b>${a}</b> und erhältst
             <br>-x - ${a} <b>+ ${a}</b> = ${b} <b>+ ${a}</b>
-            <br>-x + 0 = ${b} + ${a}. Jetzt alle Vorzeichen wechseln!
-            <br>x = -${b} - ${a}`
+            <br>-x + 0 = ${b} + ${a}.
+            <br>-x = ${b+a} Jetzt auf beiden Seiten der Gleichung Vorzeichen wechseln. Mit anderen Worten: die Gleichung mit (-1) multiplizieren.`
         break;
         case 4:
-            aufgabe = a + " + x = " + b;        // a + x = b
-            loesung = b - a;
-
+            //aufgabe = a + " + x = " + b;                      // a + x = b
+            //loesung = b - a;
+            aufgabe = `\\[${a} + x = ${b}\\]`                   // x + a = b
+            loesung = `\\[x = ${b-a}\\]`;
+            help = `\\[${a} + x - ${a} = ${b} - ${a}\\] \\[x + ${a} - ${a} = ${b} - ${a}\\]`
+            explainer2 = `Dazu subtrahierst du auf beiden Seiten <b>${a}</b> und erhältst
+            <br>${a} + x <b>- ${a}</b> = ${b} <b>- ${a}</b> ... linke Seite umordnen!
+            <br>x + ${a} <b>- ${a}</b> = ${b} <b>- ${a}</b>
+            <br>x + 0 = ${b} - ${a}
+            <br>x = ${b} - ${a}`
         break;
         case 5:
+            //aufgabe = "- " + a + " + x = " + b;                  // -a + x = b
+            //loesung = a + b;
+            aufgabe = `\\[-${a} + x = ${b}\\]`
+            loesung = `\\[x = ${b+a}\\]`;
+            help = `\\[-${a} + x + ${a} = ${b} + ${a}\\] \\[x - ${a} + ${a} = ${b} + ${a}\\]`
+            explainer2 = `Dazu addierst du auf beiden Seiten <b>${a}</b> und erhältst
+            <br>-${a} + x <b>+ ${a}</b> = ${b} <b>+ ${a}</b> ... linke Seite umordnen!
+            <br>x - ${a} <b>+ ${a}</b> = ${b} <b>+ ${a}</b>
+            <br>x = ${b} + ${a}`
+
+        break;
+        case 6:
             aufgabe = a + " - x = " + b;        // a - x = b
             loesung = a - b;
 
         break;
-        case 6:
-            aufgabe = "- " + a + " + x = " + b;        // -a + x = b
-            loesung = a + b;
 
-        break;
         case 7:
             aufgabe = "- "  +a + " - x = " + b;        // -a - x = b
             loesung = -a -b
@@ -69,12 +94,15 @@ function lin1(max, min) {
         default:
 
     }
-    if (help2a && Math.random()<.5){
-        help = help2a;
+    /*
+    if (explainer2a && Math.random()<.5){
+        explainer = explainer2a;
     } else {
-        help = help1 + help2;
+        explainer = explainer1 + explainer2;
     }
-    return [aufgabe, loesung, help];
+    */
+    explainer = explainer1 + explainer2;
+    return [aufgabe, loesung, help, explainer];
 }
 
 export default lin1;
