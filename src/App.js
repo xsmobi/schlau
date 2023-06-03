@@ -32,13 +32,15 @@ function App() {
   const types = [
     {typ: "add",    btn: "-a + b",       txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a- (-+b)",     txt: "Plus und Minus mit Klammern"},
-    {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
+    {typ: "prop",   btn: "Döner & Co",     txt: "Proportionalität und Dreisatz"},
+    {typ: "prozent", btn: "Prozent %",     txt: "Anteile und Prozent"},
     {typ: "lin3",   btn: "x * a = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
-    {typ: "prop",   btn: "y = a * x",     txt: "Proportionalität, Anteil, Prozent"},
+    {typ: "proba",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
+    {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
     {typ: "linfun", btn: "y = a * x + b", txt: "Lineare Funktionen"},    
-    {typ: "quad",   btn: "(x-a)^2 + b",       txt: "Quadratische Funktionen"},
+    {typ: "quad",   btn: "(x-a)^2 + b",    txt: "Quadratische Funktionen"},
        /*
     {typ: "power",  btn: "a^n",           txt: "Potenzen"},
     {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},
@@ -101,6 +103,7 @@ setShowResult(false);
 
 const handleTypeSelection = (type) => {
 setSelectedType(type);
+//console.log(type)
 };
 
 return (

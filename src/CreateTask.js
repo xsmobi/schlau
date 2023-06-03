@@ -4,6 +4,9 @@ import frac from './components/frac';
 import lin1 from './components/lin1';
 import lin2 from './components/lin2';
 import lin3 from './components/lin3';
+import prop from './components/prop';
+import linfun from './components/linfun';
+import quad from './components/quad';
 
 function CreateTask(task) {
     // const { id, type, val1, val2, explainer } = task;
@@ -33,7 +36,17 @@ function CreateTask(task) {
         break;
         case "lin3": 
             aufgabeDaten = lin3(val1,val2)
-        break;       
+        break;    
+        case "prop": 
+            aufgabeDaten = prop()
+        break;   
+        case "linfun": 
+            aufgabeDaten = linfun()
+        break;   
+        case "quad": 
+            aufgabeDaten = quad()
+            console.log("quad!")
+        break;      
         default: 
             aufgabeDaten = add(val1,val2)
     }

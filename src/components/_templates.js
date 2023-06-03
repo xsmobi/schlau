@@ -63,7 +63,27 @@ const templates = [
         type: "lin3",
         val1: 2,
         val2: 20
-      },
+    },
+    {
+      name: "Proportionalität",
+        type: "prop",
+        val1: 2,
+        val2: 20
+    },
+    {
+      name: "Lineare Funktionen",
+        type: "linfun",
+        val1: 2,
+        val2: 20
+    },
+    {
+      name: "Quadratische Funktionen",
+        type: "quad",
+        val1: 2,
+        val2: 20
+    }, 
+
+
   ];
 
   export default templates
