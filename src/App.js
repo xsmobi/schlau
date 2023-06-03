@@ -30,29 +30,31 @@ function App() {
   //const types = ['add', 'addsub', 'lin1', 'type1', 'type2', 'type3'];
   
   const types = [
-    {typ: "add",    btn: "-a +b",      txt: "Plus und Minus auf dem Zahlenstrahl"},
-    {typ: "addsub", btn: "a-(-+b)",     txt: "Plus und Minus mit Klammern"},
-    {typ: "frac",   btn: "x/y",     txt: "Brüche kürzen"},
-    {typ: "lin1",   btn: "x + a = b",   txt: "Lineare Funktionen"},
-    {typ: "lin2",   btn: "y = ax + b",   txt: "Lineare Gleichungen"},
-    
-    {typ: "inhalt", btn: "a * b * c",   txt: "Strecke, Fläche, Volumen"},
+    {typ: "add",    btn: "-a + b",       txt: "Plus und Minus auf dem Zahlenstrahl"},
+    {typ: "addsub", btn: "a- (-+b)",     txt: "Plus und Minus mit Klammern"},
+    {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
+    {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
+    {typ: "lin3",   btn: "x * a = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
+    {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
+    {typ: "prop",   btn: "y = a * x",     txt: "Proportionalität, Anteil, Prozent"},
+    {typ: "linfun", btn: "y = a * x + b", txt: "Lineare Funktionen"},    
+    {typ: "quad",   btn: "(x-a)^2 + b",       txt: "Quadratische Funktionen"},
+       /*
+    {typ: "power",  btn: "a^n",           txt: "Potenzen"},
+    {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},
     {typ: "brac",   btn: "( (...) )",   txt: "Klammerregeln"},
     {typ: "frac2",  btn: "1/2 + 1/3",   txt: "Brüche add/sub & mal/geteilt"},
-    {typ: "terme1", btn: "x + a",       txt: "Terme 1: Plus-Minus-Terme umstellen"},
-    {typ: "terme2", btn: "Terme */:",   txt: "Terme 2: Mal-Geteilt-Terme umstellen"},
-    {typ: "power",  btn: "a^(n+m)",     txt: "Potenzen"},
-    {typ: "prop",   btn: "y = a * x",   txt: "Proportionalität, Anteil, Prozent"},
-    {typ: "terme3", btn: "Terme */:",   txt: "Terme 2: Terme umstellen + - * / ^n"},
+    {typ: "terme3", btn: "Terme xyz^n", txt: "Komplexe Terme umstellen"},
     {typ: "zoom",   btn: "Zoom",        txt: "Strahlensatz, Ähnlichkeit, Zoom"},
     {typ: "drei",   btn: "ABCabc",      txt: "Dreiecke, Pythagoras"}, 
     {typ: "lin3",   btn: "I = II",    txt: "Lineare Gleichungssysteme"},
-    {typ: "quad",   btn: "( )^2",       txt: "Quadratische Funktionen"},
+
     {typ: "sincos", btn: "sin&cos",     txt: "Sinus, Cosinus, Tangens"},
     {typ: "sincos2", btn: "sin(a)/a",    txt: "Sinussatz, Cosinussatz"},
     {typ: "type1",  btn: "Test 1",      txt: "Test 1"},
     {typ: "type2",  btn: "Test 2",      txt: "Test 2"},
     {typ: "type3",  btn: "Test 3",      txt: "Test 3"},
+    */
   ]
 
   const [selectedType, setSelectedType] = useState('addsub');

@@ -3,6 +3,7 @@ import addsub from './components/addsub';
 import frac from './components/frac';
 import lin1 from './components/lin1';
 import lin2 from './components/lin2';
+import lin3 from './components/lin2';
 
 function CreateTask(task) {
     // const { id, type, val1, val2, explainer } = task;
@@ -30,6 +31,9 @@ function CreateTask(task) {
         case "lin2": 
             aufgabeDaten = lin2(val1,val2)
         break;
+        case "lin3": 
+            aufgabeDaten = lin3(val1,val2)
+        break;       
         default: 
             aufgabeDaten = add(val1,val2)
     }
