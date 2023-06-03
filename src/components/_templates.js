@@ -47,7 +47,7 @@ const templates = [
       val2: 20
     },
     {
-      name: "Lineare Gleichungen",
+      name: "Plus-Minus-Gleichungen",
       type: "lin1",
       val1: 3, // val1 > 0
       val2: 25 // val2 > 0
@@ -58,6 +58,12 @@ const templates = [
       val1: 5,
       val2: 15
     },
+    {
+      name: "Mal-Geteilt-Gleichungen",
+        type: "lin3",
+        val1: 2,
+        val2: 20
+      },
   ];
 
   export default templates

@@ -3,7 +3,7 @@ import addsub from './components/addsub';
 import frac from './components/frac';
 import lin1 from './components/lin1';
 import lin2 from './components/lin2';
-import lin3 from './components/lin2';
+import lin3 from './components/lin3';
 
 function CreateTask(task) {
     // const { id, type, val1, val2, explainer } = task;

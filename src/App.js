@@ -118,7 +118,7 @@ return (
               </div>
         </nav>
 
-        <h4 id="typedesc" className={style.subheading}>Auswahl: {selectedType ? types.find((type) => type.typ === selectedType).txt : 'Practice Math and Boost Your Brainpower!'}</h4>
+        <h4 id="typedesc" className={style.subheading}>{selectedType ? types.find((type) => type.typ === selectedType).txt : 'Practice Math and Boost Your Brainpower!'}</h4>
             
         <main>
             <div className="buttons-container">
