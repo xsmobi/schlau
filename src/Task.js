@@ -2,7 +2,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 const style={
     taskheader:`text-center prose prose-2xl`,
     tasktext: `prose prose-sm`,
-    subheader: `text-center prose prose-lg`
+    subheader: `prose prose-lg`
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
