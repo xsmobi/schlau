@@ -5,6 +5,7 @@ import lin1 from './components/lin1';
 import lin2 from './components/lin2';
 import lin3 from './components/lin3';
 import prop from './components/prop';
+import prozent from './components/prozent';
 import linfun from './components/linfun';
 import quad from './components/quad';
 
@@ -39,7 +40,10 @@ function CreateTask(task) {
         break;    
         case "prop": 
             aufgabeDaten = prop()
-        break;   
+        break; 
+        case "prozent": 
+            aufgabeDaten = prozent()
+        break; 
         case "linfun": 
             aufgabeDaten = linfun()
         break;   
@@ -55,9 +59,10 @@ function CreateTask(task) {
     //id: id,
     //templateid: id,
     text: `${aufgabeDaten[0]}`,
-    help: `${aufgabeDaten[2]}`,
     answer: `${aufgabeDaten[1]}`,
-    explainer: `${aufgabeDaten[3]}`
+    help: `${aufgabeDaten[2]}`,
+    explainer: `${aufgabeDaten[3]}`,
+    headerclass: `${aufgabeDaten[4]}`
     };
  
     return processedTask;

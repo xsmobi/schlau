@@ -82,6 +82,13 @@ const templates = [
         val1: 2,
         val2: 20
     }, 
+    {
+      name: "Prozentrechnung",
+        type: "prozent",
+        val1: 2,
+        val2: 20,
+        headerclass: "subheader"
+    }, 
 
 
   ];
