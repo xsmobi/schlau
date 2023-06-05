@@ -13,6 +13,13 @@ function prozent() {
     const strommenge = strommengen[Math.floor(Math.random()*strommengen.length)];
     let stromtext
     stromanteil > 1 ? stromtext = `${Math.round((stromanteil-1)*100)} Prozent über dem Durchschnittsverbrauch` : stromtext = `${Math.round(stromanteil*100)} Prozent des Durchschnittsverbrauchs`
+    const popWeltMrd = 8.04
+    const popDeMio = 84.3
+    const smartWeltMrd = 6.92
+    const smartDeMio = 62.6
+    const EnergieWeltKwhTag = 58
+    const EnergieDeKwhTag = 117
+    //const EnergieUsaKwhTag = 213
 
     const aufgaben = [
         {
@@ -45,9 +52,26 @@ function prozent() {
             <br><b>2 </b>Verbrauch = ${stromanteil} &middot; Durchschnitt bzw. umgestellt
             <br><b>3 </b>Durchschnitt = Verbrauch / ${stromanteil} =  ${Math.round(stromanteil*strommenge[1])} / ${stromanteil}`
         },
+        {
+            aufgabe: `Verbreitung von Smartphones: weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${smartWeltMrd} Mrd. Smartphones, in Deutschland (${popDeMio} Mio) gibt es ${smartDeMio} Mio. Smartphones. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
+            loesung: `Welt ${(smartWeltMrd/popWeltMrd).toFixed(2)}, Deutschland ${(smartDeMio/popDeMio).toFixed(2)} Smartphones pro Person. Deutschland liegt ${smartDeMio/popDeMio > smartWeltMrd/popWeltMrd ? "über" : "unter"} dem Durchschnitt.`,
+            help: `Die Quoten erhältst du, indem du die Zahl der Smartphones durch die Zahl der Einwohner teilst.`,
+            explainer: `Quote Welt = ${smartWeltMrd}/${popWeltMrd} = ${(smartWeltMrd/popWeltMrd).toFixed(2)}, Quote Deutschland = ${smartDeMio}/${popDeMio} = ${(smartDeMio/popDeMio).toFixed(2)}
+            <br>Bei der Berechnung von Quoten teilst du zwei Zahlen, du bildest ein Verhältnis. Es kommt nicht darauf an, welche Einheit die Zahlen haben (z.b. Milliarden, Mrd. oder Millionen, Mio.), aber die Zahlen müssen jeweils dieselbe Einheit haben. Also Mrd./Mrd. und Mio./Mio. Andernfalls kann man sie nicht vergleichen.
+            <br>Das Verhältnis kannst du auch in Prozent angeben:
+            <br>Also statt Dezimalbrüche ${(smartWeltMrd/popWeltMrd).toFixed(2)} vs. ${(smartDeMio/popDeMio).toFixed(2)} in Prozent: ${Math.round(100*smartWeltMrd/popWeltMrd)}% vs. ${Math.round(100*smartDeMio/popDeMio)}%`
+        },
+        {
+            aufgabe: `Primärenergieverbrauch pro Kopf: weltweit (${popWeltMrd} Mrd. Menschen) sind es ${EnergieWeltKwhTag} kWh pro Kopf und Tag, in Deutschland (${popDeMio} Mio) werden ${EnergieDeKwhTag} kWh pro Kopf und Tag verbraucht. Wie stark würde der Weltenergieverbrauch prozentual zunehmen, wenn alle soviel Energie verbrauchen würden wie Deutsche?`,
+            loesung: `Antwort: Die Zunahme betrüge ${Math.round(100*EnergieDeKwhTag/EnergieWeltKwhTag - 100)}%. Der Weltenergieverbrauch würde sich mehr als verdoppeln.`,
+            help: `Bestimme das Verhältnis ${EnergieDeKwhTag} / ${EnergieWeltKwhTag}. Das ist der Zunahmefaktor!`,
+            explainer: `Die Aufgabe ist einfacher, als oft gedacht: Egal, wieviele Leute plötzlich ${EnergieDeKwhTag} kWh statt ${EnergieWeltKwhTag} verbrauchen (und egal, in welchem Zeitraum!), der Verbrauch nimmt um den Faktor ${EnergieDeKwhTag}/${EnergieWeltKwhTag} zu, also um den Faktor ${(EnergieDeKwhTag/EnergieWeltKwhTag).toFixed(2)}. Dieser lässt sich leicht in Prozent umrechnen:
+            <br>${(EnergieDeKwhTag/EnergieWeltKwhTag).toFixed(2)} = ${Math.round(100*EnergieDeKwhTag/EnergieWeltKwhTag)}%
+            <br>${(EnergieDeKwhTag/EnergieWeltKwhTag).toFixed(2)} - 1.00 = ${(EnergieDeKwhTag/EnergieWeltKwhTag - 1.00).toFixed(2)} bzw. ${Math.round(100*EnergieDeKwhTag/EnergieWeltKwhTag)}% - 100% =  ${Math.round(100*EnergieDeKwhTag/EnergieWeltKwhTag - 100)}%`
+        },
     ]
     const i = Math.floor(Math.random()*aufgaben.length);
-    //const i = 2
+    //const i = 4
     return [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer,headerclass]
 }
 
