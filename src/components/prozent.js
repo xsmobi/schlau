@@ -19,7 +19,16 @@ function prozent() {
     const smartDeMio = 62.6
     const EnergieWeltKwhTag = 58
     const EnergieDeKwhTag = 117
-    //const EnergieUsaKwhTag = 213
+    const autosWeltMrd = 1.4
+    const autosDeMio = 42
+    //const kleinMa = 5 + getRandomInt(4)
+    const kleinUmsMio = 0.7 + 0.1*getRandomInt(13)
+    const kleinUmsPlus = 100000 + getRandomInt(5)*14000
+    const kleinPlusRel = kleinUmsPlus/(kleinUmsMio*1000000)
+    //const grossMa = 200 + getRandomInt(4)*10
+    const grossUmsMio = 50 + 1.1*getRandomInt(4)*10
+    const grossUmsMioPlus = 5 + 0.8*getRandomInt(6)
+    const grossPlusRel = grossUmsMioPlus/grossUmsMio
 
     const aufgaben = [
         {
@@ -69,9 +78,28 @@ function prozent() {
             <br>${(EnergieDeKwhTag/EnergieWeltKwhTag).toFixed(2)} = ${Math.round(100*EnergieDeKwhTag/EnergieWeltKwhTag)}%
             <br>${(EnergieDeKwhTag/EnergieWeltKwhTag).toFixed(2)} - 1.00 = ${(EnergieDeKwhTag/EnergieWeltKwhTag - 1.00).toFixed(2)} bzw. ${Math.round(100*EnergieDeKwhTag/EnergieWeltKwhTag)}% - 100% =  ${Math.round(100*EnergieDeKwhTag/EnergieWeltKwhTag - 100)}%`
         },
+        {
+            aufgabe: `Wie viele haben ein Auto? Weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${autosWeltMrd} Mrd. Autos, in Deutschland (${popDeMio} Mio.) gibt es ${autosDeMio} Mio. Autos. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
+            loesung: `Welt ${(autosWeltMrd/popWeltMrd).toFixed(2)}, Deutschland ${(autosDeMio/popDeMio).toFixed(2)} Autos pro Person. Deutschland liegt ${autosDeMio/popDeMio > autosWeltMrd/popWeltMrd ? "über" : "unter"} dem Durchschnitt.`,
+            help: `Die Quoten erhältst du, indem du die Zahl der Autos durch die Zahl der Einwohner teilst.`,
+            explainer: `Quote Welt = ${autosWeltMrd}/${popWeltMrd} = ${(autosWeltMrd/popWeltMrd).toFixed(2)}, Quote Deutschland = ${autosDeMio}/${popDeMio} = ${(autosDeMio/popDeMio).toFixed(2)}
+            <br>Bei der Berechnung von Quoten teilst du zwei Zahlen, du bildest ein Verhältnis. Es kommt nicht darauf an, welche Einheit die Zahlen haben (z.b. Milliarden, Mrd. oder Millionen, Mio.), aber die Zahlen müssen jeweils dieselbe Einheit haben. Also Mrd./Mrd. und Mio./Mio. Andernfalls kann man sie nicht vergleichen.
+            <br>Das Verhältnis kannst du auch in Prozent angeben:
+            <br>Also statt Dezimalbrüche ${(autosWeltMrd/popWeltMrd).toFixed(2)} vs. ${(autosDeMio/popDeMio).toFixed(2)} in Prozent: ${Math.round(100*autosWeltMrd/popWeltMrd)}% vs. ${Math.round(100*autosDeMio/popDeMio)}%`
+        },
+        {
+            aufgabe: `Die Firma Klein hatte 2021 einen Jahresumsatz von ${kleinUmsMio.toFixed(1)} Mio. und konnte diesen 2022 um ${kleinUmsPlus} steigern. Die Firma Gross erzielte ${grossUmsMio} Mio. und verzeichnete 2022 ein Plus von ${grossUmsMioPlus} Mio. Welches Unternehmen hat prozentual mehr zugelegt?`,
+            loesung: `Klein: Plus von ${(kleinPlusRel*100).toFixed(1)}%. Gross: Plus von ${(grossPlusRel*100).toFixed(1)}%. Firma ${kleinPlusRel > grossPlusRel ? "Klein" : "Gross"} gewinnt!`,
+            help: `Die relative Änderung für jedes Unternehmen ist: Umsatzdifferenz geteilt durch früheren Umsatz.`,
+            explainer: `Wie wird der relative bzw. prozentuale Zuwachs berechnet? Z.B. Fa. Klein
+            <br><b>1 </b>2021: ${kleinUmsMio.toFixed(1)} Mio. 2022: Steigerung, (auf Millionen umgerechnet!): ${(kleinUmsPlus/1000000).toFixed(3)} Mio.
+            <br><b>2 </b>Vom absoluten zum relativen Zuwachs. Dieser ist ${(kleinUmsPlus/1000000).toFixed(3)} / ${kleinUmsMio.toFixed(1)} = ${((kleinUmsPlus/1000000)/kleinUmsMio).toFixed(3)}
+            <br><b>2 </b>In Prozent: ${((kleinUmsPlus/1000000)/kleinUmsMio).toFixed(3)} = ${((100*kleinUmsPlus/1000000)/kleinUmsMio).toFixed(1)}%
+            `
+        },
     ]
-    const i = Math.floor(Math.random()*aufgaben.length);
-    //const i = 4
+    //const i = Math.floor(Math.random()*aufgaben.length);
+    const i = 6
     return [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer,headerclass]
 }
 

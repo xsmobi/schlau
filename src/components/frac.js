@@ -4,28 +4,18 @@ function frac(){
     const randomDivisor = divisors[Math.floor(Math.random() * divisors.length)];
     num = getRandomInt2(5, randomDivisor);
     den = getRandomInt2(8, randomDivisor);
+    // den = 1 //Test
+    // num = 20
+    // den = 10
     if(num === den) den = den + randomDivisor;
-    //aufgabe = num/den;
     aufgabe = `\\[\\frac{${num}}{${den}}\\]`;
     loesung = getlowestfraction(num/den, "jax");
-    //let loesungstring = getlowestfraction(num/den, "string");
-    //let loesungtext = getlowestfraction(num/den, "text");
-    //let loesungdec = (num/den).toFixed(2)
     let numdiv = findDivisors(num).toString() 
-    //numdiv = numdiv.substring(0,numdiv.length-1);
     let dendiv = findDivisors(den).toString();
-    //dendiv = dendiv.substring(0,dendiv.length-1);
-    //let numprime = primeFactors(num).toString()
-    //numprime = numprime.substring(0,numprime.length-1);
-    //let denprime = primeFactors(den).toString();
-    //denprime = denprime.substring(0,denprime.length-1);
     let gcd = gcdTwoNumbers(num, den)
-
-    //help = `${num}:${gcd}/${den}:${gcd}`
-
     help = `\\[\\frac{${num}}{${den}} = \\frac{${num}:${gcd}}{${den}:${gcd}}\\]`
-
-    explainer = `Den Zähler kannst du teilen durch ${numdiv}, den Nenner durch ${dendiv}. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte <i>gemeinsame</i> Teiler der Zahlen ${num} und ${den} ist ${gcd}. Wenn du den Zähler ${num} und den Nenner ${den} durch diese Zahl ${gcd} teilst, erhältst du den gekürzten Bruch.`
+    explainer = `Den Zähler kannst du teilen durch ${numdiv}, den Nenner durch ${dendiv}. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte <i>gemeinsame</i> Teiler der Zahlen ${num} und ${den} ist ${gcd}. Wenn du den Zähler ${num} und den Nenner ${den} durch diese Zahl ${gcd} teilst, erhältst du den gekürzten Bruch.
+    ${gcd === den ? "Da der Nenner des Ergebnisbruchs = 1 ist, hat der Bruch einfach den Wert des Zählers." : ""}`
     /*
     help = `Den Zähler kannst du teilen durch ${numdiv}, den Nenner durch ${dendiv}. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte <i>gemeinsame</i> Teiler der Zahlen ${num} und ${den} ist ${gcd}. Wenn du den Zähler ${num} und den Nenner ${den} durch diese Zahl ${gcd} teilst, erhältst du den gekürzten Bruch.`
     explainer = `
@@ -71,7 +61,8 @@ function getlowestfraction(x0,format) {
    
        // (format === "jax") ? `\\[\\frac{${h}}{${k}}\\]` : h + "/" + k
     if (format === "jax"){
-        return `\\[\\frac{${h}}{${k}}\\]`
+        return k === 1 ? `\\[{${h}}\\]` : `\\[\\frac{${h}}{${k}}\\]`
+        //return `\\[\\frac{${h}}{${k}}\\]`
     } else if (format === "text") {
         return `${h} geteilt durch ${k}`;
     } else {
