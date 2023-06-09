@@ -29,6 +29,8 @@ function prozent() {
     const grossUmsMio = 50 + 1.1*getRandomInt(4)*10
     const grossUmsMioPlus = 5 + 0.8*getRandomInt(6)
     const grossPlusRel = grossUmsMioPlus/grossUmsMio
+    const preis1 = 40 + 10*getRandomInt(8)
+    const rabatt1 = 5 + 5*getRandomInt(6)
 
     const aufgaben = [
         {
@@ -97,9 +99,24 @@ function prozent() {
             <br><b>2 </b>In Prozent: ${((kleinUmsPlus/1000000)/kleinUmsMio).toFixed(3)} = ${((100*kleinUmsPlus/1000000)/kleinUmsMio).toFixed(1)}%
             `
         },
+        {
+            aufgabe: `Ein Produkt kostet ${preis1.toFixed(2)} Euro und wird um ${rabatt1}% reduziert. Wie viel kostet das Produkt nach der Reduzierung?`,
+            loesung: `${(preis1*(1-rabatt1/100)).toFixed(2)} Euro`,
+            help: ` Der Rabatt ist ${rabatt1}% von ${preis1.toFixed(2)} oder auch  ${preis1.toFixed(2)} * ${(rabatt1/100).toFixed(2)} `,
+            explainer: `<br><b>1 </b>Das Produkt wird um ${rabatt1}%, also um den Anteil ${(rabatt1/100).toFixed(2)} herabgesetzt.
+            <br><b>2 </b>Der Nachlass bzw. Rabatt (das, was du einsparst) ist also
+            <br>${preis1.toFixed(2)} Euro * ${rabatt1}% = ${preis1.toFixed(2)} Euro * ${(rabatt1/100).toFixed(2)} = ${(preis1*rabatt1/100).toFixed(2)} Euro.
+            (Du siehst: zum Rechnen mit % wird das %-Zeichen durch 1/100 oder durch 0.01 ersetzt)
+            <br><b>3 </b>Der reduzierte Preis (das, was du zahlst), ist also
+            <br>${preis1.toFixed(2)} Euro - ${(preis1*rabatt1/100).toFixed(2)} Euro = ${(preis1*(100-rabatt1)/100).toFixed(2)} Euro.
+            <br><b>4 </b>Alternative für Geübte: den Preis gleich mit ${100-rabatt1}% oder mit ${(1-rabatt1/100).toFixed(2)} multiplizieren:
+            ${preis1.toFixed(2)} Euro * ${100-rabatt1}% = ${preis1.toFixed(2)} Euro * ${(1-rabatt1/100).toFixed(2)} = ${(preis1*(1-rabatt1/100)).toFixed(2)} Euro
+            `
+        },
     ]
-    //const i = Math.floor(Math.random()*aufgaben.length);
-    const i = 6
+    const i = Math.floor(Math.random()*aufgaben.length);
+    //const i = aufgaben.length-1
+    //const i = 6
     return [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer,headerclass]
 }
 

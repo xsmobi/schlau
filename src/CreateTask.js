@@ -8,6 +8,7 @@ import prop from './components/prop';
 import prozent from './components/prozent';
 import linfun from './components/linfun';
 import quad from './components/quad';
+import proba1 from './components/proba1';
 
 function CreateTask(task) {
     // const { id, type, val1, val2, explainer } = task;
@@ -49,8 +50,11 @@ function CreateTask(task) {
         break;   
         case "quad": 
             aufgabeDaten = quad()
-            console.log("quad!")
-        break;      
+            //console.log("quad!")
+        break;  
+        case "proba1": 
+            aufgabeDaten = proba1()
+        break; 
         default: 
             aufgabeDaten = add(val1,val2)
     }

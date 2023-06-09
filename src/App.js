@@ -17,8 +17,9 @@ const style={
   heading: `text-3xl font-bold text-center text-gray-800 p-2`,
   //subheading: `text-1xl font-bold text-center text-gray-800 p-2`,
   subheading: `prose prose-xl p-2`,
+  btnadd: `text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2`,
   //taskbuttons: `text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
-  taskbuttons: `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-small rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
+  taskbuttons: `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none font-small rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
 }
 
 function App() {
@@ -37,11 +38,12 @@ function App() {
     {typ: "prozent", btn: "Prozent %",     txt: "Anteile und Prozent"},
     {typ: "lin3",   btn: "x * a = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
-    {typ: "proba",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
+    /*
     {typ: "linfun", btn: "y = a * x + b", txt: "Lineare Funktionen"},    
-    {typ: "quad",   btn: "(x-a)^2 + b",    txt: "Quadratische Funktionen"},
-       /*
+    {typ: "quad1",   btn: "(x-a)^2 + b",    txt: "Quadratische Funktionen, Scheitelpunktform"},
+    {typ: "quad2",   btn: "x^2 + px + q",    txt: "Quadratische Funktionen, Normalform, p-q-Formel"},
+    {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     {typ: "power",  btn: "a^n",           txt: "Potenzen"},
     {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},
     {typ: "brac",   btn: "( (...) )",   txt: "Klammerregeln"},
@@ -125,7 +127,7 @@ return (
             
         <main>
             <div className="buttons-container">
-              <button  type="button" className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              <button  type="button" className={style.btnadd}
                 onClick={getRandomTask}><AiOutlinePlus size={30} /></button>
               <button  type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={toggleShowHelp}><AiOutlineQuestion size={30} /></button>
@@ -156,7 +158,8 @@ return (
                     key={type.typ}
                     onClick={() => handleTypeSelection(type.typ)}
                     //disabled={selectedType === type.typ}
-                    style={{ backgroundColor: selectedType === type ? 'lightgreen' : '' }}
+                    style={{ backgroundColor: selectedType === type.typ ? '#4b5563' : '' }}
+                    // so nicht className={{ backgroundColor: selectedType === type.typ ? {btnadd} : {style.taskbuttons} }}
                   >
                     {type.btn}
                   </button>

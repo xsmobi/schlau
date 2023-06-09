@@ -40,10 +40,6 @@ function prop() {
         },
     ]
     
-   
-
-    
- 
     //return [aufgabe, loesung, help, explainer];
     return [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
 }

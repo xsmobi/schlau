@@ -1,7 +1,7 @@
 function addsub(v1, v2){
     let aufgabe, loesung, help, explainer, op1, op2
     let plusminuscase = getRandomInt(4);
-    plusminuscase = 4 // test, später plusminuscase weg und switch direkt
+    //plusminuscase = 4 // test, später plusminuscase weg und switch direkt
     switch(plusminuscase) {
         case 1:                                                 // 3 - 5
             op1 = getRandomInt(v1);
