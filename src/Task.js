@@ -1,4 +1,5 @@
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import {React} from "react";
+import { MathJaxContext, MathJax } from "better-react-mathjax";
 const style={
     taskheader:`text-center prose prose-2xl`,
     tasktext: `prose prose-sm`,
@@ -11,15 +12,38 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     //console.log(headerclass)
     //<h3 className={style.taskheader}>{text}</h3>
     // {showResult && <h3 className={style.taskheader}>{answer}</h3>}
+    //const num = 3000 + getRandomInt(100) // Test *************
+    //const den = 40000 + + getRandomInt(1000) // Test *************
+    //const aufgabe = `\\[\\frac{${num}}{${den}}\\]`; // Test *************
+    //console.log(aufgabe)
+    //console.log(text)
+    //const text1 = text
+
+    //console.log(aufgabeGlobal)
+
+    
+
+    const config = {
+      loader: { load: ["input/asciimath"] },
+      "fast-preview": {disabled: true}
+    };
+    
     return (
-    <MathJaxContext><MathJax>
+      <MathJaxContext
+      version={2}
+      config={config}
+      onStartup={(mathJax) => (mathJax.Hub.processSectionDelay = 0)}
+>
     <div className="Task">
-        <h3 className={headerClassName || style.taskheader}>{text}</h3>
-        {showHelp && <div className={style.tasktext} dangerouslySetInnerHTML={{ __html: help }} />}
-        {showResult && <h3 className={headerClassName || style.taskheader}>{answer}</h3>}
+
+        <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{text}</MathJax></h3>
+        
+        {showHelp && <MathJax inline dynamic><div className={style.tasktext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
+        {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{answer}</MathJax></h3>}
         {showExplainer && <div  className={style.tasktext} dangerouslySetInnerHTML={{ __html: explainer }} />}
     </div>
-    </MathJax></MathJaxContext>
+    </MathJaxContext>
     );
 }
 export default Task;
+

@@ -3,8 +3,8 @@ function lin1(max, min) {
     let a = getRandomInt(max-min) + min; // > 0
     let b = getRandomInt(max-min) + min; // > 0
     if (b === a) b++
-    const casex = getRandomInt(8)
-    //const casex = 7
+    //const casex = getRandomInt(8)
+    const casex = 7
     explainer1 = `Ziel: das unbekannte <b>x</b> soll alleine stehen. Du formst die Gleichung so um, dass sie mit "x =" beginnt. `
     explainer2 = ""
     //explainer2a = ""
@@ -94,7 +94,7 @@ function lin1(max, min) {
             //aufgabe = "- "  +a + " - x = " + b;                   // -a - x = b
             //loesung = -a -b;
             aufgabe = `\\[-${a} - x = ${b}\\]`
-            loesung = `\\[x = ${-a+b}\\]`;
+            loesung = `\\[x = ${-a-b}\\]`;
             help = `\\[-${a} - x + ${a} = ${b} + ${a}\\] \\[- x = ${b+a}\\] `
             explainer2 = `Dazu muss erstmal das <b>- x</b> alleine stehen:
             <br>Du addierst auf beiden Seiten <b>${a}</b> und erhältst

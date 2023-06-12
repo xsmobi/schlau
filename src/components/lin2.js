@@ -12,7 +12,8 @@ function lin2(min, max){
     } else if (a === -1) {
       linpart = `\\[-x`
     } else {
-      linpart = `\\[${a} \\cdot x`
+      //linpart = `\\[${a} \\cdot x` // Mal-Punkt weg!
+      linpart = `\\[${a} x`
     }
 
     if (b < 0) {

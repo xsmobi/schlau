@@ -5,11 +5,28 @@
     gap: 1rem;
 }
 */
+
+/* bis 12.06.*/
+/*
   @media (max-width: 768px) {
+
     .buttons-container {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(auto-fill, 40px)
     }
+ 
   }
+ */
+
+ .buttons-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  flex: 0 0 calc(18% - 20px); /* Adjust the width as needed */
+  margin: 2px; /* Adjust the margin as needed */
+}
   
   .types {
     display: flex;
