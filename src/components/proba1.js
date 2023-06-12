@@ -3,9 +3,9 @@ function prozent() {
     //const personen = ["Adonis", "Angelina", "Leon", "Rogheyeh", "Justin", "Marta", "Vagid", "Rabia", "Jerome", "Ömer", "Gina", "Geraldine", "Finja", "Tabea", "Sophie", "Angelos", "Tariq", "Ola"]
     //const person = personen[Math.floor(Math.random()*personen.length)];
 
-    const faktoren = [2,3,5,7,11]
-    const faktor1 = faktoren[Math.floor(Math.random()*faktoren.length)]
-    const faktor2 = faktoren[Math.floor(Math.random()*faktoren.length)]   
+    //const faktoren = [2,3,5,7,11]
+    //const faktor1 = faktoren[Math.floor(Math.random()*faktoren.length)]
+    //const faktor2 = faktoren[Math.floor(Math.random()*faktoren.length)]   
     //const menge = faktor1*faktor2
     //const anteil = 1/faktor2
     //const farben = ["rot", "blau", "grau", "gruen", "gelb"]
@@ -33,6 +33,7 @@ function prozent() {
 
 export default prozent;
 
+/*
 function getRandomInt(n) { 
     return Math.floor(Math.random() * n);
 }
@@ -79,3 +80,4 @@ function findDivisors(integer) { //https://dev.to/cesar__dlr/32-find-the-divisor
         return h + "/" + k;
     }
 }
+*/

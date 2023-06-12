@@ -10,7 +10,7 @@ function addsub(v1, v2){
             aufgabe = `\\[${op1}-${op2}=\\]`
             loesung = op1 - op2;
             help = `(${op1} - ${op2}) ist das Negative von (${op2} - ${op1})!`
-            explainer= `Das Ergebnis ist kleiner als Null (< 0), weil du eine größere Zahl, ${op2}, von einer kleineren Zahl, ${op1}, abziehst.<br>Der umgekehrte Fall wäre ${op2} - ${op1} = ${op1 - op2}.<br>Also: die Zahl (${op1} - ${op2}) ist genau das Negative der Zahl (${op2} - ${op1}).<br>Auf dem Zahlenstrahl: Pfeil nach rechts von Null nach ${op1}, dann Pfeil der Länge ${op2} von dort aus nach links - und du kommst bei ${op1 - op2} raus.`
+            explainer= `Das Ergebnis ist kleiner als Null (< 0), weil du eine größere Zahl, ${op2}, von einer kleineren Zahl, ${op1}, abziehst.<br>Der umgekehrte Fall wäre ${op2} - ${op1} = ${op2 - op1}.<br>Also: die Zahl (${op1} - ${op2}) ist genau das Negative der Zahl (${op2} - ${op1}).<br>Auf dem Zahlenstrahl: Pfeil nach rechts von Null nach ${op1}, dann Pfeil der Länge ${op2} von dort aus nach links - und du kommst bei ${op1 - op2} raus.`
         break;
         case 2:
             op1 = getRandomInt(v1);

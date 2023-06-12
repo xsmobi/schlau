@@ -91,7 +91,7 @@ function App() {
 // Damit GetRandomTask auch bei Typ-Wechsel
 useEffect(() => {
   getRandomTask();
-}, [selectedType]);
+}, [selectedType]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 const toggleShowHelp = () => {
@@ -178,7 +178,7 @@ return (
 
         <footer className="mt-12  text-center dark:bg-neutral-700 lg:text-left">
             <div className="p-0 text-center text-neutral-700 dark:text-neutral-200">
-              Mathe macht schlau | <a target="_blank" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">mehr üben</a> | <a href="https://www.youtube.com/@mathbydoing" target="_blank">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank">About</a>
+              Mathe macht schlau | <a target="_blank" rel="noreferrer" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">mehr üben</a> | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">About</a>
             </div>
         </footer>
     </div>
