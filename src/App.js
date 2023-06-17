@@ -18,9 +18,12 @@ const style={
   subheading: `prose prose-xl p-2`,
   subheadingbold: `prose prose-xl p-2 font-bold`,
   btnadd: `button text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2`,
+  btnhelp: `button text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-justify mr-2 mb-2`,
+  btnresult: `button text-white bg-gradient-to-r from-black-400 via-black-500 to-black-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2`,
+  btnexplainer: `button text-gray-900 bg-gradient-to-r from-gray-200 via-gray-400 to-lime-gray hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2`,
   //taskbuttons: `text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
   taskbuttons:      `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none font-small rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`,
-  taskbuttonactive: `my-3 h-12 text-black bg-white hover:bg-red focus:outline-none font-small font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 focus:ring-1 focus:ring-black dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`
+  taskbuttonactive: `my-3 h-12 text-black-900 ring-4 ring-blue-500 bg-red hover:bg-red focus:ring-4 focus:outline-none focus:ring-blue-500 font-small font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 focus:ring-1 focus:ring-black dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`
 }
 
 function App() {
@@ -30,14 +33,6 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [showExplainer, setShowExplainer] = useState(false);
 
-  // const [aufgabeGlobal, setAufgabeGlobal] = useState("xxx")
-
-//let aufgabeGlobal = "xxx"
-
-
-  //const [disabled, setDisabled] = useState(true);
-  //const types = ['add', 'addsub', 'lin1', 'type1', 'type2', 'type3'];
-  
   const types = [
     {typ: "add",    btn: "-a + b",       txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a- (-+b)",     txt: "Plus und Minus mit Klammern"},
@@ -79,7 +74,6 @@ function App() {
       const randomIndex = Math.floor(Math.random() * filteredTasks.length);
       const task = filteredTasks[randomIndex];
       const processedTask = CreateTask(task);
-      // console.log(processedTask)
       setCurrentTask(processedTask);
       setShowHelp(false);
       setShowResult(false);
@@ -111,7 +105,6 @@ setShowResult(false);
 
 const handleTypeSelection = (type) => {
 setSelectedType(type);
-//console.log(type)
 };
 
 
@@ -138,11 +131,11 @@ return (
             <div className="buttons-container">
               <button title="New task" type="button" className={style.btnadd}
                 onClick={getRandomTask}><AiOutlinePlus size={20} /></button>
-              <button title="Help" type="button" className="button text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-justify mr-2 mb-2"
+              <button title="Help" type="button" className={style.btnhelp}
                 onClick={toggleShowHelp}><AiOutlineQuestion size={20} /></button>
-              <button title="Result" type="button" className="button text-white bg-gradient-to-r from-black-400 via-black-500 to-black-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              <button title="Result" type="button" className={style.btnresult}
                 onClick={toggleShowResult}><CgMathEqual size={20} /></button>
-              <button title="Explainer" type="button" className="button text-gray-900 bg-gradient-to-r from-gray-200 via-gray-400 to-lime-gray hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              <button title="Explainer" type="button" className={style.btnexplainer}
                 onClick={toggleShowExplainer}><AiOutlineZoomIn size={20} /></button>
             </div>
 

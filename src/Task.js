@@ -2,7 +2,10 @@ import {React} from "react";
 import { MathJaxContext, MathJax } from "better-react-mathjax";
 const style={
     taskheader:`text-center prose prose-2xl`,
-    tasktext: `prose prose-sm`,
+    tasktext: `prose prose-lg`,
+    helptext: `prose prose-lg border-dashed border-4 border-red-300 px-2`,
+    resulttext: `prose prose-lg`,
+    explainertext: `prose prose-lg border-dashed border-4 border-gray-400 px-2`,
     subheader: `prose prose-lg font-semibold`
 }
 
@@ -24,9 +27,9 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     <MathJaxContext>
     <div className="Task">
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{text}</MathJax></h3>
-        {showHelp && <MathJax inline dynamic><div className={style.tasktext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
-        {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{answer}</MathJax></h3>}
-        {showExplainer && <div  className={style.tasktext} dangerouslySetInnerHTML={{ __html: explainer }} />}
+        {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
+        {showResult && <h3 className={headerClassName || style.resulttext}><MathJax inline dynamic>{answer}</MathJax></h3>}
+        {showExplainer && <div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: explainer }} />}
     </div>
     </MathJaxContext>
     );
