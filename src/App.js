@@ -19,7 +19,8 @@ const style={
   subheadingbold: `prose prose-xl p-2 font-bold`,
   btnadd: `button text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2`,
   //taskbuttons: `text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
-  taskbuttons: `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none font-small rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`
+  taskbuttons:      `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none font-small rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`,
+  taskbuttonactive: `my-3 h-12 text-black bg-white hover:bg-red focus:outline-none font-small font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 focus:ring-1 focus:ring-black dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`
 }
 
 function App() {
@@ -135,13 +136,13 @@ return (
             
         <main>
             <div className="buttons-container">
-              <button  type="button" className={style.btnadd}
+              <button title="New task" type="button" className={style.btnadd}
                 onClick={getRandomTask}><AiOutlinePlus size={20} /></button>
-              <button  type="button" className="button text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-justify mr-2 mb-2"
+              <button title="Help" type="button" className="button text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-justify mr-2 mb-2"
                 onClick={toggleShowHelp}><AiOutlineQuestion size={20} /></button>
-              <button  type="button" className="button text-white bg-gradient-to-r from-black-400 via-black-500 to-black-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              <button title="Result" type="button" className="button text-white bg-gradient-to-r from-black-400 via-black-500 to-black-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={toggleShowResult}><CgMathEqual size={20} /></button>
-              <button  type="button" className="button text-gray-900 bg-gradient-to-r from-gray-200 via-gray-400 to-lime-gray hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              <button title="Explainer" type="button" className="button text-gray-900 bg-gradient-to-r from-gray-200 via-gray-400 to-lime-gray hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={toggleShowExplainer}><AiOutlineZoomIn size={20} /></button>
             </div>
 
@@ -162,12 +163,12 @@ return (
 
             <div className="types">
                 {types.map((type) => (
-                  <button  type="button" className={style.taskbuttons}
+                  <button  type="button"
                     key={type.typ}
                     onClick={() => handleTypeSelection(type.typ)}
                     //disabled={selectedType === type.typ}
-                    style={{ backgroundColor: selectedType === type.typ ? '#00b7eb' : '' }}
-                    // so nicht className={{ backgroundColor: selectedType === type.typ ? {btnadd} : {style.taskbuttons} }}
+                    //style={{ backgroundColor: selectedType === type.typ ? '#00b7eb' : '' }}
+                    className={selectedType === type.typ ? style.taskbuttonactive : style.taskbuttons}
                   >
                     {type.btn}
                   </button>
