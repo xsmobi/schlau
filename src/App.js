@@ -35,7 +35,7 @@ function App() {
 
   const types = [
     {typ: "add",    btn: "-a + b",       txt: "Plus und Minus auf dem Zahlenstrahl"},
-    {typ: "addsub", btn: "a- (-+b)",     txt: "Plus und Minus mit Klammern"},
+    {typ: "addsub", btn: "a - (-+b)",     txt: "Plus und Minus mit Klammern"},
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
     {typ: "prop",   btn: "Döner & Co",     txt: "Proportionalität und Dreisatz"},
     {typ: "prozent", btn: "Prozent %",     txt: "Anteile und Prozent"},
@@ -172,7 +172,7 @@ return (
 
         <footer className="mt-12  text-center dark:bg-neutral-700 lg:text-left">
             <div className="p-0 text-center text-neutral-700 dark:text-neutral-200">
-              Mathe macht schlau | <a target="_blank" rel="noreferrer" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">mehr üben</a> | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">About</a>
+              <a target="_blank" rel="noreferrer" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">Arbeitsblätter</a> | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
             </div>
         </footer>
     </div>
