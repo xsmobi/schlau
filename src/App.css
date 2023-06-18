@@ -1,3 +1,4 @@
+
 /* Text in Buttons lässt sich nicht zentrieren
 .buttons-container {
     display: grid;
@@ -21,6 +22,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 0.5rem;
 }
 
 .button {

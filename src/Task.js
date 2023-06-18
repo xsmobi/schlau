@@ -28,7 +28,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     <div className="Task">
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{text}</MathJax></h3>
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
-        {showResult && <h3 className={headerClassName || style.resulttext}><MathJax inline dynamic>{answer}</MathJax></h3>}
+        {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{answer}</MathJax></h3>}
         {showExplainer && <div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: explainer }} />}
     </div>
     </MathJaxContext>
