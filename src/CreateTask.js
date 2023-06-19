@@ -7,7 +7,8 @@ import lin3 from './components/lin3';
 import prop from './components/prop';
 import prozent from './components/prozent';
 import linfun from './components/linfun';
-import quad from './components/quad';
+//import quad1 from './components/quad1';
+//import quad2 from './components/quad2';
 import proba1 from './components/proba1';
 
 function CreateTask(task) {
@@ -47,11 +48,17 @@ function CreateTask(task) {
         break; 
         case "linfun": 
             aufgabeDaten = linfun()
-        break;   
-        case "quad": 
-            aufgabeDaten = quad()
+        break; 
+        /*  
+        case "quad1": 
+            aufgabeDaten = quad1()
             //console.log("quad!")
         break;  
+        case "quad2": 
+        aufgabeDaten = quad2()
+        //console.log("quad!")
+        break; 
+        */      
         case "proba1": 
             aufgabeDaten = proba1()
         break; 

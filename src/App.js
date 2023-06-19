@@ -39,13 +39,15 @@ function App() {
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
     {typ: "prop",   btn: "Döner & Co",     txt: "Proportionalität und Dreisatz"},
     {typ: "prozent", btn: "Prozent %",     txt: "Anteile und Prozent"},
-    {typ: "lin3",   btn: "x * a = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
+    {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
     /*
-    {typ: "linfun", btn: "y = a * x + b", txt: "Lineare Funktionen"},    
+    {typ: "linfun", btn: "f (x) = a * x + b", txt: "Lineare Funktionen"},    
     {typ: "quad1",   btn: "(x-a)^2 + b",    txt: "Quadratische Funktionen, Scheitelpunktform"},
     {typ: "quad2",   btn: "x^2 + px + q",    txt: "Quadratische Funktionen, Normalform, p-q-Formel"},
+    */
+    /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     {typ: "power",  btn: "a^n",           txt: "Potenzen"},
     {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},
@@ -172,7 +174,7 @@ return (
 
         <footer className="mt-12  text-center dark:bg-neutral-700 lg:text-left">
             <div className="p-0 text-center text-neutral-700 dark:text-neutral-200">
-              <a target="_blank" rel="noreferrer" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">Arbeitsblätter</a> | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
+              <a target="_blank" rel="noreferrer" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">Arbeitsblätter!</a> | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
             </div>
         </footer>
     </div>
