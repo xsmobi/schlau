@@ -3,9 +3,10 @@ import { MathJaxContext, MathJax } from "better-react-mathjax";
 const style={
     taskheader:`text-center prose prose-2xl`,
     tasktext: `prose prose-lg`,
-    helptext: `prose prose-lg border-dashed border-4 border-red-300 px-2`,
+    helptext: `prose prose-lg border-solid border-2 border-red-600 px-2 rounded-md`,
     resulttext: `prose prose-lg`,
-    explainertext: `prose prose-lg border-dashed border-4 border-gray-400 px-2`,
+    //explainertext: `prose prose-lg border-dashed border-4 border-gray-400 px-2`,
+    explainertext: `prose prose-lg border-solid border-2 border-gray-400 px-2 my-2 rounded-md`,
     subheader: `prose prose-lg font-semibold`
 }
 
