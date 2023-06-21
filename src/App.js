@@ -43,7 +43,7 @@ function App() {
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
 
-    {typ: "linfun", btn: "f (x) = a * x + b", txt: "Lineare Funktionen"},    
+    {typ: "linfun", btn: "f (x) = a * x + b", txt: "Lineare Funktionen (noch in Arbeit)"},    
     /*
     {typ: "quad1",   btn: "(x-a)^2 + b",    txt: "Quadratische Funktionen, Scheitelpunktform"},
     {typ: "quad2",   btn: "x^2 + px + q",    txt: "Quadratische Funktionen, Normalform, p-q-Formel"},
@@ -121,7 +121,7 @@ return (
             <div className="flex w-full flex-wrap items-center justify-between px-3">
                   <div>
                       <a href="https://schlau.app" className="my-1 mr-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 lg:mb-0 lg:mt-0">
-                        <img className="mr-2 h-12 w-12" src="https://mathbydoing.app/apple-touch-icon.png" alt="schlau.app Logo" loading="lazy" />
+                        <img className="mr-2 h-12 w-12 rounded-md" src="https://mathbydoing.app/apple-touch-icon.png" alt="schlau.app Logo" loading="lazy" />
                         <span className={style.heading}>schlau.app</span>
                       </a>
                   </div>

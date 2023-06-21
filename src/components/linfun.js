@@ -5,15 +5,17 @@ function linfun() {
     const a1 = aa1[Math.floor(Math.random()*aa1.length)]
     const bb1 = [1, 2, 3, 4, -1, -2, -3, -4]
     const b1 = bb1[Math.floor(Math.random()*bb1.length)]
-    const op = b1>0 ? "+" : "-"
+    let op = b1>0 ? "+" : "-";
     const x0 = -b1/a1
     const y0 = b1
     const xx1 = [2, 3, 4, 5, -2, -3, -4, -5]
     const x1 = xx1[Math.floor(Math.random()*xx1.length)]
     const y1 = a1*x1+b1
     
-    let plusminuscase = getRandomInt(4);
-    plusminuscase = 8
+    //let plusminuscase = getRandomInt(4);
+    //plusminuscase = 6
+    const plusminuscases = [7,8,9,10]
+    const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
     switch(plusminuscase) {
         case 1: // Nullstelle
 
@@ -75,37 +77,35 @@ function linfun() {
             explainer = `` 
         
         break;
-        case 6: // senkrecht an Stelle x oder y
+        case 6: // senkrecht, selber Achsenabschnitt
 
-            if (Math.random() < 0.5) {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
-
-            } else {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
-
-            } 
+            aufgabe = `Gib eine Senkrechte an zur Geraden \\[y = ${a1} \\cdot x ${op} ${Math.abs(b1)}\\] mit demselben Achsenabschnitt` 
+            help = `Wenn m die Steigung einer Geraden ist, dann ist -(1/m) die Steigung der Senkrechten. Aus ${brac(a1)} wird ${brac(-1/a1)}` 
+            loesung = `\\[y = ${-a1} \\cdot x ${op} ${Math.abs(b1)}\\]` 
+            explainer = `` 
         
         break;
    
-        case 7: // Speigelung an x oder x Achsen
+        case 7: // Spiegelung an y oder x Achsen
 
-            if (Math.random() < 0.5) {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
+            if (Math.random() < 0.5) { // x-Achse
+                aufgabe = `Gegeben ist die Gerade \\[y = ${a1} \\cdot x ${op} ${Math.abs(b1)}\\] Welche Gerade spiegelt diese an der x-Achse?` 
+                help = `Gerade und Spiegelgerade haben entgegengesetzte Achsenabschnitte, also ${brac(b1)} und ${brac(-b1)} und dieselbe Nullstelle. Mache dir eine Planfigur!` 
+                loesung = `\\[y = ${-a1} \\cdot x ${op === "+" ? "-" : "+"} ${Math.abs(b1)}\\]` 
+                explainer = `Spiegelung an der x-Achse: in allen Formeln werden y-Werte durch ihre Gegenzahl ersetzt.
+                <br>Damit in der Gleichung y zu -y wird, und zwar für alle x-Werte, müssen beide x-Terme rechts zu ihrem Minus werden.
+                Die Gleichung y = ${a1} &middot; x ${op} ${Math.abs(b1)} wird also zu y = ${-a1} &middot; x ${op === "+" ? "-" : "+"} ${Math.abs(b1)}.
+                <br>Egal, welches x du einsetzt, der y-Wert ist jetzt die Gegenzahl zu vorher.
+                <br>Z.B. x = 0: der Achsenabschnitt ${brac(b1)} wird durch ${brac(-b1)} ersetzt.
+                <br>Z.B. die Nullstelle: sie ist für beide Geraden gleich. Rechne es nach: y = 0, dann ist x = ...
+                <br>Die Steigung ${brac(a1)} wird zu ${brac(-a1)}, weil im Steigungsdreieck das Vorzeichen der y-Kathete sich umdreht!
+                `//!
 
             } else {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
+                aufgabe = `Gegeben ist die Gerade \\[y = ${a1} \\cdot x ${op} ${Math.abs(b1)}\\] Welche Gerade spiegelt diese an der y-Achse?`  
+                help = `Gerade und Spiegelgerade haben denselben Achsenabschnitt ${brac(b1)} und entgegengesetzte Steigungen ${brac(a1)} und ${brac(-a1)}. Mache dir eine Planfigur!` 
+                loesung = `\\[y = ${-a1} \\cdot x ${op} ${Math.abs(b1)}\\]` 
+                explainer = `Spiegelung an der y-Achse heißt: gleicher Achsenabschnitt. Die Steigung ${brac(a1)} wird zu ${brac(-a1)}, weil im Steigungsdreieck das Vorzeichen der x-Kathete sich umdreht!` 
 
             } 
 
@@ -157,6 +157,10 @@ function getRandomInt(n) {
     return Math.floor(Math.random() * n + 1);
 }
 
+function brac(n) {
+    return n < 0 ? n = "("+n+")" : n.toString()
+}
+
 /*
 function even(n) {
     return n % 2 === 0 ? 1 : 0 
@@ -191,6 +195,6 @@ function getLowestFractionPlusDec(x0,format) {
     } else if (format === "text") {
         return `${h} geteilt durch ${k}`;
     } else {
-        return h + "/" + k;
+        return h + "/" + k + " = " + (h/k).toFixed(2);
     }
 }
