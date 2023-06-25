@@ -1,7 +1,7 @@
 function prozent() {
     let aufgabe, loesung, help, explainer
     let headerclass = "subheader"
-    const personen = ["Adonis", "Angelina", "Leon", "Rogheyeh", "Justin", "Marta", "Vagid", "Rabia", "Jerome", "Ömer", "Gina", "Geraldine", "Finja", "Tabea", "Sophie", "Angelos", "Tariq", "Ola"]
+    const personen = ["Adonis", "Kenan", "Leon", "Rogheyeh", "Justin", "Marta", "Vagid", "Rabia", "Jerome", "Ömer", "Gina", "Geraldine", "Finja", "Tabea", "Sophie", "Angelos", "Tariq", "Ola"]
     let person = personen[Math.floor(Math.random()*personen.length)];
     const popWeltMrd = 8.04
     const popDeMio = 84.3

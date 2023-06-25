@@ -14,6 +14,7 @@ function linfun() {
     const xx1 = [2, 3, 4, 5, -2, -3, -4, -5]
     const x1 = xx1[Math.floor(Math.random()*xx1.length)]
     const y1 = a1*x1+b1
+
     let linfunction
     if (Math.abs(a1) === 1) {
         linfunction = `y = ${Math.sign(a1)===1 ? "x" : "-x"} ${op} ${Math.abs(b1)}` 
@@ -23,8 +24,8 @@ function linfun() {
     
     //let plusminuscase = getRandomInt(4);
     //plusminuscase = 4
-    const plusminuscases = [1,2,3,4,7,8,9,10]
-    const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
+    //const plusminuscases = [1,2,3,4,7,8,9,10]
+    //const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
     switch(plusminuscase) {
         case 1: // Nullstelle
 
@@ -102,11 +103,22 @@ function linfun() {
         
         break;
         case 4: // durch x0 und y0
-
-            aufgabe = `Gib die Gerade mit den Achsenabschnitten (${x1}|0) und (0|${y1}) an` 
-            help = `Die Steigung ist \\[-\\frac{${brac(y1)}}{${brac(x1)}} = ${(-y1/x1).toFixed(2)}\\]` 
-            loesung = `\\[y = -\\frac{${brac(y1)}}{${brac(x1)}} \\cdot x ${y1>0 ? "+" : "-"} ${Math.abs(y1)} = ${(-y1/x1).toFixed(2)} \\cdot x ${y1>0 ? "+" : "-"} ${Math.abs(y1)}\\]` 
-            explainer = `(folgt)` 
+            const xx2 = [2, 3, 4, 5, -2, -3, -4, -5]
+            const x2 = xx2[Math.floor(Math.random()*xx2.length)]
+            const yy2 = [2, 3, 4, 5, -2, -3, -4, -5]
+            const y2 = yy2[Math.floor(Math.random()*yy2.length)]
+            aufgabe = `Gib die Gerade mit den Achsenabschnitten (${x2}|0) und (0|${y2}) an` 
+            help = `Die Steigung ist \\[-\\frac{${brac(y2)}}{${brac(x2)}} = ${(-y2/x2).toFixed(2)}\\]` 
+            loesung = `\\[y = ${Math.sign(y2/x2) ? "" : "-"}\\frac{${Math.abs(y2)}}{${Math.abs(x2)}} \\cdot x ${y2>0 ? "+" : "-"} ${Math.abs(y2)} = ${(-y2/x2).toFixed(2)} \\cdot x ${y2>0 ? "+" : "-"} ${Math.abs(y2)}\\]` 
+            explainer = `<p>Die allgemeine Form der Geradengleichung ist
+            <br>y = ax + b oder y = mx + n
+            </p><p>Die Punkte (${x2}|0) und (0|${y2}) ergeben zusammen mit dem Nullpunt (0|0) ein Steigungsdreieck mit dem du dir die Steigung der Geraden veranschaulichen kannst:
+            </p><p>Der Achsenabschnitt ist durch den Punkt (0|${y2}) gegeben.
+            </p><p>Eine alternative Darstellung ist die Achsenabschnittsform der Geradengleichung
+            \\[\\frac{x}{${x2}} + \\frac{y}{${y2}} = 1\\]
+            Diese Form kannst du direkt hinschreiben ohne erst die Steigung zu berechnen. Du kannst sie nach x oder y auflösen. Wenn du sie nach y auflöst, erhältst du dieselbe lineare Funktion wie vorher.
+            </p>
+            `//!
         
         break;
         case 5: // durch einen Punkt, Steigung gegeben "Punktsteigungsform"
@@ -117,7 +129,7 @@ function linfun() {
             explainer = `` 
         
         break;
-        case 6: // senkrecht, selber Achsenabschnitt
+        case 6: // senkrecht, in einem Punkt
 
             aufgabe = `Gib eine Senkrechte an zur Geraden \\[y = ${a1} \\cdot x ${op} ${Math.abs(b1)}\\] mit demselben Achsenabschnitt` 
             help = `Wenn m die Steigung einer Geraden ist, dann ist -(1/m) die Steigung der Senkrechten. Aus ${brac(a1)} wird ${brac(-1/a1)}` 
@@ -241,11 +253,42 @@ function getLowestFractionPlusDec(x0,format) {
     h = Math.abs(h);
     k = Math.abs(k);
     if (format === "jax"){
-        return k === 1 ? `\\[x = ${sign}${h}\\]` : `\\[x = ${sign} \\frac{${h}}{${k}} = ${sign}${(h/k).toFixed(2)}\\]`
+        return k === 1 ? `${sign}${h}` : `${sign} \\[\\frac{${h}}{${k}} = ${sign}${(h/k).toFixed(2)}\\]`
         //return `\\[\\frac{${h}}{${k}}\\]`
     } else if (format === "text") {
         return `${h} geteilt durch ${k}`;
     } else {
         return h + "/" + k + " = " + (h/k).toFixed(2);
+    }
+}
+
+function getLowestFraction(x0,format) {
+    let eps = 1.0E-15;
+    let h, h1, h2, k, k1, k2, a, x;
+    //let format = "jax"
+    x = x0;
+    a = Math.floor(x);
+    h1 = 1;
+    k1 = 0;
+    h = a;
+    k = 1;
+    while (x-a > eps*k*k) {
+        x = 1/(x-a);
+        a = Math.floor(x);
+        h2 = h1; h1 = h;
+        k2 = k1; k1 = k;
+        h = h2 + a*h1;
+        k = k2 + a*k1;
+    }
+    // return h + "/" + k;
+   
+       // (format === "jax") ? `\\[\\frac{${h}}{${k}}\\]` : h + "/" + k
+    if (format === "jax"){
+        return k === 1 ? `{${h}}` : `\\frac{${h}}{${k}}`
+        //return `\\[\\frac{${h}}{${k}}\\]`
+    } else if (format === "text") {
+        return `${h} geteilt durch ${k}`;
+    } else {
+        return h + "/" + k;
     }
 }
