@@ -94,6 +94,7 @@ useEffect(() => {
 
 const toggleShowHelp = () => {
 setShowHelp(!showHelp);
+setShowExplainer(false);
 };
 
 const toggleShowResult = () => {

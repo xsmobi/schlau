@@ -2,14 +2,17 @@ function prozent() {
     let aufgabe, loesung, help, explainer
     let headerclass = "subheader"
     const personen = ["Adonis", "Angelina", "Leon", "Rogheyeh", "Justin", "Marta", "Vagid", "Rabia", "Jerome", "Ömer", "Gina", "Geraldine", "Finja", "Tabea", "Sophie", "Angelos", "Tariq", "Ola"]
-    const person = personen[Math.floor(Math.random()*personen.length)];
+    let person = personen[Math.floor(Math.random()*personen.length)];
     const popWeltMrd = 8.04
     const popDeMio = 84.3
     //const EnergieWeltKwhTag = 58
     //const EnergieDeKwhTag = 117
 
-    const randnr = getRandomInt(6) // Größtes case + 1 setzen!
+    let randnr = getRandomInt(6) // Größtes case + 1 setzen!
     //const randnr = 5
+
+    //randnr=0
+    //person="Adonis"
 
     let grundwert, verdienstplus, mehrverdienst, stromanteile, stromanteil, strommengen, strommenge, 
     smartWeltMrd, smartDeMio, autosWeltMrd, autosDeMio, preis1, rabatt1,

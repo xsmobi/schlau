@@ -1,56 +1,91 @@
 function linfun() {
     let aufgabe, loesung, help, explainer
-    // Zufallsgerade
-    const aa1 = [2, 3, 4, -2, -3, -4]
-    const a1 = aa1[Math.floor(Math.random()*aa1.length)]
-    const bb1 = [1, 2, 3, 4, -1, -2, -3, -4]
-    const b1 = bb1[Math.floor(Math.random()*bb1.length)]
+    //const aa1 = [2, 3, 4, -2, -3, -4]
+    //const a1 = aa1[Math.floor(Math.random()*aa1.length)]
+    let a1 = -3 + getRandomInt(5)
+    if (a1 === 0) a1 = 3
+    //const bb1 = [1, 2, 3, 4, -1, -2, -3, -4]
+    //const b1 = bb1[Math.floor(Math.random()*bb1.length)]
+    let b1 = -5 + getRandomInt(9)
+    if (b1 === 0) b1 = 5
     let op = b1>0 ? "+" : "-";
     const x0 = -b1/a1
     const y0 = b1
     const xx1 = [2, 3, 4, 5, -2, -3, -4, -5]
     const x1 = xx1[Math.floor(Math.random()*xx1.length)]
     const y1 = a1*x1+b1
+    let linfunction
+    if (Math.abs(a1) === 1) {
+        linfunction = `y = ${Math.sign(a1)===1 ? "x" : "-x"} ${op} ${Math.abs(b1)}` 
+    } else {
+        linfunction = `y = ${a1} \\cdot x ${op} ${Math.abs(b1)}` 
+    }
     
-    //let plusminuscase = getRandomInt(4);
-    //plusminuscase = 6
-    const plusminuscases = [7,8,9,10]
-    const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
+    let plusminuscase = getRandomInt(4);
+    plusminuscase = 3
+    //const plusminuscases = [1,2,7,8,9,10]
+    //const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
     switch(plusminuscase) {
         case 1: // Nullstelle
 
-
-            aufgabe = `Bestimme die Nullstelle der Funktion \\[y = ${a1} \\cdot x ${op} ${Math.abs(b1)}\\]`
-            help = `` 
-            loesung = `` 
-            loesung = Number.isInteger(x0) ? `\\[${x0}\\]` : getLowestFractionPlusDec(x0, "jax")
-            explainer = `` 
+            aufgabe = `Berechne die Nullstelle der Funktion \\[${linfunction}\\]`
+            help = `Löse die Gleichung  nach x auf: \\[${a1} \\cdot x ${op} ${Math.abs(b1)} = 0\\] \\[x = \\frac{${b1>0 ? "-" : "+"}${Math.abs(b1)}}{${a1}}\\]`  
+            loesung = Number.isInteger(x0) ? `\\[x = ${x0}\\]` : getLowestFractionPlusDec(x0, "jax")
+            explainer = `Ein x-Wert heißt Nullstelle, wenn für dieses x gilt y = 0, wenn also an dieser Stelle x die Gerade die x-Achse schneidet. Das ist für den Wert ${loesung} erfüllt. Mache die Probe, indem du diesen Wert als x in die Gleichung \\[y = ${a1} \\cdot x ${op} ${Math.abs(b1)}\\] einsetzt.
+            `//!
 
         break;
-        case 2: // verschieben vertikal oder horizontal
-            
-            if (Math.random() < 0.5) {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
-
+        case 2: // verschieben horizontal und vertikal
+        let shift = -5 + getRandomInt(9)
+        if (shift === 0) shift = 5
+        //shift = b1/a1 //Test
+        let shiftsgn
+        shift > 0 ? shiftsgn = "+" : shiftsgn = "-"
+        if (Math.random() < 0.5) { // x Shift
+            aufgabe = `Verschiebe die Gerade \\[${linfunction}\\] horizontal um den Wert ${shift}` 
+            help = `Nach ${shift>0 ? "rechts" : "links"} (${shiftsgn}${Math.abs(shift)}) verschieben heißt: in der Funktion
+            <br>x durch (x ${shift>0 ? "-" : "+"} ${Math.abs(shift)}) ersetzen:
+            \\[y = ${a1} \\cdot (x ${shift>0 ? "-" : "+"} ${Math.abs(shift)}) ${op} ${Math.abs(b1)}\\]
+            `//!
+            if (-a1*shift + b1 === 0) {
+                loesung = `\\[y = ${linfunc1(a1)}\\]`
             } else {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
-
+                loesung = `\\[y = ${linfunc1(a1)} ${Math.sign(-a1*shift + b1)===1 ? "+" : "-"}${Math.abs(-a1*shift + b1)}\\]`
             }
+            explainer = `<p>Eine Gerade verschieben heißt: am verschobenen Ort - wenn also der Nullpunkt des Koordinatensystems um ${shift} nach ${shift>0 ? "rechts" : "links"} verschoben wäre - gilt dieselbe Geradengleichung, mit eben diesen verschobenen Koordinaten.
+            </p><p>Die x-Werte am verschobenen Ort sind aber um die Verschiebung um ${Math.abs(shift)} ${shift>0 ? "größer" : "kleiner"} geworden!
+            </p><p>Damit also die Geradengleichung weiter funktiert, müssen diese um ${Math.abs(shift)} ${shift>0 ? "größeren" : "kleineren"} wieder ausgegleichen werden, nämlich mit einer Korrektur von ${shift>0 ? "Minus" : "Plus"} ${Math.abs(shift)}.
+            </p><p>Daher wird in der neuen Geradengleichen aus dem x ein (x ${shift>0 ? "-" : "+"}${Math.abs(shift)})
+            </p>
+            `//!
 
+        } else { // y-Shift
+            aufgabe = `Verschiebe die Gerade \\[${linfunction}\\] vertikal um den Wert ${shift}`  
+            help = `Wie muss sich die Gleichung ändern, dass für jedes beliebige x das y um den Wert ${Math.abs(shift)} ${shift>0 ? "größer" : "kleiner"} wird?
+            `//!
+            if (shift + b1 === 0) {
+                loesung = `\\[y = ${linfunc1(a1)}\\]`
+            } else {
+                loesung = `\\[y = ${linfunc1(a1)} ${shift + b1 > 0 ? "+" : "-"} ${Math.abs(shift+b1)}\\]`
+            }
+            explainer = `<p>Für die Verschiebung einer Geraden nach oben oder nach unten einfach in der Formel einen konstanten Wert hinzufügen:
+            </p><p>Aus dem Achsenabschnitt ${b1} in der Geradengleichung wird ${b1}${shift>0 ? "+" : "-"}${Math.abs(shift)} = ${b1+shift}
+            </p>
+            `//!
+
+        }
         break;
         case 3: // durch x0|0 oder 0|y0, Steigung gegeben
             
-            if (Math.random() < 0.5) {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
+            if (Math.random() < 10.5) {
+                aufgabe = `Gib die Gleichung einer Geraden mit Steigung ${a1} durch den Punkt P(0|${b1}) an!` 
+                help = `Es gibt nichts zu rechnen: denke an die allgemeine Form der Geradengleichung!` 
+                loesung = `\\[${linfunction}\\]` 
+                explainer = `<p>Die allgemeine Form der Geradengleichung ist
+                </p><p>y = a &middot; x + b.
+                </p><p>Die Steigung a=${a1} ist gegeben und mit dem Punkt P(0|${b1}) auch der y-Achsenabschnitt b=${b1}.
+                </p>
+                `//!
 
             } else {
                 aufgabe = `` 
@@ -161,6 +196,12 @@ function brac(n) {
     return n < 0 ? n = "("+n+")" : n.toString()
 }
 
+function linfunc1(n) {
+    if (n===1) return "x"
+    else if (n===-1) return "-x"
+    else return `${n} \\cdot x`
+}
+
 /*
 function even(n) {
     return n % 2 === 0 ? 1 : 0 
@@ -190,7 +231,7 @@ function getLowestFractionPlusDec(x0,format) {
     h = Math.abs(h);
     k = Math.abs(k);
     if (format === "jax"){
-        return k === 1 ? `\\[${sign}${h}\\]` : `\\[${sign} \\frac{${h}}{${k}} = ${sign}${(h/k).toFixed(2)}\\]`
+        return k === 1 ? `\\[x = ${sign}${h}\\]` : `\\[x = ${sign} \\frac{${h}}{${k}} = ${sign}${(h/k).toFixed(2)}\\]`
         //return `\\[\\frac{${h}}{${k}}\\]`
     } else if (format === "text") {
         return `${h} geteilt durch ${k}`;
