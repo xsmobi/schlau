@@ -2,7 +2,7 @@ function linfun() {
     let aufgabe, loesung, help, explainer
     //const aa1 = [2, 3, 4, -2, -3, -4]
     //const a1 = aa1[Math.floor(Math.random()*aa1.length)]
-    let a1 = -3 + getRandomInt(5)
+    let a1 = -5 + getRandomInt(5)
     if (a1 === 0) a1 = 3
     //const bb1 = [1, 2, 3, 4, -1, -2, -3, -4]
     //const b1 = bb1[Math.floor(Math.random()*bb1.length)]
@@ -21,10 +21,10 @@ function linfun() {
         linfunction = `y = ${a1} \\cdot x ${op} ${Math.abs(b1)}` 
     }
     
-    let plusminuscase = getRandomInt(4);
-    plusminuscase = 3
-    //const plusminuscases = [1,2,7,8,9,10]
-    //const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
+    //let plusminuscase = getRandomInt(4);
+    //plusminuscase = 4
+    const plusminuscases = [1,2,3,4,7,8,9,10]
+    const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
     switch(plusminuscase) {
         case 1: // Nullstelle
 
@@ -77,7 +77,7 @@ function linfun() {
         break;
         case 3: // durch x0|0 oder 0|y0, Steigung gegeben
             
-            if (Math.random() < 10.5) {
+            if (Math.random() < 0) {
                 aufgabe = `Gib die Gleichung einer Geraden mit Steigung ${a1} durch den Punkt P(0|${b1}) an!` 
                 help = `Es gibt nichts zu rechnen: denke an die allgemeine Form der Geradengleichung!` 
                 loesung = `\\[${linfunction}\\]` 
@@ -88,20 +88,25 @@ function linfun() {
                 `//!
 
             } else {
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
-
+                const zero = b1
+                const yzero = a1 * zero
+                aufgabe = `Gib die Gleichung einer Geraden mit Steigung ${a1} durch den Punkt P(${zero}|0) an!` 
+                help = `Die Gerade mit Steigung ${a1} durch den Nullpunkt (0|0) wird beschrieben durch
+                \\[y = ${linfunc1(a1)}\\] Verschiebe diese Gerade an die Stelle P(${zero}|0), indem du x durch x ${zero > 0 ? "-" : "+"} ${Math.abs(zero)} ersetzt.
+                `//A!
+                loesung = `\\[y = ${linfunc1(a1)} ${yzero > 0 ? "-" : "+"} ${Math.abs(yzero)}\\]` 
+                explainer = `Die Ursprungsgerade \\[y = ${linfunc1(a1)}\\] entlang der x-Achse an den Punkt P(${zero}|0) zu verschieben heißt, sie um <i>${zero > 0 ? "plus " : "minus "} ${Math.abs(zero)}</i> zu verschieben. Deshalb muss x in der Formel durch <i>x ${zero > 0 ? "minus " : "plus "} ${Math.abs(zero)}</i> ersetzt werden.
+                \\[y = ${linfunc2(a1, -zero)}\\]
+                `// All
             } 
         
         break;
         case 4: // durch x0 und y0
 
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
+            aufgabe = `Gib die Gerade mit den Achsenabschnitten (${x1}|0) und (0|${y1}) an` 
+            help = `Die Steigung ist \\[-\\frac{${brac(y1)}}{${brac(x1)}} = ${(-y1/x1).toFixed(2)}\\]` 
+            loesung = `\\[y = -\\frac{${brac(y1)}}{${brac(x1)}} \\cdot x ${y1>0 ? "+" : "-"} ${Math.abs(y1)} = ${(-y1/x1).toFixed(2)} \\cdot x ${y1>0 ? "+" : "-"} ${Math.abs(y1)}\\]` 
+            explainer = `(folgt)` 
         
         break;
         case 5: // durch einen Punkt, Steigung gegeben "Punktsteigungsform"
@@ -200,6 +205,11 @@ function linfunc1(n) {
     if (n===1) return "x"
     else if (n===-1) return "-x"
     else return `${n} \\cdot x`
+}
+function linfunc2(n,m) {
+    if (n===1) return `x ${m>0 ? "+" : "-"} ${Math.abs(m)}`
+    else if (n===-1) return `-x ${m>0 ? "+" : "-"} ${Math.abs(m)}`
+    else return `${n} \\cdot (x ${m>0 ? "+" : "-"} ${Math.abs(m)})`
 }
 
 /*
