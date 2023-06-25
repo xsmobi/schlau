@@ -24,8 +24,8 @@ function linfun() {
     
     //let plusminuscase = getRandomInt(4);
     //plusminuscase = 4
-    //const plusminuscases = [1,2,3,4,7,8,9,10]
-    //const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
+    const plusminuscases = [1,2,3,4,7,8,9,10]
+    const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
     switch(plusminuscase) {
         case 1: // Nullstelle
 
