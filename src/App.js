@@ -67,7 +67,7 @@ function App() {
     */
   ]
 
-  const [selectedType, setSelectedType] = useState('prozent');
+  const [selectedType, setSelectedType] = useState('linfun');
 
  
   
