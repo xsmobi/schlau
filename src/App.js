@@ -37,13 +37,13 @@ function App() {
     {typ: "add",    btn: "-a + b",       txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a - (-+b)",     txt: "Plus und Minus mit Klammern"},
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
-    {typ: "prop",   btn: "Döner & Co",     txt: "Proportionalität und Dreisatz"},
+    {typ: "prop",   btn: "3 SATZ",     txt: "Proportionalität und Dreisatz"},
     {typ: "prozent", btn: "Prozent %",     txt: "Anteile und Prozent"},
     {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
 
-    {typ: "linfun", btn: "f (x) = a * x + b", txt: "Lineare Funktionen (noch in Arbeit)"},    
+    {typ: "linfun", btn: "LINEAR y(x)", txt: "Lineare Funktionen"},    
     /*
     {typ: "quad1",   btn: "(x-a)^2 + b",    txt: "Quadratische Funktionen, Scheitelpunktform"},
     {typ: "quad2",   btn: "x^2 + px + q",    txt: "Quadratische Funktionen, Normalform, p-q-Formel"},

@@ -26,10 +26,10 @@ function linfun() {
         linfunction = `y = ${a1} \\cdot x ${op} ${Math.abs(b1)}` 
     }
     
-    //let plusminuscase = getRandomInt(4);
-    //plusminuscase = 6
-    const plusminuscases = [1,2,3,4,5,6,7,8,9,10]
-    const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
+    let plusminuscase = getRandomInt(11);
+    //plusminuscase = 11
+    //const plusminuscases = [1,2,3,4,5,6,7,8,9,10]
+    //const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
     
     switch(plusminuscase) {
         case 1: // Nullstelle
@@ -201,20 +201,21 @@ function linfun() {
         case 11: // Gerade parallel x-Achse oder y-Achse
             if (Math.random() < 0.5) {
                 // parallel x-Achse
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
+                aufgabe = `Gib die Gleichung einer Geraden an, die durch den Punkt (${x2}|${y2}) geht und parallel zur x-Achse verläuft.`
+                help = `Die Steigung ist 0, daher ist y für alle x gleich. Und welchen Wert hat dieses y? ` 
+                loesung = `y = ${y2}` 
+                explainer = `(folgt)` 
             } else {
-                // parallel x-Achse
-                aufgabe = `` 
-                help = `` 
-                loesung = `` 
-                explainer = `` 
+                // parallel y-Achse
+                aufgabe = `Gib die Gleichung einer Geraden an, die durch den Punkt (${x2}|${y2}) geht und parallel zur y-Achse verläuft.`
+                help = `Die Gerade hat für alle Punkte denselben x-Wert. Achtung: sie kann dann nicht in der üblichen Form
+                <br>y = a&middot;x + b beschrieben werden! Wie könnte stattdessen eine Geradengleichung aussehen, wenn für alle y der x-Wert durch den Punkt (${x2}|${y2}) gegeben ist?
+                `//!
+                loesung = `x = ${x2}` 
+                explainer = `(folgt)` 
             }
-       
+        break;       
     
-    break;       
         default:
         
             aufgabe = `Fehler, wähle eine andere Aufgabe` 
