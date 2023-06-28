@@ -1,11 +1,7 @@
 function linfun() {
     let aufgabe, loesung, help, explainer
-    //const aa1 = [2, 3, 4, -2, -3, -4]
-    //const a1 = aa1[Math.floor(Math.random()*aa1.length)]
     let a1 = -5 + getRandomInt(9)
     if (a1 === 0) a1 = 5
-    //const bb1 = [1, 2, 3, 4, -1, -2, -3, -4]
-    //const b1 = bb1[Math.floor(Math.random()*bb1.length)]
     let b1 = -5 + getRandomInt(9)
     if (b1 === 0) b1 = 5
     let op = b1>0 ? "+" : "-";
@@ -27,9 +23,6 @@ function linfun() {
     }
     
     let plusminuscase = getRandomInt(11);
-    //plusminuscase = 11
-    //const plusminuscases = [1,2,3,4,5,6,7,8,9,10]
-    //const plusminuscase = plusminuscases[Math.floor(Math.random()*plusminuscases.length)]
     
     switch(plusminuscase) {
         case 1: // Nullstelle

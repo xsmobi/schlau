@@ -42,12 +42,11 @@ function App() {
     {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
-
-    {typ: "linfun", btn: "LINEAR y(x)", txt: "Lineare Funktionen"},    
+    {typ: "linfun", btn: "LINEAR y(x)", txt: "Lineare Funktionen"}, 
     /*
-    {typ: "quad1",   btn: "(x-a)^2 + b",    txt: "Quadratische Funktionen, Scheitelpunktform"},
-    {typ: "quad2",   btn: "x^2 + px + q",    txt: "Quadratische Funktionen, Normalform, p-q-Formel"},
+    {typ: "quad",   btn: "QUAD y(x)",    txt: "Quadratische Funktionen, Scheitelpunktform"},
     */
+   
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     {typ: "power",  btn: "a^n",           txt: "Potenzen"},

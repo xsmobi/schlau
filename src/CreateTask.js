@@ -7,17 +7,12 @@ import lin3 from './components/lin3';
 import prop from './components/prop';
 import prozent from './components/prozent';
 import linfun from './components/linfun';
-//import quad1 from './components/quad1';
-//import quad2 from './components/quad2';
+import quad from './components/quad';
 import proba1 from './components/proba1';
 
 function CreateTask(task) {
-    // const { id, type, val1, val2, explainer } = task;
-    // const { id, type, val1, val2 } = task;
     const { type, val1, val2, explainer } = task;
     let aufgabeDaten = []
-    //aufgabeDaten = add(val1,val2)
-    //console.log(type)
  
     switch(type){
         case "add":
@@ -48,17 +43,11 @@ function CreateTask(task) {
         break; 
         case "linfun": 
             aufgabeDaten = linfun()
-        break; 
-        /*  
-        case "quad1": 
-            aufgabeDaten = quad1()
+        break;   
+        case "quad": 
+            aufgabeDaten = quad()
             //console.log("quad!")
-        break;  
-        case "quad2": 
-        aufgabeDaten = quad2()
-        //console.log("quad!")
-        break; 
-        */      
+        break;      
         case "proba1": 
             aufgabeDaten = proba1()
         break; 
