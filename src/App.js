@@ -45,9 +45,7 @@ function App() {
     {typ: "linfun", btn: "LINEAR y(x)", txt: "Lineare Funktionen"}, 
     /*
     {typ: "quad",   btn: "QUAD y(x)",    txt: "Quadratische Funktionen, Scheitelpunktform"},
-    */
-   
-    /*
+    
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     {typ: "power",  btn: "a^n",           txt: "Potenzen"},
     {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},

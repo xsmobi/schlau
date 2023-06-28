@@ -5,81 +5,68 @@ function quad() {
     let x2 = -4 + getRandomInt(9)
     if (x1 === 0) x1 = 5
     if (x2 === 0) x2 = -5
-    console.log (x1 === -x2,x1, x2)
     if (x1 === -x2) x1 = -x2 + 2
-     let p = -(x1+x2)
-    console.log (x1 === -x2,x1, x2, p)
-   
-   
-
-    let x0 = -5 + getRandomInt(13)      // einfache oder doppelte Nullstelle
-
-
-    
-    const q = x1*x2
-    let op = "++"
-    let a1 = 3
-    let b1 = 4
-    let linfunction
-    if (Math.abs(a1) === 1) {
-        linfunction = `y = ${Math.sign(a1)===1 ? "x" : "-x"} ${op} ${Math.abs(b1)}` 
-    } else {
-        linfunction = `y = ${a1} \\cdot x ${op} ${Math.abs(b1)}` 
+    let p = -(x1+x2)
+    let q = x1*x2
+    //let q2 = x1**2
+    //let x0 = -5 + getRandomInt(13)      // einfache oder doppelte Nullstelle
+    function quadfunction(p,q) {
+        return `x^2 ${add(p)} x ${addc(q)}`
     }
-    const quadfunction =    `y = x^2 ${add(p)} x ${add(q)}`     // 2 Nullstellen
-    const quadfunction_0 =  `x^2 ${add(p)} x ${add(q)} = 0`     // 2 Nullstellen
-    const quadfunction1 =   `y = x^2 ${add(p)} x`                 // Eine Nullstelle = 0
-    const quadfunction1_0 = `x^2 ${add(p)} x = 0`               // Eine Nullstelle = 0
-    const quadfunction2 =   `y = x^2 ${add(q)}`                 // doppelte Nullstelle, q < 0
-    const quadfunction2_0 = `x^2 ${add(q)} = 0`                 // doppelte Nullstelle, q < 0
-    /*
+    function quadfunction1(p,q) {
+        return `x^2 ${add(p)} x`
+    }
+    function quadfunction2(q) {
+        return `x^2 ${addc(q)}`
+    }
+
     
-    let b1 = -5 + getRandomInt(9)
-    if (b1 === 0) b1 = 5
-    let op = b1>0 ? "+" : "-";
-    const x0 = -b1/a1
-    const y0 = b1
-    const xx1 = [2, 3, 4, 5, -2, -3, -4, -5]
-    const x1 = xx1[Math.floor(Math.random()*xx1.length)]
-    const y1 = a1*x1+b1
-    const xx2 = [2, 3, 4, 5, -2, -3, -4, -5] //x2, y2 beliebiger Punkt
-    const x2 = xx2[Math.floor(Math.random()*xx2.length)]
-    const yy2 = [2, 3, 4, 5, -2, -3, -4, -5]
-    const y2 = yy2[Math.floor(Math.random()*yy2.length)]    const aa = [1/4,1/3,1/2,3/4,3/5,4/5,1,3/2,2]
-    const a = aa[Math.floor(Math.random()*aa.length)];
-    console.log(a)
-    */
     
     
     
     let plusminuscase = getRandomInt(12);
-    plusminuscase = 2
+    plusminuscase = 1
     switch(plusminuscase) {
         case 1: // Normalform  - 2 Nullstellen, keine = 0
-            aufgabe = `Berechne die Nullstellen der Funktion \\[${quadfunction}\\]` 
-            help = `` 
-            loesung = `${x1}, ${x2}, p=${-x1-x2}, q=${x1*x2}` 
-            explainer = `` 
+            p = 2 * p
+            q = 4 * q
+            aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction(p, q)}\\]` 
+            if (Math.random() < 0) {
+                help = `Mit p-q-Formel, \\[-\\frac{p}{2} = ${-p/2}; q = ${q}\\]
+                \\[x_{1,2} = ${-p/2} \\pm \\sqrt{${p**2/4} ${add(-q)}} \\]
+                `//!
+            } else {
+                help = `Mit quadratischer Ergänzung,  Ergänzt wird mit
+                \\[(\\frac{p}{2})^2 = (\\frac{${p}}{2})^2 = ${brac(p/2)}^2 = ${p**2/4} \\]
+                \\[${quadfunction(p, q)} + ${p**2/4} = 0 + ${p**2/4} \\]
+                `//A
+            }
+            loesung = `\\[x_{1}=${x1}, x_{2}=${x2}, p=${-x1-x2}, q=${x1*x2}\\]` 
+            explainer = `(folgt)` 
         break;
 
         case 2: //  Normalform  - 1 Nullstelle x = 0
-            aufgabe = `Berechne die Nullstellen der Funktion \\[${quadfunction1}\\]` 
+            aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction1(p, q)}\\]` 
             help = `` 
             loesung = `0, ${-p}` 
             explainer = `` 
         break;
 
         case 3: // Normalform  - Doppelte Nullstelle
-            aufgabe = `Berechne die Nullstellen der Funktion \\[${quadfunction2}\\]` 
+            p = 2 * p
+            q = (p/2)**2
+            aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction(p, q)}\\]` 
             help = `` 
-            loesung = `` 
+            loesung = `\\[x_{1,2} = ${-p/2}\\]`
             explainer = `` 
         break;
 
         case 4: //  Normalform  - Nullstellen, rein quadratisch
-            aufgabe = `Berechne die Nullstellen der Funktion \\[${quadfunction2}\\]` 
+            q = x1**2
+            q = -q
+            aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction2(q)}\\]` 
             help = `` 
-            loesung = `` 
+            loesung = `\\[x_{1} = ${x1}, x_{2} = ${-x1}\\]` 
             explainer = `` 
         break;    
         
@@ -216,6 +203,10 @@ function add(s) {
     let showp
     showp = Math.abs(s) === 1 ? "" : Math.abs(s)
     return `${s>0 ? "+" : "-"}${showp}`
+}
+
+function addc(s) {  // bei const kein Ausblenden, falls = 1!)
+    return `${s>0 ? "+" : "-"}${Math.abs(s)}`
 }
 
 function adotx(a) {
