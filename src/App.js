@@ -91,12 +91,14 @@ useEffect(() => {
 
 const toggleShowHelp = () => {
 setShowHelp(!showHelp);
+setShowResult(false);
 setShowExplainer(false);
 };
 
 const toggleShowResult = () => {
 setShowResult(!showResult);
 setShowHelp(false);
+setShowExplainer(false);
 };
 
 const toggleShowExplainer = () => {

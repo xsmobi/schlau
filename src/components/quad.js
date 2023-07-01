@@ -6,8 +6,10 @@ function quad() {
     if (x1 === 0) x1 = 5
     if (x2 === 0) x2 = -5
     if (x1 === -x2) x1 = -x2 + 2
+    
     let p = -(x1+x2)
     let q = x1*x2
+    
     //let q2 = x1**2
     //let x0 = -5 + getRandomInt(13)      // einfache oder doppelte Nullstelle
     function quadfunction(p,q) {
@@ -20,9 +22,8 @@ function quad() {
         return `x^2 ${addc(q)}`
     }
 
-
-    let plusminuscase = getRandomInt(12);
-    plusminuscase = 1
+    let plusminuscase = getRandomInt(2);
+    //plusminuscase = 1
     switch(plusminuscase) {
         case 1: // Normalform  - 2 Nullstellen, keine = 0
             p = 2 * p
@@ -35,106 +36,51 @@ function quad() {
                 \\[-\\frac{p}{2} = ${-p/2}; (\\frac{p}{2})^2 = ${p**2/4}; q = ${q}\\]
                 \\[x_{1,2} = ${-p/2} \\pm \\sqrt{${p**2/4} ${add(-q)}} \\]
                 `//!
+                explainer = `(folgt)` 
             } else {
+                let pp = Math.abs(p)
+                //p = -4
+                //q = 4
                 help = `\\[${quadfunction(p, q)} = 0\\]
                 Mit quadratischer Ergänzung: ergänzt wird mit
-                \\[(\\frac{${p}}{2})^2 = ${brac(p/2)}^2 = ${p**2/4} \\]
+                \\[(\\frac{${pp}}{2})^2 = ${brac(pp/2)}^2 = ${p**2/4} \\]
                 \\[${quadfunction(p, q)} + ${p**2/4} = 0 + ${p**2/4} \\]
                 \\[${quadfunction1(p)} + ${p**2/4} = ${-q} + ${p**2/4} \\]
-                \\[(x ${add(p/2)})^2 = ${-q + p**2/4} \\]
+                \\[(x ${addc(p/2)})^2 = ${-q + p**2/4} \\]
+                `//A
+                explainer = `Betrachte die x-Terme der Gleichung
+                \\[x^2 ${add(p)} x\\]
+                Wir hängen einen Term dran:
+                \\[x^2 ${add(p)} x + (\\frac{${pp}}{2})^2\\]
+                Das ist ein vollständiges Quadrat:
+                \\[(x ${add(p/2)})^2\\]
+                (binomische Formel!). Klick jetzt nochmals auf Hilfe für die ganze Rechnung.
                 `//A
             }
-            //loesung = `\\[x_{1}=${2*x1}, x_{2}=${2*x2}, p=${-x1-x2}, q=${x1*x2}\\]` 
-            loesung = `\\[x_{1}=${2*x1}, x_{2}=${2*x2}\\]` 
-            explainer = `(folgt)` 
+            loesung = x1===x2 ? `\\[x_{1,2}=${2*x1}\\]` : `\\[x_{1}=${2*x1}, x_{2}=${2*x2}\\]`
+
         break;
 
-        case 2: //  Normalform  - 1 Nullstelle x = 0
-            aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction1(p, q)}\\]` 
-            help = `` 
-            loesung = `0, ${-p}` 
-            explainer = `` 
-        break;
+        case 2: //  Normalform, q = 0  - 1 Nullstelle ist x = 0
+            if (Math.random() < 0.5) {
+                p = -x1
+                // Normalform  - homogen, 1 Nullstelle ist x = 0
+                aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction1(-p)}\\]` 
+                help = `Ausmultiplizieren (Distributivgesetz) \\[${quadfunction1(-p)} = 0 \\Longleftrightarrow x \\cdot (x${add(-p)}) = 0\\]` 
+                loesung = `\\[x_{1} = 0, x_{2} = ${p}\\]` 
+                explainer = `(kommt)`
+            } else {
+                q = x1**2
+                // Normalform, p=0  - reines Quadrat
+                aufgabe = `Berechne die Nullstelle(n) der Funktion \\[y = ${quadfunction2(-q)}\\]` 
+                help = `Allgemeine Regel: \\[x^2 = a \\Longleftrightarrow  x = \\pm \\sqrt{a} \\]` 
+                loesung = `\\[x_{1,2} = \\pm \\sqrt{${q}} = \\pm ${x1}\\]`
+                explainer = `(kommt)`
 
-        case 3: // Normalform  - Doppelte Nullstelle
-            p = 2 * p
-            q = (p/2)**2
-            aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction(p, q)}\\]` 
-            help = `` 
-            loesung = `\\[x_{1,2} = ${-p/2}\\]`
-            explainer = `` 
+            }
+ 
         break;
-
-        case 4: //  Normalform  - Nullstellen, rein quadratisch
-            q = x1**2
-            q = -q
-            aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction2(q)}\\]` 
-            help = `` 
-            loesung = `\\[x_{1} = ${x1}, x_{2} = ${-x1}\\]` 
-            explainer = `` 
-        break;    
-        
-        case 5: // Allgemeine Form in Normalform (Nullst keine, 1, 2, 2 rein quad)
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;
-        
-        case 6: // Allgemeine Form. Wieviele Nullstellen gibt es? (Nullst keine, 1, 2, 2 rein quad)
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;
-
-        case 7: // Gestaucht gestreckt
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;
-
-        case 8: // Scheitelpunktform (mit Vorfaktor). Scheitel finden
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;
-
-        case 9: // Allgemeine Form. Scheitel finden (mit u ohne Vorfaktor)
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;
-
-        case 10: // Normalform in Scheitelpunktform, Quad Ergänzung
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        case 11: // Verschoben x, y, allgemeiner Punkt (Falluntersch.)
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;
-
-        case 12: // Schnittpunkt Parabel mit Gerade
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;
-
-        case 13: // Tangente an Gerade
-            aufgabe = `` 
-            help = `` 
-            loesung = `` 
-            explainer = `` 
-        break;       
-
+ 
         default:
             aufgabe = `` 
             help = `` 
