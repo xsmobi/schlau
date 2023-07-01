@@ -1,13 +1,14 @@
-function lin1(max, min) {
+function lin1() {
     let aufgabe, loesung, help, explainer, explainer1, explainer2
-    let a = getRandomInt(max-min) + min; // > 0
-    let b = getRandomInt(max-min) + min; // > 0
-    if (b === a) b++
-    //const casex = getRandomInt(8)
-    const casex = 7
+    let a = getRandomInt(30) + 1; // > 0
+    let b = getRandomInt(20) - 20; // > 0
+    if (b === 0) b=21
+    const casex = getRandomInt(8)
+    //const casex = 7
     explainer1 = `Ziel: das unbekannte <b>x</b> soll alleine stehen. Du formst die Gleichung so um, dass sie mit "x =" beginnt. `
     explainer2 = ""
     //explainer2a = ""
+    console.log(casex)
     switch(casex) {
         case 0:
             //aufgabe = `x + ${a} = ${b}`;                      // x + a = b

@@ -43,9 +43,9 @@ function App() {
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
     {typ: "linfun", btn: "LINEAR y(x)", txt: "Lineare Funktionen"}, 
-    /*
-    {typ: "quad",   btn: "QUAD y(x)",    txt: "Quadratische Funktionen, Scheitelpunktform"},
     
+    {typ: "quad",   btn: "QUAD y(x)",    txt: "Quadratische Funktionen"},
+    /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     {typ: "power",  btn: "a^n",           txt: "Potenzen"},
     {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},
@@ -64,7 +64,7 @@ function App() {
     */
   ]
 
-  const [selectedType, setSelectedType] = useState('linfun');
+  const [selectedType, setSelectedType] = useState('quad');
 
  
   
@@ -96,6 +96,7 @@ setShowExplainer(false);
 
 const toggleShowResult = () => {
 setShowResult(!showResult);
+setShowHelp(false);
 };
 
 const toggleShowExplainer = () => {

@@ -8,22 +8,24 @@ function linfun() {
     const x0 = -b1/a1
     const y0 = b1
     const xx1 = [2, 3, 4, 5, -2, -3, -4, -5]
-    const x1 = xx1[Math.floor(Math.random()*xx1.length)]
-    const y1 = a1*x1+b1
+    let x1 = xx1[Math.floor(Math.random()*xx1.length)]
+    let y1 = a1*x1+b1
     const xx2 = [2, 3, 4, 5, -2, -3, -4, -5] //x2, y2 beliebiger Punkt
-    const x2 = xx2[Math.floor(Math.random()*xx2.length)]
+    let x2 = xx2[Math.floor(Math.random()*xx2.length)]
     const yy2 = [2, 3, 4, 5, -2, -3, -4, -5]
-    const y2 = yy2[Math.floor(Math.random()*yy2.length)]
+    let y2 = yy2[Math.floor(Math.random()*yy2.length)]
+    let ys // neuer Achsenabschnitt bei Verschiebung
 
     let linfunction
+    //a1=1
     if (Math.abs(a1) === 1) {
         linfunction = `y = ${Math.sign(a1)===1 ? "x" : "-x"} ${op} ${Math.abs(b1)}` 
     } else {
-        linfunction = `y = ${a1} \\cdot x ${op} ${Math.abs(b1)}` 
+        linfunction = `y = ${a1} x ${op} ${Math.abs(b1)}` 
     }
     
     let plusminuscase = getRandomInt(11);
-    
+    //plusminuscase = 3
     switch(plusminuscase) {
         case 1: // Nullstelle
             aufgabe = `Berechne die Nullstelle der Funktion \\[${linfunction}\\]`
@@ -43,14 +45,17 @@ function linfun() {
                 // x-Shift, horizontal
                 aufgabe = `Verschiebe die Gerade \\[${linfunction}\\] horizontal um den Wert ${shift}` 
                 help = `Nach ${shift>0 ? "rechts" : "links"} (${shiftsgn}${Math.abs(shift)}) verschieben heißt: in der Funktion
-                    <br>x durch (x ${shift>0 ? "-" : "+"} ${Math.abs(shift)}) ersetzen:
-                    \\[y = ${a1} \\cdot (x ${shift>0 ? "-" : "+"} ${Math.abs(shift)}) ${op} ${Math.abs(b1)}\\]
+                    <br>x durch (x${add(-shift)}) ersetzen:
                     `//!
-                if (-a1*shift + b1 === 0) {
-                    loesung = `\\[y = ${linfunc1(a1)}\\]`
+                if (a1 === 1) {
+                    help = help + `\\[y = x ${add(-shift)} ${op} ${Math.abs(b1)}\\]`
+                } else if (a1 === - 1) {
+                    help = help + `\\[y = - (x ${add(-shift)}) ${op} ${Math.abs(b1)}\\]` 
                 } else {
-                    loesung = `\\[y = ${linfunc1(a1)} ${Math.sign(-a1*shift + b1)===1 ? "+" : "-"}${Math.abs(-a1*shift + b1)}\\]`
+                    help = help + `\\[y = ${a1} (x ${add(-shift)}) ${op} ${Math.abs(b1)}\\]`
                 }
+                ys = -a1*shift + b1 // neuer Achsenabschnitt
+                loesung = `\\[y = ${adotx(a1)} ${add0(ys)}\\]`
                 explainer = `<p>Eine Gerade verschieben heißt: am verschobenen Ort - wenn also der Nullpunkt des Koordinatensystems um ${shift} nach ${shift>0 ? "rechts" : "links"} verschoben wäre - gilt dieselbe Geradengleichung, mit eben diesen verschobenen Koordinaten.
                     </p><p>Die x-Werte am verschobenen Ort sind aber um die Verschiebung um ${Math.abs(shift)} ${shift>0 ? "größer" : "kleiner"} geworden!
                     </p><p>Damit also die Geradengleichung weiter funktiert, müssen diese um ${Math.abs(shift)} ${shift>0 ? "größeren" : "kleineren"} wieder ausgegleichen werden, nämlich mit einer Korrektur von ${shift>0 ? "Minus" : "Plus"} ${Math.abs(shift)}.
@@ -59,16 +64,13 @@ function linfun() {
                     `//!
             } else {
                 // y-Shift, vertikal
+                ys = shift + b1
                 aufgabe = `Verschiebe die Gerade \\[${linfunction}\\] vertikal um den Wert ${shift}`  
                 help = `Wie muss sich die Gleichung ändern, dass für jedes beliebige x das y um den Wert ${Math.abs(shift)} ${shift>0 ? "größer" : "kleiner"} wird?
                 `//!
-                if (shift + b1 === 0) {
-                    loesung = `\\[y = ${linfunc1(a1)}\\]`
-                } else {
-                    loesung = `\\[y = ${linfunc1(a1)} ${shift + b1 > 0 ? "+" : "-"} ${Math.abs(shift+b1)}\\]`
-                }
+                loesung = `\\[y = ${linfunc1(a1)} ${add0(ys)}\\]`
                 explainer = `<p>Für die Verschiebung einer Geraden nach oben oder nach unten einfach in der Formel einen konstanten Wert hinzufügen:
-                    </p><p>Aus dem Achsenabschnitt ${b1} in der Geradengleichung wird ${b1}${shift>0 ? "+" : "-"}${Math.abs(shift)} = ${b1+shift}
+                    </p><p>Aus dem Achsenabschnitt ${b1} in der Geradengleichung wird ${b1}${add(shift)} = ${b1+shift}
                     </p>
                     `//!
             }
@@ -89,11 +91,15 @@ function linfun() {
                 // (x0|0)
                 const zero = b1
                 const yzero = a1 * zero
-                aufgabe = `Gib die Gleichung einer Geraden mit Steigung ${a1} durch den Punkt P(${zero}|0) an!` 
+                aufgabe = `.Gib die Gleichung einer Geraden mit Steigung ${a1} durch den Punkt P(${zero}|0) an!` 
                 help = `Die Gerade mit Steigung ${a1} durch den Nullpunkt (0|0) wird beschrieben durch
                 \\[y = ${linfunc1(a1)}\\] Verschiebe diese Gerade an die Stelle P(${zero}|0), indem du x durch x ${zero > 0 ? "-" : "+"} ${Math.abs(zero)} ersetzt.
                 `//A!
+                help = `Die Gerade mit Steigung ${a1} durch den Nullpunkt (0|0) wird beschrieben durch
+                \\[y = ${linfunc1(a1)}\\] Verschiebe diese Gerade an die Stelle P(${zero}|0), indem du x durch x${add(-zero)} ersetzt.
+                `//A!                
                 loesung = `\\[y = ${linfunc1(a1)} ${yzero > 0 ? "-" : "+"} ${Math.abs(yzero)}\\]` 
+                loesung = `\\[y = ${linfunc1(a1)} ${add(-yzero)}\\]` 
                 explainer = `Die Ursprungsgerade \\[y = ${linfunc1(a1)}\\] entlang der x-Achse an den Punkt P(${zero}|0) zu verschieben heißt, sie um <i>${zero > 0 ? "plus " : "minus "} ${Math.abs(zero)}</i> zu verschieben. Deshalb muss x in der Formel durch <i>x ${zero > 0 ? "minus " : "plus "} ${Math.abs(zero)}</i> ersetzt werden.
                 \\[y = ${linfunc2(a1, -zero)}\\]
                 `// !
@@ -103,7 +109,7 @@ function linfun() {
         case 4: // durch x0 und y0
             aufgabe = `Gib die Gerade mit den Achsenabschnitten (${x2}|0) und (0|${y2}) an` 
             help = `Die Steigung ist ${getLowestFractionPlusDec(-y2/x2, "jax", true)}` 
-            loesung = `\\[y = ${getLowestFractionPlusDec(-y2/x2, "jaxinline")} \\cdot x ${y2>0 ? "+" : "-"} ${Math.abs(y2)} \\]` 
+            loesung = `\\[y = ${adotx(getLowestFractionPlusDec(-y2/x2, "jaxinline"))} ${add(y2)} \\]`
             explainer = `<p>Die allgemeine Form der Geradengleichung ist
                 <br>y = ax + b oder y = mx + n
                 </p><p>Die Punkte (${x2}|0) und (0|${y2}) ergeben zusammen mit dem Nullpunt (0|0) ein Steigungsdreieck mit dem du dir die Steigung der Geraden veranschaulichen kannst:
@@ -116,11 +122,12 @@ function linfun() {
         break;
 
         case 5: // durch einen Punkt, Steigung gegeben "Punktsteigungsform"
-            aufgabe = `Gib die Gleichung einer Geraden durch den Punkt (${x2}|${y2})) mit der Steigung ${a1} an` 
+            aufgabe = `Gib die Gleichung einer Geraden durch den Punkt (${x2}|${y2}) mit der Steigung ${a1} an` 
             help = `Die Punktsteigungsform für den Punkt \\((x_{0}|y_{0})\\) und die Steigung m lautet 
                 \\[y = m \\cdot (x - x_{0}) + y_{0}\\]
                 `//!
-            loesung = `\\[y = ${a1} \\cdot x ${add(-a1*x2 + y2)}\\]` 
+            //loesung = `\\[y = ${a1} \\cdot x ${add(-a1*x2 + y2)}\\]` 
+            loesung = `\\[y = ${adotx(a1)} ${add0(-a1*x2 + y2)}\\]` 
             explainer = `\\[y = m \\cdot (x - x_{0}) + y_{0}\\]
                 \\[m = ${a1}; x_{0} = ${x2}; y_{0} = ${y2};\\]
                 \\[y = ${a1} \\cdot (x ${add(-x2)}) ${add(y2)}\\]
@@ -233,7 +240,7 @@ function brac(n) {
 function linfunc1(n) {
     if (n===1) return "x"
     else if (n===-1) return "-x"
-    else return `${n} \\cdot x`
+    else return `${n} x`
 }
 function linfunc2(n,m) {
     if (n===1) return `x ${m>0 ? "+" : "-"} ${Math.abs(m)}`
@@ -279,6 +286,11 @@ function getLowestFractionPlusDec(x0,format, dec, result) {
 
 function add(x) {
     return `${x>0 ? "+" : "-"}${Math.abs(x)}`
+}
+
+function add0(x) {
+    if (x === 0) return ``
+    else return `${x>0 ? "+" : "-"}${Math.abs(x)}`
 }
 
 function adotx(a) {

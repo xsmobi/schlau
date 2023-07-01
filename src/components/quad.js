@@ -13,17 +13,14 @@ function quad() {
     function quadfunction(p,q) {
         return `x^2 ${add(p)} x ${addc(q)}`
     }
-    function quadfunction1(p,q) {
+    function quadfunction1(p) {
         return `x^2 ${add(p)} x`
     }
     function quadfunction2(q) {
         return `x^2 ${addc(q)}`
     }
 
-    
-    
-    
-    
+
     let plusminuscase = getRandomInt(12);
     plusminuscase = 1
     switch(plusminuscase) {
@@ -31,17 +28,24 @@ function quad() {
             p = 2 * p
             q = 4 * q
             aufgabe = `Berechne die Nullstellen der Funktion \\[y = ${quadfunction(p, q)}\\]` 
-            if (Math.random() < 0) {
-                help = `Mit p-q-Formel, \\[-\\frac{p}{2} = ${-p/2}; q = ${q}\\]
+            if (Math.random() < 0.5) {
+                help = `Lösung mit p-q-Formel:
+                \\[x^2 + px + q = 0\\]
+                \\[x_{1,2} = -\\frac{p}{2} \\pm \\sqrt{(\\frac{p}{2})^2 - q}\\]
+                \\[-\\frac{p}{2} = ${-p/2}; (\\frac{p}{2})^2 = ${p**2/4}; q = ${q}\\]
                 \\[x_{1,2} = ${-p/2} \\pm \\sqrt{${p**2/4} ${add(-q)}} \\]
                 `//!
             } else {
-                help = `Mit quadratischer Ergänzung,  Ergänzt wird mit
-                \\[(\\frac{p}{2})^2 = (\\frac{${p}}{2})^2 = ${brac(p/2)}^2 = ${p**2/4} \\]
+                help = `\\[${quadfunction(p, q)} = 0\\]
+                Mit quadratischer Ergänzung: ergänzt wird mit
+                \\[(\\frac{${p}}{2})^2 = ${brac(p/2)}^2 = ${p**2/4} \\]
                 \\[${quadfunction(p, q)} + ${p**2/4} = 0 + ${p**2/4} \\]
+                \\[${quadfunction1(p)} + ${p**2/4} = ${-q} + ${p**2/4} \\]
+                \\[(x ${add(p/2)})^2 = ${-q + p**2/4} \\]
                 `//A
             }
-            loesung = `\\[x_{1}=${x1}, x_{2}=${x2}, p=${-x1-x2}, q=${x1*x2}\\]` 
+            //loesung = `\\[x_{1}=${2*x1}, x_{2}=${2*x2}, p=${-x1-x2}, q=${x1*x2}\\]` 
+            loesung = `\\[x_{1}=${2*x1}, x_{2}=${2*x2}\\]` 
             explainer = `(folgt)` 
         break;
 

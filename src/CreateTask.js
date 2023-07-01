@@ -27,7 +27,8 @@ function CreateTask(task) {
             aufgabeDaten = frac(val1,val2)
         break;
         case "lin1": 
-            aufgabeDaten = lin1(val1,val2,explainer)
+           // aufgabeDaten = lin1(val1,val2,explainer)
+           aufgabeDaten = lin1()
         break;
         case "lin2": 
             aufgabeDaten = lin2(val1,val2)
