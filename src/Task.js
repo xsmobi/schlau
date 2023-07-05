@@ -1,5 +1,6 @@
 import {React} from "react";
 import { MathJaxContext, MathJax } from "better-react-mathjax";
+import prozentmenu from './components/prozentmenu';
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
@@ -11,7 +12,7 @@ const style={
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
-    const { text, help, answer, explainer, headerclass } = task;
+    const { text, help, answer, explainer, headerclass, menu } = task;
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
         /*
     const config = {
@@ -24,9 +25,29 @@ function Task({ task, showHelp, showResult, showExplainer }) {
       config={config}
       onStartup={(mathJax) => (mathJax.Hub.processSectionDelay = 0)}>
     */
+    /*
+    //const menu_display = menu === "undefined" ? "" : prozentmenu()
+    let prozentmenu0 = prozentmenu()
+    const menu_display = menu === "undefined" ? "" : prozentmenu0[0]
+    console.log(prozentmenu0[0], prozentmenu)
+    */
+    const menu_display = menu === "undefined" ? "" : menu
+    //console.log(JSON.stringify(menu)) 
+    // return menu: nicht menu===undefined und nicht typeof menu === "undefined"
+    // save: {menu === undefined ? "" : <div dangerouslySetInnerHTML={{ __html: menu_display }} />}
+    //{menu === "undefined" ? "" : {menu_display}}
+    //console.log(menu)
+    //console.log(JSON.stringify(menu)) 
     return (
     <MathJaxContext>
     <div className="Task">
+
+        {menu === undefined ? "" : menu_display}
+        {menu_display === "xxxprozentmenu" ?
+        prozentmenu()
+      
+        : ""
+        }
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{text}</MathJax></h3>
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{answer}</MathJax></h3>}

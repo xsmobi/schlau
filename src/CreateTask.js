@@ -13,7 +13,6 @@ import proba1 from './components/proba1';
 function CreateTask(task) {
     const { type, val1, val2, explainer } = task;
     let aufgabeDaten = []
- 
     switch(type){
         case "add":
             aufgabeDaten = add(val1,val2)
@@ -56,6 +55,8 @@ function CreateTask(task) {
             aufgabeDaten = add(val1,val2)
     }
     
+
+
     const processedTask = {
     //id: id,
     //templateid: id,
@@ -63,7 +64,9 @@ function CreateTask(task) {
     answer: `${aufgabeDaten[1]}`,
     help: `${aufgabeDaten[2]}`,
     explainer: `${aufgabeDaten[3]}`,
-    headerclass: `${aufgabeDaten[4]}`
+    headerclass: `${aufgabeDaten[4]}`,
+    //menu: `${aufgabeDaten[5]}`
+    menu: aufgabeDaten[5]
     };
  
     return processedTask;

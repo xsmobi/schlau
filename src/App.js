@@ -84,10 +84,17 @@ function App() {
 
 
 // Damit GetRandomTask auch bei Typ-Wechsel
+
 useEffect(() => {
   getRandomTask();
 }, [selectedType]) // eslint-disable-line react-hooks/exhaustive-deps
 
+/*
+ const selectedTypeState = useRef("add")
+  useEffect(()=>{
+    selectedTypeState.current = selectedType
+  })
+*/
 
 const toggleShowHelp = () => {
 setShowHelp(!showHelp);
