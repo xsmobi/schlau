@@ -133,14 +133,17 @@ function prozent(filter) {
     const i = typeof filter === 'undefined' ? Math.floor(Math.random() * aufgaben.length) : filter
     
     
-    let menu = "(Sub-Menü in Kürze)"
+    
 
 
-    //menu = "" // vorläufig
+
         
     const [aufgabe_,loesung_,help_,explainer_] = [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
     
-    return [aufgabe_,loesung_,help_,explainer_,headerclass,menu]
+    //let menu = "(Sub-Menü in Kürze)"
+    //return [aufgabe_,loesung_,help_,explainer_,headerclass,menu]
+    return [aufgabe_,loesung_,help_,explainer_,headerclass]
+
 
 }
 

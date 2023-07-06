@@ -1,5 +1,5 @@
 import "./App.css";
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
 import templates from "./components/_templates";
@@ -34,17 +34,16 @@ function App() {
   const [showExplainer, setShowExplainer] = useState(false);
 
   const types = [
-    {typ: "add",    btn: "-a + b",       txt: "Plus und Minus auf dem Zahlenstrahl"},
+    {typ: "add",    btn: "-a + b",        txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a - (-+b)",     txt: "Plus und Minus mit Klammern"},
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
-    {typ: "prop",   btn: "3 SATZ",     txt: "Proportionalität und Dreisatz"},
-    {typ: "prozent", btn: "Prozent %",     txt: "Anteile und Prozent"},
+    {typ: "prop",   btn: "3 SATZ",        txt: "Proportionalität und Dreisatz"},
+    {typ: "prozent", btn: "Prozent %",    txt: "Anteile und Prozent", hasFilter: true},
     {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
-    {typ: "linfun", btn: "LINEAR y(x)", txt: "Lineare Funktionen"}, 
-    
-    {typ: "quad",   btn: "QUAD y(x)",    txt: "Quadratische Funktionen"},
+    {typ: "linfun", btn: "LINEAR y(x)",   txt: "Lineare Funktionen"}, 
+    {typ: "quad",   btn: "QUAD y(x)",     txt: "Quadratische Funktionen", hasFilter: true},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     {typ: "power",  btn: "a^n",           txt: "Potenzen"},
@@ -66,10 +65,15 @@ function App() {
 
   const [selectedType, setSelectedType] = useState('quad');
 
+  let i = types.findIndex(item => item.typ === selectedType)
+  let filter = types[i].hasFilter ? true : false
+  console.log(filter)
+
+
  
   
   const getRandomTask = () => {
-    const filteredTasks = templates.filter((task) => task.type === selectedType);
+    const filteredTasks = templates.filter((task) => task.type === selectedType);  // tasks filter
     if (filteredTasks.length > 0) {
       const randomIndex = Math.floor(Math.random() * filteredTasks.length);
       const task = filteredTasks[randomIndex];
@@ -150,6 +154,8 @@ return (
                 onClick={toggleShowExplainer}><AiOutlineZoomIn size={20} /></button>
             </div>
 
+            {filter && <p>This Type has filter</p>}
+
             {currentTask && (
               <Task
                 key={currentTask.name}
@@ -163,7 +169,7 @@ return (
               />
             )}
 
-
+            
 
             <div className="types">
                 {types.map((type) => (
