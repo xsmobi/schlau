@@ -1,6 +1,7 @@
 import "./App.css";
 import { React, useState, useEffect, useRef } from "react";
 import Task from "./Task";
+import TaskMenu from "./TaskMenu";
 import CreateTask from "./CreateTask";
 import templates from "./components/_templates";
 import {AiOutlinePlus} from 'react-icons/ai'
@@ -9,6 +10,7 @@ import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
 //import {MdLinearScale} from 'react-icons/md'
+import Select from 'react-select';
 
 const style={
   bg:`h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -67,7 +69,9 @@ function App() {
 
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
-  console.log(filter)
+  //console.log(filter)
+
+  const [selectedOption, setSelectedOption] = useState(null);
 
 
  
@@ -122,6 +126,13 @@ const handleTypeSelection = (type) => {
 setSelectedType(type);
 };
 
+const options = [
+  { value: 'alle', label: 'Alle' },
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+];
+//console.log(selectedOption)
 
 
 return (
@@ -154,7 +165,16 @@ return (
                 onClick={toggleShowExplainer}><AiOutlineZoomIn size={20} /></button>
             </div>
 
-            {filter && <p>This Type has filter</p>}
+            {/*filter && <p>This Type has filter</p>*/}
+            {/*filter && 
+              <div className="App">
+                <Select
+                  defaultValue={selectedOption}
+                  onChange={setSelectedOption}
+                  options={options}
+                />
+              </div>
+            */}
 
             {currentTask && (
               <Task
@@ -168,6 +188,20 @@ return (
                 toggleShowExplainer={toggleShowExplainer}
               />
             )}
+
+              {filter && (
+              <TaskMenu
+                key={currentTask.name}
+                task={currentTask}
+                showHelp={showHelp}
+                toggleShowHelp={toggleShowHelp}
+                showResult={showResult}
+                toggleShowResult={toggleShowResult}
+                showExplainer={showExplainer}
+                toggleShowExplainer={toggleShowExplainer}
+              />
+            )}
+
 
             
 

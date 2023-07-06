@@ -1,18 +1,18 @@
 import {React} from "react";
 import { MathJaxContext, MathJax } from "better-react-mathjax";
-import prozentmenu from './components/prozentmenu';
+import prozentmenu from "./components/prozentmenu"
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
     helptext: `prose prose-lg border-solid border-2 border-red-600 px-2 rounded-md`,
     resulttext: `prose prose-lg`,
-    //explainertext: `prose prose-lg border-dashed border-4 border-gray-400 px-2`,
     explainertext: `prose prose-lg border-solid border-2 border-gray-400 px-2 my-2 rounded-md`,
     subheader: `prose prose-lg`
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
     const { text, help, answer, explainer, headerclass, menu } = task;
+    //console.log("task", text)
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
         /*
     const config = {
@@ -31,7 +31,8 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     const menu_display = menu === "undefined" ? "" : prozentmenu0[0]
     console.log(prozentmenu0[0], prozentmenu)
     */
-    const menu_display = menu === "undefined" ? "" : menu
+    let menu_display = menu === "undefined" ? "" : menu
+    menu_display = "" // klappte, aber jetzt neu über component TaskMenu
     //console.log(JSON.stringify(menu)) 
     // return menu: nicht menu===undefined und nicht typeof menu === "undefined"
     // save: {menu === undefined ? "" : <div dangerouslySetInnerHTML={{ __html: menu_display }} />}

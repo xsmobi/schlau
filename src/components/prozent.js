@@ -140,9 +140,21 @@ function prozent(filter) {
         
     const [aufgabe_,loesung_,help_,explainer_] = [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
     
-    //let menu = "(Sub-Menü in Kürze)"
-    //return [aufgabe_,loesung_,help_,explainer_,headerclass,menu]
-    return [aufgabe_,loesung_,help_,explainer_,headerclass]
+    let menu = "(Sub-Menü in Kürze)"
+
+    /*
+    let menu = aufgaben.map(({ nr, title, description }) => ({
+        nr,
+        title,
+        description,
+      }));
+    */
+    //let menu = aufgaben.map(({ nr, title }) => ({ nr, title }));
+    //menu = Object.keys(menu)
+    //console.log(menu)
+
+    //return [aufgabe_,loesung_,help_,explainer_,headerclass]
+    return [aufgabe_,loesung_,help_,explainer_,headerclass,menu]
 
 
 }
