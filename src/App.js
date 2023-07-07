@@ -65,7 +65,7 @@ function App() {
     */
   ]
 
-  const [selectedType, setSelectedType] = useState('quad');
+  const [selectedType, setSelectedType] = useState('lin3');
 
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
@@ -126,12 +126,14 @@ const handleTypeSelection = (type) => {
 setSelectedType(type);
 };
 
+/*
 const options = [
   { value: 'alle', label: 'Alle' },
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' },
 ];
+*/
 //console.log(selectedOption)
 
 

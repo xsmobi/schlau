@@ -12,6 +12,10 @@ import proba1 from './components/proba1';
 
 function CreateTask(task) {
     const { type, val1, val2, explainer } = task;
+
+    //console.log(task)
+    //console.log(type)
+
     let aufgabeDaten = []
     switch(type){
         case "add":

@@ -1,5 +1,8 @@
-import {React} from "react";
-//import prozentmenu from "./components/prozentmenu"
+import {React, useState} from "react";
+//import aufgaben from "./components/prozent"
+import Select from 'react-select';
+import prozent from './components/prozent';
+
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
@@ -11,10 +14,36 @@ const style={
 }
 
 function TaskMenu({ task }) {
+    const [selectedOption, setSelectedOption] = useState(null);
     const { text } = task;
+
+    let aufgabe=prozent();
+    // Menu!
+    let menu = aufgabe[5]
+    //console.log(menu)
+
+    //let aufgabeDaten = []
+    //aufgabedaten = prozent();
+
+    const options = [
+        { value: 'alle', label: 'Dieses Menu ist noch nicht aktiv' },
+        ...menu.map(item => ({ value: item.nr, label: item.title })),
+      ];
+//if(selectedOption) console.log(selectedOption.value)
+
+
+     //console.log(options);
+
+
+
+
     return (
     <div className="Task">
-        <h3>Submenü (folgt): {/*menu*/}</h3>
+                        <Select
+                  defaultValue={selectedOption}
+                  onChange={setSelectedOption}
+                  options={options}
+                />
     </div>
     );
 }
