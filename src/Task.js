@@ -12,6 +12,7 @@ const style={
 
 function Task({ task, showHelp, showResult, showExplainer }) {
     const { text, help, answer, explainer, headerclass, menu } = task;
+    //console.log(task)
     //console.log("task", text)
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
         /*
@@ -19,26 +20,14 @@ function Task({ task, showHelp, showResult, showExplainer }) {
       loader: { load: ["input/asciimath"] },
       "fast-preview": {disabled: true}
     };
-
     <MathJaxContext
       version={2}
       config={config}
       onStartup={(mathJax) => (mathJax.Hub.processSectionDelay = 0)}>
     */
-    /*
-    //const menu_display = menu === "undefined" ? "" : prozentmenu()
-    let prozentmenu0 = prozentmenu()
-    const menu_display = menu === "undefined" ? "" : prozentmenu0[0]
-    console.log(prozentmenu0[0], prozentmenu)
-    */
+  
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
-    //console.log(JSON.stringify(menu)) 
-    // return menu: nicht menu===undefined und nicht typeof menu === "undefined"
-    // save: {menu === undefined ? "" : <div dangerouslySetInnerHTML={{ __html: menu_display }} />}
-    //{menu === "undefined" ? "" : {menu_display}}
-    //console.log(menu)
-    //console.log(JSON.stringify(menu)) 
     return (
     <MathJaxContext>
     <div className="Task">

@@ -1,4 +1,6 @@
 import {React, useState} from "react";
+//import { useContext } from 'react';
+//import { FilterContext } from './FilterContext';
 //import aufgaben from "./components/prozent"
 import Select from 'react-select';
 import prozent from './components/prozent';
@@ -15,6 +17,7 @@ const style={
 
 function TaskMenu({ task }) {
     const [selectedOption, setSelectedOption] = useState(null);
+    //const { filter, setFilter } = useContext(FilterContext);
     const { text } = task;
 
     let aufgabe=prozent();

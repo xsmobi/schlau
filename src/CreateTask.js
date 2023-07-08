@@ -1,3 +1,5 @@
+//import {useContext} from 'react';
+//import {FilterContext} from './App'
 import add from './components/add';
 import addsub from './components/addsub';
 import frac from './components/frac';
@@ -10,13 +12,23 @@ import linfun from './components/linfun';
 import quad from './components/quad';
 import proba1 from './components/proba1';
 
+
 function CreateTask(task) {
-    const { type, val1, val2, explainer } = task;
+//    const filterTypec = useContext(FilterContext);
+    //const { type, val1, val2, explainer } = task;
+    const { type, val1, val2, subfilter } = task;
+    //console.log(subfilter)
+
+    /*
+    const filterRef = useRef('');
+    let filter
+    filter = filterRef.current;
 
     //console.log(task)
     //console.log(type)
-
+    */
     let aufgabeDaten = []
+    let filter = subfilter ? subfilter : " "
     switch(type){
         case "add":
             aufgabeDaten = add(val1,val2)
@@ -43,7 +55,8 @@ function CreateTask(task) {
             aufgabeDaten = prop()
         break; 
         case "prozent": 
-            aufgabeDaten = prozent()
+            aufgabeDaten = prozent(filter)
+            //console.log(subfilter, filter)
         break; 
         case "linfun": 
             aufgabeDaten = linfun()

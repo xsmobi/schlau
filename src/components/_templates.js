@@ -87,7 +87,8 @@ const templates = [
         type: "prozent",
         val1: 2,
         val2: 20,
-        headerclass: "subheader"
+        headerclass: "subheader",
+        subfilter: ""
     }, 
     {
       name: "Einfache Wahrscheinlichkeit",

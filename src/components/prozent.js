@@ -130,7 +130,8 @@ function prozent(filter) {
     //const i = getRandomInt(aufgaben.length)-1
     //const i = Math.floor(Math.random() * aufgaben.length);
     
-    const i = typeof filter === 'undefined' ? Math.floor(Math.random() * aufgaben.length) : filter
+    //const i = typeof filter === 'undefined' ? Math.floor(Math.random() * aufgaben.length) : filter
+    const i = ( typeof filter == 'number' ? filter : Math.floor(Math.random() * aufgaben.length))
     
     
     

@@ -1,16 +1,16 @@
 import "./App.css";
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect } from "react";
 import Task from "./Task";
 import TaskMenu from "./TaskMenu";
 import CreateTask from "./CreateTask";
 import templates from "./components/_templates";
 import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineQuestion} from 'react-icons/ai'
-// import {AiOutlineExclamation} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
-//import {MdLinearScale} from 'react-icons/md'
 import Select from 'react-select';
+import prozent from './components/prozent';
+
 
 const style={
   bg:`h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -29,6 +29,7 @@ const style={
 }
 
 function App() {
+  const [filterType, setFilterType] = useState('')
  
   const [currentTask, setCurrentTask] = useState({});
   const [showHelp, setShowHelp] = useState(false);
@@ -65,13 +66,16 @@ function App() {
     */
   ]
 
+  
+
   const [selectedType, setSelectedType] = useState('lin3');
 
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
   //console.log(filter)
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(100);
+  const [submenu, setSubmenu] = useState("")
 
 
  
@@ -81,7 +85,12 @@ function App() {
     if (filteredTasks.length > 0) {
       const randomIndex = Math.floor(Math.random() * filteredTasks.length);
       const task = filteredTasks[randomIndex];
+      if (filter && submenu) task.subfilter = selectedOption.val
+      //console.log(task.subfilter)
+      //console.log(task)
       const processedTask = CreateTask(task);
+      setSubmenu(processedTask.menu);
+      //console.log(processedTask.menu)
       setCurrentTask(processedTask);
       setShowHelp(false);
       setShowResult(false);
@@ -89,7 +98,7 @@ function App() {
       //setDisabled(false);
     }
 };
-
+//console.log(submenu)
 
 // Damit GetRandomTask auch bei Typ-Wechsel
 
@@ -126,14 +135,16 @@ const handleTypeSelection = (type) => {
 setSelectedType(type);
 };
 
-/*
-const options = [
-  { value: 'alle', label: 'Alle' },
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
-*/
+let options
+if (filter && submenu) {
+  //let aufgabe=prozent();
+  //let menu = aufgabe[5] // Menu !!!!!!!!!
+  //console.log(submenu)
+  options = [
+    { value: 'alle', label: 'Dieses Menu ist noch nicht aktiv' },
+          ...submenu.map(item => ({ val: item.nr, label: item.title })),
+  ];
+}
 //console.log(selectedOption)
 
 
@@ -167,17 +178,6 @@ return (
                 onClick={toggleShowExplainer}><AiOutlineZoomIn size={20} /></button>
             </div>
 
-            {/*filter && <p>This Type has filter</p>*/}
-            {/*filter && 
-              <div className="App">
-                <Select
-                  defaultValue={selectedOption}
-                  onChange={setSelectedOption}
-                  options={options}
-                />
-              </div>
-            */}
-
             {currentTask && (
               <Task
                 key={currentTask.name}
@@ -188,10 +188,11 @@ return (
                 toggleShowResult={toggleShowResult}
                 showExplainer={showExplainer}
                 toggleShowExplainer={toggleShowExplainer}
+                filterx={3}
               />
             )}
 
-              {filter && (
+              {/*filter && (
               <TaskMenu
                 key={currentTask.name}
                 task={currentTask}
@@ -202,9 +203,19 @@ return (
                 showExplainer={showExplainer}
                 toggleShowExplainer={toggleShowExplainer}
               />
-            )}
+              )*/}
 
-
+              {filter && submenu && (
+                  <div className="Task">
+                    <Select
+                      defaultValue={selectedOption}
+                      onChange={setSelectedOption}
+                      options={options}
+                    />
+                  </div>
+              
+              
+              )}
             
 
             <div className="types">
@@ -230,6 +241,7 @@ return (
         </footer>
     </div>
 </div>
+
 
 );
 
