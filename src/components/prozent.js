@@ -42,7 +42,7 @@ function prozent(filter) {
     const aufgaben = 
     [
     {       
-        nr:0,
+        nr:1,
         title: "Einkommen, Vergleich mit Durchschnitt",
         description: "",
             aufgabe: `${person} erhält im ersten Lehrjahr ${verdienstplus} Euro. Wie hoch liegt dieses Einkommen prozentual über dem Durchschnitt (2022: ${grundwert} Euro)?`,
@@ -56,7 +56,7 @@ function prozent(filter) {
             `//!
     },
     {
-        nr:1,
+        nr:2,
         title: "Stromverbrauch von Haushalten",
         description: "",
             aufgabe: `Ein ${strommenge[0]}-Haushalt verbraucht im Jahr durchschnittlich ca. ${Math.round(stromanteil*strommenge[1])} kWh Strom. Das sind ${stromtext}. Wie groß ist dieser? Gib die Energie in kWh an.`,
@@ -68,7 +68,7 @@ function prozent(filter) {
             `//!
     },
     {
-        nr:2,
+        nr:3,
         title: "Verbreitung von Smartphones",
         description: "",
             aufgabe: `Verbreitung von Smartphones: weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${smartWeltMrd} Mrd. Smartphones, in Deutschland (${popDeMio} Mio) gibt es ${smartDeMio} Mio. Smartphones. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
@@ -81,7 +81,7 @@ function prozent(filter) {
             `//!
     },
     {
-        nr:3,
+        nr:4,
         title: "Autobesitzer, Deutschland vs. Welt",
         description: "",        
             aufgabe: `Wie viele haben ein Auto? Weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${autosWeltMrd} Mrd. Autos, in Deutschland (${popDeMio} Mio.) gibt es ${autosDeMio} Mio. Autos. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
@@ -94,7 +94,7 @@ function prozent(filter) {
             `//!
     },
     {
-        nr:4,
+        nr:5,
         title: "Umsatzsteigerung / Unternehmensgröße",
         description: "",        
             aufgabe: `Die Firma Klein hatte 2021 einen Jahresumsatz von ${kleinUmsMio.toFixed(1)} Mio. und konnte diesen 2022 um ${kleinUmsPlus} steigern. Die Firma Gross erzielte ${grossUmsMio} Mio. und verzeichnete 2022 ein Plus von ${grossUmsMioPlus} Mio. Welches Unternehmen hat prozentual mehr zugelegt?`,
@@ -107,7 +107,7 @@ function prozent(filter) {
             `//!
     },
     {
-        nr:5,
+        nr:6,
         title: "Preis und Rabatt",
         description: "",        
             aufgabe: `Ein Produkt kostet ${preis1.toFixed(2)} Euro und wird um ${rabatt1}% reduziert. Wie viel kostet das Produkt nach der Reduzierung?`,
@@ -132,6 +132,7 @@ function prozent(filter) {
     
     //const i = typeof filter === 'undefined' ? Math.floor(Math.random() * aufgaben.length) : filter
     const i = ( typeof filter == 'number' ? filter : Math.floor(Math.random() * aufgaben.length))
+    //console.log(typeof filter, filter)
     
     
     

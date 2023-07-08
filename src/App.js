@@ -74,7 +74,7 @@ function App() {
   let filter = types[i].hasFilter ? true : false
   //console.log(filter)
 
-  const [selectedOption, setSelectedOption] = useState(100);
+  const [selectedOption, setSelectedOption] = useState(0);
   const [submenu, setSubmenu] = useState("")
 
 
@@ -86,11 +86,8 @@ function App() {
       const randomIndex = Math.floor(Math.random() * filteredTasks.length);
       const task = filteredTasks[randomIndex];
       if (filter && submenu) task.subfilter = selectedOption.val
-      //console.log(task.subfilter)
-      //console.log(task)
       const processedTask = CreateTask(task);
       setSubmenu(processedTask.menu);
-      //console.log(processedTask.menu)
       setCurrentTask(processedTask);
       setShowHelp(false);
       setShowResult(false);
@@ -133,20 +130,18 @@ setShowResult(false);
 
 const handleTypeSelection = (type) => {
 setSelectedType(type);
+setSelectedOption(0);
 };
 
 let options
 if (filter && submenu) {
-  //let aufgabe=prozent();
-  //let menu = aufgabe[5] // Menu !!!!!!!!!
-  //console.log(submenu)
+
   options = [
-    { value: 'alle', label: 'Dieses Menu ist noch nicht aktiv' },
+    { val: 0, label: 'Dieses Menu ist noch nicht aktiv' },
           ...submenu.map(item => ({ val: item.nr, label: item.title })),
   ];
+  //console.log(selectedOption.val)
 }
-//console.log(selectedOption)
-
 
 return (
 
@@ -188,7 +183,7 @@ return (
                 toggleShowResult={toggleShowResult}
                 showExplainer={showExplainer}
                 toggleShowExplainer={toggleShowExplainer}
-                filterx={3}
+                //filterx={3}
               />
             )}
 

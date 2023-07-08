@@ -14,21 +14,12 @@ import proba1 from './components/proba1';
 
 
 function CreateTask(task) {
-//    const filterTypec = useContext(FilterContext);
-    //const { type, val1, val2, explainer } = task;
+
     const { type, val1, val2, subfilter } = task;
-    //console.log(subfilter)
-
-    /*
-    const filterRef = useRef('');
-    let filter
-    filter = filterRef.current;
-
-    //console.log(task)
-    //console.log(type)
-    */
+   
     let aufgabeDaten = []
-    let filter = subfilter ? subfilter : " "
+    let filter = subfilter ? subfilter-1 : " "
+   
     switch(type){
         case "add":
             aufgabeDaten = add(val1,val2)
