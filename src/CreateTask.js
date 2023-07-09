@@ -19,6 +19,7 @@ function CreateTask(task) {
    
     let aufgabeDaten = []
     let filter = subfilter ? subfilter-1 : " "
+    //console.log("endfilter", filter)
    
     switch(type){
         case "add":

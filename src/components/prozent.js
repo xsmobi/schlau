@@ -37,12 +37,47 @@ function prozent(filter) {
     preis1 = 40 + 10*getRandomInt(8)
     rabatt1 = 5 + 5*getRandomInt(6)
 
+    /* Belgien, Bulgarien, Dänemark, Deutschland, Estland, Finnland, Griechenland, Irland, Italien, Kroatien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Österreich, Polen, Portugal, Rumänien, Schweden, Slowakei, Spanien, Tschechien, Ungarn, Zypern */
+    const laender=[
+        {land: 'Belgien',       pop: 11.6, flaeche: 30.5,  bip: 549,    bildungprozbip: 6.7 },
+        {land: 'Bulgarien',     pop: 6.8,  flaeche: 111.0, bip: 85,     bildungprozbip: 4.0},
+        {land: 'Dänemark',      pop: 5.9,  flaeche: 42.9,  bip: 376,    bildungprozbip: 6.4},
+        {land: 'Deutschland',   pop: 83.2, flaeche: 357.3, bip: 3870,   bildungprozbip: 4.7},
+        {land: 'Estland',       pop: 1.3,  flaeche: 45.2,  bip: 36,     bildungprozbip: 6.6},
+        {land: 'Finnland',      pop: 5.5,  flaeche: 338.4, bip: 267,    bildungprozbip: 5.9},
+        {land: 'Frankreich',    pop: 67.9, flaeche: 632.8, bip: 2639,   bildungprozbip: 5.5},
+        {land: 'Griechenland',  pop: 10.5, flaeche: 132.0, bip: 20,     bildungprozbip: 4.4},
+        {land: 'Irland',        pop: 5.1,  flaeche: 69.8,  bip: 503,    bildungprozbip: 3.1},
+        {land: 'Italien',       pop: 59.0, flaeche: 302.1, bip: 1909,   bildungprozbip: 4.3},
+        {land: 'Kroatien',      pop: 3.9,  flaeche: 56.6,  bip: 67,     bildungprozbip: 5.5},
+        {land: 'Lettland',      pop: 1.8,  flaeche: 64.6,  bip: 39,     bildungprozbip: 6.0},
+        {land: 'Litauen',       pop: 2.8,  flaeche: 65.3,  bip: 67,     bildungprozbip: 4.0},
+        {land: 'Luxemburg',     pop: 0.6,  flaeche: 2.6,   bip: 78,     bildungprozbip: 5.0},
+        {land: 'Malta',         pop: 0.5,  flaeche: 0.3,   bip: 17,     bildungprozbip: 5.9},
+        {land: 'Niederlande',   pop: 17.6, flaeche: 41.5,  bip: 941,    bildungprozbip: 5.3},
+        {land: 'Österreich',    pop: 9.0,  flaeche: 83.9,  bip: 447,    bildungprozbip: 5.1},
+        {land: 'Polen',         pop: 37.7, flaeche: 312.7, bip: 657,    bildungprozbip: 5.2},
+        {land: 'Portugal',      pop: 10.4, flaeche: 92.2,  bip: 239,    bildungprozbip: 5.9},
+        {land: 'Rumänien',      pop: 19.0, flaeche: 238.4, bip: 286,    bildungprozbip: 3.7},
+        {land: 'Schweden',      pop: 10.4, flaeche: 438.6, bip: 561,    bildungprozbip: 7.2},
+        {land: 'Slowakei',      pop: 5.4,  flaeche: 49.0,  bip: 110,    bildungprozbip: 4.6},
+        {land: 'Slowenien',     pop: 2.1,  flaeche: 20.2,  bip: 59,     bildungprozbip: 5.8},
+        {land: 'Spanien',       pop: 47.4, flaeche: 506.0, bip: 1327,   bildungprozbip: 4.6},
+        {land: 'Tschechien',    pop: 10.5, flaeche: 78.9,  bip: 277,    bildungprozbip: 5.1},
+        {land: 'Ungarn',        pop: 9.7,  flaeche: 93.0,  bip: 170,    bildungprozbip: 4.8},
+        {land: 'Zypern ',       pop: 0.9,  flaeche: 9.3,   bip: 27,     bildungprozbip: 6.1},
+        ]
+        let laendertab = laender.map((item)=>[item.land, item.pop, item.flaeche, item.bip, item.bildungprozbip])
+        //console.table(laendertab)
+        const j = Math.floor(Math.random()*laender.length)
+        const [land, pop, flaeche, bip, bildungprozbip] = laendertab[j]
+        //console.log(land, pop, flaeche, bip, bildungprozbip)
     
-
     const aufgaben = 
     [
+        /*
         {
-            nr:0,
+            nr:1,
             title: "Verbreitung von Smartphones",
             description: "",
                 aufgabe: `Verbreitung von Smartphones: weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${smartWeltMrd} Mrd. Smartphones, in Deutschland (${popDeMio} Mio) gibt es ${smartDeMio} Mio. Smartphones. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
@@ -55,7 +90,7 @@ function prozent(filter) {
                 `//!
         },
         {
-            nr:0,
+            nr:2,
             title: "Autobesitzer, Deutschland vs. Welt",
             description: "",        
                 aufgabe: `Wie viele haben ein Auto? Weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${autosWeltMrd} Mrd. Autos, in Deutschland (${popDeMio} Mio.) gibt es ${autosDeMio} Mio. Autos. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
@@ -67,6 +102,7 @@ function prozent(filter) {
                 <br>Also statt Dezimalbrüche ${(autosWeltMrd/popWeltMrd).toFixed(2)} vs. ${(autosDeMio/popDeMio).toFixed(2)} in Prozent: ${Math.round(100*autosWeltMrd/popWeltMrd)}% vs. ${Math.round(100*autosDeMio/popDeMio)}%
                 `//!
         },
+        */
     {       
         nr:1,
         title: "Einkommen, Vergleich mit Durchschnitt",
@@ -93,17 +129,22 @@ function prozent(filter) {
             <br><b>3 </b>Durchschnitt = Verbrauch / ${stromanteil} =  ${Math.round(stromanteil*strommenge[1])}kWh / ${stromanteil}
             `//!
     },
-    /*
+    
     {
         nr:3,
-        title: "",
+        title: "EU-Länder: Budget für Bildung",
         description: "",
-            aufgabe: ``,
-            loesung: ``,
-            help: ``,
-            explainer: `
+            aufgabe: `In ${land} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
+            loesung: `${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro werden in ${land} pro Kopf ausgegeben.`,
+            help: `\\[Euro/Kopf = \\frac{BIP \\cdot ${(bildungprozbip/100).toFixed(3)}}{Bevölkerung} \\]`,
+            explainer: `Rechne praktischer BIP und Bevölkerung in Millionen, dann kürzen sich diese weg: Die Bildungsausgaben pro Kopf sind (s. Formel bei Hilfe): 
+            <br>\\(\\frac{${bip*1000} \\cdot ${(bildungprozbip*0.01).toFixed(3)}}{${pop}}\\) Euro = 
+            \\(\\frac{${bip*10} \\cdot ${(bildungprozbip).toFixed(1)}}{${pop}}\\) Euro
+            <br>Die letzte Umrechnung müsstest du nicht machen, wenn du mit Taschenrechner rechnest. Es gibt dir aber mehr Sicherheit und Überblick: du kannst auch mit dem Kopf das Ergebnis abschätzen.
             `//!
     },
+    
+    /*
     {
         nr:4,
         title: "EU-Länder, Vergleich mit Deutschland",
@@ -116,7 +157,7 @@ function prozent(filter) {
     },
     */
     {
-        nr:5,
+        nr:4,
         title: "Umsatzsteigerung / Unternehmensgröße",
         description: "",        
             aufgabe: `Die Firma Klein hatte 2021 einen Jahresumsatz von ${kleinUmsMio.toFixed(1)} Mio. und konnte diesen 2022 um ${kleinUmsPlus} steigern. Die Firma Gross erzielte ${grossUmsMio} Mio. und verzeichnete 2022 ein Plus von ${grossUmsMioPlus} Mio. Welches Unternehmen hat prozentual mehr zugelegt?`,
@@ -129,7 +170,7 @@ function prozent(filter) {
             `//!
     },
     {
-        nr:6,
+        nr:5,
         title: "Preis und Rabatt",
         description: "",        
             aufgabe: `Ein Produkt kostet ${preis1.toFixed(2)} Euro und wird um ${rabatt1}% reduziert. Wie viel kostet das Produkt nach der Reduzierung?`,
@@ -155,13 +196,7 @@ function prozent(filter) {
     //const i = typeof filter === 'undefined' ? Math.floor(Math.random() * aufgaben.length) : filter
     const i = ( typeof filter == 'number' ? filter : Math.floor(Math.random() * aufgaben.length))
     //console.log(typeof filter, filter)
-    
-    
-    
 
-
-
-        
     const [aufgabe_,loesung_,help_,explainer_] = [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
     
     let menu = "Das Sub-Menü in kommt Kürze"

@@ -140,7 +140,8 @@ if (filter && submenu) {
     { val: 0, label: 'Einzelthemen zu diesem Aufgabentyp:' },
           ...submenu.map(item => ({ val: item.nr, label: item.title })),
   ];
-  //console.log(selectedOption.val)
+  //console.log(options)
+  //console.log("**************",selectedOption.val)
 }
 
 return (
