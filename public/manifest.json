@@ -1,5 +1,5 @@
 {
-  "name": "Schlau Mathe üben",
+  "name": "schlau.app",
   "short_name" : "schlau.app",
   "start_url": "/",
   "scope" : "./",
