@@ -9,31 +9,31 @@ function prozent(filter) {
     let grundwert, verdienstplus, mehrverdienst, stromanteile, stromanteil, strommengen, strommenge, 
     smartWeltMrd, smartDeMio, autosWeltMrd, autosDeMio, preis1, rabatt1,
     kleinUmsMio, kleinUmsPlus, kleinPlusRel, grossUmsMio, grossUmsMioPlus, grossPlusRel
-    // 0
+    // 1
     grundwert = 1028;
     verdienstplus = 1050 + getRandomInt(6)*50;
     mehrverdienst = verdienstplus - grundwert;
-    // 1
+    // 2
     stromanteile = [0.8,0.85,0.9,1.1,1.2,1.3]
     stromanteil = stromanteile[Math.floor(Math.random()*stromanteile.length)];
     strommengen = [["1-Person","2400"],["2-Personen","3000"],["3-Personen","3600"],["4-Personen","4000"]]
     strommenge = strommengen[Math.floor(Math.random()*strommengen.length)];
     let stromtext
     stromanteil > 1 ? stromtext = `${Math.round((stromanteil-1)*100)} Prozent über dem Durchschnittsverbrauch` : stromtext = `${Math.round(stromanteil*100)} Prozent des Durchschnittsverbrauchs`
-    // 2
+    // 3
     smartWeltMrd = 6.92
     smartDeMio = 62.6
-    // 3
+    // 4
     autosWeltMrd = 1.4
     autosDeMio = 42
-    // 4
+    // 5
     kleinUmsMio = 0.7 + 0.1*getRandomInt(13)
     kleinUmsPlus = 100000 + getRandomInt(5)*14000
     kleinPlusRel = kleinUmsPlus/(kleinUmsMio*1000000)
     grossUmsMio = 50 + 1.1*getRandomInt(4)*10
     grossUmsMioPlus = 5 + 0.8*getRandomInt(6)
     grossPlusRel = grossUmsMioPlus/grossUmsMio
-    // 5
+    // 6
     preis1 = 40 + 10*getRandomInt(8)
     rabatt1 = 5 + 5*getRandomInt(6)
 
@@ -41,6 +41,32 @@ function prozent(filter) {
 
     const aufgaben = 
     [
+        {
+            nr:0,
+            title: "Verbreitung von Smartphones",
+            description: "",
+                aufgabe: `Verbreitung von Smartphones: weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${smartWeltMrd} Mrd. Smartphones, in Deutschland (${popDeMio} Mio) gibt es ${smartDeMio} Mio. Smartphones. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
+                loesung: `Welt ${(smartWeltMrd/popWeltMrd).toFixed(2)}, Deutschland ${(smartDeMio/popDeMio).toFixed(2)} Smartphones pro Person. Deutschland liegt ${smartDeMio/popDeMio > smartWeltMrd/popWeltMrd ? "über" : "unter"} dem Durchschnitt.`,
+                help: `Die Quoten erhältst du, indem du die Zahl der Smartphones durch die Zahl der Einwohner teilst.`,
+                explainer: `Quote Welt = ${smartWeltMrd}/${popWeltMrd} = ${(smartWeltMrd/popWeltMrd).toFixed(2)}, Quote Deutschland = ${smartDeMio}/${popDeMio} = ${(smartDeMio/popDeMio).toFixed(2)}
+                <br>Bei der Berechnung von Quoten teilst du zwei Zahlen, du bildest ein Verhältnis. Es kommt nicht darauf an, welche Einheit die Zahlen haben (z.b. Milliarden, Mrd. oder Millionen, Mio.), aber die Zahlen müssen jeweils dieselbe Einheit haben. Also Mrd./Mrd. und Mio./Mio. Andernfalls kann man sie nicht vergleichen.
+                <br>Das Verhältnis kannst du auch in Prozent angeben:
+                <br>Also statt Dezimalbrüche ${(smartWeltMrd/popWeltMrd).toFixed(2)} vs. ${(smartDeMio/popDeMio).toFixed(2)} in Prozent: ${Math.round(100*smartWeltMrd/popWeltMrd)}% vs. ${Math.round(100*smartDeMio/popDeMio)}%
+                `//!
+        },
+        {
+            nr:0,
+            title: "Autobesitzer, Deutschland vs. Welt",
+            description: "",        
+                aufgabe: `Wie viele haben ein Auto? Weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${autosWeltMrd} Mrd. Autos, in Deutschland (${popDeMio} Mio.) gibt es ${autosDeMio} Mio. Autos. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
+                loesung: `Welt ${(autosWeltMrd/popWeltMrd).toFixed(2)}, Deutschland ${(autosDeMio/popDeMio).toFixed(2)} Autos pro Person. Deutschland liegt ${autosDeMio/popDeMio > autosWeltMrd/popWeltMrd ? "über" : "unter"} dem Durchschnitt.`,
+                help: `Es geht hier nicht um absolute Zahlen, sondern um anteilige Zahlen, also "Quoten". Die Quoten erhältst du, indem du die Zahl der Autos durch die Zahl der Einwohner teilst.`,
+                explainer: `Quote Welt = ${autosWeltMrd}/${popWeltMrd} = ${(autosWeltMrd/popWeltMrd).toFixed(2)}, Quote Deutschland = ${autosDeMio}/${popDeMio} = ${(autosDeMio/popDeMio).toFixed(2)}
+                <br>Bei der Berechnung von Quoten teilst du zwei Zahlen, du bildest ein Verhältnis. Es kommt nicht darauf an, welche Einheit die Zahlen haben (z.b. Milliarden, Mrd. oder Millionen, Mio.), aber die Zahlen müssen jeweils dieselbe Einheit haben. Also Mrd./Mrd. und Mio./Mio. Andernfalls kann man sie nicht vergleichen.
+                <br>Das Verhältnis kannst du auch in Prozent angeben:
+                <br>Also statt Dezimalbrüche ${(autosWeltMrd/popWeltMrd).toFixed(2)} vs. ${(autosDeMio/popDeMio).toFixed(2)} in Prozent: ${Math.round(100*autosWeltMrd/popWeltMrd)}% vs. ${Math.round(100*autosDeMio/popDeMio)}%
+                `//!
+        },
     {       
         nr:1,
         title: "Einkommen, Vergleich mit Durchschnitt",
@@ -67,32 +93,28 @@ function prozent(filter) {
             <br><b>3 </b>Durchschnitt = Verbrauch / ${stromanteil} =  ${Math.round(stromanteil*strommenge[1])}kWh / ${stromanteil}
             `//!
     },
+    /*
     {
         nr:3,
-        title: "Verbreitung von Smartphones",
+        title: "",
         description: "",
-            aufgabe: `Verbreitung von Smartphones: weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${smartWeltMrd} Mrd. Smartphones, in Deutschland (${popDeMio} Mio) gibt es ${smartDeMio} Mio. Smartphones. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
-            loesung: `Welt ${(smartWeltMrd/popWeltMrd).toFixed(2)}, Deutschland ${(smartDeMio/popDeMio).toFixed(2)} Smartphones pro Person. Deutschland liegt ${smartDeMio/popDeMio > smartWeltMrd/popWeltMrd ? "über" : "unter"} dem Durchschnitt.`,
-            help: `Die Quoten erhältst du, indem du die Zahl der Smartphones durch die Zahl der Einwohner teilst.`,
-            explainer: `Quote Welt = ${smartWeltMrd}/${popWeltMrd} = ${(smartWeltMrd/popWeltMrd).toFixed(2)}, Quote Deutschland = ${smartDeMio}/${popDeMio} = ${(smartDeMio/popDeMio).toFixed(2)}
-            <br>Bei der Berechnung von Quoten teilst du zwei Zahlen, du bildest ein Verhältnis. Es kommt nicht darauf an, welche Einheit die Zahlen haben (z.b. Milliarden, Mrd. oder Millionen, Mio.), aber die Zahlen müssen jeweils dieselbe Einheit haben. Also Mrd./Mrd. und Mio./Mio. Andernfalls kann man sie nicht vergleichen.
-            <br>Das Verhältnis kannst du auch in Prozent angeben:
-            <br>Also statt Dezimalbrüche ${(smartWeltMrd/popWeltMrd).toFixed(2)} vs. ${(smartDeMio/popDeMio).toFixed(2)} in Prozent: ${Math.round(100*smartWeltMrd/popWeltMrd)}% vs. ${Math.round(100*smartDeMio/popDeMio)}%
+            aufgabe: ``,
+            loesung: ``,
+            help: ``,
+            explainer: `
             `//!
     },
     {
         nr:4,
-        title: "Autobesitzer, Deutschland vs. Welt",
-        description: "",        
-            aufgabe: `Wie viele haben ein Auto? Weltweit (${popWeltMrd} Mrd. Menschen) gibt es ${autosWeltMrd} Mrd. Autos, in Deutschland (${popDeMio} Mio.) gibt es ${autosDeMio} Mio. Autos. Liegt Deutschland über oder unter dem Welt-Durchschnitt?`,
-            loesung: `Welt ${(autosWeltMrd/popWeltMrd).toFixed(2)}, Deutschland ${(autosDeMio/popDeMio).toFixed(2)} Autos pro Person. Deutschland liegt ${autosDeMio/popDeMio > autosWeltMrd/popWeltMrd ? "über" : "unter"} dem Durchschnitt.`,
-            help: `Es geht hier nicht um absolute Zahlen, sondern um anteilige Zahlen, also "Quoten". Die Quoten erhältst du, indem du die Zahl der Autos durch die Zahl der Einwohner teilst.`,
-            explainer: `Quote Welt = ${autosWeltMrd}/${popWeltMrd} = ${(autosWeltMrd/popWeltMrd).toFixed(2)}, Quote Deutschland = ${autosDeMio}/${popDeMio} = ${(autosDeMio/popDeMio).toFixed(2)}
-            <br>Bei der Berechnung von Quoten teilst du zwei Zahlen, du bildest ein Verhältnis. Es kommt nicht darauf an, welche Einheit die Zahlen haben (z.b. Milliarden, Mrd. oder Millionen, Mio.), aber die Zahlen müssen jeweils dieselbe Einheit haben. Also Mrd./Mrd. und Mio./Mio. Andernfalls kann man sie nicht vergleichen.
-            <br>Das Verhältnis kannst du auch in Prozent angeben:
-            <br>Also statt Dezimalbrüche ${(autosWeltMrd/popWeltMrd).toFixed(2)} vs. ${(autosDeMio/popDeMio).toFixed(2)} in Prozent: ${Math.round(100*autosWeltMrd/popWeltMrd)}% vs. ${Math.round(100*autosDeMio/popDeMio)}%
+        title: "EU-Länder, Vergleich mit Deutschland",
+        description: "Vergleiche stat",
+            aufgabe: ``,
+            loesung: ``,
+            help: ``,
+            explainer: `
             `//!
     },
+    */
     {
         nr:5,
         title: "Umsatzsteigerung / Unternehmensgröße",
@@ -143,8 +165,8 @@ function prozent(filter) {
     const [aufgabe_,loesung_,help_,explainer_] = [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
     
     let menu = "Das Sub-Menü in kommt Kürze"
-    menu = aufgaben
-    menu = aufgaben.map(({ nr, title, description }) => ({
+    menu = aufgaben.filter(item => item.nr !== 0); // die nr:0 elemente nur in der Gesamtauswahl
+    menu = menu.map(({ nr, title, description }) => ({
         nr,
         title,
         description,

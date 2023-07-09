@@ -137,7 +137,7 @@ let options
 if (filter && submenu) {
 
   options = [
-    { val: 0, label: 'Dieses Menu ist noch nicht aktiv' },
+    { val: 0, label: 'Einzelthemen zu diesem Aufgabentyp:' },
           ...submenu.map(item => ({ val: item.nr, label: item.title })),
   ];
   //console.log(selectedOption.val)
