@@ -143,7 +143,7 @@ function prozent(filter) {
     
     {
         nr:3,
-        title: "EU-Länder: Budget für Bildung, % auf Euro/Kopf",
+        title: "EU-Länder: Budget für Bildung, % >> Euro/Kopf",
         description: "",
             aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
             loesung: `${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro werden ${in_land} pro Kopf ausgegeben.`,
@@ -154,18 +154,18 @@ function prozent(filter) {
             <br>Die letzte Umrechnung müsstest du nicht machen, wenn du mit Taschenrechner rechnest. Es gibt dir aber mehr Sicherheit und Überblick: du kannst auch mit dem Kopf das Ergebnis abschätzen.
             `//!
     },
-    /*
     {
         nr:4,
-        title: "EU-Länder: Budget für Bildung, Euro/Kopf auf %?",
+        title: "EU-Länder: Budget für Bildung, Euro/Kopf >> %",
         description: "",
             aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro pro Kopf für Bildung ausgegeben. Wieviel Prozent des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro gibt das Land aus?`,
             loesung: `${bildungprozbip}% Euro des BIP werden ${in_land} für Bildung ausgegeben.`,
-            help: ``,
-            explainer: `
+            help: `Erst die Bildungsausgabe des gesamten Landes berechnen, das sind ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro mal ${pop} Millionen Leute. Diesen Betrag ins Verhältnis setzen zu den ${bip} Mrd. Euro.`,
+            explainer: `Bildungsausgabe = \\(${Math.round(bip*bildungprozbip*0.01*1000/(pop))} \\cdot ${pop} \\) Mio. Euro
+            <br>Beachte, bevor du drauf los rechnest, die Größenordnung des Ergebnisses: der Betrag pro Kopf liegt in der Größenordnung 1000 und die Bevölkerung wird in Millionen angegeben. Das Ergebnis sind Milliarden - und die werden durch die Milliarden des BIP geteilt.
+            
             `//!
     },
-    */
     /*
     {
         nr:4,
@@ -179,7 +179,7 @@ function prozent(filter) {
     },
     */
     {
-        nr:4,
+        nr:5,
         title: "Umsatzsteigerung / Unternehmensgröße",
         description: "",        
             aufgabe: `Die Firma Klein hatte 2021 einen Jahresumsatz von ${kleinUmsMio.toFixed(1)} Mio. und konnte diesen 2022 um ${kleinUmsPlus} steigern. Die Firma Gross erzielte ${grossUmsMio} Mio. und verzeichnete 2022 ein Plus von ${grossUmsMioPlus} Mio. Welches Unternehmen hat prozentual mehr zugelegt?`,
@@ -192,7 +192,7 @@ function prozent(filter) {
             `//!
     },
     {
-        nr:5,
+        nr:6,
         title: "Preis und Rabatt",
         description: "",        
             aufgabe: `Ein Produkt kostet ${preis1.toFixed(2)} Euro und wird um ${rabatt1}% reduziert. Wie viel kostet das Produkt nach der Reduzierung?`,
