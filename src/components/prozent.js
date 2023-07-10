@@ -39,6 +39,7 @@ function prozent(filter) {
 
     /* Belgien, Bulgarien, Dänemark, Deutschland, Estland, Finnland, Griechenland, Irland, Italien, Kroatien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Österreich, Polen, Portugal, Rumänien, Schweden, Slowakei, Spanien, Tschechien, Ungarn, Zypern */
     const laender=[
+        /*                      pop Mio.   flae 1000 km^2  bip in Mrd.*/
         {land: 'Belgien',       pop: 11.6, flaeche: 30.5,  bip: 549,    bildungprozbip: 6.7 },
         {land: 'Bulgarien',     pop: 6.8,  flaeche: 111.0, bip: 85,     bildungprozbip: 4.0},
         {land: 'Dänemark',      pop: 5.9,  flaeche: 42.9,  bip: 376,    bildungprozbip: 6.4},
@@ -68,10 +69,20 @@ function prozent(filter) {
         {land: 'Zypern ',       pop: 0.9,  flaeche: 9.3,   bip: 27,     bildungprozbip: 6.1},
         ]
         let laendertab = laender.map((item)=>[item.land, item.pop, item.flaeche, item.bip, item.bildungprozbip])
-        //console.table(laendertab)
+        
         const j = Math.floor(Math.random()*laender.length)
         const [land, pop, flaeche, bip, bildungprozbip] = laendertab[j]
-        //console.log(land, pop, flaeche, bip, bildungprozbip)
+
+        const in_land =
+            land === "Niederlande" ?    "in den Niederlanden"   :
+            land === "Slowakei" ?       "in der Slovakei"       :
+            "in " + land;
+
+        function first(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+   
     
     const aufgaben = 
     [
@@ -132,10 +143,10 @@ function prozent(filter) {
     
     {
         nr:3,
-        title: "EU-Länder: Budget für Bildung",
+        title: "EU-Länder: Budget für Bildung, % auf Euro/Kopf",
         description: "",
-            aufgabe: `In ${land} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
-            loesung: `${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro werden in ${land} pro Kopf ausgegeben.`,
+            aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
+            loesung: `${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro werden ${in_land} pro Kopf ausgegeben.`,
             help: `\\[Euro/Kopf = \\frac{BIP \\cdot ${(bildungprozbip/100).toFixed(3)}}{Bevölkerung} \\]`,
             explainer: `Rechne praktischer BIP und Bevölkerung in Millionen, dann kürzen sich diese weg: Die Bildungsausgaben pro Kopf sind (s. Formel bei Hilfe): 
             <br>\\(\\frac{${bip*1000} \\cdot ${(bildungprozbip*0.01).toFixed(3)}}{${pop}}\\) Euro = 
@@ -143,7 +154,18 @@ function prozent(filter) {
             <br>Die letzte Umrechnung müsstest du nicht machen, wenn du mit Taschenrechner rechnest. Es gibt dir aber mehr Sicherheit und Überblick: du kannst auch mit dem Kopf das Ergebnis abschätzen.
             `//!
     },
-    
+    /*
+    {
+        nr:4,
+        title: "EU-Länder: Budget für Bildung, Euro/Kopf auf %?",
+        description: "",
+            aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro pro Kopf für Bildung ausgegeben. Wieviel Prozent des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro gibt das Land aus?`,
+            loesung: `${bildungprozbip}% Euro des BIP werden ${in_land} für Bildung ausgegeben.`,
+            help: ``,
+            explainer: `
+            `//!
+    },
+    */
     /*
     {
         nr:4,

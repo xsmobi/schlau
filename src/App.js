@@ -102,6 +102,9 @@ function App() {
 useEffect(() => {
   getRandomTask();
 }, [selectedType]) // eslint-disable-line react-hooks/exhaustive-deps
+useEffect(() => {
+  getRandomTask();
+}, [selectedOption]) // eslint-disable-line react-hooks/exhaustive-deps
 
 /*
  const selectedTypeState = useRef("add")
@@ -137,7 +140,7 @@ let options
 if (filter && submenu) {
 
   options = [
-    { val: 0, label: 'Einzelthemen zu diesem Aufgabentyp:' },
+    { val: 0, label: 'alle Einzelthemen' },
           ...submenu.map(item => ({ val: item.nr, label: item.title })),
   ];
   //console.log(options)
