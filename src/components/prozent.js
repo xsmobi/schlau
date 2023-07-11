@@ -118,53 +118,52 @@ function prozent(filter) {
         nr:1,
         title: "Einkommen, Vergleich mit Durchschnitt",
         description: "",
-            aufgabe: `${person} erhält im ersten Lehrjahr ${verdienstplus} Euro. Wie hoch liegt dieses Einkommen prozentual über dem Durchschnitt (2022: ${grundwert} Euro)?`,
-            loesung: `Das Einkommen liegt ${((verdienstplus/1028 - 1) * 100).toFixed(1)} % über dem Durchschnitt.`,
-            help: `Mehrverdienst: ${mehrverdienst}. Dies durch die ${grundwert} teilen. Das Ergebnis mal 100 gibt den Prozentsatz!`,
-            explainer: `Berechne den prozentualen Unterschied zwischen ${person}s Einkommen und dem Durchschnitt von ${grundwert}:
-            <br><b>1 </b>Differenz (Mehrverdienst) = ${verdienstplus} Euro - ${grundwert} Euro = ${mehrverdienst} Euro.
-            <br><b>2 </b>Setze diese Differenz ins Verhältnis zum Grundwert, das gibt den Anteil: ${mehrverdienst}/${grundwert} = ${(mehrverdienst/grundwert).toFixed(3)}. Dieser Anteil ist eine praktische Größe, nämlich der Mehrverdienst im Verhältnis zum Grundwert.
-            <br><b>2 </b>Drücke diesen Anteil in Prozent aus, indem du ihn einfach mit 100 multiplizierst: ${(mehrverdienst/grundwert).toFixed(3)} &middot; 100 = ${(100*mehrverdienst/grundwert).toFixed(1)}
-            <br>Formal noch schöner schreibst du ${(mehrverdienst/grundwert).toFixed(3)} &middot; 100% = ${(100*mehrverdienst/grundwert).toFixed(1)}%.
-            `//!
+        aufgabe: `${person} erhält im ersten Lehrjahr ${verdienstplus} Euro. Wie hoch liegt dieses Einkommen prozentual über dem Durchschnitt (2022: ${grundwert} Euro)?`,
+        loesung: `Das Einkommen liegt ${((verdienstplus/1028 - 1) * 100).toFixed(1)} % über dem Durchschnitt.`,
+        help: `Mehrverdienst: ${mehrverdienst}. Dies durch die ${grundwert} teilen. Das Ergebnis mal 100 gibt den Prozentsatz!`,
+        explainer: `Berechne den prozentualen Unterschied zwischen ${person}s Einkommen und dem Durchschnitt von ${grundwert}:
+        <br><b>1 </b>Differenz (Mehrverdienst) = ${verdienstplus} Euro - ${grundwert} Euro = ${mehrverdienst} Euro.
+        <br><b>2 </b>Setze diese Differenz ins Verhältnis zum Grundwert, das gibt den Anteil: ${mehrverdienst}/${grundwert} = ${(mehrverdienst/grundwert).toFixed(3)}. Dieser Anteil ist eine praktische Größe, nämlich der Mehrverdienst im Verhältnis zum Grundwert.
+        <br><b>2 </b>Drücke diesen Anteil in Prozent aus, indem du ihn einfach mit 100 multiplizierst: ${(mehrverdienst/grundwert).toFixed(3)} &middot; 100 = ${(100*mehrverdienst/grundwert).toFixed(1)}
+        <br>Formal noch schöner schreibst du ${(mehrverdienst/grundwert).toFixed(3)} &middot; 100% = ${(100*mehrverdienst/grundwert).toFixed(1)}%.
+        `//!
     },
     {
         nr:2,
         title: "Stromverbrauch von Haushalten",
         description: "",
-            aufgabe: `Ein ${strommenge[0]}-Haushalt verbraucht im Jahr durchschnittlich ca. ${Math.round(stromanteil*strommenge[1])} kWh Strom. Das sind ${stromtext}. Wie groß ist dieser? Gib die Energie in kWh an.`,
-            loesung: `Der durchschnittliche Stromverbrauch beträgt ${strommenge[1]} kWh`,
-            help: `Gesuchter Durchschnitt mal ${stromanteil.toFixed(2)} (= ${Math.round(stromanteil*100)}%) gibt ${Math.round(stromanteil*strommenge[1])}kWh! Umstellen und ${Math.round(stromanteil*strommenge[1])}kWh / ${stromanteil.toFixed(2)} rechnen!`,
-            explainer: `<b>1 </b>Von Prozent auf Dezimal "umschalten", dann ist es ganz übersichtlich.
-            <br><b>2 </b>Verbrauch = ${stromanteil} &middot; Durchschnitt bzw. umgestellt
-            <br><b>3 </b>Durchschnitt = Verbrauch / ${stromanteil} =  ${Math.round(stromanteil*strommenge[1])}kWh / ${stromanteil}
-            `//!
+        aufgabe: `Ein ${strommenge[0]}-Haushalt verbraucht im Jahr durchschnittlich ca. ${Math.round(stromanteil*strommenge[1])} kWh Strom. Das sind ${stromtext}. Wie groß ist dieser? Gib die Energie in kWh an.`,
+        loesung: `Der durchschnittliche Stromverbrauch beträgt ${strommenge[1]} kWh`,
+        help: `Gesuchter Durchschnitt mal ${stromanteil.toFixed(2)} (= ${Math.round(stromanteil*100)}%) gibt ${Math.round(stromanteil*strommenge[1])}kWh! Umstellen und ${Math.round(stromanteil*strommenge[1])}kWh / ${stromanteil.toFixed(2)} rechnen!`,
+        explainer: `<b>1 </b>Von Prozent auf Dezimal "umschalten", dann ist es ganz übersichtlich.
+        <br><b>2 </b>Verbrauch = ${stromanteil} &middot; Durchschnitt bzw. umgestellt
+        <br><b>3 </b>Durchschnitt = Verbrauch / ${stromanteil} =  ${Math.round(stromanteil*strommenge[1])}kWh / ${stromanteil}
+        `//!
     },
     
     {
         nr:3,
         title: "EU-Länder: Budget für Bildung, % >> Euro/Kopf",
         description: "",
-            aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
-            loesung: `${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro werden ${in_land} pro Kopf ausgegeben.`,
-            help: `\\[Euro/Kopf = \\frac{BIP \\cdot ${(bildungprozbip/100).toFixed(3)}}{Bevölkerung} \\]`,
-            explainer: `Rechne praktischer BIP und Bevölkerung in Millionen, dann kürzen sich diese weg: Die Bildungsausgaben pro Kopf sind (s. Formel bei Hilfe): 
-            <br>\\(\\frac{${bip*1000} \\cdot ${(bildungprozbip*0.01).toFixed(3)}}{${pop}}\\) Euro = 
-            \\(\\frac{${bip*10} \\cdot ${(bildungprozbip).toFixed(1)}}{${pop}}\\) Euro
-            <br>Die letzte Umrechnung müsstest du nicht machen, wenn du mit Taschenrechner rechnest. Es gibt dir aber mehr Sicherheit und Überblick: du kannst auch mit dem Kopf das Ergebnis abschätzen.
-            `//!
+        aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
+        loesung: `${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro werden ${in_land} pro Kopf ausgegeben.`,
+        help: `\\[Euro/Kopf = \\frac{BIP \\cdot ${(bildungprozbip/100).toFixed(3)}}{Bevölkerung} \\]`,
+        explainer: `Rechne praktischer BIP und Bevölkerung in Millionen, dann kürzen sich diese weg: Die Bildungsausgaben pro Kopf sind (s. Formel bei Hilfe): 
+        <br>\\(\\frac{${bip*1000} \\cdot ${(bildungprozbip*0.01).toFixed(3)}}{${pop}}\\) Euro = 
+        \\(\\frac{${bip*10} \\cdot ${(bildungprozbip).toFixed(1)}}{${pop}}\\) Euro
+        <br>Die letzte Umrechnung müsstest du nicht machen, wenn du mit Taschenrechner rechnest. Es gibt dir aber mehr Sicherheit und Überblick: du kannst auch mit dem Kopf das Ergebnis abschätzen.
+        `//!
     },
     {
         nr:4,
         title: "EU-Länder: Budget für Bildung, Euro/Kopf >> %",
         description: "",
-            aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro pro Kopf für Bildung ausgegeben. Wieviel Prozent des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro gibt das Land aus?`,
-            loesung: `${bildungprozbip}% Euro des BIP werden ${in_land} für Bildung ausgegeben.`,
-            help: `Erst die Bildungsausgabe des gesamten Landes berechnen, das sind ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro mal ${pop} Millionen Leute. Diesen Betrag ins Verhältnis setzen zu den ${bip} Mrd. Euro.`,
-            explainer: `Bildungsausgabe = \\(${Math.round(bip*bildungprozbip*0.01*1000/(pop))} \\cdot ${pop} \\) Mio. Euro
-            <br>Beachte, bevor du drauf los rechnest, die Größenordnung des Ergebnisses: der Betrag pro Kopf liegt in der Größenordnung 1000 und die Bevölkerung wird in Millionen angegeben. Das Ergebnis sind Milliarden - und die werden durch die Milliarden des BIP geteilt.
-            
-            `//!
+        aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro pro Kopf für Bildung ausgegeben. Wieviel Prozent des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro gibt das Land aus?`,
+        loesung: `${bildungprozbip}% Euro des BIP werden ${in_land} für Bildung ausgegeben.`,
+        help: `Erst die Bildungsausgabe des gesamten Landes berechnen, das sind ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro mal ${pop} Millionen Leute. Diesen Betrag ins Verhältnis setzen zu den ${bip} Mrd. Euro.`,
+        explainer: `Bildungsausgabe = \\(${Math.round(bip*bildungprozbip*0.01*1000/(pop))} \\cdot ${pop} \\) Mio. Euro
+        <br>Beachte, bevor du drauf los rechnest, die Größenordnung des Ergebnisses: der Betrag pro Kopf liegt in der Größenordnung 1000 und die Bevölkerung wird in Millionen angegeben. Das Ergebnis sind Milliarden - und die werden durch die Milliarden des BIP geteilt.
+        `//!
     },
     /*
     {
@@ -182,31 +181,31 @@ function prozent(filter) {
         nr:5,
         title: "Umsatzsteigerung / Unternehmensgröße",
         description: "",        
-            aufgabe: `Die Firma Klein hatte 2021 einen Jahresumsatz von ${kleinUmsMio.toFixed(1)} Mio. und konnte diesen 2022 um ${kleinUmsPlus} steigern. Die Firma Gross erzielte ${grossUmsMio} Mio. und verzeichnete 2022 ein Plus von ${grossUmsMioPlus} Mio. Welches Unternehmen hat prozentual mehr zugelegt?`,
-            loesung: `Klein: Plus von ${(kleinPlusRel*100).toFixed(1)}%. Gross: Plus von ${(grossPlusRel*100).toFixed(1)}%. Firma ${kleinPlusRel > grossPlusRel ? "Klein" : "Gross"} gewinnt!`,
-            help: `Die relative Änderung für jedes Unternehmen ist: Umsatzdifferenz geteilt durch früheren Umsatz.`,
-            explainer: `Wie wird der relative bzw. prozentuale Zuwachs berechnet? Z.B. Fa. Klein
-            <br><b>1 </b>2021: ${kleinUmsMio.toFixed(1)} Mio. 2022: Steigerung, (auf Millionen umgerechnet!): ${(kleinUmsPlus/1000000).toFixed(3)} Mio.
-            <br><b>2 </b>Vom absoluten zum relativen Zuwachs. Dieser ist ${(kleinUmsPlus/1000000).toFixed(3)} / ${kleinUmsMio.toFixed(1)} = ${((kleinUmsPlus/1000000)/kleinUmsMio).toFixed(3)}
-            <br><b>2 </b>In Prozent: ${((kleinUmsPlus/1000000)/kleinUmsMio).toFixed(3)} = ${((100*kleinUmsPlus/1000000)/kleinUmsMio).toFixed(1)}%
-            `//!
+        aufgabe: `Die Firma Klein hatte 2021 einen Jahresumsatz von ${kleinUmsMio.toFixed(1)} Mio. und konnte diesen 2022 um ${kleinUmsPlus} steigern. Die Firma Gross erzielte ${grossUmsMio} Mio. und verzeichnete 2022 ein Plus von ${grossUmsMioPlus} Mio. Welches Unternehmen hat prozentual mehr zugelegt?`,
+        loesung: `Klein: Plus von ${(kleinPlusRel*100).toFixed(1)}%. Gross: Plus von ${(grossPlusRel*100).toFixed(1)}%. Firma ${kleinPlusRel > grossPlusRel ? "Klein" : "Gross"} gewinnt!`,
+        help: `Die relative Änderung für jedes Unternehmen ist: Umsatzdifferenz geteilt durch früheren Umsatz.`,
+        explainer: `Wie wird der relative bzw. prozentuale Zuwachs berechnet? Z.B. Fa. Klein
+        <br><b>1 </b>2021: ${kleinUmsMio.toFixed(1)} Mio. 2022: Steigerung, (auf Millionen umgerechnet!): ${(kleinUmsPlus/1000000).toFixed(3)} Mio.
+        <br><b>2 </b>Vom absoluten zum relativen Zuwachs. Dieser ist ${(kleinUmsPlus/1000000).toFixed(3)} / ${kleinUmsMio.toFixed(1)} = ${((kleinUmsPlus/1000000)/kleinUmsMio).toFixed(3)}
+        <br><b>2 </b>In Prozent: ${((kleinUmsPlus/1000000)/kleinUmsMio).toFixed(3)} = ${((100*kleinUmsPlus/1000000)/kleinUmsMio).toFixed(1)}%
+        `//!
     },
     {
         nr:6,
         title: "Preis und Rabatt",
         description: "",        
-            aufgabe: `Ein Produkt kostet ${preis1.toFixed(2)} Euro und wird um ${rabatt1}% reduziert. Wie viel kostet das Produkt nach der Reduzierung?`,
-            loesung: `${(preis1*(1-rabatt1/100)).toFixed(2)} Euro`,
-            help: ` Der Rabatt ist ${rabatt1}% von ${preis1.toFixed(2)} oder auch  ${preis1.toFixed(2)} * ${(rabatt1/100).toFixed(2)} `,
-            explainer: `<b>1 </b>Das Produkt wird um ${rabatt1}%, also um den Anteil ${(rabatt1/100).toFixed(2)} herabgesetzt.
-            <br><b>2 </b>Der Nachlass bzw. Rabatt (das, was du einsparst) beträgt also
-            ${preis1.toFixed(2)} Euro * ${rabatt1}% = ${preis1.toFixed(2)} Euro * ${(rabatt1/100).toFixed(2)} = ${(preis1*rabatt1/100).toFixed(2)} Euro.
-            (Du siehst: zum Rechnen mit % wird das %-Zeichen durch 1/100 oder durch 0.01 ersetzt)
-            <br><b>3 </b>Der reduzierte Preis (das, was du zahlst), ist also
-            <br>${preis1.toFixed(2)} Euro - ${(preis1*rabatt1/100).toFixed(2)} Euro = ${(preis1*(100-rabatt1)/100).toFixed(2)} Euro.
-            <br><b>4 </b>Alternative für Geübte: den Preis gleich mit ${100-rabatt1}% oder mit ${(1-rabatt1/100).toFixed(2)} multiplizieren:
-            <br>${preis1.toFixed(2)} Euro * ${100-rabatt1}% = ${preis1.toFixed(2)} Euro * ${(1-rabatt1/100).toFixed(2)} = ${(preis1*(1-rabatt1/100)).toFixed(2)} Euro
-            `//!
+        aufgabe: `Ein Produkt kostet ${preis1.toFixed(2)} Euro und wird um ${rabatt1}% reduziert. Wie viel kostet das Produkt nach der Reduzierung?`,
+        loesung: `${(preis1*(1-rabatt1/100)).toFixed(2)} Euro`,
+        help: ` Der Rabatt ist ${rabatt1}% von ${preis1.toFixed(2)} oder auch  ${preis1.toFixed(2)} * ${(rabatt1/100).toFixed(2)} `,
+        explainer: `<b>1 </b>Das Produkt wird um ${rabatt1}%, also um den Anteil ${(rabatt1/100).toFixed(2)} herabgesetzt.
+        <br><b>2 </b>Der Nachlass bzw. Rabatt (das, was du einsparst) beträgt also
+        ${preis1.toFixed(2)} Euro * ${rabatt1}% = ${preis1.toFixed(2)} Euro * ${(rabatt1/100).toFixed(2)} = ${(preis1*rabatt1/100).toFixed(2)} Euro.
+        (Du siehst: zum Rechnen mit % wird das %-Zeichen durch 1/100 oder durch 0.01 ersetzt)
+        <br><b>3 </b>Der reduzierte Preis (das, was du zahlst), ist also
+        <br>${preis1.toFixed(2)} Euro - ${(preis1*rabatt1/100).toFixed(2)} Euro = ${(preis1*(100-rabatt1)/100).toFixed(2)} Euro.
+        <br><b>4 </b>Alternative für Geübte: den Preis gleich mit ${100-rabatt1}% oder mit ${(1-rabatt1/100).toFixed(2)} multiplizieren:
+        <br>${preis1.toFixed(2)} Euro * ${100-rabatt1}% = ${preis1.toFixed(2)} Euro * ${(1-rabatt1/100).toFixed(2)} = ${(preis1*(1-rabatt1/100)).toFixed(2)} Euro
+        `//!
     },
     ]
 
