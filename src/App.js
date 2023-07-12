@@ -68,7 +68,7 @@ function App() {
 
   
 
-  const [selectedType, setSelectedType] = useState('lin3');
+  const [selectedType, setSelectedType] = useState('prop');
 
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
