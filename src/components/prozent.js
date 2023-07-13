@@ -128,6 +128,7 @@ function prozent(filter) {
         <br>Formal noch schöner schreibst du ${(mehrverdienst/grundwert).toFixed(3)} &middot; 100% = ${(100*mehrverdienst/grundwert).toFixed(1)}%.
         `//!
     },
+    //////////////
     {
         nr:2,
         title: "Stromverbrauch von Haushalten",
@@ -139,8 +140,7 @@ function prozent(filter) {
         <br><b>2 </b>Verbrauch = ${stromanteil} &middot; Durchschnitt bzw. umgestellt
         <br><b>3 </b>Durchschnitt = Verbrauch / ${stromanteil} =  ${Math.round(stromanteil*strommenge[1])}kWh / ${stromanteil}
         `//!
-    },
-    
+    },   
     {
         nr:3,
         title: "EU-Länder: Budget für Bildung, % >> Euro/Kopf",

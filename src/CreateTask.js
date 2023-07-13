@@ -44,7 +44,7 @@ function CreateTask(task) {
             aufgabeDaten = lin3(val1,val2)
         break;    
         case "prop": 
-            aufgabeDaten = prop()
+            aufgabeDaten = prop(filter)
         break; 
         case "prozent": 
             aufgabeDaten = prozent(filter)

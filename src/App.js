@@ -40,7 +40,7 @@ function App() {
     {typ: "add",    btn: "-a + b",        txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a - (-+b)",     txt: "Plus und Minus mit Klammern"},
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
-    {typ: "prop",   btn: "DREISATZ",        txt: "Proportionalität und Dreisatz"},
+    {typ: "prop",   btn: "DREISATZ",        txt: "Proportionalität und Dreisatz", hasFilter: true},
     {typ: "prozent", btn: "PROZENT",    txt: "Anteile und Prozent", hasFilter: true},
     {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},

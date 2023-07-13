@@ -1,4 +1,6 @@
-function prop() {
+function prop(filter) {
+    let headerclass = "subheader"
+
     const preis = ((getRandomInt(8) + 2)/2); // [1 - 4]
     const anzahl = getRandomInt(4) + 2; // [2 - 6]
     const mult = getRandomInt(4) + 2; // [2 - 6]
@@ -35,11 +37,24 @@ function prop() {
     let reisentab = reisen.map((item)=>[item.stadt, item.zusatz, item.ziel, item.km, item.zeit, item.ziel2, item.km2])
 
     const j = Math.floor(Math.random()*reisentab.length)
-    //const j = 2 // Test
     const [stadt, zusatz, ziel, km, zeit, ziel2, km2] = reisentab[j]
-    
     const zeit2 = zeit*km2/km
 
+    const apersonen2 = 3 + getRandomInt(5)
+    const apersonen1 = apersonen2 * (getRandomInt(3)+1)
+    const astund1 = 2 + getRandomInt(3)
+    const astund2 = astund1 * (getRandomInt(2)+1)
+    const atage1 = getRandomInt(11) + 2
+    const atage2 =  (apersonen1 * astund1 * atage1) / (apersonen2 * astund2)
+    const atodo = [
+        "Um eine Grube für einen riesigen Pool auszuheben",
+        "Um den Grünstreifen auf der Autobahn umzugraben",
+        "Um die Leitungen des Bürokomplexes zu verlegen",
+        "Um neue Fliesen in sämtlichen Bädern des Hotels zu verlegen",
+        "Um sämtliche ESt-Bescheide von 1998 zu digitalisieren",
+        "Um alle Schallplatten des insolventen Musikhauses zu digitalisieren"
+    ]
+    const k = Math.floor(Math.random()*atodo.length)
     
     function zeith(zeit) {
         return Math.floor(zeit / 60 )+':'+(String(Math.floor( zeit % 60 )).padStart('2',0))
@@ -76,13 +91,22 @@ function prop() {
             \\[\\text{Gesuchte Zeit = } \\frac{${km2}\\text{ km}}{${km}\\text{ km}} \\cdot ${zeit}\\text{ min}\\]
             `//!
         },
-        /*
         {
-            aufgabe: ``,
-            loesung: ``,
-            help: ``,
-            explainer: ``
+            nr:3,
+            title: "Doppelter Dreisatz: Arbeitsleistung", 
+            description: "",  
+            aufgabe: `${atodo[k]}, arbeiten ${apersonen1} Personen ${atage1} Tage zusammen, ${astund1} Stunden pro Tag.
+            Wie viele Tage bräuchte ein anderes Team mit ${apersonen2} Personen bei einer täglichen Arbeitszeit von ${astund2} Stunden?`,
+            loesung: `${atage2} Tage`,
+            help: `Die Arbeitsmenge ist gegeben durch
+            Personen mal Tage mal Stunden pro Tag - für beide Teams. Es sind also 6 Größen gegeben, eine davon ist unbekannt. Nach dieser musst du auflösen.`,
+            explainer: `Arbeitsumfang der Teams 1 und 2 ist (p: Personen, t: Tage, s: Stunden pro Tag): 
+            \\[p2 \\cdot t2 \\cdot s2 = p1 \\cdot t1 \\cdot s1\\]
+            \\[t2 = \\frac{p1 \\cdot t1 \\cdot s1}{p2 \\cdot s2}\\]
+            \\[t2 = \\frac{${apersonen1} \\cdot ${atage1} \\cdot ${astund1}}{${apersonen2} \\cdot ${astund2}}\\]
+            `//
         },
+          /*
         {
             aufgabe: ``,
             loesung: ``,
@@ -92,12 +116,20 @@ function prop() {
         */
     ]
     
-    const i = Math.floor(Math.random()*aufgaben.length);
-    //const i = 1 // Test
-    //console.log(aufgaben[i].aufgabe)
+    //const i = Math.floor(Math.random()*aufgaben.length);
+    const i = ( typeof filter == 'number' ? filter : Math.floor(Math.random() * aufgaben.length))
+ 
+    const [aufgabe_,loesung_,help_,explainer_] = [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
 
-    //return [aufgabe, loesung, help, explainer];
-    return [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
+    let menu = "Das Sub-Menü in kommt Kürze"
+    menu = aufgaben.filter(item => item.nr !== 0); // die nr:0 elemente nur in der Gesamtauswahl
+    menu = menu.map(({ nr, title, description }) => ({
+        nr,
+        title,
+        description,
+      }));
+
+      return [aufgabe_,loesung_,help_,explainer_,headerclass,menu]
 }
 
 export default prop;
