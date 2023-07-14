@@ -91,6 +91,13 @@ const templates = [
         subfilter: ""
     }, 
     {
+      name: "Potenzen",
+        type: "potenzen",
+        val1: 2,
+        val2: 20,
+        headerclass: "subheader"
+    }, 
+    {
       name: "Einfache Wahrscheinlichkeit",
         type: "proba1",
         val1: 2,

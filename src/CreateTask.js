@@ -11,7 +11,7 @@ import prozent from './components/prozent';
 import linfun from './components/linfun';
 import quad from './components/quad';
 import proba1 from './components/proba1';
-
+import potenzen from './components/potenzen';
 
 function CreateTask(task) {
 
@@ -60,11 +60,12 @@ function CreateTask(task) {
         case "proba1": 
             aufgabeDaten = proba1()
         break; 
+        case "potenzen": 
+            aufgabeDaten = potenzen(filter)
+        break; 
         default: 
             aufgabeDaten = add(val1,val2)
     }
-    
-
 
     const processedTask = {
     //id: id,

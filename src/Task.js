@@ -7,7 +7,8 @@ const style={
     helptext: `prose prose-lg border-solid border-2 border-red-600 px-2 rounded-md`,
     resulttext: `prose prose-lg`,
     explainertext: `prose prose-lg border-solid border-2 border-gray-400 px-2 my-2 rounded-md`,
-    subheader: `prose prose-lg`
+    subheader: `prose prose-lg`,
+    subheader2: `prose prose-2xl`
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {

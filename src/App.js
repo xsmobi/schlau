@@ -12,6 +12,7 @@ import Select from 'react-select';
 import prozent from './components/prozent';
 
 
+
 const style={
   bg:`h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
   container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
@@ -40,16 +41,17 @@ function App() {
     {typ: "add",    btn: "-a + b",        txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a - (-+b)",     txt: "Plus und Minus mit Klammern"},
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen nach x auflösen"},
-    {typ: "prop",   btn: "DREISATZ",        txt: "Proportionalität und Dreisatz", hasFilter: true},
-    {typ: "prozent", btn: "PROZENT",    txt: "Anteile und Prozent", hasFilter: true},
+    {typ: "prop",   btn: "DREISATZ",      txt: "Proportionalität und Dreisatz", hasFilter: true},
+    {typ: "prozent", btn: "PROZENT",      txt: "Anteile und Prozent", hasFilter: true},
     {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen nach x auflösen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen auflösen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
     {typ: "linfun", btn: "LINEAR y(x)",   txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     txt: "Quadratische Funktionen", hasFilter: true},
+    {typ: "potenzen", btn: "POTENZEN",    txt: "Potenzen, Wurzeln (noch in Arbeit)", hasFilter: true},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
-    {typ: "power",  btn: "a^n",           txt: "Potenzen"},
+    
     {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},
     {typ: "brac",   btn: "( (...) )",   txt: "Klammerregeln"},
     {typ: "frac2",  btn: "1/2 + 1/3",   txt: "Brüche add/sub & mal/geteilt"},
@@ -67,8 +69,7 @@ function App() {
   ]
 
   
-
-  const [selectedType, setSelectedType] = useState('prop');
+  const [selectedType, setSelectedType] = useState('quad');
 
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
@@ -77,9 +78,6 @@ function App() {
   const [selectedOption, setSelectedOption] = useState(0);
   const [submenu, setSubmenu] = useState("")
 
-
- 
-  
   const getRandomTask = () => {
     const filteredTasks = templates.filter((task) => task.type === selectedType);  // tasks filter
     if (filteredTasks.length > 0) {
@@ -99,19 +97,18 @@ function App() {
 
 // Damit GetRandomTask auch bei Typ-Wechsel
 
+const onClear = () => {
+  setSelectedOption(0);
+};
+
 useEffect(() => {
+  //setSelectedOption({ val: 0, label: 'alle Einzelthemen ...' }); // bringt es nicht
   getRandomTask();
+  onClear();
 }, [selectedType]) // eslint-disable-line react-hooks/exhaustive-deps
 useEffect(() => {
   getRandomTask();
 }, [selectedOption]) // eslint-disable-line react-hooks/exhaustive-deps
-
-/*
- const selectedTypeState = useRef("add")
-  useEffect(()=>{
-    selectedTypeState.current = selectedType
-  })
-*/
 
 const toggleShowHelp = () => {
 setShowHelp(!showHelp);
@@ -131,21 +128,21 @@ setShowHelp(false);
 setShowResult(false);
 };
 
+
 const handleTypeSelection = (type) => {
-setSelectedType(type);
-setSelectedOption(0);
+  //setSelectedOption({ val: 0, label: 'alle Einzelthemen ...' }); // zu spät! Erst beim nächsten Klick!   
+  setSelectedType(type);
 };
+
 
 let options
 if (filter && submenu) {
-
   options = [
     { val: 0, label: 'alle Einzelthemen' },
           ...submenu.map(item => ({ val: item.nr, label: item.title })),
   ];
-  //console.log(options)
-  //console.log("**************",selectedOption.val)
 }
+
 
 return (
 
@@ -212,8 +209,6 @@ return (
                       options={options}
                     />
                   </div>
-              
-              
               )}
             
 
