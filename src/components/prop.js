@@ -55,6 +55,16 @@ function prop(filter) {
         "Um alle Schallplatten des insolventen Musikhauses zu digitalisieren"
     ]
     const k = Math.floor(Math.random()*atodo.length)
+
+    const kuchen = {kpersonen: 5, butter: 200, zucker: 200, eier: 4, mehl: 400}
+    let {kpersonen, butter, zucker, eier, mehl} = kuchen
+    const nku1 = 1 + getRandomInt(6)
+    let nku2 = [4, 6].includes(nku1) ? nku1/2 : nku1 * (2*(getRandomInt(3)+1))
+    
+    function zutatstring(num) {
+        return num >= 1000 ? (num/1000).toFixed(1) + " kg" : num + " g"
+    }
+    //console.log(zutatstring(nku2*butter))
     
     function zeith(zeit) {
         return Math.floor(zeit / 60 )+':'+(String(Math.floor( zeit % 60 )).padStart('2',0))
@@ -106,19 +116,60 @@ function prop(filter) {
             \\[t2 = \\frac{${apersonen1} \\cdot ${atage1} \\cdot ${astund1}}{${apersonen2} \\cdot ${astund2}}\\]
             `//
         },
-          /*
         {
-            aufgabe: ``,
-            loesung: ``,
-            help: ``,
-            explainer: ``
+            nr:4,
+            title: "Backe backe Kuchen", 
+            description: "", 
+            aufgabe: `Kuchenparty: ihr backt ${nku1} Rührkuchen für ${nku1*kpersonen} Personen und braucht dafür ${zutatstring(nku1*butter)} Butter, ${zutatstring(nku1*zucker)} Zucker, ${nku1*eier} Eier und ${zutatstring(nku1*mehl)} Mehl. Wieviel von allen Zutaten wären für ${nku2*kpersonen} Personen nötig?`,
+            loesung: `${zutatstring(butter*nku2)} Butter, ${zutatstring(zucker*nku2)} Zucker, ${eier*nku2} Eier, ${zutatstring(mehl*nku2)} Mehl`,
+            help: `Für alle Zutaten gilt
+            \\[\\frac{\\text{Menge für ${nku2*kpersonen}}}{\\text{Menge für ${nku1*kpersonen}}}=\\frac{${nku2*kpersonen}}{${nku1*kpersonen}} = ${getlowestfraction(nku2/nku1, "injax")}\\]
+            `,//!
+            explainer: `\\[\\frac{\\text{Menge für ${nku2*kpersonen}}}{\\text{Menge für ${nku1*kpersonen}}}= ${getlowestfraction(nku2/nku1, "injax")}\\]
+            Also z.B. \\[\\frac{\\text{Eier für ${nku2*kpersonen}}}{\\text{Eier für ${nku1*kpersonen}}}= ${getlowestfraction(nku2/nku1, "injax")}\\]
+            \\[\\text{Eier für ${nku2*kpersonen}} = ${getlowestfraction(nku2/nku1, "injax")} \\cdot \\text{(Eier für }${nku1*kpersonen})\\]
+            \\[\\text{Eier für ${nku2*kpersonen}} = ${getlowestfraction(nku2/nku1, "injax")} \\cdot ${nku1*eier} \\text{ Eier}\\]
+            Du musst also alle Zutaten mit \\(${getlowestfraction(nku2/nku1, "injax")}\\) multiplizieren!
+            `//!
         },
-        */
     ]
+
+    function getlowestfraction(x0,format) {
+        let eps = 1.0E-15;
+        let h, h1, h2, k, k1, k2, a, x;
+        //let format = "jax"
+        x = x0;
+        a = Math.floor(x);
+        h1 = 1;
+        k1 = 0;
+        h = a;
+        k = 1;
+        while (x-a > eps*k*k) {
+            x = 1/(x-a);
+            a = Math.floor(x);
+            h2 = h1; h1 = h;
+            k2 = k1; k1 = k;
+            h = h2 + a*h1;
+            k = k2 + a*k1;
+        }
+        // return h + "/" + k;
+       
+           // (format === "jax") ? `\\[\\frac{${h}}{${k}}\\]` : h + "/" + k
+        if (format === "jax"){
+            return k === 1 ? `\\[{${h}}\\]` : `\\[\\frac{${h}}{${k}}\\]`
+        } else if (format === "injax") {
+            return k === 1 ? `{${h}}` : `\\frac{${h}}{${k}}`
+        } else if (format === "text") {
+            return `${h} geteilt durch ${k}`;
+        } else {
+            return h + "/" + k;
+        }
+    }
     
-    //const i = Math.floor(Math.random()*aufgaben.length);
+    //const i = 3 //test
     const i = ( typeof filter == 'number' ? filter : Math.floor(Math.random() * aufgaben.length))
- 
+    
+
     const [aufgabe_,loesung_,help_,explainer_] = [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
 
     let menu = "Das Sub-Menü in kommt Kürze"
