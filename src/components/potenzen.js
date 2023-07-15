@@ -11,14 +11,23 @@ function potenzen(filter) {
     function digits(num) {
         return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3) : num
     }
-
+    
     function powerDiv(a, n, m) {
-
-
+        if (n === 0 || m === 0) {
+            throw new Error("Exponent muss !=0 sein")
+        } else if (a <= 0) {
+            throw new Error("Basis muss positiv sein");
+        } else if ( n === m ) {
+            return '\\[=1\\]'
+        }
+        if (n > m) {
+            return `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^${n-m} = ${a**(n-m)}\\]`
+        } else {                // n < m
+            return `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} = \\frac{1}{${a}^${m-n}} = \\frac{1}{${a**(m-n)}}\\]`
+        }
     }
-
-
-
+    
+    
     //console.log(a, n, digits(a**n))
     //console.log(powerFrac(2, -6))
 
@@ -59,8 +68,7 @@ function potenzen(filter) {
             //loesung: `\\[=\\frac{${a**m}}{${a**n}} = ${digits(1/a**n)}\\]`,
             loesung: ``,
             help: `\\[\\frac{a^n}{a^m} = a^{n - m}\\]`,
-            explainer: `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} \\]`
-            // + n>m? `\\(${a**(n-m)}\\)` : `\\(\\frac{1}{${a**(-(n-m))}}\\)`,
+            explainer: `${powerDiv(a, n, m)}`
         },
         {
             nr:4,
@@ -182,16 +190,8 @@ function powerString(a, n) {
     return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3) : num
 }
 
-/*
-function powerDiv(a, n, m) {
-    if (n === 0 || m === 0) {
-        return "1"; // Any number to the power of 0 is 1
-    } else if (a <= 0) {
-        throw new Error("Basis muss positiv sein");
-    }
-    
-}
-*/
+
+
   /*
   function powerFrac(a, n) {
     if (n === 0) {
