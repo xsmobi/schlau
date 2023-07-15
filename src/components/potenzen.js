@@ -8,14 +8,19 @@ function potenzen(filter) {
     let n = 2 + getRandomInt(7) 
     if (m === n) n=9
 
-
-    
-
     function digits(num) {
         return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3) : num
     }
-    console.log(a, n, digits(a**n))
 
+    function powerDiv(a, n, m) {
+
+
+    }
+
+
+
+    //console.log(a, n, digits(a**n))
+    //console.log(powerFrac(2, -6))
 
     const aufgaben = [
         {
@@ -23,7 +28,7 @@ function potenzen(filter) {
             title: "Multiplizieren, gleiche Basis",
             description: "", 
             aufgabe: `\\[${a}^${n} \\cdot ${a}^${m} =\\]`,
-            loesung: `\\[${a}^{${n+m}}\\]`,
+            loesung: `\\[= ${a}^{${n+m}} = ${a**(n+m)}\\]`,
             help: `\\[a^n \\cdot a^m = a^{n + m}\\]`,
             explainer: `\\[${a}^${n} \\cdot ${a}^${m} = ${a}^{${n}+${m}}\\]
             \\[(${powerString(a, n)}) \\cdot (${powerString(a, m)}) = \\]
@@ -50,9 +55,11 @@ function potenzen(filter) {
             title: "Dividieren, gleiche Basis",
             description: "", 
             aufgabe: `\\[\\frac{${a}^${n}}{${a}^${m}} =\\]`,
-            loesung: `${digits(a**(n-m))}`,
+            //loesung: `\\[${digits(a**(n-m))}\\]`,
+            //loesung: `\\[=\\frac{${a**m}}{${a**n}} = ${digits(1/a**n)}\\]`,
+            loesung: ``,
             help: `\\[\\frac{a^n}{a^m} = a^{n - m}\\]`,
-            explainer: `\\(\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} ${n<m ? n<m : ""}\\)`
+            explainer: `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} \\]`
             // + n>m? `\\(${a**(n-m)}\\)` : `\\(\\frac{1}{${a**(-(n-m))}}\\)`,
         },
         {
@@ -124,9 +131,6 @@ function potenzen(filter) {
             h = h2 + a*h1;
             k = k2 + a*k1;
         }
-        // return h + "/" + k;
-       
-           // (format === "jax") ? `\\[\\frac{${h}}{${k}}\\]` : h + "/" + k
         if (format === "jax"){
             return k === 1 ? `\\[{${h}}\\]` : `\\[\\frac{${h}}{${k}}\\]`
         } else if (format === "injax") {
@@ -167,7 +171,6 @@ function powerString(a, n) {
     } else if (n < 0) {
       throw new Error("Exponent (n) should be a non-negative integer.");
     }
-  
     let powerString = `${a}`;
     for (let i = 1; i < n; i++) {
       powerString += ` \\cdot ${a}`;
@@ -175,5 +178,31 @@ function powerString(a, n) {
     return powerString;
   }
 
+  function digits(num) {
+    return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3) : num
+}
 
-  
+/*
+function powerDiv(a, n, m) {
+    if (n === 0 || m === 0) {
+        return "1"; // Any number to the power of 0 is 1
+    } else if (a <= 0) {
+        throw new Error("Basis muss positiv sein");
+    }
+    
+}
+*/
+  /*
+  function powerFrac(a, n) {
+    if (n === 0) {
+        return "1"; // Any number to the power of 0 is 1
+    } else if (a <= 0) {
+        throw new Error("Basis muss positiv sein");
+    }
+    if (n > 0) {
+        return a**n
+    } else { // n < 0
+        return '\\[\\frac{1}{${a**n}\\]'
+    }
+    } 
+    */
