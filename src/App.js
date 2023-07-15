@@ -69,7 +69,7 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('potenzen');
+  const [selectedType, setSelectedType] = useState('prozent');
 
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
