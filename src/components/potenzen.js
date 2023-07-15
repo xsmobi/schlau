@@ -8,7 +8,14 @@ function potenzen(filter) {
     let n = 2 + getRandomInt(7) 
     if (m === n) n=9
 
-    console.log(a, n, m, n>m)
+
+    
+
+    function digits(num) {
+        return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3) : num
+    }
+    console.log(a, n, digits(a**n))
+
 
     const aufgaben = [
         {
@@ -27,11 +34,15 @@ function potenzen(filter) {
             nr:2,
             title: "Negative Exponenten",
             description: "", 
-            aufgabe: `\\[${a}^{-${n}} =\\]`,
-            loesung: `\\[\\frac{1}{${a**n}}\\]`,
+            aufgabe: `\\[${a}^{-${n}} = \\]`,
+            loesung: `\\[=\\frac{1}{${a**n}} = ${digits(1/a**n)}\\]`,
             help: `\\[a^{-n} = \\frac{1}{a^n}\\]`,
             explainer: `\\[a^{-n} = \\frac{1}{a^n}\\]
-            \\[\\frac{1}{${a}^${n}} = \\frac{1}{${powerString(a, n)}}\\]
+            \\[\\frac{1}{${a}^${n}} = \\frac{1}{${powerString(a, n)}} = \\frac{1}{${a**n}}\\]
+            \\[= ${digits(1/a**n)}\\]
+            Auf dem TR ausprobieren: tippe
+            \\[${powerString(a, n)} = \\]
+            und dann die 1/x Taste. Vergleiche mit dem Ergebnis!
             `,//!
         },
         {
@@ -39,10 +50,10 @@ function potenzen(filter) {
             title: "Dividieren, gleiche Basis",
             description: "", 
             aufgabe: `\\[\\frac{${a}^${n}}{${a}^${m}} =\\]`,
-            loesung: `${n>m ? a**(n-m) : (a**(n-m)).toFixed(6)}`,
+            loesung: `${digits(a**(n-m))}`,
             help: `\\[\\frac{a^n}{a^m} = a^{n - m}\\]`,
             explainer: `\\(\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} ${n<m ? n<m : ""}\\)`
-             //+ n>m? `\\(n>m\\)` : `\\(m<m\\)`,
+            // + n>m? `\\(${a**(n-m)}\\)` : `\\(\\frac{1}{${a**(-(n-m))}}\\)`,
         },
         {
             nr:4,
