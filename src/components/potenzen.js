@@ -8,7 +8,7 @@ function potenzen(filter) {
     let n = 2 + getRandomInt(7) 
     if (m === n) n=9
 
-    //console.log(a, n, m)
+    console.log(a, n, m, n>m)
 
     const aufgaben = [
         {
@@ -16,36 +16,43 @@ function potenzen(filter) {
             title: "Multiplizieren, gleiche Basis",
             description: "", 
             aufgabe: `\\[${a}^${n} \\cdot ${a}^${m} =\\]`,
-            loesung: ``,
-            help: ``,
-            explainer: ``,
+            loesung: `\\[${a}^{${n+m}}\\]`,
+            help: `\\[a^n \\cdot a^m = a^{n + m}\\]`,
+            explainer: `\\[${a}^${n} \\cdot ${a}^${m} = ${a}^{${n}+${m}}\\]
+            \\[(${powerString(a, n)}) \\cdot (${powerString(a, m)}) = \\]
+            \\[${powerString(a, n+m)} \\]
+            `,//!
         },
         {
             nr:2,
-            title: "Positive und negative Exponenten",
+            title: "Negative Exponenten",
             description: "", 
-            aufgabe: `\\[${a}^-${n} =\\]`,
-            loesung: ``,
-            help: ``,
-            explainer: ``,
+            aufgabe: `\\[${a}^{-${n}} =\\]`,
+            loesung: `\\[\\frac{1}{${a**n}}\\]`,
+            help: `\\[a^{-n} = \\frac{1}{a^n}\\]`,
+            explainer: `\\[a^{-n} = \\frac{1}{a^n}\\]
+            \\[\\frac{1}{${a}^${n}} = \\frac{1}{${powerString(a, n)}}\\]
+            `,//!
         },
         {
             nr:3,
             title: "Dividieren, gleiche Basis",
             description: "", 
             aufgabe: `\\[\\frac{${a}^${n}}{${a}^${m}} =\\]`,
-            loesung: ``,
-            help: ``,
-            explainer: ``,
+            loesung: `${n>m ? a**(n-m) : (a**(n-m)).toFixed(6)}`,
+            help: `\\[\\frac{a^n}{a^m} = a^{n - m}\\]`,
+            explainer: `\\(\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} ${n<m ? n<m : ""}\\)`
+             //+ n>m? `\\(n>m\\)` : `\\(m<m\\)`,
         },
         {
             nr:4,
             title: "Multiplizieren, gleicher Exponent",
             description: "", 
             aufgabe: `\\[${a}^${n} \\cdot ${b}^${n} =\\]`,
-            loesung: ``,
-            help: ``,
-            explainer: ``,
+            loesung: `\\[${(a*b)**n}\\]`,
+            help: `\\[a^n \\cdot b^n = (a \\cdot b)^n\\]`,
+            explainer: `\\[(${a} \\cdot ${b})^${n} = ${a*b}^${n} = \\]
+            \\[${(a*b)**n}\\]`,
         },
         {
             nr:5,
@@ -142,3 +149,20 @@ export default potenzen;
 function getRandomInt(n) { 
     return Math.floor(Math.random() * n);
 }
+
+function powerString(a, n) {
+    if (n === 0) {
+      return "1"; // Any number to the power of 0 is 1
+    } else if (n < 0) {
+      throw new Error("Exponent (n) should be a non-negative integer.");
+    }
+  
+    let powerString = `${a}`;
+    for (let i = 1; i < n; i++) {
+      powerString += ` \\cdot ${a}`;
+    }
+    return powerString;
+  }
+
+
+  
