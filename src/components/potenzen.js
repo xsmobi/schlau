@@ -8,6 +8,13 @@ function potenzen(filter) {
     let n = 2 + getRandomInt(7) 
     if (m === n) n=9
 
+    let a0 = 2 + getRandomInt(6)
+    let b0 = 2 + getRandomInt(5)
+    if (a0 === b0) b0=7
+    let m0 = 2 + getRandomInt(4) 
+    let n0 = 2 + getRandomInt(3) 
+    if (m0 === n0) n0=5
+
     const bin = Math.random()
     let kwaufgabe, kwhelp, kwloesung, kwexplainer
     if (bin < 0.2) {                           // a
@@ -33,6 +40,50 @@ function potenzen(filter) {
         kwhelp =        `\\[(\\frac{${a}}{${b}})^{-1}\\]`
         kwloesung =     `\\[=${getlowestfraction(b/a, "injax")} = ${digits2(b/a)}\\]`
         kwexplainer =   `\\[\\]`
+    }
+    let ppotaufgabe, ppothelp, ppotloesung, ppotexplainer
+    if (bin < 0.2) { 
+        ppotaufgabe = `\\[(${a0}^${n0})^${m0}\\]`          // (a^n)^m
+        ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${n0}, m=${m0}\\]`
+        ppotloesung = `\\[${a0**(n0*m0)}\\]`
+        ppotexplainer = `\\[(${a0}^${n0})^${m0} = ${a0}^{${n0} \\cdot ${m0}} = ${a0}^{${n0*m0}}\\]`
+        //console.log("n, m")
+    } else if (bin < 0.4) {                             // (a^-n)^m
+        ppotaufgabe = `\\[(${a0}^{${-n0}})^{${m0}}\\]`
+        ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${-n0}, m=${m0}\\]`
+        //ppotloesung = `\\[= ${a0}^{${-n0*m0}} = ${digits(a0**(-n0*m0))}\\]`
+        ppotloesung = `\\[= \\frac{1}{${a0}^{${n0*m0}}} = ${digits(a0**(-n0*m0))}\\]`
+        ppotexplainer = `\\[(${a0}^{${-n0}})^{${m0}} = ${a0}^{(${-n0}) \\cdot ${m0}}\\ = ${a0}^{${-n0*m0}}\\]
+        Hier helfen dir die Potenzregeln beim schnellen Rechnen: statt auf dem TR die Aufgabe so einzutippen, wie sie gegeben ist 
+        (jede Menge Vertipp-Möglichkeiten), gibts du einfach ${a0} hoch ${n0*m0} ein (und "=") und drückst dann auf die 1/x Taste!
+        `//!
+        //console.log("-n, m")
+    } else if (bin < 0.6) {                             // (a^n)^-m
+        ppotaufgabe = `\\[(${a0}^${n0})^{${-m0}}\\]`
+        ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${n0}, m=${-m0}\\]`
+        //ppotloesung = `\\[= ${a0}^{${-n0*m0}} = ${digits(a0**(-n0*m0))}\\]` 
+        ppotloesung = `\\[= \\frac{1}{${a0}^{${n0*m0}}} = ${digits(a0**(-n0*m0))}\\]`
+        ppotexplainer = `\\[(${a0}^${n0})^{${-m0}} = ${a0}^{${n0} \\cdot (${-m0})} = ${a0}^{${-n0*m0}}\\]
+        Hier helfen dir die Potenzregeln beim schnellen Rechnen: statt auf dem TR die Aufgabe so einzutippen, wie sie gegeben ist 
+        (jede Menge Vertipp-Möglichkeiten), gibts du einfach ${a0} hoch ${n0*m0} ein (und "=") und drückst dann auf die 1/x Taste!
+        `//!
+        //console.log("n, -m")
+    } else if (bin < 0.8) {                       // (a^-n)^-m
+        ppotaufgabe = `\\[(${a0}^{${-n0}})^{${-m0}}\\]`
+        ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${-n0}, m=${-m0}\\]`
+        ppotloesung = `\\[${a0**(n0*m0)}\\]`
+        ppotexplainer = `\\[(${a0}^{${-n0}})^{${-m0}}\\ = ${a0}^{(${-n0}) \\cdot (${-m0})} = ${a0}^{${n0*m0}}\\]` 
+        //console.log("-n, -m")
+    } else if (bin < 0.9) {                       // a^nm auflösen
+        ppotaufgabe = `Praxisproblem: schätze die Zahl \\(2^24\\) ab`
+        ppothelp = `\\[\\]`
+        ppotloesung = `\\[\\]`
+        ppotexplainer = `\\[\\]`                         
+    } else {                                      // a^nm auflösen Textaufgabe
+        ppotaufgabe = `Praxisproblem: schätze die Zahl \\(2^63\\) ab`
+        ppothelp = `\\[\\]`
+        ppotloesung = `\\[\\]`
+        ppotexplainer = `\\[\\]`
     }
 
     //let intab = a/b
@@ -123,10 +174,10 @@ function potenzen(filter) {
             nr:7,
             title: "Potenzen von Potenzen",
             description: "", 
-            aufgabe: `\\[(${a}^${n})^${m} =\\]`,
-            loesung: ``,
-            help: ``,
-            explainer: ``,
+            aufgabe: ppotaufgabe,
+            loesung: ppotloesung,
+            help: ppothelp,
+            explainer: ppotexplainer,
         },
         /*
         {
