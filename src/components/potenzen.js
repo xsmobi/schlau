@@ -12,23 +12,33 @@ function potenzen(filter) {
     let kwaufgabe, kwhelp, kwloesung, kwexplainer
     if (bin < 0.2) {                           // a
         kwaufgabe =     `\\[${a}\\]`
-        kwhelp =        `\\[\\]`
-        kwloesung =     `\\[=\\frac{1}{${a}} = ${digits(1/a)}\\]`
-        kwexplainer =   `\\[\\frac{}{}\\]`
+        kwhelp =        `\\[${a}^{-1}\\]`
+        kwloesung =     `\\[=\\frac{1}{${a}} = ${a}^{-1} = ${digits(1/a)}\\]`
+        kwexplainer =   `Die Zahl ${a} kann als Bruch mit dem Nenner 1 aufgefasst werden
+                        \\[${a} = \\frac{${a}}{1}\\]
+                        Der Kehrbruch ist daher
+                        \\[\\frac{1}{${a}}\\]
+                        Sein Wert
+                        \\(\\frac{1}{${a}} = ${digits(1/a)}\\)
+                        heißt Kehrwert der Zahl ${a}.
+                        `
     } else if (bin < 0.4) {                    // 1/a
         kwaufgabe =     `\\[\\frac{1}{${a}}\\]`
-        kwhelp =        `\\[\\]`
+        kwhelp =        `\\[(\\frac{1}{${a}})^{-1} = ${a}\\]`
         kwloesung =     `\\[=${a}\\]`
-        kwexplainer =   `\\[\\]`
+        kwexplainer =   `Der Kehrbruch eines Stammbruchs \\(\\frac{1}{${a}}\\) (d.h. Zähler = 1) ist einfach eine Zahl, nämlich der Nenner ${a} dieses Bruchs.`
     } else {                                    // a/b
         //kwaufgabe =     `\\[\\frac{${a}}{${b}}\\]`
         kwaufgabe =     `\\[${getlowestfraction(a/b, "injax")}\\]`
-        kwhelp =        `\\[\\]`
-        kwloesung =     `\\[=${getlowestfraction(b/a, "injax")} = ${digits(b/a)}\\]`
+        kwhelp =        `\\[(\\frac{${a}}{${b}})^{-1}\\]`
+        kwloesung =     `\\[=${getlowestfraction(b/a, "injax")} = ${digits2(b/a)}\\]`
         kwexplainer =   `\\[\\]`
     }
+
+    //let intab = a/b
+    //console.log(intab,Number.isInteger(intab))
     
-    //console.log(a, n, digits(a**n))
+    //console.log(a, b, digits(b/a))
     //console.log(powerFrac(2, -6))
 
     const aufgaben = [
@@ -96,9 +106,18 @@ function potenzen(filter) {
             title: "Dividieren, gleicher Exponent",
             description: "", 
             aufgabe: `\\[\\frac{${a}^${n}}{${b}^${n}} =\\]`,
-            loesung: ``,
-            help: ``,
-            explainer: ``,
+            //loesung: `\\[(\\frac{${a}}{${b}})^${n} \\]`,
+            loesung: Number.isInteger(a/b) ?
+                `\\[${getlowestfraction(a/b, "injax")}^${n} \\]` :
+                `\\[(${getlowestfraction(a/b, "injax")})^${n} \\]`,
+            help: `\\[\\frac{a^n}{b^n} = (\\frac{a}{b})^n\\]`,
+            explainer: `\\[\\frac{${a}^${n}}{${b}^${n}} =\\]
+            \\[\\frac{${powerString(a, n)}}{${powerString(b, n)}} =\\]
+            Diesen Bruch erhältst du auch, wenn du
+            \\[\\frac{${a}}{${b}}\\]
+            ${n}-mal multiplizierst und das entspricht der Lösung
+            \\[(\\frac{${a}}{${b}})^${n} \\]
+            `//!
         },
         {
             nr:7,
@@ -161,9 +180,12 @@ function powerString(a, n) {
     return powerString;
   }
 
-  function digits(num) {
+function digits(num) {
     //return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3).replace(/\.0+$/, '') : num
     return num<1 ? parseFloat(num).toFixed(Math.floor(Math.log10(1/num))+3) : num
+}
+function digits2(num) {
+    return parseFloat(num).toFixed(Math.floor(Math.log10(1/num))+3)
 }
 
 function powerDiv(a, n, m, mode) {
