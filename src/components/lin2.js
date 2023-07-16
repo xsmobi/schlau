@@ -53,8 +53,16 @@ function lin2(min, max){
       }
     }
     
-   
-    explainer = "... explainer ..."
+    explainer = `Ziel: x soll alleine stehen, dann kannst du x ausrechnen. Der erste Schritt: Was beim x steht, wechselt das Vorzeichen und die Seite der Gleichung.
+    <br>Falls links "-x" steht, wird erst "-x" alleine gestellt.
+    <br>Beispiel 1
+    <br>x + 5 = 10 \\(\\Rightarrow\\) x = 10 - 5 
+    <br>Beispiel 2
+    <br>x - 5 = 10 \\(\\Rightarrow\\) x = 10 + 5
+    <br>Beispiel 3
+    <br>-x + 5 = 10 \\(\\Rightarrow\\) -x = 10 - 5
+    <br>Vorzeichen links und rechts flippen: x = -10 + 5 
+    `//!
     
     //console.log(b)
 

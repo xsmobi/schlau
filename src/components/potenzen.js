@@ -42,13 +42,13 @@ function potenzen(filter) {
         kwexplainer =   `\\[\\]`
     }
     let ppotaufgabe, ppothelp, ppotloesung, ppotexplainer
-    if (bin < 0.2) { 
+    if (bin < 0.25) { 
         ppotaufgabe = `\\[(${a0}^${n0})^${m0}\\]`          // (a^n)^m
         ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${n0}, m=${m0}\\]`
         ppotloesung = `\\[${a0**(n0*m0)}\\]`
         ppotexplainer = `\\[(${a0}^${n0})^${m0} = ${a0}^{${n0} \\cdot ${m0}} = ${a0}^{${n0*m0}}\\]`
         //console.log("n, m")
-    } else if (bin < 0.4) {                             // (a^-n)^m
+    } else if (bin < 0.5) {                             // (a^-n)^m
         ppotaufgabe = `\\[(${a0}^{${-n0}})^{${m0}}\\]`
         ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${-n0}, m=${m0}\\]`
         //ppotloesung = `\\[= ${a0}^{${-n0*m0}} = ${digits(a0**(-n0*m0))}\\]`
@@ -58,7 +58,7 @@ function potenzen(filter) {
         (jede Menge Vertipp-Möglichkeiten), gibts du einfach ${a0} hoch ${n0*m0} ein (und "=") und drückst dann auf die 1/x Taste!
         `//!
         //console.log("-n, m")
-    } else if (bin < 0.6) {                             // (a^n)^-m
+    } else if (bin < 0.75) {                             // (a^n)^-m
         ppotaufgabe = `\\[(${a0}^${n0})^{${-m0}}\\]`
         ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${n0}, m=${-m0}\\]`
         //ppotloesung = `\\[= ${a0}^{${-n0*m0}} = ${digits(a0**(-n0*m0))}\\]` 
@@ -68,12 +68,15 @@ function potenzen(filter) {
         (jede Menge Vertipp-Möglichkeiten), gibts du einfach ${a0} hoch ${n0*m0} ein (und "=") und drückst dann auf die 1/x Taste!
         `//!
         //console.log("n, -m")
-    } else if (bin < 0.8) {                       // (a^-n)^-m
+    //} else if (bin < 0.8) {   
+        } else {                                            // (a^-n)^-m
         ppotaufgabe = `\\[(${a0}^{${-n0}})^{${-m0}}\\]`
         ppothelp = `\\[(a^n)^m = a^{n \\cdot m}\\] \\[a = ${a0}, n = ${-n0}, m=${-m0}\\]`
         ppotloesung = `\\[${a0**(n0*m0)}\\]`
         ppotexplainer = `\\[(${a0}^{${-n0}})^{${-m0}}\\ = ${a0}^{(${-n0}) \\cdot (${-m0})} = ${a0}^{${n0*m0}}\\]` 
         //console.log("-n, -m")
+    
+    /*
     } else if (bin < 0.9) {                       // a^nm auflösen
         ppotaufgabe = `Praxisproblem: schätze die Zahl \\(2^24\\) ab`
         ppothelp = `\\[\\]`
@@ -84,7 +87,9 @@ function potenzen(filter) {
         ppothelp = `\\[\\]`
         ppotloesung = `\\[\\]`
         ppotexplainer = `\\[\\]`
+    */   
     }
+    
 
     //let intab = a/b
     //console.log(intab,Number.isInteger(intab))
