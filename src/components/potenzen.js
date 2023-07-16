@@ -1,32 +1,32 @@
 function potenzen(filter) {
     let headerclass = "subheader2"
 
-    let a = 2 + getRandomInt(8)
-    let b = 3 + getRandomInt(7)
+    let a = 2 + getRandomInt(7)
+    let b = 3 + getRandomInt(6)
     if (a === b) b=9
     let m = 2 + getRandomInt(8) 
     let n = 2 + getRandomInt(7) 
     if (m === n) n=9
 
-    function digits(num) {
-        return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3) : num
+    const bin = Math.random()
+    let kwaufgabe, kwhelp, kwloesung, kwexplainer
+    if (bin < 0.2) {                           // a
+        kwaufgabe =     `\\[${a}\\]`
+        kwhelp =        `\\[\\]`
+        kwloesung =     `\\[=\\frac{1}{${a}} = ${digits(1/a)}\\]`
+        kwexplainer =   `\\[\\frac{}{}\\]`
+    } else if (bin < 0.4) {                    // 1/a
+        kwaufgabe =     `\\[\\frac{1}{${a}}\\]`
+        kwhelp =        `\\[\\]`
+        kwloesung =     `\\[=${a}\\]`
+        kwexplainer =   `\\[\\]`
+    } else {                                    // a/b
+        //kwaufgabe =     `\\[\\frac{${a}}{${b}}\\]`
+        kwaufgabe =     `\\[${getlowestfraction(a/b, "injax")}\\]`
+        kwhelp =        `\\[\\]`
+        kwloesung =     `\\[=${getlowestfraction(b/a, "injax")} = ${digits(b/a)}\\]`
+        kwexplainer =   `\\[\\]`
     }
-    
-    function powerDiv(a, n, m) {
-        if (n === 0 || m === 0) {
-            throw new Error("Exponent muss !=0 sein")
-        } else if (a <= 0) {
-            throw new Error("Basis muss positiv sein");
-        } else if ( n === m ) {
-            return '\\[=1\\]'
-        }
-        if (n > m) {
-            return `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^${n-m} = ${a**(n-m)}\\]`
-        } else {                // n < m
-            return `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} = \\frac{1}{${a}^${m-n}} = \\frac{1}{${a**(m-n)}}\\]`
-        }
-    }
-    
     
     //console.log(a, n, digits(a**n))
     //console.log(powerFrac(2, -6))
@@ -39,9 +39,11 @@ function potenzen(filter) {
             aufgabe: `\\[${a}^${n} \\cdot ${a}^${m} =\\]`,
             loesung: `\\[= ${a}^{${n+m}} = ${a**(n+m)}\\]`,
             help: `\\[a^n \\cdot a^m = a^{n + m}\\]`,
-            explainer: `\\[${a}^${n} \\cdot ${a}^${m} = ${a}^{${n}+${m}}\\]
+            explainer: `\\[${a}^${n} \\cdot ${a}^${m} =\\]
             \\[(${powerString(a, n)}) \\cdot (${powerString(a, m)}) = \\]
-            \\[${powerString(a, n+m)} \\]
+            \\[${powerString(a, n+m)} =\\]
+            \\[= ${a}^{${n+m}}\\]
+            \\[= ${a}^{${n}+${m}}\\]
             `,//!
         },
         {
@@ -66,7 +68,7 @@ function potenzen(filter) {
             aufgabe: `\\[\\frac{${a}^${n}}{${a}^${m}} =\\]`,
             //loesung: `\\[${digits(a**(n-m))}\\]`,
             //loesung: `\\[=\\frac{${a**m}}{${a**n}} = ${digits(1/a**n)}\\]`,
-            loesung: ``,
+            loesung: `${powerDiv(a, n, m, "short")}`,
             help: `\\[\\frac{a^n}{a^m} = a^{n - m}\\]`,
             explainer: `${powerDiv(a, n, m)}`
         },
@@ -84,10 +86,10 @@ function potenzen(filter) {
             nr:5,
             title: "Kehrwerte",
             description: "", 
-            aufgabe: `\\[(\\frac{${a}}{${a}})^-${n} =\\]`,
-            loesung: ``,
-            help: ``,
-            explainer: ``,
+            aufgabe: "Bestimme den Kehrwert von" + kwaufgabe,
+            loesung: "Der Kehrwert ist" + kwloesung,
+            help: kwhelp,
+            explainer: kwexplainer,
         },
         {
             nr:6,
@@ -121,34 +123,7 @@ function potenzen(filter) {
         
     ]
 
-    function getlowestfraction(x0,format) {
-        let eps = 1.0E-15;
-        let h, h1, h2, k, k1, k2, a, x;
-        //let format = "jax"
-        x = x0;
-        a = Math.floor(x);
-        h1 = 1;
-        k1 = 0;
-        h = a;
-        k = 1;
-        while (x-a > eps*k*k) {
-            x = 1/(x-a);
-            a = Math.floor(x);
-            h2 = h1; h1 = h;
-            k2 = k1; k1 = k;
-            h = h2 + a*h1;
-            k = k2 + a*k1;
-        }
-        if (format === "jax"){
-            return k === 1 ? `\\[{${h}}\\]` : `\\[\\frac{${h}}{${k}}\\]`
-        } else if (format === "injax") {
-            return k === 1 ? `{${h}}` : `\\frac{${h}}{${k}}`
-        } else if (format === "text") {
-            return `${h} geteilt durch ${k}`;
-        } else {
-            return h + "/" + k;
-        }
-    }
+    
     
     //const i = 4 //test
     const i = ( typeof filter == 'number' ? filter : Math.floor(Math.random() * aufgaben.length))
@@ -187,22 +162,60 @@ function powerString(a, n) {
   }
 
   function digits(num) {
-    return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3) : num
+    //return num<1 ? num.toFixed(Math.floor(Math.log10(1/num))+3).replace(/\.0+$/, '') : num
+    return num<1 ? parseFloat(num).toFixed(Math.floor(Math.log10(1/num))+3) : num
+}
+
+function powerDiv(a, n, m, mode) {
+    if (n === 0 || m === 0) {
+        throw new Error("Exponent muss !=0 sein")
+    } else if (a <= 0) {
+        throw new Error("Basis muss positiv sein");
+    } else if ( n === m ) {
+        return '\\[=1\\]'
+    }
+    if (mode === "short") {
+        if (n > m) {
+            return `\\[= ${a}^${n-m} = ${a**(n-m)}\\]`
+        } else {                // n < m
+            return `\\[= \\frac{1}{${a}^${m-n}} = \\frac{1}{${a**(m-n)}} = ${digits(a**(n-m))}\\]`
+        }
+    } else {
+        if (n > m) {
+            return `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^${n-m} = ${a**(n-m)}\\]`
+        } else {                // n < m
+            return `\\[\\frac{${a}^${n}}{${a}^${m}} = ${a}^{${n}-${m}} = ${a}^{${n-m}} = \\frac{1}{${a}^${m-n}} = \\frac{1}{${a**(m-n)}}\\]`
+        }
+    }
+}
+
+function getlowestfraction(x0,format) {
+    let eps = 1.0E-15;
+    let h, h1, h2, k, k1, k2, a, x;
+    //let format = "jax"
+    x = x0;
+    a = Math.floor(x);
+    h1 = 1;
+    k1 = 0;
+    h = a;
+    k = 1;
+    while (x-a > eps*k*k) {
+        x = 1/(x-a);
+        a = Math.floor(x);
+        h2 = h1; h1 = h;
+        k2 = k1; k1 = k;
+        h = h2 + a*h1;
+        k = k2 + a*k1;
+    }
+    if (format === "jax"){
+        return k === 1 ? `\\[{${h}}\\]` : `\\[\\frac{${h}}{${k}}\\]`
+    } else if (format === "injax") {
+        return k === 1 ? `{${h}}` : `\\frac{${h}}{${k}}`
+    } else if (format === "text") {
+        return `${h} geteilt durch ${k}`;
+    } else {
+        return h + "/" + k;
+    }
 }
 
 
-
-  /*
-  function powerFrac(a, n) {
-    if (n === 0) {
-        return "1"; // Any number to the power of 0 is 1
-    } else if (a <= 0) {
-        throw new Error("Basis muss positiv sein");
-    }
-    if (n > 0) {
-        return a**n
-    } else { // n < 0
-        return '\\[\\frac{1}{${a**n}\\]'
-    }
-    } 
-    */
