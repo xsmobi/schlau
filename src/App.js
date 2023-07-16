@@ -48,7 +48,7 @@ function App() {
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
     {typ: "linfun", btn: "LINEAR y(x)",   txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POTENZEN",    txt: "Potenzen, Wurzeln (noch in Arbeit)", hasFilter: true},
+    {typ: "potenzen", btn: "POTENZEN",    txt: "Potenzen", hasFilter: true},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     
