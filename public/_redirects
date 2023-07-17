@@ -1,1 +1,3 @@
-/index /mathe-app-docs/index.html
+/index                      /mathe-app-docs/index.html
+/mathe-app-docs/*           /mathe-app-docs/index.html
+/mathe-app-docs/!(*.html)   /mathe-app-docs/:splat  200
