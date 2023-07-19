@@ -3,82 +3,114 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Brüche kürzen</title>
-    <meta name="description" content="Brüche kürzen">
+    <title>Brüche kürzen. Einfache Bruchrechnung, Basics zum Brüche multiplizieren</title>
+    <meta name="description" content="Ohne Brüche kürzen geht es nicht. Brüche kürzen musst du immer wieder in Mathe und in Physik.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="../styles.css">-->
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <!--<a class="navbar-brand" href="#">Navbar</a>-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="../../">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">Arbeitsblätter</a>
+              <a  class="nav-link" href="./index.html">Alle Aufgabentypen</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://www.youtube.com/c/mathbydoing">YouTube</a>
-              </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Alle Aufgabentypen
+              <a class="nav-link dropdown-toggle" href="./index.html" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Aufgabentypen
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="../mathe-themen-rechenarten/index.html">Mathe-Themen, Rechenarten</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/brueche-kuerzen.html">Brüche kürzen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/dreisatz-proportional-antiproportional.html">Dreisatz</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/lineare-gleichungen.html">Lineare Gleichungen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/mal-geteilt-gleichungen.html">Mal-geteilt-Gleichungen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/plus-und-minus-auf-dem-zahlenstrahl.html">Plus/Minus auf dem Zahlenstrahl</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/plus-minus-rechnen-mit-klammern.html">Plus/Minus Rechnen mit Klammern</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/potenzen-multiplizieren-dividieren-potenzieren.html">Potenzen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/prozent-und-rechnen-mit-anteilen.html">Prozent und Anteile</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/quadratische-gleichungen-pq-formel-quadratische-ergaenzung.html">Quadratische Gleichungen</a></li>  
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/lineare-funktionen.html">Lineare Funktionen</a></li>
-                <!--<li><a class="dropdown-item" href="./mathe-themen-rechenarten/.html"></a></li>-->                               
+                <!-- erste Reihe -->
+                <li><a class="dropdown-item" href="./plus-und-minus-auf-dem-zahlenstrahl.html">Plus/Minus auf dem Zahlenstrahl</a></li>
+                <li><a class="dropdown-item" href="./plus-minus-rechnen-mit-klammern.html">Plus/Minus Rechnen mit Klammern</a></li>
+                <li><a class="dropdown-item" href="./plus-minus-gleichungen-nach-x-aufloesen.html">Plus-Minus-Gleichungen</a></li>           
+                <li><a class="dropdown-item" href="./dreisatz-proportional-antiproportional.html">Dreisatz</a></li>
+                <!-- zweite Reihe -->
+                <li><a class="dropdown-item" href="./prozent-und-rechnen-mit-anteilen.html">Prozent und Anteile</a></li>
+                <li><a class="dropdown-item" href="./mal-geteilt-gleichungen.html">Mal-geteilt-Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./lineare-gleichungen.html">Lineare Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./brueche-kuerzen.html">Brüche kürzen</a></li>
+                <!-- dritte Reihe -->
+                <li><a class="dropdown-item" href="./lineare-funktionen.html">Lineare Funktionen</a></li> 
+                <li><a class="dropdown-item" href="./quadratische-gleichungen-pq-formel-quadratische-ergaenzung.html">Quadratische Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./potenzen-multiplizieren-dividieren-potenzieren.html">Potenzen</a></li>
               </ul>
             </li>
-            <!--
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-            -->
           </ul>
-          <!--
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-          -->
         </div>
       </div>
     </nav>
 
     <div class="container my-5">
-      <h1>Brüche kürzen mit schlau.app</h1>
-      <h2>Die Praxis bringt's</h2>  
-      <div class="col-lg-8 px-0">
-        <p class="fs-5">You've successfully loaded up the Bootstrap starter example. It includes <a href="https://getbootstrap.com/">Bootstrap 5</a> via the <a href="https://www.jsdelivr.com/package/npm/bootstrap">jsDelivr CDN</a> and includes an additional CSS and JS file for your own code.</p>
-        <p>Feel free to download or copy-and-paste any parts of this example.</p>
 
-        <hr class="col-1 my-4">
+      <nav aria-label="Page navigation example text-center">
+        <ul class="pagination pagination-lg">
+          <li class="page-item">
+            <a class="page-link" href="./lineare-gleichungen.html" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link" style="background-color: #0a0a0a; color: whitesmoke">
+              x/y Brüche kürzen!
+            </span>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="./lineare-funktionen.html" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-        <a href="https://schlau.app" class="btn btn-primary">schlau.app</a>
-        <a href="./index.html" class="btn btn-secondary">Alle Themen und Rechenarten</a>
-        <a href="../index.html" class="btn btn-secondary">Alle Docs - Index</a>  
+
+      <h1>Brüche kürzen</h1>
+      
+      <h3>Die Basis-Disziplin - immer, wenn in Mathe oder Physik Brüche vorkommen</h3> 
+      
+      <div class="row mt-4">
+          <div class="col-sm">
+            <img src="../img/screenshots/brueche-kuerzen.jpg" class="img-fluid" alt="Brüche kürzen mit schlau.app">
+          </div>
+          <div class="col-sm">
+            <p class="fs-5">Das Kürzen (und Erweitern!) von Brüchen brauchst du in Mathe oft: zum Beispiel, wenn du bei einer Aufgabe herausbekommst: x = 6/4. Das musst du kürzen, sonst sieht es blöd aus und es kann auch Punkte kosten. Außerdem kommen Brüche in der Physik vor, da müssen z.B. Einheiten weggekürzt werden. Oder es kommen - in Mathe oder Physik - Potenzen über und unter einem Bruchstrich vor. Hier muss meistens gekürzt werden, damit die richtige Einheit herauskommt.</p>
+            <p class="fs-5">In den Erklärungen zum Brüche kürzen werden die Teiler genannt. Die Zahlenbeispiele sind einfach, so dass du alles nachvollziehen kannst. Das "Hintergrundwissen" über die Teiler hilft dir, noch smarter vorzugehen, auch wenn die Zahlen mal ungewohnt aussehen.</p>
+            <ul class="list-group text-center fs-5">
+              <li class="list-group-item">
+                Bruch zu kürzen:
+                <div class="fraction" top="9" bottom="12"></div>
+              </li> 
+              <li class="list-group-item">
+                Erklärtext:<br>
+                Den Zähler kannst du teilen durch 3, den Nenner durch 2,3,4,6. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte gemeinsame Teiler der Zahlen 9 und 12 ist 3. Wenn du den Zähler 9 und den Nenner 12 durch diese Zahl 3 teilst, erhältst du den gekürzten Bruch.
+              </li>   
+            </ul>
+            <h4 class="mt-5 mb-3">Tricks zum sicherern Brüchekürzen</h4>   
+            <p class="fs-5">Wenn du bei den Beispielen immer wieder ein Produkt aus dem kleinen Einmaleins nicht kannst, dann musst du das kleine Einmaleins unbedingt nachlernen.</p>       
+            <p class="fs-5">Rechne alle Beispiele mit schlau.app schriftlich, schreibe auch die Aufgabe nochmal hin: Bruch, Zwischenschritt, gekürzten Bruch, z.B.</p>
+            <ul class="list-group text-center fs-5">
+                <li class="list-group-item">Bruch:<div class="fraction" top="15" bottom="6"></div></li>
+                <li class="list-group-item">Zum Kürzen vorbereitet:<div class="fraction" top="5 &middot; 3" bottom="2 &middot; 3"></div></li>
+                <li class="list-group-item">Gekürzter Bruch <div class="fraction" top="5" bottom="2"></div></li>   
+            </ul>
+          </div>
       </div>
-    </div>
+        
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="https://schlau.app" class="btn btn-primary btn-lg">Jetzt viele Brüche kürzen mit schlau.app</a>
+      </div>
+
+
+    </div><!-- / container-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="main.js"></script>

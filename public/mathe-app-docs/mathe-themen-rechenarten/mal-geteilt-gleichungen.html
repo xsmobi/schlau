@@ -3,82 +3,131 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mal-Geteilt-Gleichungen</title>
-    <meta name="description" content="Mal-Geteilt-Gleichungen">
+    <title>Mal-Geteilt-Gleichungen nach x auflösen, proportionale Terme umstellen</title>
+    <meta name="description" content="Terme mit Mal-Geteilt auflösen, das kommt in Physik und Mathe massenhaft vor. Z.B. Gleichungen wie s = v * t, U = I * R, F = m * a">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="../styles.css">-->
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <!--<a class="navbar-brand" href="#">Navbar</a>-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="../../">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">Arbeitsblätter</a>
+              <a  class="nav-link" href="./index.html">Alle Aufgabentypen</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://www.youtube.com/c/mathbydoing">YouTube</a>
-              </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Alle Aufgabentypen
+              <a class="nav-link dropdown-toggle" href="./index.html" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Aufgabentypen
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="../mathe-themen-rechenarten/index.html">Mathe-Themen, Rechenarten</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/brueche-kuerzen.html">Brüche kürzen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/dreisatz-proportional-antiproportional.html">Dreisatz</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/lineare-gleichungen.html">Lineare Gleichungen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/mal-geteilt-gleichungen.html">Mal-geteilt-Gleichungen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/plus-und-minus-auf-dem-zahlenstrahl.html">Plus/Minus auf dem Zahlenstrahl</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/plus-minus-rechnen-mit-klammern.html">Plus/Minus Rechnen mit Klammern</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/potenzen-multiplizieren-dividieren-potenzieren.html">Potenzen</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/prozent-und-rechnen-mit-anteilen.html">Prozent und Anteile</a></li>
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/quadratische-gleichungen-pq-formel-quadratische-ergaenzung.html">Quadratische Gleichungen</a></li>  
-                <li><a class="dropdown-item" href="./mathe-themen-rechenarten/lineare-funktionen.html">Lineare Funktionen</a></li>
-                <!--<li><a class="dropdown-item" href="./mathe-themen-rechenarten/.html"></a></li>-->                               
+                <!-- erste Reihe -->
+                <li><a class="dropdown-item" href="./plus-und-minus-auf-dem-zahlenstrahl.html">Plus/Minus auf dem Zahlenstrahl</a></li>
+                <li><a class="dropdown-item" href="./plus-minus-rechnen-mit-klammern.html">Plus/Minus Rechnen mit Klammern</a></li>
+                <li><a class="dropdown-item" href="./plus-minus-gleichungen-nach-x-aufloesen.html">Plus-Minus-Gleichungen</a></li>           
+                <li><a class="dropdown-item" href="./dreisatz-proportional-antiproportional.html">Dreisatz</a></li>
+                <!-- zweite Reihe -->
+                <li><a class="dropdown-item" href="./prozent-und-rechnen-mit-anteilen.html">Prozent und Anteile</a></li>
+                <li><a class="dropdown-item" href="./mal-geteilt-gleichungen.html">Mal-geteilt-Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./lineare-gleichungen.html">Lineare Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./brueche-kuerzen.html">Brüche kürzen</a></li>
+                <!-- dritte Reihe -->
+                <li><a class="dropdown-item" href="./lineare-funktionen.html">Lineare Funktionen</a></li> 
+                <li><a class="dropdown-item" href="./quadratische-gleichungen-pq-formel-quadratische-ergaenzung.html">Quadratische Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./potenzen-multiplizieren-dividieren-potenzieren.html">Potenzen</a></li>
               </ul>
             </li>
-            <!--
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-            -->
           </ul>
-          <!--
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-          -->
         </div>
       </div>
     </nav>
 
     <div class="container my-5">
-      <h1>Mal-Geteilt-Gleichungen mit schlau.app</h1>
-      <h2>Die Praxis bringt's</h2>  
-      <div class="col-lg-8 px-0">
-        <p class="fs-5">You've successfully loaded up the Bootstrap starter example. It includes <a href="https://getbootstrap.com/">Bootstrap 5</a> via the <a href="https://www.jsdelivr.com/package/npm/bootstrap">jsDelivr CDN</a> and includes an additional CSS and JS file for your own code.</p>
-        <p>Feel free to download or copy-and-paste any parts of this example.</p>
 
-        <hr class="col-1 my-4">
+      <nav aria-label="Page navigation example text-center">
+        <ul class="pagination pagination-lg">
+          <li class="page-item">
+            <a class="page-link" href="./prozent-und-rechnen-mit-anteilen.html" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link" style="background-color: #0a0a0a; color: whitesmoke">
+              a &middot; x = b
+            </span>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="./lineare-gleichungen.html" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-        <a href="https://schlau.app" class="btn btn-primary">schlau.app</a>
-        <a href="./index.html" class="btn btn-secondary">Alle Themen und Rechenarten</a>
-        <a href="../index.html" class="btn btn-secondary">Alle Docs - Index</a>  
+
+      <h1>Mal-geteilt-Gleichungen lösen</h1>
+      
+      <h3>Dreibuchstaben-Formeln: die Superstars in Mathe und Physik</h3> 
+      
+      <div class="row mt-4">
+          <div class="col-sm">
+            <img src="../img/screenshots/mal-geteilt-gleichungen.jpg" class="img-fluid" alt="Lineare Gleichungen">
+          </div>
+          <div class="col-sm">
+            <p class="fs-5">Dieser Typ Gleichungen a &middot; x = b, auch Dreibuchstaben-Gleichungen genannt, kommt in Mathe und Physik extrem oft vor - noch öfter als der Typ a &middot; x + b = c des Aufgabentyps <a>lineare Gleichungen.</a> Warum ein extra Aufgabentyp - sind die Dreibuchstaben-Terme nicht einfach Spezialfälle der linearen Terme? Sind sie! Aber dennoch ist es gut, sie eigens zu üben und sie sich in verschiedenen Anwendungen klar zu machen.</p>
+            <p class="fs-5">In Mathe tauchen diese Gleichungen immer wieder als Umrechnungsschritt auch, z.B. als letzer Schritt, wenn es um lineare Funktionen, quadratische Gleichungen oder den Sinussatz geht. Dennoch sind viele noch im 10. Jahrgang hier unsicher, weil sie diesen Rechenschritt nicht verinnerlicht haben.</p>
+            <p class="fs-5">Hier eine Liste von Gleichungen in der Physik (ohne Kommentare, einige wirst du kennen), wo es immer um das Auflösen der Gleichung nach einem der 3 Buchstaben geht.</p>
+            <div class="row">
+              <div class="col">
+                <ul class="list-group text-center fs-5">
+                  <li class="list-group-item">F = k &middot; x</li>
+                  <li class="list-group-item">s = v &middot; t</li>
+                  <li class="list-group-item">v = a &middot; t</li>
+                  <li class="list-group-item">F = m &middot; a</li>
+                  <li class="list-group-item">P = F &middot; v</li>
+                </ul>
+              </div>
+              <div class="col">
+                <ul class="list-group text-center fs-5">
+                  <li class="list-group-item">U = I &middot; R</li>
+                  <li class="list-group-item">P = U &middot; I</li>
+                  <li class="list-group-item">Q = C &middot; U</li>
+                  <li class="list-group-item">c = &nu; &middot; &lambda;</li>
+                  <li class="list-group-item">E = h &middot; &nu;</li>
+                </ul>
+              </div>
+            </div>
+            <p class="fs-5">Einige dieser Gleichungen hast du schon gesehen. Das Rechnen mit diesen Gleichungen - z.B. gleichförmige Bewegung, Ohmsches Gesetz - ist nichts anderes, als was du hier mit schlau.app üben kannst.</p>
+            <h4 class="mt-5 mb-3">Tricks, um zum 3-Buchstaben-Profi zu werden</h4>            
+            <p class="fs-5">Entdecke solche linearen Bezüge überall im Alltag. Z.B. </p>
+            <ul class="list-group text-center fs-5">
+                <li class="list-group-item">Gezahlte Miete ab dem ... = Monatsmiete &middot; Monate</li>
+            </ul>
+            <p class="fs-5 mt-5">Übe zusammen mit diesem Rechenschritt auch verwandte Aufgaben mit schlau.app: <a href="./plus-minus-gleichungen-nach-x-aufloesen.html">Plus-minus-Umstellen</a>, <a href="./lineare-gleichungen.html">lineare Gleichungen</a> und <a href="./dreisatz-proportional-antiproportional.html">Dreisatz und Proportionalität</a>. Erkläre dir selbst und anderen die Zusammenhänge, die du entdeckst.</p>
+            <p class="fs-5 mt-3">Hier: diese Mathe-Grundlagen in Physik erklärt.</p>
+            <figure class="figure">
+              <img src="../img/yt-screenshot-s-v-t.jpg" class="figure-img img-fluid rounded" alt="Anwendung linearer Terme in Physik: Gleichförmite Bewegung, s = v * t">
+              <figcaption class="figure-caption">Video: Beispiel für Anwendung in <a href="https://youtu.be/p7ESt4gAauc" target="_blank" rel="nofollow">Physik, gleichförmige Bewegung</a></figcaption>
+            </figure>
+          </div>
+
       </div>
-    </div>
+     
+
+        
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="https://schlau.app" class="btn btn-primary btn-lg">Jetzt a &middot; x = b üben mit schlau.app</a>
+      </div>
+
+
+    </div><!-- / container-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="main.js"></script>
