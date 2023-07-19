@@ -3,82 +3,129 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quadratische Gleichungen, Nullstellen, pq-Formel, quadratische Ergänzung</title>
-    <meta name="description" content="Nullstellen quadratischer Gleichungen, Aufgaben mit Lösungen, Schritt für Schritt mit Erklärung: mit pq-Formel, mit quadratischer Ergänzung, sowie reinquadratischer oder homogener Fall">
+    <title>Quadratische Gleichungen, mit pq-Formel und quadratischer Ergänzung</title>
+    <meta name="description" content="Ein Standard Matheunterricht der Mittelstufe: die Nullstellen quadratischer Funktionen bestimmen.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="../styles.css">-->
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <!--<a class="navbar-brand" href="#">Navbar</a>-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="../../">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/">Arbeitsblätter</a>
+              <a  class="nav-link" href="./index.html">Alle Aufgabentypen</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://www.youtube.com/c/mathbydoing">YouTube</a>
-              </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Alle Aufgabentypen
+              <a class="nav-link dropdown-toggle" href="./index.html" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Aufgabentypen
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="../mathe-themen-rechenarten/index.html">Mathe-Themen, Rechenarten</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="./brueche-kuerzen.html">Brüche kürzen</a></li>
-                <li><a class="dropdown-item" href="./dreisatz-proportional-antiproportional.html">Dreisatz</a></li>
-                <li><a class="dropdown-item" href="./lineare-gleichungen.html">Lineare Gleichungen</a></li>
-                <li><a class="dropdown-item" href="./mal-geteilt-gleichungen.html">Mal-geteilt-Gleichungen</a></li>
+                <!-- erste Reihe -->
                 <li><a class="dropdown-item" href="./plus-und-minus-auf-dem-zahlenstrahl.html">Plus/Minus auf dem Zahlenstrahl</a></li>
                 <li><a class="dropdown-item" href="./plus-minus-rechnen-mit-klammern.html">Plus/Minus Rechnen mit Klammern</a></li>
-                <li><a class="dropdown-item" href="./potenzen-multiplizieren-dividieren-potenzieren.html">Potenzen</a></li>
+                <li><a class="dropdown-item" href="./plus-minus-gleichungen-nach-x-aufloesen.html">Plus-Minus-Gleichungen</a></li>           
+                <li><a class="dropdown-item" href="./dreisatz-proportional-antiproportional.html">Dreisatz</a></li>
+                <!-- zweite Reihe -->
                 <li><a class="dropdown-item" href="./prozent-und-rechnen-mit-anteilen.html">Prozent und Anteile</a></li>
-                <li><a class="dropdown-item" href="./quadratische-gleichungen-pq-formel-quadratische-ergaenzung.html">Quadratische Gleichungen</a></li>  
-                <li><a class="dropdown-item" href="./lineare-funktionen.html">Lineare Funktionen</a></li>
-                <!--<li><a class="dropdown-item" href="./mathe-themen-rechenarten/.html"></a></li>-->                               
+                <li><a class="dropdown-item" href="./mal-geteilt-gleichungen.html">Mal-geteilt-Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./lineare-gleichungen.html">Lineare Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./brueche-kuerzen.html">Brüche kürzen</a></li>
+                <!-- dritte Reihe -->
+                <li><a class="dropdown-item" href="./lineare-funktionen.html">Lineare Funktionen</a></li> 
+                <li><a class="dropdown-item" href="./quadratische-gleichungen-pq-formel-quadratische-ergaenzung.html">Quadratische Gleichungen</a></li>
+                <li><a class="dropdown-item" href="./potenzen-multiplizieren-dividieren-potenzieren.html">Potenzen</a></li>
               </ul>
             </li>
-            <!--
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-            -->
           </ul>
-          <!--
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-          -->
         </div>
       </div>
     </nav>
 
     <div class="container my-5">
-      <h1>Quadratische Gleichungen mit schlau.app</h1>
-      <h2>Nullstellen berechnen mit der pq-Formel, mit quadratischer Ergänzung, homogene quadratische Gleichung, reinquadratische Gleichung</h2>  
-      <div class="col-lg-8 px-0">
-        <p class="fs-5">You've successfully loaded up the Bootstrap starter example. It includes <a href="https://getbootstrap.com/">Bootstrap 5</a> via the <a href="https://www.jsdelivr.com/package/npm/bootstrap">jsDelivr CDN</a> and includes an additional CSS and JS file for your own code.</p>
-        <p>Feel free to download or copy-and-paste any parts of this example.</p>
 
-        <hr class="col-1 my-4">
+      <nav aria-label="Page navigation example text-center">
+        <ul class="pagination pagination-lg">
+          <li class="page-item">
+            <a class="page-link" href="./lineare-funktionen.html" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link" style="background-color: #0a0a0a; color: whitesmoke">
+              Quadratische Gleichungen
+            </span>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="./potenzen-multiplizieren-dividieren-potenzieren.html" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-        <a href="https://schlau.app" class="btn btn-primary">schlau.app</a>
-        <a href="./index.html" class="btn btn-secondary">Alle Themen und Rechenarten</a>
-        <a href="../index.html" class="btn btn-secondary">Alle Docs - Index</a>  
+      <h1>Quadratische Gleichungen</h1>
+      
+      <h3>Nullstellen quadratischer Funktionen berechen</h3>
+
+      <div class="row mt-4">
+          <div class="col-sm">
+            <img src="../img/screenshots/quadratische-funktionen.jpg" class="img-fluid" alt="Lineare Funktionen mit der Mathe-App mit schlau.app üben">
+          </div>
+          <div class="col-sm">
+            <p class="fs-5">Zu quadratischen Gleichungen, ein Standard in der Mathematik der Mittelstufe, gibt es verschiedene Formate. Die allgemeine Form ist</p>
+            <ul class="list-group text-center fs-5">
+              <li class="list-group-item">ax<sup>2</sup> + bx + c = 0</li>
+            </ul>
+            <p class="fs-5">Für die Berechnung der Nullstellen können wir auch (Gleichung durch a dividieren!) ansetzen</p>
+                  <ul class="list-group text-center fs-5">
+              <li class="list-group-item">x<sup>2</sup> + px + q = 0</li>
+            </ul>
+            <p class="fs-5">Für diese Form - wo also beim x<sup>2</sup> kein Faktor (somit der Faktor 1) steht - können wir die beliebte pq-Formal anwenden.</p>
+            <p class="fs-5">Ein weiteres Verfahren (das man sich am besten ebenfalls für das einfache pq-Format einprägt), ist die quadratische Ergänzung.</p>
+            <p class="fs-5">Die Mathe-App schlau.app bietet für die Lösungen abwechselnd die pq-Formal und die quadratische Ergänzung an. Außerdem gibt es außer der normalen pq-Form noch die homogene quadratische Gleichung (wenn q=0) und die reinquadratische Gleichung (wenn p=0). Beispielaufgaben sind also:</p>
+            
+            <ul class="list-group text-center fs-5">
+              <li class="list-group-item">y = x<sup>2</sup> - 6x - 40<br>
+                Standardfall. Help & Explainer werden abwechseln für pq und QE angezeigt
+              </li>
+              <li class="list-group-item">Nullstellen im homogenen Fall: y = x<sup>2</sup> - 4x</li>
+              <li class="list-group-item">Nullstellen der Funktion y = x<sup>2</sup> - 25</li>
+            </ul>
+            <p>Dies ist der Funktionsumfang von schlau.app in Version 1. Es werden noch viele interessanten Themen hinzukommen, z.B. Nullstellen mit der Scheitelpunktform und die verschiednen Form-Parameter der Parabeln.</p>
+            <figure class="figure mt-5">
+              <img src="../img/quadratische-funktionen-normal-vs-scheitelpunkt.jpg" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+              <figcaption class="figure-caption"><a href="https://youtu.be/6NVt9V8I_j0" rel="nofollow">Quadratische Funktionen: Vergleich Normalform vs Scheitelpunktsform, quadratische Ergänzung</a></figcaption>
+            </figure>
+            <figure class="figure mt-3">
+              <img src="../img/quadratische-funktionen-6-aufgaben.jpg" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+              <figcaption class="figure-caption"><a href="https://youtu.be/g19r7qjmsDo" rel="nofollow">6 Aufgaben zu quadratischen Funktionen - für mehr Sicherheit in Klassenarbeiten oder MSA-Prüfungen</a></figcaption>
+            </figure>
+
+            <h4 class="mt-5 mb-3">Tricks für quadratische Funktionen</h4>   
+            <p class="fs-5">Die Graphik ist wichtig, sie gehört dazu. Du solltest außer dem Geodreieck auch eine Quadrat-Schablone haben.</p>       
+            <p class="fs-5">Aber, was Graphik betrifft, hier ein viel wichtiger Trick, um mit quadratischen Funktionen fit zu sein: Lerne, jederzeit eine Planfigur einer Parabel (erst normal, dann auch gestaucht oder gestreckt) freihändig zu zeichnen. Nimm ein Punkte bei den x-Werten von -3 bis 3 und verbinde sie, so dass es korrekt aussieht. Du wirst überrascht sein, wieviel du freihändig erreichen kannst!</p>
+            <p class="fs-5">Zum Merken (am besten in Stein meiseln): "Ergänzt wird mit dem halben, quadrierten Koeffizienten von x".</p>
+
+          </div>
+
       </div>
-    </div>
+
+     
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="https://schlau.app" class="btn btn-primary btn-lg">Ran an die Quadrate mit schlau.app!</a>
+      </div>
+
+
+    </div><!-- / container-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="main.js"></script>
