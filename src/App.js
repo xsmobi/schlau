@@ -230,7 +230,7 @@ return (
 
         <footer className="mt-12  text-center dark:bg-neutral-700 lg:text-left">
             <div className="p-0 text-center text-neutral-700 dark:text-neutral-200">
-              <a href="/mathe-app-docs/mathe-themen-rechenarten/index.html">Dokumentation</a>  | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
+              <a href="/mathe-app-docs/index.html">Über schlau.app</a>  | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
             </div>
         </footer>
     </div>
