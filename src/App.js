@@ -94,7 +94,8 @@ function App() {
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set('atype', selectedType);
     //const newURL = window.location.origin + window.location.pathname + '?' + searchParams.toString();
-    const newURL = window.location.origin + window.location.pathname
+    //const newURL = window.location.origin + window.location.pathname
+    const newURL = window.location.origin
     window.history.pushState({}, '', newURL);
   }, [selectedType]);
 
