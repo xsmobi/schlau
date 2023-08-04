@@ -9,7 +9,7 @@ import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
 import Select from 'react-select';
-import prozent from './components/prozent';
+//import prozent from './components/prozent';
 
 
 
@@ -70,6 +70,47 @@ function App() {
 
   
   const [selectedType, setSelectedType] = useState('potenzen');
+
+  
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const atype = searchParams.get('atype');
+    if (atype) {
+      const type = types.find(type => type.typ === atype);
+      if (type) {
+        setSelectedType(type.typ);
+        //console.log("type " + type.typ)
+
+      } else {
+        setSelectedType('potenzen');
+        //console.log("not type " + atype)
+      }
+    }
+  }, [types]);
+
+
+  // Update the URL parameter when selectedType changes
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('atype', selectedType);
+    //const newURL = window.location.origin + window.location.pathname + '?' + searchParams.toString();
+    const newURL = window.location.origin + window.location.pathname
+    window.history.pushState({}, '', newURL);
+  }, [selectedType]);
+
+
+
+/////////////////////////
+
+
+
+
+
+
+
+
+
+
 
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
@@ -230,7 +271,10 @@ return (
 
         <footer className="mt-12  text-center dark:bg-neutral-700 lg:text-left">
             <div className="p-0 text-center text-neutral-700 dark:text-neutral-200">
-              <a target="_blank" href="/mathe-app-docs/index.html">Docs</a>  | <a target="_blank" href="/mathe-app-docs/pruefungsvorbereitung-mathematik.html">Leitfaden</a>  | <a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
+              <a target="_blank" href="/mathe-app-docs/index.html">Docs</a>  |
+              {/*Leitfaden / Prüfungsvorbereitung erstmal weg */}
+              {/*<a target="_blank" href="/mathe-app-docs/pruefungsvorbereitung-mathematik.html">Leitfaden</a>  | */}
+              &nbsp;<a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
             </div>
         </footer>
     </div>
