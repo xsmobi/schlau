@@ -110,9 +110,24 @@ function prop(filter) {
         `//!
     }
 
-    const steigungen = [[1,2], [1,3], [1,4], [2,3], [3,4], [3,2], [4,3], [1,5], [1,6]]
     let sbreite, shoehe
-    [sbreite, shoehe] = steigungen[Math.floor(Math.random() * steigungen.length)]
+    if (Math.random() < 0.5) {
+        const steigungrez = 2 + getRandomInt(5) // Steigungen 1/6 .... 1/2
+        aufgabe = `Du möchtest die Gerade \\[y = \\frac{1}{${steigungrez}} \\cdot x \\] möglichst genau in ein x-y-Koordinatensystem einzeichnen. Welches Steigungsdreieck ist geeignet? Gib die Breite (x) und die Höhe (y) in cm an.`
+        loesung = `Z.B. Breite: ${steigungrez} cm; Höhe = 1 cm`
+        help = `Die Steigung ist \\(\\frac{1}{${steigungrez}} \\). Ein Steigungsdreieck mit Breite 1 cm und Höhe \\(\\frac{1}{${steigungrez}} \\) cm ist aber nicht geeignet, wenn du genau zeichnen willst.
+        <br>Wie wäre es, wenn das Steigungsdreick die Breite ${steigungrez} cm hätte? Was wäre dann die Höhe?
+        `//!
+        explainer = `
+        `//!
+
+    } else {
+        const steigungdec = (1 + getRandomInt(9)) / 10 // Steigungen 0,1 .... 0,9
+        aufgabe = `Du möchtest die Gerade \\[y = ${steigungdec.toFixed(1)} \\cdot x \\] möglichst genau in ein x-y-Koordinatensystem einzeichnen. Welches Steigungsdreieck ist geeignet? Gib die Breite (x) und die Höhe (y) in cm an.`
+        loesung = `Z.B. Breite = 5 cm; Höhe = ${steigungdec * 5} cm`
+        help = ``
+        explainer = ``
+    }
 
 
     const aufgaben = [
@@ -186,22 +201,15 @@ function prop(filter) {
             help: help,
             explainer: explainer
         },
-        /*
         {
             nr:6,
-            title: "Das schönere Steigungsdreieck", 
+            title: "Das optimale Steigungsdreieck", 
             description: "", 
-            aufgabe: ``,
-            loesung: ``,
-            help: `
-            `,//!
-            explainer: `
-            `//!
+            aufgabe: aufgabe,
+            loesung: loesung,
+            help: help,
+            explainer: explainer
         },
-
-
-        */
-
     ]
 
     function getlowestfraction(x0,format) {

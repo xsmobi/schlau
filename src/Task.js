@@ -1,6 +1,6 @@
 import {React} from "react";
 import { MathJaxContext, MathJax } from "better-react-mathjax";
-import prozentmenu from "./components/prozentmenu"
+//import prozentmenu from "./components/prozentmenu"
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
@@ -16,29 +16,20 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     //console.log(task)
     //console.log("task", text)
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
-        /*
-    const config = {
-      loader: { load: ["input/asciimath"] },
-      "fast-preview": {disabled: true}
-    };
-    <MathJaxContext
-      version={2}
-      config={config}
-      onStartup={(mathJax) => (mathJax.Hub.processSectionDelay = 0)}>
-    */
   
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
     return (
     <MathJaxContext>
     <div className="Task">
-
+      {/* 
         {menu === undefined ? "" : menu_display}
         {menu_display === "xxxprozentmenu" ?
         prozentmenu()
       
         : ""
         }
+      */}
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{text}</MathJax></h3>
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{answer}</MathJax></h3>}
