@@ -244,7 +244,7 @@ return (
               )*/}
 
               {filter && submenu && (
-                  <div className="Task">
+                  <div className="mt-4">
                     <Select
                       defaultValue={selectedOption}
                       onChange={setSelectedOption}
@@ -275,7 +275,7 @@ return (
               <a target="_blank" href="/mathe-app-docs/index.html">Docs</a>  |
               {/*Leitfaden / Prüfungsvorbereitung erstmal weg */}
               {/*<a target="_blank" href="/mathe-app-docs/pruefungsvorbereitung-mathematik.html">Leitfaden</a>  | */}
-              &nbsp;<a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://www.linkedin.com/in/internetpartnership/" target="_blank" rel="noreferrer">Kontakt</a>
+              &nbsp;<a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://goo.gl/maps/Nt5q2Ag7vqkJsEgV7" target="_blank" rel="noreferrer">Kontakt</a>
             </div>
         </footer>
     </div>

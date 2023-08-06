@@ -1,5 +1,6 @@
 function prop(filter) {
     let headerclass = "subheader"
+    let aufgabe, loesung, help, explainer // temp
 
     const preis = ((getRandomInt(8) + 2)/2); // [1 - 4]
     const anzahl = getRandomInt(4) + 2; // [2 - 6]
@@ -51,7 +52,7 @@ function prop(filter) {
         "Um den Grünstreifen auf der Autobahn umzugraben",
         "Um die Leitungen des Bürokomplexes zu verlegen",
         "Um neue Fliesen in sämtlichen Bädern des Hotels zu verlegen",
-        "Um sämtliche ESt-Bescheide von 1998 zu digitalisieren",
+        "Horror im Finanzamt! Um sämtliche ESt-Bescheide von 1998 zu digitalisieren",
         "Um alle Schallplatten des insolventen Musikhauses zu digitalisieren"
     ]
     const k = Math.floor(Math.random()*atodo.length)
@@ -69,6 +70,50 @@ function prop(filter) {
     function zeith(zeit) {
         return Math.floor(zeit / 60 )+':'+(String(Math.floor( zeit % 60 )).padStart('2',0))
     }
+
+    const rechteck1 = [[3,2], [4,2], [5,2], [6,2], [4,3], [5,3], [6,3], [7,3], [8,3], [5,4], [6,4], [7,4]]
+    let rlaenge, rbreite, rlaengeneu, rbreiteneu
+    [rlaenge, rbreite] = rechteck1[Math.floor(Math.random() * rechteck1.length)]
+    //console.log(laenge, breite)
+    const rectprop = 1 + getRandomInt(3)
+    if (Math.random() < 0.5) {
+        rbreiteneu =  rlaenge * rectprop
+        rlaengeneu = rlaenge * rbreiteneu / rbreite
+        aufgabe = `Ein Rechteck ist ${rlaenge.toFixed(1)} cm lang und ${rbreite.toFixed(1)} cm breit. Gib die Länge eines ähnlichen Rechtecks mit der Breite ${rbreiteneu.toFixed(1)} cm an.`
+        loesung = `Das ähnliche Rechteck hat die Länge ${rlaengeneu.toFixed(1)} cm`
+        help = `Bei ähnlichen Rechtecken ist das Verhältnis von Länge zu Breite gleich:
+        <br>Die Länge des gesuchten Rechtecks in cm sei a
+        \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{a}{${rbreiteneu.toFixed(1)}} \\]
+        `//!
+        explainer = `(alle Maße haben die Einheit cm, deshalb lassen wir sie in der Rechnung weg und das Ergebnis ist dann cm)
+        \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{a}{${rbreiteneu.toFixed(1)}} \\]
+        Umstellen, je nach Methode: "die Gleichung mit ${rbreiteneu.toFixed(1)} multiplizieren" oder "die Breite ${rbreiteneu.toFixed(1)} auf die andere Seite in den Zähler bringen"
+        \\[\\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} \\cdot  ${rbreiteneu.toFixed(1)} = a \\]
+        \\[a = ${rlaengeneu.toFixed(1)}\\]
+        Beachte, dass im Lösungssatz die Einheit cm steht, während die Rechnung nur mit den Zahlenwerten gemacht wird. (Falsch wäre es, am Ende der Rechnung die cm einfach dranzukleben)
+        `//!
+    } else {
+        rlaengeneu = Math.round( rlaenge / rectprop )
+        rbreiteneu =  rbreite * rlaengeneu / rlaenge
+        aufgabe = `Ein Rechteck ist ${rlaenge.toFixed(1)} cm lang und ${rbreite.toFixed(1)} cm breit. Gib die Breite eines ähnlichen Rechtecks mit der Länge ${rlaengeneu.toFixed(1)} cm an.`
+        loesung = `Das ähnliche Rechteck hat die Breite ${rbreiteneu.toFixed(1)} cm`
+        help = `Bei ähnlichen Rechtecken ist das Verhältnis von Länge zu Breite gleich:
+        <br>Die Breite des gesuchten Rechtecks in cm sei b
+        \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{${rlaengeneu.toFixed(1)}}{b} \\]
+        `//!
+        explainer = `(alle Maße haben die Einheit cm, deshalb lassen wir sie in der Rechnung weg und das Ergebnis ist dann cm)
+        \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{${rlaengeneu.toFixed(1)}}{b} \\]
+        Umstellen:
+        \\[b = \\frac{${rlaengeneu.toFixed(1)}}{${rlaenge.toFixed(1)}} \\cdot  ${rbreite.toFixed(1)} \\]
+        \\[b = ${rbreiteneu.toFixed(1)}\\]
+        Beachte, dass im Lösungssatz die Einheit cm steht, während die Rechnung nur mit den Zahlenwerten gemacht wird. (Falsch wäre es, am Ende der Rechnung die cm einfach dranzukleben)
+        `//!
+    }
+
+    const steigungen = [[1,2], [1,3], [1,4], [2,3], [3,4], [3,2], [4,3], [1,5], [1,6]]
+    let sbreite, shoehe
+    [sbreite, shoehe] = steigungen[Math.floor(Math.random() * steigungen.length)]
+
 
     const aufgaben = [
         {
@@ -132,6 +177,31 @@ function prop(filter) {
             Du musst also alle Zutaten mit \\(${getlowestfraction(nku2/nku1, "injax")}\\) multiplizieren!
             `//!
         },
+        {
+            nr:5,
+            title: "Ähnliche Rechtecke", 
+            description: "", 
+            aufgabe: aufgabe,
+            loesung: loesung,
+            help: help,
+            explainer: explainer
+        },
+        /*
+        {
+            nr:6,
+            title: "Das schönere Steigungsdreieck", 
+            description: "", 
+            aufgabe: ``,
+            loesung: ``,
+            help: `
+            `,//!
+            explainer: `
+            `//!
+        },
+
+
+        */
+
     ]
 
     function getlowestfraction(x0,format) {
