@@ -1,7 +1,9 @@
 function prop(filter) {
     let headerclass = "subheader"
+    //headerclass = "subheader3"
     let aufgabe5, loesung5, help5, explainer5 // temp! Vorest noch alle aufgaben, dann Auswahl
     let aufgabe6, loesung6, help6, explainer6
+    let aufgabe7, loesung7, help7, explainer7
 
     const preis = ((getRandomInt(8) + 2)/2); // [1 - 4]
     const anzahl = getRandomInt(4) + 2; // [2 - 6]
@@ -95,6 +97,7 @@ function prop(filter) {
         `//!
     } else {
         rlaengeneu = Math.round( rlaenge / rectprop )
+        if (rlaengeneu === rlaenge) rlaengeneu++
         rbreiteneu =  rbreite * rlaengeneu / rlaenge
         aufgabe5 = `Ein Rechteck ist ${rlaenge.toFixed(1)} cm lang und ${rbreite.toFixed(1)} cm breit. Gib die Breite eines ähnlichen Rechtecks mit der Länge ${rlaengeneu.toFixed(1)} cm an.`
         loesung5 = `Das ähnliche Rechteck hat die Breite ${rbreiteneu.toFixed(1)} cm`
@@ -141,6 +144,45 @@ function prop(filter) {
         <br>Breite 10 cm; Höhe ${(10*steigungdec).toFixed(1)} cm
         <br>Fürs Zeichnen praktisch sind die mit ganzen oder halben Zentimetern! Das mit 10 cm Breite hat den Charme, dass du gar nicht rechnen musst: die Höhe ist einfach 10 Mal die Steigung.
         `//
+    }
+
+    const vmetersec = 5*(1 + getRandomInt(10)) // Geschwindigkeit 5 .... 50 m/s
+    const sekunden = 1 + getRandomInt(20)
+    let sekunden2 = Math.random() < 0.5 ? sekunden + 1 + getRandomInt(30) : sekunden - getRandomInt(sekunden)
+    if (sekunden2 === sekunden) sekunden2++
+    //console.log(sekunden, sekunden2)
+    const stunden = 1 + getRandomInt(20)
+    const sek  = sekunden===1  ? "Sekunde" : "Sekunden"
+    const sek2 = sekunden2===1 ? "Sekunde" : "Sekunden"
+    if (Math.random() < 1) {
+        aufgabe7 = `Ein Fahrzeug hat in ${sekunden} ${sek} bei konstanter Geschwindigkeit ${vmetersec*sekunden} m zurückgelegt.
+        <br>1) Welche Strecke s<sub>2</sub> legt es in ${sekunden2} ${sek2} zurück?
+        <br>2) Wie groß ist seine Geschwindigkeit?`
+        loesung7 = `1) Die Strecke s<sub>2</sub> nach t = ${sekunden2} s beträgt ${vmetersec*sekunden2} m.
+        <br>2) Geschwindigkeit v = ${vmetersec} \\(\\frac{m}{s}\\)`
+        help7 = `Bei konstanter Geschwindigkeit bleibt das Verhältnis von Strecke zu Zeit immer gleich:
+        <br>\\(\\frac{Strecke}{Zeit} = \\frac{${vmetersec*sekunden} m}{${sekunden} s} = \\frac{s_2}{${sekunden2} s} \\)
+        `//!
+        explainer7 = `Die Gleichung
+        \\[\\frac{${vmetersec*sekunden} m}{${sekunden} s} = \\frac{s_2}{${sekunden2} s} \\]
+        kannst du nach s<sub>2</sub> auflösen!
+        Das Verhältnis \\[\\frac{Strecke}{Zeit} = \\frac{${vmetersec*sekunden} m}{${sekunden} s} = ${vmetersec} \\frac{m}{s} = v\\]
+        ist die Geschwindigkeit v! Die Gleichung oben kannst du also einfacher schreiben:
+        \\[${vmetersec} \\frac{m}{s} = \\frac{s_2}{${sekunden2} s} \\]
+        ... und nach s<sub>2</sub> auflösen:
+        \\[${vmetersec} \\frac{m}{s} \\cdot ${sekunden2} s = s_2 \\]
+        Wie du siehst, kürzen sich die Sekunden weg und s<sub>2</sub> bekommt die Einheit m, wie es sein muss.
+        `//!
+    } else {
+        aufgabe7 = `Ein Fahrzeug braucht ${stunden} Stunden, um ${vmetersec*sekunden} m zurückzulegen.
+        <br>1) Welche Strecke s<sub>2</sub> legt es in ${sekunden2} ${sek2} zurück?
+        <br>2) Wie groß ist seine Geschwindigkeit?`
+        loesung7 = ``
+        help7 = `
+        `//!
+        explainer7 = `
+        `//!
+
     }
 
 
@@ -223,6 +265,15 @@ function prop(filter) {
             loesung: loesung6,
             help: help6,
             explainer: explainer6
+        },
+        {
+            nr:7,
+            title: "Konstante Geschwindigkeit m/s, km/h", 
+            description: "", 
+            aufgabe: aufgabe7,
+            loesung: loesung7,
+            help: help7,
+            explainer: explainer7
         },
     ]
 
