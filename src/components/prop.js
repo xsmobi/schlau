@@ -1,6 +1,7 @@
 function prop(filter) {
     let headerclass = "subheader"
-    let aufgabe, loesung, help, explainer // temp
+    let aufgabe5, loesung5, help5, explainer5 // temp! Vorest noch alle aufgaben, dann Auswahl
+    let aufgabe6, loesung6, help6, explainer6
 
     const preis = ((getRandomInt(8) + 2)/2); // [1 - 4]
     const anzahl = getRandomInt(4) + 2; // [2 - 6]
@@ -79,13 +80,13 @@ function prop(filter) {
     if (Math.random() < 0.5) {
         rbreiteneu =  rlaenge * rectprop
         rlaengeneu = rlaenge * rbreiteneu / rbreite
-        aufgabe = `Ein Rechteck ist ${rlaenge.toFixed(1)} cm lang und ${rbreite.toFixed(1)} cm breit. Gib die Länge eines ähnlichen Rechtecks mit der Breite ${rbreiteneu.toFixed(1)} cm an.`
-        loesung = `Das ähnliche Rechteck hat die Länge ${rlaengeneu.toFixed(1)} cm`
-        help = `Bei ähnlichen Rechtecken ist das Verhältnis von Länge zu Breite gleich:
+        aufgabe5 = `Ein Rechteck ist ${rlaenge.toFixed(1)} cm lang und ${rbreite.toFixed(1)} cm breit. Gib die Länge eines ähnlichen Rechtecks mit der Breite ${rbreiteneu.toFixed(1)} cm an.`
+        loesung5 = `Das ähnliche Rechteck hat die Länge ${rlaengeneu.toFixed(1)} cm`
+        help5 = `Bei ähnlichen Rechtecken ist das Verhältnis von Länge zu Breite gleich:
         <br>Die Länge des gesuchten Rechtecks in cm sei a
         \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{a}{${rbreiteneu.toFixed(1)}} \\]
         `//!
-        explainer = `(alle Maße haben die Einheit cm, deshalb lassen wir sie in der Rechnung weg und das Ergebnis ist dann cm)
+        explainer5 = `(alle Maße haben die Einheit cm, deshalb lassen wir sie in der Rechnung weg und das Ergebnis ist dann cm)
         \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{a}{${rbreiteneu.toFixed(1)}} \\]
         Umstellen, je nach Methode: "die Gleichung mit ${rbreiteneu.toFixed(1)} multiplizieren" oder "die Breite ${rbreiteneu.toFixed(1)} auf die andere Seite in den Zähler bringen"
         \\[\\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} \\cdot  ${rbreiteneu.toFixed(1)} = a \\]
@@ -95,13 +96,13 @@ function prop(filter) {
     } else {
         rlaengeneu = Math.round( rlaenge / rectprop )
         rbreiteneu =  rbreite * rlaengeneu / rlaenge
-        aufgabe = `Ein Rechteck ist ${rlaenge.toFixed(1)} cm lang und ${rbreite.toFixed(1)} cm breit. Gib die Breite eines ähnlichen Rechtecks mit der Länge ${rlaengeneu.toFixed(1)} cm an.`
-        loesung = `Das ähnliche Rechteck hat die Breite ${rbreiteneu.toFixed(1)} cm`
-        help = `Bei ähnlichen Rechtecken ist das Verhältnis von Länge zu Breite gleich:
+        aufgabe5 = `Ein Rechteck ist ${rlaenge.toFixed(1)} cm lang und ${rbreite.toFixed(1)} cm breit. Gib die Breite eines ähnlichen Rechtecks mit der Länge ${rlaengeneu.toFixed(1)} cm an.`
+        loesung5 = `Das ähnliche Rechteck hat die Breite ${rbreiteneu.toFixed(1)} cm`
+        help5 = `Bei ähnlichen Rechtecken ist das Verhältnis von Länge zu Breite gleich:
         <br>Die Breite des gesuchten Rechtecks in cm sei b
         \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{${rlaengeneu.toFixed(1)}}{b} \\]
         `//!
-        explainer = `(alle Maße haben die Einheit cm, deshalb lassen wir sie in der Rechnung weg und das Ergebnis ist dann cm)
+        explainer5 = `(alle Maße haben die Einheit cm, deshalb lassen wir sie in der Rechnung weg und das Ergebnis ist dann cm)
         \\[\\frac{Länge}{Breite} = \\frac{${rlaenge.toFixed(1)}}{${rbreite.toFixed(1)}} = \\frac{${rlaengeneu.toFixed(1)}}{b} \\]
         Umstellen:
         \\[b = \\frac{${rlaengeneu.toFixed(1)}}{${rlaenge.toFixed(1)}} \\cdot  ${rbreite.toFixed(1)} \\]
@@ -110,23 +111,36 @@ function prop(filter) {
         `//!
     }
 
-    let sbreite, shoehe
+    //let sbreite, shoehe
     if (Math.random() < 0.5) {
         const steigungrez = 2 + getRandomInt(5) // Steigungen 1/6 .... 1/2
-        aufgabe = `Du möchtest die Gerade \\[y = \\frac{1}{${steigungrez}} \\cdot x \\] möglichst genau in ein x-y-Koordinatensystem einzeichnen. Welches Steigungsdreieck ist geeignet? Gib die Breite (x) und die Höhe (y) in cm an.`
-        loesung = `Z.B. Breite: ${steigungrez} cm; Höhe = 1 cm`
-        help = `Die Steigung ist \\(\\frac{1}{${steigungrez}} \\). Ein Steigungsdreieck mit Breite 1 cm und Höhe \\(\\frac{1}{${steigungrez}} \\) cm ist aber nicht geeignet, wenn du genau zeichnen willst.
-        <br>Wie wäre es, wenn das Steigungsdreick die Breite ${steigungrez} cm hätte? Was wäre dann die Höhe?
+        aufgabe6 = `Du möchtest die Gerade \\[y = \\frac{1}{${steigungrez}} \\cdot x \\] möglichst genau in ein x-y-Koordinatensystem einzeichnen. Welches Steigungsdreieck ist geeignet? Gib die Breite (x) und die Höhe (y) in cm an.`
+        loesung6 = steigungrez === 2 || steigungrez === 3 ? `Z.B. Breite: ${steigungrez * 2} cm; Höhe = 2 cm` : `Z.B. Breite: ${steigungrez} cm; Höhe = 1 cm`
+        help6 = `Die Steigung ist \\(\\frac{1}{${steigungrez}} \\). Ein Steigungsdreieck mit Breite 1 cm und Höhe \\(\\frac{1}{${steigungrez}} \\) cm ist aber nicht geeignet, wenn du genau zeichnen willst.
+        <br>Wie wäre es, wenn das Steigungsdreick die Breite ${steigungrez === 2 || steigungrez === 3 ? steigungrez*2 : steigungrez} cm hätte? Was wäre dann die Höhe?
         `//!
-        explainer = `
-        `//!
-
+        explainer6 = `Alle Steigungsdreiecke zu einer Geraden sind ähnlich! Oder: Nimm verschiedene Steigungsdreiecke zur selben Geraden und Höhe zu Breite stehen immer im selben Verhältnis. Dieses Verhältnis ist nichts anderes als die Steigung der Geraden. Beispiele für Steigungsdreiecke für die Steigung \\(\\frac{1}{${steigungrez}} \\):
+        <br>Breite 2 cm; Höhe \\(${getlowestfraction(2/steigungrez, "injax")}\\) cm
+        <br>Breite 3 cm; Höhe \\(${getlowestfraction(3/steigungrez, "injax")}\\) cm
+        <br>Breite 4 cm; Höhe \\(${getlowestfraction(4/steigungrez, "injax")}\\) cm
+        <br>Breite 5 cm; Höhe \\(${getlowestfraction(5/steigungrez, "injax")}\\) cm
+        <br>Breite 6 cm; Höhe \\(${getlowestfraction(6/steigungrez, "injax")}\\) cm
+        <br>Fürs Zeichnen praktisch sind die mit ganzen oder halben Zentimetern!
+        `//
     } else {
         const steigungdec = (1 + getRandomInt(9)) / 10 // Steigungen 0,1 .... 0,9
-        aufgabe = `Du möchtest die Gerade \\[y = ${steigungdec.toFixed(1)} \\cdot x \\] möglichst genau in ein x-y-Koordinatensystem einzeichnen. Welches Steigungsdreieck ist geeignet? Gib die Breite (x) und die Höhe (y) in cm an.`
-        loesung = `Z.B. Breite = 5 cm; Höhe = ${steigungdec * 5} cm`
-        help = ``
-        explainer = ``
+        aufgabe6 = `Du möchtest die Gerade \\[y = ${steigungdec.toFixed(1)} \\cdot x \\] möglichst genau in ein x-y-Koordinatensystem einzeichnen. Welches Steigungsdreieck ist geeignet? Gib die Breite (x) und die Höhe (y) in cm an.`
+        loesung6 = `Z.B. Breite = 5 cm; Höhe = ${steigungdec * 5} cm`
+        help6 = `Die Steigung ist ${steigungdec.toFixed(1)}. Mit einem Steigungsdreieck von Breite 1 cm und Höhe ${steigungdec.toFixed(1)} cm ist es aber schwierig, die Gerade genau zu zeichnen! Wie wäre es, wenn eine Breite von von 5 cm oder 10 cm statt 1 cm nimmst? Was wäre dann die Höhe?`
+        explainer6 = `Alle Steigungsdreiecke zu einer Geraden sind ähnlich! Oder: Nimm verschiedene Steigungsdreiecke zur selben Geraden und Höhe zu Breite stehen immer im selben Verhältnis. Dieses Verhältnis ist nichts anderes als die Steigung der Geraden. Beispiele für Steigungsdreiecke für die Steigung ${steigungdec.toFixed(1)}:
+        <br>Breite 2 cm; Höhe ${(2*steigungdec).toFixed(1)} cm
+        <br>Breite 3 cm; Höhe ${(3*steigungdec).toFixed(1)} cm
+        <br>Breite 4 cm; Höhe ${(4*steigungdec).toFixed(1)} cm
+        <br>Breite 5 cm; Höhe ${(5*steigungdec).toFixed(1)} cm
+        <br>Breite 6 cm; Höhe ${(6*steigungdec).toFixed(1)} cm
+        <br>Breite 10 cm; Höhe ${(10*steigungdec).toFixed(1)} cm
+        <br>Fürs Zeichnen praktisch sind die mit ganzen oder halben Zentimetern! Das mit 10 cm Breite hat den Charme, dass du gar nicht rechnen musst: die Höhe ist einfach 10 Mal die Steigung.
+        `//
     }
 
 
@@ -196,19 +210,19 @@ function prop(filter) {
             nr:5,
             title: "Ähnliche Rechtecke", 
             description: "", 
-            aufgabe: aufgabe,
-            loesung: loesung,
-            help: help,
-            explainer: explainer
+            aufgabe: aufgabe5,
+            loesung: loesung5,
+            help: help5,
+            explainer: explainer5
         },
         {
             nr:6,
             title: "Das optimale Steigungsdreieck", 
             description: "", 
-            aufgabe: aufgabe,
-            loesung: loesung,
-            help: help,
-            explainer: explainer
+            aufgabe: aufgabe6,
+            loesung: loesung6,
+            help: help6,
+            explainer: explainer6
         },
     ]
 

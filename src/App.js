@@ -26,7 +26,8 @@ const style={
   btnexplainer: `button text-gray-900 bg-gradient-to-r from-gray-200 via-gray-400 to-lime-gray hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2`,
   //taskbuttons: `text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`
   taskbuttons:      `my-3 h-12 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none font-small rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`,
-  taskbuttonactive: `my-3 h-12 text-black-900 ring-4 ring-blue-500 bg-red hover:bg-red focus:ring-4 focus:outline-none focus:ring-blue-500 font-small font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 focus:ring-1 focus:ring-black dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`
+  taskbuttonactive: `my-3 h-12 text-black-900 ring-4 ring-blue-500 bg-red hover:bg-red focus:ring-4 focus:outline-none focus:ring-blue-500 font-small font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-0 focus:ring-1 focus:ring-black dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-cyan-300 dark:border-gray-700`,
+  sel: `p-2 text-sm`
 }
 
 function App() {
@@ -69,9 +70,8 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('potenzen');
+  const [selectedType, setSelectedType] = useState('prop');
 
-  
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const atype = searchParams.get('atype');
@@ -79,43 +79,21 @@ function App() {
       const type = types.find(type => type.typ === atype);
       if (type) {
         setSelectedType(type.typ);
-        //console.log("type " + type.typ)
-
       } else {
         setSelectedType('potenzen');
-        //console.log("not type " + atype)
       }
     }
   }, [types]);
-
-
   // Update the URL parameter when selectedType changes
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set('atype', selectedType);
-    //const newURL = window.location.origin + window.location.pathname + '?' + searchParams.toString();
-    //const newURL = window.location.origin + window.location.pathname
     const newURL = window.location.origin
     window.history.pushState({}, '', newURL);
   }, [selectedType]);
 
-
-
-/////////////////////////
-
-
-
-
-
-
-
-
-
-
-
   let i = types.findIndex(item => item.typ === selectedType)
   let filter = types[i].hasFilter ? true : false
-  //console.log(filter)
 
   const [selectedOption, setSelectedOption] = useState(0);
   const [submenu, setSubmenu] = useState("")
@@ -132,19 +110,16 @@ function App() {
       setShowHelp(false);
       setShowResult(false);
       setShowExplainer(false);
-      //setDisabled(false);
     }
 };
 //console.log(submenu)
 
 // Damit GetRandomTask auch bei Typ-Wechsel
-
 const onClear = () => {
   setSelectedOption(0);
 };
 
 useEffect(() => {
-  //setSelectedOption({ val: 0, label: 'alle Einzelthemen ...' }); // bringt es nicht
   getRandomTask();
   onClear();
 }, [selectedType]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -249,6 +224,7 @@ return (
                       defaultValue={selectedOption}
                       onChange={setSelectedOption}
                       options={options}
+                      className={style.sel}
                     />
                   </div>
               )}
