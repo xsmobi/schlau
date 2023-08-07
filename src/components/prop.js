@@ -146,15 +146,14 @@ function prop(filter) {
         `//
     }
 
-    const vmetersec = 5*(1 + getRandomInt(10)) // Geschwindigkeit 5 .... 50 m/s
-    const sekunden = 1 + getRandomInt(20)
-    let sekunden2 = Math.random() < 0.5 ? sekunden + 1 + getRandomInt(30) : sekunden - getRandomInt(sekunden)
-    if (sekunden2 === sekunden) sekunden2++
-    //console.log(sekunden, sekunden2)
-    const stunden = 1 + getRandomInt(20)
-    const sek  = sekunden===1  ? "Sekunde" : "Sekunden"
-    const sek2 = sekunden2===1 ? "Sekunde" : "Sekunden"
-    if (Math.random() < 1) {
+
+    if (Math.random() < 0.5) {
+        const vmetersec = 5*(1 + getRandomInt(10)) // Geschwindigkeit 5 .... 50 m/s
+        const sekunden = 1 + getRandomInt(20)
+        let sekunden2 = Math.random() < 0.5 ? sekunden + 1 + getRandomInt(30) : sekunden - getRandomInt(sekunden)
+        if (sekunden2 === sekunden) sekunden2++
+        const sek  = sekunden===1  ? "Sekunde" : "Sekunden"
+        const sek2 = sekunden2===1 ? "Sekunde" : "Sekunden"
         aufgabe7 = `Ein Fahrzeug hat in ${sekunden} ${sek} bei konstanter Geschwindigkeit ${vmetersec*sekunden} m zurückgelegt.
         <br>1) Welche Strecke s<sub>2</sub> legt es in ${sekunden2} ${sek2} zurück?
         <br>2) Wie groß ist seine Geschwindigkeit?`
@@ -174,14 +173,29 @@ function prop(filter) {
         Wie du siehst, kürzen sich die Sekunden weg und s<sub>2</sub> bekommt die Einheit m, wie es sein muss.
         `//!
     } else {
-        aufgabe7 = `Ein Fahrzeug braucht ${stunden} Stunden, um ${vmetersec*sekunden} m zurückzulegen.
-        <br>1) Welche Strecke s<sub>2</sub> legt es in ${sekunden2} ${sek2} zurück?
-        <br>2) Wie groß ist seine Geschwindigkeit?`
-        loesung7 = ``
-        help7 = `
+        const vkmh = 48 + 4*(1 + getRandomInt(14)) // Geschwindigkeit 5 .... 50 m/s
+        const viertelh = 2 + getRandomInt(10)
+        const std = viertelh / 4
+        const zeith = Math.floor(viertelh/4)
+        const zeitmin = (viertelh % 4) * 15
+        
+        //console.log(std, viertelh, zeith, zeitmin)
+        const strecke = vkmh * std
+        aufgabe7 = `"Ich habe eine Durchschnittsgeschwindigkeit von ${vkmh} km/h und muss ${strecke} km fahren. Wie lange brauche ich?"
+        
         `//!
-        explainer7 = `
+        loesung7 = `Die Fahrzeit ist ${std} Stunden,  ${zeith} h und ${zeitmin} min` 
+        help7 = `km/h heißt km pro Stunde. Also ${vkmh} km in 1 Stunde. Wieviel Zeit wird dann gebraucht für ${strecke} km? (Wieviel Mal mehr als ${vkmh} km sind ${strecke} km?)
         `//!
+        explainer7 = `<small><b>Weg 1</b> (an Proportionalität denken): Wieviel Mal mehr als ${vkmh} km sind ${strecke} km? \\(\\frac{${strecke}}{${vkmh}} = ${std}!\\) Also muss die Zeit auch um den Faktor ${std} größer sein als 1 Stunde. Lösung ${std} Std.
+        <br><b>Weg 2</b> (Dreisatz): \\(\\frac{${vkmh} km}{1 h} = \\frac{${strecke} km}{Zeit?}\\). Dies nach der Zeit auflösen: \\(Zeit = \\frac{1 h}{${vkmh} km} \\cdot ${strecke} km\\). Es kommen wieder ${std} h raus!
+        <br><b>Weg 3</b> (Physik: konstante Geschwindigkeit)
+        <br>\\(v = \\frac{s}{t}\\) bzw. \\(s = v \\cdot t\\) bzw. \\(t = \\frac{s}{v}\\)
+        <br>(v: Geschwindigkeit in km/h, s: Strecke in km, t: Zeit in h). Die dritte Formel gibt
+        \\[t = \\frac{${strecke}}{${vkmh}} = ${std}\\]
+        Das Ergebnis der Rechnung, ohne Einheit, ist ${std}. Die Lösung der Aufgabe muss den Zahlenwert mit Einheit enthalten, also:
+        <br>"Die Zeit ist ${std} Stunden"
+        </small>`//!
 
     }
 
