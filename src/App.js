@@ -42,14 +42,14 @@ function App() {
     {typ: "add",    btn: "-a + b",        txt: "Plus und Minus auf dem Zahlenstrahl"},
     {typ: "addsub", btn: "a - (-+b)",     txt: "Plus und Minus mit Klammern"},
     {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen"},
-    {typ: "prop",   btn: "DREISATZ",      txt: "Proportionalität & Dreisatz", hasFilter: true},
+    {typ: "prop",   btn: "PROP",      txt: "Proportionalität & Dreisatz", hasFilter: true},
     {typ: "prozent", btn: "PROZENT",      txt: "Anteile & Prozent", hasFilter: true},
     {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen"},
     {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen"},
     {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
     {typ: "linfun", btn: "LINEAR y(x)",   txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POTENZEN",    txt: "Potenzen", hasFilter: true},
+    {typ: "potenzen", btn: "POWER CALC",    txt: "Potenzrechnung", hasFilter: true},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     
@@ -238,6 +238,7 @@ return (
                     //disabled={selectedType === type.typ}
                     //style={{ backgroundColor: selectedType === type.typ ? '#00b7eb' : '' }}
                     className={selectedType === type.typ ? style.taskbuttonactive : style.taskbuttons}
+                    title={type.txt}
                   >
                     {type.btn}
                   </button>

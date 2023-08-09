@@ -4,6 +4,7 @@ function prop(filter) {
     let aufgabe5, loesung5, help5, explainer5 // temp! Vorest noch alle aufgaben, dann Auswahl
     let aufgabe6, loesung6, help6, explainer6
     let aufgabe7, loesung7, help7, explainer7
+    //let aufgabe8, loesung8, help8, explainer8
 
     const preis = ((getRandomInt(8) + 2)/2); // [1 - 4]
     const anzahl = getRandomInt(4) + 2; // [2 - 6]
@@ -114,7 +115,6 @@ function prop(filter) {
         `//!
     }
 
-    //let sbreite, shoehe
     if (Math.random() < 0.5) {
         const steigungrez = 2 + getRandomInt(5) // Steigungen 1/6 .... 1/2
         aufgabe6 = `Du möchtest die Gerade \\[y = \\frac{1}{${steigungrez}} \\cdot x \\] möglichst genau in ein x-y-Koordinatensystem einzeichnen. Welches Steigungsdreieck ist geeignet? Gib die Breite (x) und die Höhe (y) in cm an.`
@@ -146,15 +146,16 @@ function prop(filter) {
         `//
     }
 
-
-    if (Math.random() < 0.5) {
+    // Nr 7 Konstante Geschwindigkeit
+    let rand7 = Math.random()
+    if (rand7 < .33) {
         const vmetersec = 5*(1 + getRandomInt(10)) // Geschwindigkeit 5 .... 50 m/s
         const sekunden = 1 + getRandomInt(20)
         let sekunden2 = Math.random() < 0.5 ? sekunden + 1 + getRandomInt(30) : sekunden - getRandomInt(sekunden)
         if (sekunden2 === sekunden) sekunden2++
         const sek  = sekunden===1  ? "Sekunde" : "Sekunden"
         const sek2 = sekunden2===1 ? "Sekunde" : "Sekunden"
-        aufgabe7 = `Ein Fahrzeug hat in ${sekunden} ${sek} bei konstanter Geschwindigkeit ${vmetersec*sekunden} m zurückgelegt.
+        aufgabe7 = `Ein Fahrzeug hat in ${sekunden} ${sek} bei konstanter Geschwindigkeit ${vmetersec*sekunden} Meter zurückgelegt.
         <br>1) Welche Strecke s<sub>2</sub> legt es in ${sekunden2} ${sek2} zurück?
         <br>2) Wie groß ist seine Geschwindigkeit?`
         loesung7 = `1) Die Strecke s<sub>2</sub> nach t = ${sekunden2} s beträgt ${vmetersec*sekunden2} m.
@@ -172,19 +173,16 @@ function prop(filter) {
         \\[${vmetersec} \\frac{m}{s} \\cdot ${sekunden2} s = s_2 \\]
         Wie du siehst, kürzen sich die Sekunden weg und s<sub>2</sub> bekommt die Einheit m, wie es sein muss.
         `//!
-    } else {
-        const vkmh = 48 + 4*(1 + getRandomInt(14)) // Geschwindigkeit 5 .... 50 m/s
-        const viertelh = 2 + getRandomInt(10)
+    } else if (rand7 < .66) {
+        const viertelh = 1 + getRandomInt(10)
         const std = viertelh / 4
-        const zeith = Math.floor(viertelh/4)
+        const zeithr = Math.floor(viertelh/4)
         const zeitmin = (viertelh % 4) * 15
-        
-        //console.log(std, viertelh, zeith, zeitmin)
+        const vkmh = 48 + 4*(1 + getRandomInt(14)) // Geschwindigkeit 5 .... 50 m/s
         const strecke = vkmh * std
         aufgabe7 = `"Ich habe eine Durchschnittsgeschwindigkeit von ${vkmh} km/h und muss ${strecke} km fahren. Wie lange brauche ich?"
-        
         `//!
-        loesung7 = `Die Fahrzeit ist ${std} Stunden,  ${zeith} h und ${zeitmin} min` 
+        loesung7 = `Die Fahrzeit ist ${std} Stunden,  ${zeithr} h und ${zeitmin} min` 
         help7 = `km/h heißt km pro Stunde. Also ${vkmh} km in 1 Stunde. Wieviel Zeit wird dann gebraucht für ${strecke} km? (Wieviel Mal mehr als ${vkmh} km sind ${strecke} km?)
         `//!
         explainer7 = `<small><b>Weg 1</b> (an Proportionalität denken): Wieviel Mal mehr als ${vkmh} km sind ${strecke} km? \\(\\frac{${strecke}}{${vkmh}} = ${std}!\\) Also muss die Zeit auch um den Faktor ${std} größer sein als 1 Stunde. Lösung ${std} Std.
@@ -196,9 +194,27 @@ function prop(filter) {
         Das Ergebnis der Rechnung, ohne Einheit, ist ${std}. Die Lösung der Aufgabe muss den Zahlenwert mit Einheit enthalten, also:
         <br>"Die Zeit ist ${std} Stunden"
         </small>`//!
-
+    } else {
+        let strecke7 = 85 + 5*getRandomInt(40) // km/h 85 bis 285
+        let zeith7 = 2 + getRandomInt(4)    // Std
+        let zeitv7 = 1 + getRandomInt(3)    // Viertelstd
+        let std7 = zeith7 + zeitv7/4
+        aufgabe7 = `Ein Auto legt eine Strecke von ${strecke7} km ${zeith7} Stunden und ${15*zeitv7} Minuten zurück. Berechne seine Geschwindigkeit in km/h`
+        loesung7 = `Die Geschwindigkeit beträgt ${Math.round(strecke7/std7)} km/h`
+        help7 = ``
+        explainer7 = ``
+        
     }
 
+    /*
+    const spannung1 = 10 + 10*(getRandomInt(4))
+    const spannung2 = 100 + 10*(getRandomInt(10))
+    const widerstand = 20 + 10*(getRandomInt(5))
+    aufgabe8 = ``
+    loesung8 = ``
+    help8 = ``
+    explainer8 = ``
+    */
 
     const aufgaben = [
         {

@@ -1,3 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
+User-agent: Google
+User-agent: Bing
+User-agent: Yandex
+
+Allow: /sitemap.xml
+Disallow: /private/
+
 User-agent: *
-Disallow:
+Disallow: /
