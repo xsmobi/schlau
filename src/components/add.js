@@ -6,6 +6,13 @@ function add(){
     if (op1 === op2) op2++
     if (op1 === 0) op1 = 4;
     if (op2 === 0) op2 = 5;
+    
+       //Test
+       //op1 = -3
+       //op2 = 11
+    
+    
+    
     if (Math.random() < 0.5){
         op = "+";
         loesung = op1 + op2;
@@ -22,9 +29,28 @@ function add(){
     }
     help1 = "";
     help2 = "";
+
     const zahlenstrahlop2 = ((op2<0 && op==="+") || (op2>0 && op==="-")) ? "links" : "rechts" 
-    if (op2 > 0) {                      // Zahlenstrahl-Tip
-        help2 = `Auf dem Zahlenstrahl Pfeil von "0" nach ${op1<0 ? "links" : "rechts" } mit der Länge ${Math.abs(op1)}, also zum Punkt ${op1}, von dort Pfeil nach ${zahlenstrahlop2} mit der Länge ${Math.abs(op2)}`
+    //if (op2 > 0) {    
+        /*                  // Zahlenstrahl-Tip NEU 20230814: op IMMER > 0
+        help2 = `Auf dem Zahlenstrahl:
+        <br>Minus (-) heißt nach links
+        <br>Plus (+) heißt nach rechts
+        <br>Also in dieser Aufgabe:
+        <br>1. Pfeil von <b>0</b> nach ${op1<0 ? "links" : "rechts" } mit Länge ${Math.abs(op1)} zum Punkt <b>${op1}</b>
+        <br>2. Pfeil von <b>${op1}</b> nach ${zahlenstrahlop2} mit Länge ${Math.abs(op2)}
+        `//!
+        */
+        help2 = `<ul>
+            <li> Starte bei 0
+            <li>Gehe ${Math.abs(op1)} ${Math.abs(op1)===1 ? "Schritt" : "Schritte"} nach ${op1<0 ? "links" : "rechts" }</li>
+            <li>Gehe ${Math.abs(op2)} ${Math.abs(op2)===1 ? "Schritt" : "Schritte"} nach ${op === "-" ? "links" : "rechts" }</li>
+            <li>Wo bist du?</li>
+        </ul>
+        `//!
+
+
+    /* //20230814
     } else {                            // Fälle mit Klammern
         if (op === "+"){  
             //help1 = `<b>Eine Zahl addieren heißt, die Gegenzahl subtrahieren.</b>`                  // Fall +(-6)
@@ -38,10 +64,19 @@ function add(){
             <br>Mache den Zwischenschritt schriftlich: <b>${op1} - (${op2}) = ${op1} + ${-op2} =</b>`
         }
     }
+    */ //20230814
     help = help1 + help2;
-    explainer = `Wenn es keine Klammern gibt, dann: für jeden Term mit <b>Plus "+"</b> eine Bewegung nach <b>rechts</b> und für jeden Termin mit <b>Minus "-"</b> eine Bewegung nach <b>links</b>. Am besten mit Pfeilen: die Länge des Pfeils ist die Größe der Zahl.
-    Also von "0" nach ${op1<0 ? "links" : "rechts" }, dann nach ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du landest bei ${loesungtxt}. <br>`
-    explainer = explainer + `${ op1 > 0 ? "(Beim ersten Term wird kein Vorzeichen angezeigt, also hat er Plus)" : ""}`
+
+    explainer = `Jede Zahl hat ein Plus (+) oder ein Minus (-).
+    <br>Kein Vorzeichen? Dann Plus.
+    <br>Plus: auf Zahlenstrahl nach rechts &rarr;
+    <br>Minus: auf Zahlenstrahl nach links &larr;
+    <br>
+    <br>Mit Pfeilen (s. Hilfe): die Länge des Pfeils ist die Größe (Betrag) der Zahl.
+    <br>
+    <br>Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du landest bei <b>${loesungtxt}</b>.`
+    explainer = explainer + `${ op1 > 0 ? "<br><br>(Beim ersten Term wird kein Vorzeichen angezeigt, also hat er Plus)" : ""}`
+    
     return [aufgabe, loesung, help, explainer];
 }
 

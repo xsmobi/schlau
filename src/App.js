@@ -8,7 +8,8 @@ import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
-import Select from 'react-select';
+import Select from 'react-select'
+//import SEO from './SEO'
 //import prozent from './components/prozent';
 
 
@@ -116,7 +117,7 @@ function App() {
 
 // Damit GetRandomTask auch bei Typ-Wechsel
 const onClear = () => {
-  setSelectedOption(0);
+  setSelectedOption(0);  // funktioniert, wenn selectedType ohne options
 };
 
 useEffect(() => {
@@ -165,6 +166,14 @@ return (
 
 
 <div className={style.bg}>
+    {/* 
+    <SEO
+      title='Learning React Helmet!'
+      description='Beginner friendly page for learning React Helmet.'
+      name='Company name.'
+      type='article' />
+    */}
+
     <div className={style.container}>
         <nav className="relative flex w-full flex-wrap items-center justify-between bg-neutral-100 py-2 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4">
             <div className="flex w-full flex-wrap items-center justify-between px-3">
@@ -256,7 +265,9 @@ return (
             </div>
         </footer>
     </div>
+
 </div>
+
 
 
 );
