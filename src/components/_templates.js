@@ -1,4 +1,5 @@
 const templates = [
+  /*
     {
       name: "Type 3",
       type: "type3",
@@ -17,11 +18,12 @@ const templates = [
       val1: -1000000,
       val2: 1000000
     },
+    */
     {
-      name: "Add Subb 1",
+      name: "Add Sub 1",
       type: "addsub",
-      val1: 10,
-      val2: 20,
+      //val1: 10,
+      //val2: 20,
       //help: "",
       //explainer:"<p>.Eine Zahl addieren heißt, die Gegenzahl subtrahieren.</p> <ul> <li>Beispiel, addiere 2: 3 + 2 = 3 - (-2), denn -2 ist die Gegenzahl zu </li> <li>Beispiel, addiere -2: 3 + (-2) = 3 - 2, denn 2 ist die Gegenzahl zu -2</li> </ul>"
     },

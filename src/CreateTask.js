@@ -23,11 +23,10 @@ function CreateTask(task) {
    
     switch(type){
         case "add":
-            aufgabeDaten = add(val1,val2)
+            aufgabeDaten = add()
         break;
-        case "addsub":
-            //aufgabeDaten = addsub(val1,val2,explainer)  
-            aufgabeDaten = addsub(val1,val2)
+        case "addsub": 
+            aufgabeDaten = addsub()
         break;
         case "frac":
             //aufgabeDaten = addsub(val1,val2,explainer)  

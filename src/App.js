@@ -1,7 +1,7 @@
 import "./App.css";
 import { React, useState, useEffect } from "react";
 import Task from "./Task";
-import TaskMenu from "./TaskMenu";
+//import TaskMenu from "./TaskMenu";
 import CreateTask from "./CreateTask";
 import templates from "./components/_templates";
 import {AiOutlinePlus} from 'react-icons/ai'
@@ -32,7 +32,7 @@ const style={
 }
 
 function App() {
-  const [filterType, setFilterType] = useState('')
+  //const [filterType, setFilterType] = useState('')
  
   const [currentTask, setCurrentTask] = useState({});
   const [showHelp, setShowHelp] = useState(false);
@@ -71,7 +71,7 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('prop');
+  const [selectedType, setSelectedType] = useState('addsub');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
