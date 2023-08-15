@@ -71,7 +71,7 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('lin1');
+  const [selectedType, setSelectedType] = useState('prop');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);

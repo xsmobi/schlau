@@ -174,7 +174,8 @@ function prop(filter) {
         Wie du siehst, kürzen sich die Sekunden weg und s<sub>2</sub> bekommt die Einheit m, wie es sein muss.
         `//!
     } else if (rand7 < .66) {
-        const viertelh = 1 + getRandomInt(10)
+        let viertelh = 1 + getRandomInt(10)
+        if (viertelh === 4) viertelh = 8
         const std = viertelh / 4
         const zeithr = Math.floor(viertelh/4)
         const zeitmin = (viertelh % 4) * 15
@@ -182,12 +183,17 @@ function prop(filter) {
         const strecke = vkmh * std
         aufgabe7 = `"Ich habe eine Durchschnittsgeschwindigkeit von ${vkmh} km/h und muss ${strecke} km fahren. Wie lange brauche ich?"
         `//!
-        loesung7 = `Die Fahrzeit ist ${std} Stunden,  ${zeithr} h und ${zeitmin} min` 
-        help7 = `km/h heißt km pro Stunde. Also ${vkmh} km in 1 Stunde. Wieviel Zeit wird dann gebraucht für ${strecke} km? (Wieviel Mal mehr als ${vkmh} km sind ${strecke} km?)
+        loesung7 = `Die Fahrzeit ist ${std} Stunden,  ${zeithr === 0 ? "also " : zeithr + "h und "} ${zeitmin} min` 
+        help7 = `km/h heißt km pro Stunde. Also ${vkmh} km in 1 Std. ("1 h")
+        <br>Hmm, wieviel Zeit wird dann gebraucht für ${strecke} km?
+        <br>${vkmh > strecke ? "Weniger" : "Mehr"} als 1 Stunde, oder?
+        <br>Es muss um soviel ${vkmh > strecke ? "weniger" : "mehr"} als 1 Stunde sein, wie ${strecke} km ${vkmh > strecke ? "weniger" : "mehr"} als ${vkmh} km sind!
+        <br>Welcher Faktor macht aus dem Wert ${vkmh} den Wert ${strecke}?
+        <br>Spoiler: es ist der Faktor ${strecke}/${vkmh} = ${(strecke/vkmh).toFixed(2)}
         `//!
-        explainer7 = `<small><b>Weg 1</b> (an Proportionalität denken): Wieviel Mal mehr als ${vkmh} km sind ${strecke} km? \\(\\frac{${strecke}}{${vkmh}} = ${std}!\\) Also muss die Zeit auch um den Faktor ${std} größer sein als 1 Stunde. Lösung ${std} Std.
-        <br><b>Weg 2</b> (Dreisatz): \\(\\frac{${vkmh} km}{1 h} = \\frac{${strecke} km}{Zeit?}\\). Dies nach der Zeit auflösen: \\(Zeit = \\frac{1 h}{${vkmh} km} \\cdot ${strecke} km\\). Es kommen wieder ${std} h raus!
-        <br><b>Weg 3</b> (Physik: konstante Geschwindigkeit)
+        explainer7 = `<small><b>Weg 1</b> (an Proportionalität denken): Wieviel Mal ${vkmh > strecke ? "weniger" : "mehr"} als ${vkmh} km sind ${strecke} km? \\(\\frac{${strecke}}{${vkmh}} = ${std}!\\) Also muss die Zeit auch um den Faktor ${std} ${vkmh > strecke ? "kleiner" : "größer"} sein als 1 Stunde. Lösung ${std} Std.
+        <br><br><b>Weg 2</b> (Dreisatz): \\(\\frac{${vkmh} km}{1 h} = \\frac{${strecke} km}{Zeit?}\\). Dies nach der Zeit auflösen: \\(Zeit = \\frac{1 h}{${vkmh} km} \\cdot ${strecke} km\\). Es kommen wieder ${std} h raus!
+        <br><br><b>Weg 3</b> (Physik: konstante Geschwindigkeit)
         <br>\\(v = \\frac{s}{t}\\) bzw. \\(s = v \\cdot t\\) bzw. \\(t = \\frac{s}{v}\\)
         <br>(v: Geschwindigkeit in km/h, s: Strecke in km, t: Zeit in h). Die dritte Formel gibt
         \\[t = \\frac{${strecke}}{${vkmh}} = ${std}\\]
@@ -199,10 +205,20 @@ function prop(filter) {
         let zeith7 = 2 + getRandomInt(4)    // Std
         let zeitv7 = 1 + getRandomInt(3)    // Viertelstd
         let std7 = zeith7 + zeitv7/4
-        aufgabe7 = `Ein Auto legt eine Strecke von ${strecke7} km ${zeith7} Stunden und ${15*zeitv7} Minuten zurück. Berechne seine Geschwindigkeit in km/h`
+        aufgabe7 = `Ein Auto legt eine Strecke von ${strecke7} km in ${zeith7} Stunden und ${15*zeitv7} Minuten zurück. Berechne seine mittlere Geschwindigkeit in km/h`
         loesung7 = `Die Geschwindigkeit beträgt ${Math.round(strecke7/std7)} km/h`
-        help7 = ``
-        explainer7 = ``
+        help7 = `Die mittlere Geschwindigkeit  in km/h ist: Strecke in km geteilt durch Zeit in h.
+        <br>Du brauchst also die Zeit in Stunden.
+        <br>Tipp: ${15*zeitv7} Minuten sind ${15*zeitv7}/60 Stunden, also ${(zeitv7/4).toFixed(2)} Stunden
+        `//!${15*zeitv7} 
+        explainer7 = `Die <i>mittlere Geschwindigkeit</i> einer Bewegung ist eine Strecke geteilt durch die Zeit (die für die Strecke gebraucht wurde):
+        <ul>
+            <li>Die Strecke ist ${strecke7} km</li>
+            <li>Die Zeit ist ${std7.toFixed(2)} h</li>
+            <li>\\(\\frac{Strecke}{Zeit} = \\frac{${strecke7} km }{${std7.toFixed(2)} h} = ${Math.round(strecke7/std7)} \\frac{km}{h}  \\)</li>
+        </ul>
+        
+        `//!
         
     }
 
@@ -228,7 +244,7 @@ function prop(filter) {
             <br>2. Überlege, wieviel mal mehr die ${anzahl*mult} ${speise} sind, als die ${anzahl}! (Spoiler: es sind ${mult}mal so viel)`,
             explainer: `Hier die beiden Möglichkeiten:
             <br>1. Teile die ${(anzahl*preis).toFixed(2)} Euro durch ${anzahl}, dann hast du den Einzelpreis. Diesen kannst du mit ${anzahl*mult} multiplizieren, um das Ergebnis zu erhalten.
-            <br>2. Profi-Tipp: ${anzahl*mult} ${speise} sind ${mult}-mal soviel wie ${anzahl}. Der Preis von ${anzahl*mult} ${speise} muss also auch ${mult}mal soviel wie ${(anzahl*preis).toFixed(2)} Euro sein.
+            <br><br>2. Profi-Tipp: ${anzahl*mult} ${speise} sind ${mult}-mal soviel wie ${anzahl}. Der Preis von ${anzahl*mult} ${speise} muss also auch ${mult}mal soviel wie ${(anzahl*preis).toFixed(2)} Euro sein.
             <br><br>
             Methode 1 geht immer, auch wenn die Zahlen nicht so passend sind. Wenn aber die Zahlen passen, dann ist Methode 2 cooler.`,
         },
@@ -238,12 +254,12 @@ function prop(filter) {
             description: "", 
             aufgabe: `Von ${stadt}${zusatz} nach ${ziel} sind es ${km} km und die Fahrzeit mit PKW beträgt ${zeith(zeit)} Std. Wie lange würde, bei gleicher mittlerer Geschwindigkeit, die Fahrt von Berlin ins ${km2} km entfernte ${ziel2} dauern?`,
             //loesung: `${zeith(Math.round(km2*zeit/km))} Std. ---- ${zeith(zeit2)}`,
-            loesung: `${zeith(zeit2)}`,
+            loesung: `${zeith(zeit2)} Stunden`,
             help: `Die Strecken verhalten sich wie die Zeiten, da die Geschwindigkeit immer gleich ist:
             \\[\\frac{${km}\\text{ km}}{${zeit}\\text{ min}} = \\frac{${km2}\\text{ km}}{\\text{gesuchte Zeit}}\\]
             (zum Rechnen müssen alle Zeiten in derselben Einheit, also hier in Minuten angegeben werden!)
             `,
-            explainer: `Die Gleichung unter "?" wird umgestellt, also nach der gesuchten Zeit aufgelöst:
+            explainer: `Die Gleichung unter <kbd>&nbsp; ? &nbsp;</kbd>  wird umgestellt, also nach der gesuchten Zeit aufgelöst:
             \\[\\text{Gesuchte Zeit = } \\frac{${km2}\\text{ km}}{${km}\\text{ km}} \\cdot ${zeit}\\text{ min}\\]
             `//!
         },
@@ -255,7 +271,9 @@ function prop(filter) {
             Wie viele Tage bräuchte ein anderes Team mit ${apersonen2} Personen bei einer täglichen Arbeitszeit von ${astund2} Stunden?`,
             loesung: `${atage2} Tage`,
             help: `Die Arbeitsmenge ist gegeben durch
-            Personen mal Tage mal Stunden pro Tag - für beide Teams. Es sind also 6 Größen gegeben, eine davon ist unbekannt. Nach dieser musst du auflösen.`,
+            <br><br>Personen mal Tage mal Stunden pro Tag
+            <br> - für beide Teams.
+            <br><br>Es sind also 6 Größen gegeben, eine davon ist unbekannt. Nach dieser musst du auflösen.`,
             explainer: `Arbeitsumfang der Teams 1 und 2 ist (p: Personen, t: Tage, s: Stunden pro Tag): 
             \\[p2 \\cdot t2 \\cdot s2 = p1 \\cdot t1 \\cdot s1\\]
             \\[t2 = \\frac{p1 \\cdot t1 \\cdot s1}{p2 \\cdot s2}\\]
