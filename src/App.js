@@ -40,17 +40,17 @@ function App() {
   const [showExplainer, setShowExplainer] = useState(false);
 
   const types = [
-    {typ: "add",    btn: "-a + b",        txt: "Plus und Minus auf dem Zahlenstrahl"},
-    {typ: "addsub", btn: "a - (-+b)",     txt: "Plus und Minus mit Klammern"},
-    {typ: "lin1",   btn: "x + a = b",     txt: "Plus-Minus-Gleichungen"},
-    {typ: "prop",   btn: "PROP",      txt: "Proportionalität & Dreisatz", hasFilter: true},
-    {typ: "prozent", btn: "PROZENT",      txt: "Anteile & Prozent", hasFilter: true},
-    {typ: "lin3",   btn: "a * x = b",     txt: "Mal-Geteilt-Gleichungen"},
-    {typ: "lin2",   btn: "ax + b = c",    txt: "Lineare Gleichungen"},
-    {typ: "frac",   btn: "x / y",         txt: "Brüche kürzen"},
-    {typ: "linfun", btn: "LINEAR y(x)",   txt: "Lineare Funktionen"}, 
-    {typ: "quad",   btn: "QUAD y(x)",     txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POWER CALC",    txt: "Potenzrechnung", hasFilter: true},
+    {typ: "add",    btn: "-a + b",        kbd: "a", txt: "Plus und Minus auf dem Zahlenstrahl"},
+    {typ: "addsub", btn: "a - (-+b)",     kbd: "b", txt: "Plus und Minus mit Klammern"},
+    {typ: "lin1",   btn: "x + a = b",     kbd: "c", txt: "Plus-Minus-Gleichungen"},
+    {typ: "prop",   btn: "PROP",          kbd: "g", txt: "Proportionalität & Dreisatz", hasFilter: true},
+    {typ: "prozent", btn: "PROZENT",      kbd: "g", txt: "Anteile & Prozent", hasFilter: true},
+    {typ: "lin3",   btn: "a * x = b",     kbd: "j", txt: "Mal-Geteilt-Gleichungen"},
+    {typ: "lin2",   btn: "ax + b = c",    kbd: "k", txt: "Lineare Gleichungen"},
+    {typ: "frac",   btn: "x / y",         kbd: "l", txt: "Brüche kürzen"},
+    {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
+    {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
+    {typ: "potenzen", btn: "POWER CALC",  kbd: "o", txt: "Potenzrechnung", hasFilter: true},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     
@@ -71,7 +71,7 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('addsub');
+  const [selectedType, setSelectedType] = useState('lin1');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -190,13 +190,13 @@ return (
             
         <main>
             <div className="buttons-container">
-              <button title="New task" type="button" className={style.btnadd}
+              <button title="New task - Key: alt + '+'" type="button" accessKey="+" className={style.btnadd}
                 onClick={getRandomTask}><AiOutlinePlus size={20} /></button>
-              <button title="Help" type="button" className={style.btnhelp}
+              <button title="Help - Key: alt + '?'" type="button" accessKey="?" className={style.btnhelp}
                 onClick={toggleShowHelp}><AiOutlineQuestion size={20} /></button>
-              <button title="Result" type="button" className={style.btnresult}
+              <button title="Result - Key: alt + '='" type="button" accessKey="=" className={style.btnresult}
                 onClick={toggleShowResult}><CgMathEqual size={20} /></button>
-              <button title="Explainer" type="button" className={style.btnexplainer}
+              <button title="Explainer - Key: alt + '0'" type="button" accessKey="0" className={style.btnexplainer}
                 onClick={toggleShowExplainer}><AiOutlineZoomIn size={20} /></button>
             </div>
 
@@ -243,11 +243,12 @@ return (
                 {types.map((type) => (
                   <button  type="button"
                     key={type.typ}
+                    accesskey = {type.kbd}
                     onClick={() => handleTypeSelection(type.typ)}
                     //disabled={selectedType === type.typ}
                     //style={{ backgroundColor: selectedType === type.typ ? '#00b7eb' : '' }}
                     className={selectedType === type.typ ? style.taskbuttonactive : style.taskbuttons}
-                    title={type.txt}
+                    title={type.txt + ' Key: alt + '+ type.kbd}
                   >
                     {type.btn}
                   </button>

@@ -5,7 +5,14 @@ function lin1() {
     if (b === 0) b=21
     const casex = getRandomInt(8)
     //const casex = 7
-    explainer1 = `Ziel: das unbekannte <b>x</b> soll alleine stehen. Du formst die Gleichung so um, dass sie mit "x =" beginnt. `
+    explainer1 = `Ziel: das unbekannte <b>x</b> soll alleine stehen.
+    <br>Was heißt das? Gleichung beginnt mit "x ="
+    <br>Du musst also die Gleichung umformen!
+    <br>
+    <br>"Ich forme die Gleichung so um, dass sie mit "x =" beginnt." oder:
+    <br>"Ich löse die Gleichung nach x auf"
+    <br><br>
+    `//!
     explainer2 = ""
     //explainer2a = ""
     //console.log(casex)
