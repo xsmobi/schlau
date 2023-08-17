@@ -10,27 +10,19 @@ function frac(){
     if(num === den) den = den + randomDivisor;
     aufgabe = `\\[\\frac{${num}}{${den}}\\]`;
     loesung = getlowestfraction(num/den, "jax");
-    let numdiv = findDivisors(num).toString() 
-    let dendiv = findDivisors(den).toString();
+    let numdiv = findDivisors(num).toString().replaceAll(",", "  .  ");
+    let dendiv = findDivisors(den).toString().replaceAll(",", "  .  ");
     let gcd = gcdTwoNumbers(num, den)
     help = `\\[\\frac{${num}}{${den}} = \\frac{${num}:${gcd}}{${den}:${gcd}}\\]`
-    explainer = `Den Zähler kannst du teilen durch ${numdiv}, den Nenner durch ${dendiv}. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte <i>gemeinsame</i> Teiler der Zahlen ${num} und ${den} ist ${gcd}. Wenn du den Zähler ${num} und den Nenner ${den} durch diese Zahl ${gcd} teilst, erhältst du den gekürzten Bruch.
-    ${gcd === den ? "Da der Nenner des Ergebnisbruchs = 1 ist, hat der Bruch einfach den Wert des Zählers." : ""}`
-    /*
-    help = `Den Zähler kannst du teilen durch ${numdiv}, den Nenner durch ${dendiv}. Vergleiche diese Teiler von den beiden Brüchen! Haben die Brüche Teiler gemeinsam? Der größte <i>gemeinsame</i> Teiler der Zahlen ${num} und ${den} ist ${gcd}. Wenn du den Zähler ${num} und den Nenner ${den} durch diese Zahl ${gcd} teilst, erhältst du den gekürzten Bruch.`
-    explainer = `
-        <b>1.</b> Was willst du mit dem Bruch ${num}/${den} machen?<br>
-        * Den Wert ausrechnen?: teile ${num} durch ${den}, das ergibt ${loesungdec} - fertig.<br>
-        *) kürzen. D.h. einen <i>einfacheren</i> Bruch machen mit dem <i>gleichen</i> Wert ${loesungdec}. So ein Bruch ist  ${loesungstring}. Rechne es aus: ${loesungtext} ist ebenfalls ${loesungdec}.<br>
-        <b>2.</b> Du willst kürzen. <i>Wie</i> machst du den einfachen Bruch?<br>
-        So geht es: du teilst den Zähler ${num} und den Nenner ${den} durch dieselbe Zahl. Diese Zahl muss also ein Teiler von ${num} und auch von ${den} sein, klar?<br>
-        Der Zähler ${num} hat die Teiler ${numdiv}${num}<br>
-        Der Nenner ${den} hat die Teiler ${dendiv}${den}<br>
-        Wir suchen jetzt den <i>größten</i> Teiler, den ${num} und ${den} <i>gemeinsam</i> haben. Dieser ist die Zahl ${gcd}!<br>
-        Wenn du jetzt den Zähler ${num} durch ${gcd} teilst und auch den Nenner ${den} durch ${gcd} teilst, dann erhältst du den gesuchten vereinfachten Bruch ${loesungstring}.
-    `;
-    */
- 
+    explainer = `<ul>
+      <li>Den Zähler ${num} kannst du teilen durch ${numdiv},</li>
+      <li>den Nenner ${den} durch ${dendiv}</li>
+    </ul>
+    Gibt es <i>gemeinsame</i> Teiler von Zähler und Nenner?
+    <br><br>Der <i>größte gemeinsame Teiler</i> (ggT) der Zahlen ${num} und ${den} ist ${gcd}.
+    <br><br>Wenn du den Zähler ${num} und den Nenner ${den} durch den ggT, also ${gcd} teilst, erhältst du den gekürzten Bruch.
+    ${gcd === den ? "<br><br>(Da der Nenner des Ergebnisbruchs = 1 ist, hat der Ergebnisbruch einfach den Wert des Zählers.)" : ""}
+    `//!
     return [aufgabe, loesung, help, explainer];
 }
 export default frac;

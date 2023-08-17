@@ -1,6 +1,7 @@
 import {React} from "react";
 import { MathJaxContext, MathJax } from "better-react-mathjax";
-import prozentmenu from "./components/prozentmenu"
+//import prozentmenu from "./components/prozentmenu"
+import TextToSpeech from './TextToSpeech';
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
@@ -13,32 +14,29 @@ const style={
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
-    const { text, help, answer, explainer, headerclass, menu } = task;
+    const { text, help, answer, explainer, headerclass, menu, speak } = task;
     //console.log(task)
     //console.log("task", text)
+    //console.log(headerclass, menu, speak)
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
   
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
+    
     return (
     <MathJaxContext>
     <div className="Task">
-       {/*
-        {menu === undefined ? "" : menu_display}
-        {menu_display === "xxxprozentmenu" ?
-        prozentmenu()
-      
-        : ""
-        }
-      */}
-        {/*<h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{text}</MathJax></h3>*/}
+
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: text }} /></MathJax></h3>
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
-        {/*{showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic>{answer}</MathJax></h3>}*/}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: explainer }} /></MathJax>}
+
+        {/* {showResult && (<TextToSpeech text={answer} />)} */}
+
     </div>
     </MathJaxContext>
+            
     );
 }
 export default Task;

@@ -50,7 +50,7 @@ function App() {
     {typ: "frac",   btn: "x / y",         kbd: "l", txt: "Brüche kürzen"},
     {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POWER CALC",  kbd: "o", txt: "Potenzrechnung", hasFilter: true},
+    {typ: "potenzen", btn: "^POWER",  kbd: "o", txt: "Potenzrechnung", hasFilter: true},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     
@@ -243,7 +243,7 @@ return (
                 {types.map((type) => (
                   <button  type="button"
                     key={type.typ}
-                    accesskey = {type.kbd}
+                    accessKey = {type.kbd}
                     onClick={() => handleTypeSelection(type.typ)}
                     //disabled={selectedType === type.typ}
                     //style={{ backgroundColor: selectedType === type.typ ? '#00b7eb' : '' }}
