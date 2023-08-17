@@ -7,6 +7,8 @@ function lin2(min, max){
     c = getRandomInt(-10,10);
     if (c === 0) c++ 
 
+    //a = -1 // test
+
     if (a === 1) {
       linpart = `\\[x`
     } else if (a === -1) {
@@ -16,10 +18,12 @@ function lin2(min, max){
       linpart = `\\[${a} x`
     }
 
+   
+
     if (b < 0) {
       problem =     `${linpart} - ${-b} = ${c} \\]`
       help =        `${linpart} - ${-b} + ${-b} = ${c} + ${-b} \\]`
-      help = help + `${linpart} = ${c-b} \\]`
+      if (Math.abs(a) !== 1) help = help + `${linpart} = ${c-b} \\]`
       help = `Addiere auf beiden Seiten ${-b}` + help
     } else if (b === 0){
       problem =      `${linpart} = ${c} \\]`
@@ -33,7 +37,7 @@ function lin2(min, max){
     } else {
       problem =     `${linpart} + ${b} = ${c} \\]`
       help =        `${linpart} + ${b} - ${b} = ${c} - ${b} \\]`
-      help = help + `${linpart} = ${c-b} \\]`
+      if (Math.abs(a) !== 1) help = help + `${linpart} = ${c-b} \\]`
       help = `Subtrahiere auf beiden Seiten ${b}` + help
     }
 
@@ -53,15 +57,38 @@ function lin2(min, max){
       }
     }
     
-    explainer = `Ziel: x soll alleine stehen, dann kannst du x ausrechnen. Der erste Schritt: Was beim x steht, wechselt das Vorzeichen und die Seite der Gleichung.
-    <br>Falls links "-x" steht, wird erst "-x" alleine gestellt.
-    <br>Beispiel 1
-    <br>x + 5 = 10 \\(\\Rightarrow\\) x = 10 - 5 
-    <br>Beispiel 2
-    <br>x - 5 = 10 \\(\\Rightarrow\\) x = 10 + 5
-    <br>Beispiel 3
-    <br>-x + 5 = 10 \\(\\Rightarrow\\) -x = 10 - 5
-    <br>Vorzeichen links und rechts flippen: x = -10 + 5 
+    explainer = `Was ist zu tun?
+    <br>&#x1F50A;<q>Die Gleichung ist vom Typ a&middot;x + b = c</q>
+    <br>&#x1F50A;<q>Ich löse die Gleichung nach <var>x</var> auf </q>
+    <ul>
+      <li>Erst plus-minus rechnen:</li>
+      <li>&rarr; das b wechselt Seite und Vorzeichen</li>
+      <li>Dann mal-geteilt rechnen</li>
+      <li>&rarr; das a wechselt Seite und wird 1/a</li>
+      <li>Damit: x = (c-b)/a</li>
+    </ul>
+    Beispiele:
+    <ul>
+      <li>\\(x + 4 = 10 \\Rightarrow x = 10 - 4\\)</li>
+      <li>\\(x - 4 = 10 \\Rightarrow x = 10 + 4\\)</li>
+      <li>\\(2x + 4 = 10 \\Rightarrow x = \\frac{1}{2}(10-4)\\)</li>
+      <li>\\(3x + 4 = 10 \\Rightarrow x = \\frac{1}{3}(10-4)\\)</li>
+      <li>\\(3x - 4 = 10 \\Rightarrow x = \\frac{1}{3}(10+4)\\)</li>   
+      <li>\\(-3x + 4 = -10 \\Rightarrow x = -\\frac{1}{3}(-10-4)\\)</li>
+      <li>\\(-x = 7 \\Rightarrow x = -7\\)</li>
+      <li>\\(-x -2 = -7 \\Rightarrow x + 2 = 7 \\Rightarrow x = 7 - 2\\)</li>
+    </ul>
+    &#x1F4A1; Letztes Beispiel: du kannst auch alle Vorzeichen ändern, um nicht mit doppeltem Minus etc. zu arbeiten.
+    <br>
+    <br>Ergänzung:
+    Eine Gleichung wie \\(\\frac{1}{3}x + 5 = -4\\) ist auch vom Typ ax + b = c!
+    <ul>
+    <li>\\(\\frac{1}{3}x + 5 = -4 \\Rightarrow x = 3 \\cdot (-4 -5)\\)</li>
+    <li>(denn 1 geteilt duch 1/3 ist ja wieder 3)</li>
+    </ul>
+    <br>&#x1F4A1; Spezialfall: <q>Die Lösung der Gleichung ax + b = 0 ist die Nullstelle der linearen Funktion y = ax + b</q>
+    
+    
     `//!
     
     //console.log(b)
@@ -76,6 +103,11 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+function brac(n) {
+  return n < 0 ? n = "("+n+")" : n.toString()
+}
+
 
 /*
 function getRandomInt(n) { 
