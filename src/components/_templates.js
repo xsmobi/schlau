@@ -106,6 +106,15 @@ const templates = [
         val2: 20,
         headerclass: "subheader"
     }, 
+    {
+      name: "Times",
+      type: "times",
+      //val1: -10,
+      //val2: 10,
+      help: "",
+      explainer: "",
+      speak: "speak"
+    },
 
   ];
 

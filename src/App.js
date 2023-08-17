@@ -50,7 +50,8 @@ function App() {
     {typ: "frac",   btn: "x / y",         kbd: "l", txt: "Brüche kürzen"},
     {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "^POWER",  kbd: "o", txt: "Potenzrechnung", hasFilter: true},
+    {typ: "potenzen", btn: "^POWER",      kbd: "o", txt: "Potenzrechnung", hasFilter: true},
+    {typ: "times",  btn: "1 x 1",         kbd: "p", txt: "Kleines Einmaleins (neu, in Arbeit)"},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     

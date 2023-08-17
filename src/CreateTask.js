@@ -12,6 +12,8 @@ import linfun from './components/linfun';
 import quad from './components/quad';
 import proba1 from './components/proba1';
 import potenzen from './components/potenzen';
+import times from './components/times';
+
 
 function CreateTask(task) {
 
@@ -61,6 +63,9 @@ function CreateTask(task) {
         break; 
         case "potenzen": 
             aufgabeDaten = potenzen(filter)
+        break; 
+        case "times": 
+        aufgabeDaten = times()
         break; 
         default: 
             aufgabeDaten = add(val1,val2)

@@ -1,5 +1,5 @@
-function add(){    
-    let aufgabe, loesung, explainer
+function times(){    
+    let aufgabe, loesung, help, explainer
 
     const op1 = 2 + getRandomInt(8)
     const op2 = 2 + getRandomInt(8)
@@ -12,11 +12,23 @@ function add(){
     
     `//!
 
-    explainer = `
-    `//!
+    
+    if (op1 === 9){
+        explainer = `
+            \\[10 \\cdot ${op2} = ${10*op2}\\]
+            \\[9 \\cdot ${op2} = ${10*op2} - ${op2}\\]
+    `} else if (op2 === 9) {
+        explainer = `
+            \\[${op1} \\cdot 10 = ${10*op1}\\]
+            \\[${op1} \\cdot 9 = ${10*op1} - ${op1}\\]
+    `}
+
+
+   
+
     
     return [aufgabe, loesung, help, explainer];
-}
+ }
 
 export default times;
 
