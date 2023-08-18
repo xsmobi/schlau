@@ -65,7 +65,7 @@ function CreateTask(task) {
             aufgabeDaten = potenzen(filter)
         break; 
         case "times": 
-        aufgabeDaten = times()
+        aufgabeDaten = times(filter)
         break; 
         default: 
             aufgabeDaten = add(val1,val2)
