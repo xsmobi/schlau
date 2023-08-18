@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { HiSpeakerWave } from "react-icons/hi2";
+
+const style={
+  btnspeak: `button text-white bg-gradient-to-r from-black-400 via-black-500 to-black-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2 text-xl`,
+}
 
 const TextToSpeech = ({ text }) => {
   const [isPaused, setIsPaused] = useState(false);
@@ -46,8 +51,8 @@ const TextToSpeech = ({ text }) => {
   };
   */
   return (
-    <div>
-      <button onClick={handlePlay}>{isPaused ? "Resume" : "Play"}</button>
+    <div className="buttons-container">
+      <button onClick={handlePlay} className={style.btnspeak}><HiSpeakerWave size={20} /></button>
     </div>
   );
 };

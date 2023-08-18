@@ -51,7 +51,7 @@ function App() {
     {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
     {typ: "potenzen", btn: "^POWER",      kbd: "o", txt: "Potenzrechnung", hasFilter: true},
-    {typ: "times",  btn: "1 x 1",         kbd: "p", txt: "Kleines Einmaleins (neu, in Arbeit)"},
+    {typ: "times",  btn: "1 x 1",         kbd: "p", txt: "Kleines Einmaleins", hasFilter: true},
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     
@@ -72,7 +72,7 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('lin2');
+  const [selectedType, setSelectedType] = useState('times');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);

@@ -80,7 +80,8 @@ function CreateTask(task) {
     explainer: `${aufgabeDaten[3]}`,
     headerclass: `${aufgabeDaten[4]}`,
     //menu: `${aufgabeDaten[5]}`
-    menu: aufgabeDaten[5]
+    menu: aufgabeDaten[5],
+    speak: aufgabeDaten[6]
     };
  
     return processedTask;
