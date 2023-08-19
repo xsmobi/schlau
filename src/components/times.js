@@ -191,14 +191,15 @@ function times(filter){
         <br>Probe:
         <br>\\(${quotient} \\cdot ${divisor} = ${dividend} \\text{  stimmt! }\\) &#x1F601;
         <br>
-        <br>Bezeichnungen
+        <br>3. Bezeichnungen
         <ul>
         <li>Die ${dividend} ist der Dividend.<br>Bei Bruchschreibweise ist ${dividend} der Zähler.</li>
-        <br>Die ${divisor} ist der Divisor oder der Teiler.<br>Bei Bruchschreibweise ist ${divisor} der Nenner.
-        <li>Das Ergebnis der Geteilt-Aufgabe, also die ${quotient}, ist der Quotient.
-        <br><q>Der Quotient aus ${dividend} und ${divisor} ist gleich ${quotient}.</q>
-        <br>Man kann auch sagen <q>Das Verhältnis der Zahlen ${dividend} und ${divisor} ist ${quotient} zu 1</q>
-        <br>Und entsprechend <q>Die Zahlen ${divisor} und ${dividend} verhalten sie wie 1 zu ${quotient}.</q>
+        <li>Die ${divisor} ist der Divisor oder der Teiler.<br>Bei Bruchschreibweise ist ${divisor} der Nenner.</li>
+        <li>Das Ergebnis der Geteilt-Aufgabe, also die ${quotient}, ist der Quotient.<br><q>Der Quotient aus ${dividend} und ${divisor} ist gleich ${quotient}.</q></li>
+        <li>Man kann auch sagen
+            <br><q>Das Verhältnis der Zahlen ${dividend} und ${divisor} ist ${quotient} zu 1</q>
+            <br>Und entsprechend
+            <br><q>Die Zahlen ${divisor} und ${dividend} verhalten sie wie 1 zu ${quotient}.</q></li>
         </ul>
         `//!
         speakexplainer = `Der Quotient aus ${dividend} und ${divisor} ist gleich ${quotient}`
