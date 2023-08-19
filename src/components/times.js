@@ -12,6 +12,7 @@ function times(filter){
     //filter = 1
     //console.log("Filter: " + filter + typeof filter)
     if (typeof filter !== 'number') filter = getRandomInt(2) 
+    filter = 2
     //console.log("Filter2: " + filter + typeof filter)
 
     loesungval = op1*op2
@@ -105,6 +106,52 @@ function times(filter){
         \\[= ${loesungval}\\]
         `//!
         speak = `${op1} mal ${op2} = ${loesungval}`
+    
+    } else if (typeof filter !== 'number' || filter === 2) {  // Filter: 2, mit 0.1, 0.01, 0.001
+        op10 = op1
+        op20 = op2
+        let mult = [1,0.1,0.01,0.001]
+        mult1 = mult[Math.floor(Math.random()*mult.length)]
+        mult2 = mult[Math.floor(Math.random()*mult.length)]
+        if (mult1 === 1 && mult2 === 1) mult1 = 0.1
+        op1 = Math.round(op1 * mult1*1000)/1000
+        op2 = Math.round(op2 * mult2*1000)/1000
+        mult1fac = mult1 !==1 ? `\\cdot ${mult1}` : ""
+        mult2fac = mult2 !==1 ? `\\cdot ${mult2}` : ""
+        //mult12fac = mult1*mult2 !== 1 ? `\\cdot ${mult1*mult2}`: ""
+        mult12fac = mult1*mult2 !== 1 ? `\\cdot ${Math.round(mult1*mult2*1000000)/1000000}`: ""
+        aufgabe = `\\[${op1} \\cdot ${op2} = ?\\]`
+        loesungval = Math.round(op1*op2*1000000)/1000000
+        //loesungval = op1*op2
+        loesung = `\\[${op1} \\cdot ${op2} = ${loesungval}\\]`
+        help = `\\[= ${op10} ${mult1fac} \\cdot ${op20} ${mult2fac}\\]
+        \\[= ${op10} \\cdot ${op20} ${mult1fac} ${mult2fac}\\]
+        \\[= ${op10} \\cdot ${op20} \\cdot ${mult12fac}\\]
+        `//!
+        help = mult1 === 1 || mult2 === 1 ? // einer = 1 (dass beide = 1, ist bereits ausgeschl., s.o.)
+            `\\[= ${op10} \\cdot ${op20} ${mult12fac}\\]` 
+        :
+            `\\[= ${op10} ${mult1fac} \\cdot ${op20} ${mult2fac}\\]
+            \\[= ${op10} \\cdot ${op20} ${mult1fac} ${mult2fac}\\]
+            \\[= ${op10} \\cdot ${op20} ${mult12fac}\\]
+            `//!
+        //console.log(mult1, mult2, mult1*mult2)
+        explainer = help + `
+        \\[= ${op10 * op20} ${mult12fac}\\]
+        \\[= ${loesungval}\\]
+        <br>Wie geht der Trick?
+        <ol>
+         <li>Jede der beiden Dezimalzahlen in 2 aufteilen:
+            <br>${op1} &rarr; Ganze Zahl: ${op10}, Einheitsbruch ${mult1}
+            <br>${op2} &rarr; Ganze Zahl: ${op20}, Einheitsbruch ${mult2}</li>
+         <li>Die Zahlen ausrechnen ${op10} &middot; ${op20} = ${op10*op20}</li>
+         <li>...</li>
+         <li></li>
+
+        </ol>
+  
+        `//!
+        speak = `${op1} mal ${op2} = ${loesungval}`
     }
 
     const aufgaben = 
@@ -126,20 +173,20 @@ function times(filter){
                 aufgabe: aufgabe,
                 loesung: loesung,
                 help: help,
-                explainer: `
-                `//!
+                explainer: explainer,//!
+                speak: speak
         },
-        /*
         {
             nr:3,
             title: "10 x 100, 100 x 1000",
             description: "",
-                aufgabe: ``,
-                loesung: ``,
-                help: ``,
-                explainer: `
-                `//!
+                aufgabe: aufgabe,
+                loesung: loesung,
+                help: help,
+                explainer: explainer,//!
+                speak: speak
         },
+               /* 
         {
             nr:4,
             title: "0,1 x 0,01",
@@ -225,7 +272,7 @@ function times(filter){
     ]
 
     const i = ( typeof filter === 'number' ? filter : Math.floor(Math.random() * aufgaben.length))
-    console.log("i = " + i)
+    //console.log("i = " + i)
 
     const [aufgabe_,loesung_,help_,explainer_] = [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer]
     
