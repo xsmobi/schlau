@@ -5,14 +5,11 @@ function times(filter){
     let op2 = 2 + getRandomInt(8)
     let op10, op20, mult1, mult2, mult1fac, mult2fac, mult12fac, loesungval
 
-    //aufgabe = `\\[${op1} \\cdot ${op2} = ?\\]`
-
     //op1 = 4
     //op2 = 6
+
+    if (typeof filter !== 'number') filter = getRandomInt(4) 
     //filter = 1
-    //console.log("Filter: " + filter + typeof filter)
-    if (typeof filter !== 'number') filter = getRandomInt(2) 
-    filter = 2
     //console.log("Filter2: " + filter + typeof filter)
 
     loesungval = op1*op2
@@ -102,7 +99,7 @@ function times(filter){
             `//!
         //console.log(mult1, mult2, mult1*mult2)
         explainer = help + `
-        \\[= ${op10 * op2} \\cdot ${mult1*mult2}\\]
+        \\[= ${op10 * op20} \\cdot ${mult1*mult2}\\]
         \\[= ${loesungval}\\]
         `//!
         speak = `${op1} mal ${op2} = ${loesungval}`
@@ -139,25 +136,37 @@ function times(filter){
         explainer = help + `
         \\[= ${op10 * op20} ${mult12fac}\\]
         \\[= ${loesungval}\\]
-        <br>Wie geht der Trick?
-        <ol>
-         <li>Jede der beiden Dezimalzahlen in 2 aufteilen:
-            <br>${op1} &rarr; Ganze Zahl: ${op10}, Einheitsbruch ${mult1}
-            <br>${op2} &rarr; Ganze Zahl: ${op20}, Einheitsbruch ${mult2}</li>
-         <li>Die Zahlen ausrechnen ${op10} &middot; ${op20} = ${op10*op20}</li>
-         <li>...</li>
-         <li></li>
-
-        </ol>
-  
         `//!
         speak = `${op1} mal ${op2} = ${loesungval}`
+    } else if(typeof filter !== 'number' || filter === 3) {  // Filter: 3, (-a) * (-b)
+        if (Math.random() < 0.5) op1 = -op1
+        if (Math.random() < 0.5) op2 = -op2
+        let abs1 = Math.abs(op1)
+        let abs2 = Math.abs(op2)
+        aufgabe = `\\[${brac(op1)} \\cdot ${brac(op2)} = ?\\]`
+        loesungval = op1*op2
+        loesung = `\\[${brac(op1)} \\cdot ${brac(op2)} = ${loesungval}\\]`
+        help = `Welcher der 4 Fälle ist es?
+        \\[${abs1} \\cdot ${abs2} \\Rightarrow \\oplus \\]
+        \\[${brac(-abs1)} \\cdot ${abs2} \\Rightarrow \\ominus \\]
+        \\[${abs1} \\cdot ${brac(-abs2)} \\Rightarrow \\ominus \\]
+        \\[${brac(-abs1)} \\cdot ${brac(-abs2)} \\Rightarrow \\oplus \\]
+        `
+        speak = `${op1} mal ${op2} = ${loesungval}`
+        explainer = `Erinnere dich an die Plus- und Minus- Regeln beim Mal-Rechnen:
+        <ul>
+            <li>${op1 > 0 && op2 > 0 ? "&#9746;" : "&#9744;"} \\(${abs1} \\cdot ${abs2} = ${Math.abs(loesungval)} \\)</li>
+            <li>${op1 > 0 && op2 < 0 ? "&#9746;" : "&#9744;"} \\(${abs1} \\cdot ${brac(-abs2)} = ${-Math.abs(loesungval)} \\) </li>
+            <li>${op1 < 0 && op2 > 0 ? "&#9746;" : "&#9744;"} \\(${brac(-abs1)} \\cdot ${abs2} = ${-Math.abs(loesungval)} \\)</li>
+            <li>${op1 < 0 && op2 < 0 ? "&#9746;" : "&#9744;"} \\(${brac(-abs1)} \\cdot ${brac(-abs2)} = ${Math.abs(loesungval)} \\)</li>
+        </ul>
+        `//!
     }
 
     const aufgaben = 
     [
         {
-            nr:1,
+            nr:1, // filter 0
             title: "Kleines Einmaleins Plain Vanilla",
             description: "",
                 aufgabe: aufgabe,
@@ -167,7 +176,7 @@ function times(filter){
                 speak: speak
         },
         {
-            nr:2,
+            nr:2, // filter 1
             title: "10 x 100, 100 x 1000",
             description: "",
                 aufgabe: aufgabe,
@@ -177,8 +186,8 @@ function times(filter){
                 speak: speak
         },
         {
-            nr:3,
-            title: "10 x 100, 100 x 1000",
+            nr:3, // filter 2
+            title: "0.1 x 0.001, 0.01 x 0.01",
             description: "",
                 aufgabe: aufgabe,
                 loesung: loesung,
@@ -186,17 +195,17 @@ function times(filter){
                 explainer: explainer,//!
                 speak: speak
         },
-               /* 
         {
-            nr:4,
-            title: "0,1 x 0,01",
+            nr:4, // filter 3
+            title: "(-1) x 1, (-1) x (-1)",
             description: "",
-                aufgabe: ``,
-                loesung: ``,
-                help: ``,
-                explainer: `
-                `//!
+                aufgabe: aufgabe,
+                loesung: loesung,
+                help: help,
+                explainer: explainer,
+                speak: speak
         },
+        /*
         {
             nr:5,
             title: "1000 x 0,001, ... 1000000",
@@ -295,3 +304,7 @@ export default times;
 function getRandomInt(n) { 
     return Math.floor(Math.random() * n);
 }
+
+function brac(n) {
+    return n < 0 ? n = "("+n+")" : n.toString()
+  }
