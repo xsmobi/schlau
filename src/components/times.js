@@ -8,8 +8,8 @@ function times(filter){
     //op1 = 4
     //op2 = 6
 
-    //if (typeof filter !== 'number') filter = getRandomInt(4) 
-    filter = 4
+    if (typeof filter !== 'number') filter = getRandomInt(5) 
+    //filter = 4
     //console.log("Filter2: " + filter + typeof filter)
 
     loesungval = op1*op2
