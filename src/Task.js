@@ -14,7 +14,7 @@ const style={
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
-    const { text, help, answer, explainer, headerclass, menu, speak } = task;
+    const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer } = task;
     //console.log(task)
     //console.log("task", text)
     //console.log(headerclass, menu, speak)
@@ -34,7 +34,8 @@ function Task({ task, showHelp, showResult, showExplainer }) {
 
         {/*  */}
         {showResult && speak && (<TextToSpeech text={speak} />)}
-
+        {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
+        {showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)}
     </div>
     </MathJaxContext>
             

@@ -81,7 +81,9 @@ function CreateTask(task) {
     headerclass: `${aufgabeDaten[4]}`,
     //menu: `${aufgabeDaten[5]}`
     menu: aufgabeDaten[5],
-    speak: aufgabeDaten[6]
+    speak: aufgabeDaten[6],
+    speakhelp: aufgabeDaten[7],
+    speakexplainer: aufgabeDaten[8]
     };
  
     return processedTask;

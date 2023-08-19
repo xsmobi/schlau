@@ -1,5 +1,5 @@
 function times(filter){    
-    let aufgabe, loesung, help, explainer, speak
+    let aufgabe, loesung, help, explainer, speak, speakhelp, speakexplainer
     
     let op1 = 2 + getRandomInt(8)
     let op2 = 2 + getRandomInt(8)
@@ -8,8 +8,8 @@ function times(filter){
     //op1 = 4
     //op2 = 6
 
-    if (typeof filter !== 'number') filter = getRandomInt(4) 
-    //filter = 1
+    //if (typeof filter !== 'number') filter = getRandomInt(4) 
+    filter = 4
     //console.log("Filter2: " + filter + typeof filter)
 
     loesungval = op1*op2
@@ -161,6 +161,47 @@ function times(filter){
             <li>${op1 < 0 && op2 < 0 ? "&#9746;" : "&#9744;"} \\(${brac(-abs1)} \\cdot ${brac(-abs2)} = ${Math.abs(loesungval)} \\)</li>
         </ul>
         `//!
+    } else if(typeof filter !== 'number' || filter === 4) {  // Filter: 4, (-a) * (-b)
+        const dividend = op1 * op2
+        const divisor = op1
+        const quotient = op2
+        aufgabe = `\\[${dividend} \\div ${divisor} = ?\\]`
+        loesung = `\\[${quotient}\\]`
+        help = `In welcher Reihe ist der Dividend ${dividend} zu finden? Oder gibt es die ${dividend} in mehreren Reihen?
+        <br>Ist der Divisor ${divisor} auch in einer dieser Reihen drin?
+        <br>
+        <br>Oder:
+        <br><q>Welche Zahl gibt, mit ${divisor} multipliziert, die Zahl ${dividend}?</q>
+        <br>
+        <br>Oder (Profi-Variante):
+        \\[${divisor} \\cdot x = ${dividend}\\]
+        Das x ist dann der gesuchte Quotient!
+        `//!
+        speak = `${dividend} geteilt durch ${divisor} = ${quotient}`
+        speakhelp = `Welche Zahl gibt, mit ${divisor} multipliziert, die Zahl ${dividend}?`
+        explainer = `1. "Geteilt" kann verschieden geschrieben werden:
+        <ul>
+        <li>mit geteilt-Zeichen &nbsp; \\(${dividend} \\div ${divisor} = \\)</li>
+        <li>mit geteilt-Zeichen &nbsp; \\(${dividend}  \\text{  }\\mathbf{:}\\text{  }  ${divisor} = \\)</li>
+        <li>als Bruch &nbsp; \\(\\frac{${dividend}}{${divisor}} = \\)</li>
+        <li>als Bruch mit "/" &nbsp; \\(${dividend} \\mathbf{/} ${divisor} = \\)</li>
+        </ul>
+        2. Du kannst die Probe machen
+        <br>\\(${dividend} \\div ${divisor} = ${quotient} \\text{  ist das richtig? }\\)
+        <br>Probe:
+        <br>\\(${quotient} \\cdot ${divisor} = ${dividend} \\text{  stimmt! }\\) &#x1F601;
+        <br>
+        <br>Bezeichnungen
+        <ul>
+        <li>Die ${dividend} ist der Dividend.<br>Bei Bruchschreibweise ist ${dividend} der Zähler.</li>
+        <br>Die ${divisor} ist der Divisor oder der Teiler.<br>Bei Bruchschreibweise ist ${divisor} der Nenner.
+        <li>Das Ergebnis der Geteilt-Aufgabe, also die ${quotient}, ist der Quotient.
+        <br><q>Der Quotient aus ${dividend} und ${divisor} ist gleich ${quotient}.</q>
+        <br>Man kann auch sagen <q>Das Verhältnis der Zahlen ${dividend} und ${divisor} ist ${quotient} zu 1</q>
+        <br>Und entsprechend <q>Die Zahlen ${divisor} und ${dividend} verhalten sie wie 1 zu ${quotient}.</q>
+        </ul>
+        `//!
+        speakexplainer = `Der Quotient aus ${dividend} und ${divisor} ist gleich ${quotient}`
     }
 
     const aufgaben = 
@@ -205,17 +246,17 @@ function times(filter){
                 explainer: explainer,
                 speak: speak
         },
-        /*
         {
-            nr:5,
-            title: "1000 x 0,001, ... 1000000",
+            nr:5, // filter 4
+            title: "Division mit Probe",
             description: "",
-                aufgabe: ``,
-                loesung: ``,
-                help: ``,
-                explainer: `
-                `//!
+            aufgabe: aufgabe,
+            loesung: loesung,
+            help: help,
+            explainer: explainer,
+            speak: speak
         },
+        /*
         {
             nr:6,
             title: "11 x 19",
@@ -296,7 +337,7 @@ function times(filter){
 
     
     //return [aufgabe, loesung, help, explainer,,,speak];
-    return [aufgabe_,loesung_,help_,explainer_,,menu, speak]
+    return [aufgabe_,loesung_,help_,explainer_,,menu, speak, speakhelp, speakexplainer]
  }
 
 export default times;
