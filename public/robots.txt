@@ -3,7 +3,5 @@ User-agent: Bing
 User-agent: Yandex
 
 Allow: /sitemap.xml
-Disallow: /private/
 
 User-agent: *
-Disallow: /
