@@ -5,7 +5,7 @@ import TextToSpeech from './TextToSpeech';
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
-    helptext: `prose prose-lg border-solid border-2 border-red-600 px-2 py-2 rounded-md`,
+    helptext: `prose prose-lg border-solid border-2 border-red-600 px-2 py-2 mb-2 rounded-md`,
     resulttext: `prose prose-lg`,
     explainertext: `prose prose-lg border-solid border-2 border-gray-400 px-2 my-2 rounded-md`,
     subheader: `prose prose-lg`,

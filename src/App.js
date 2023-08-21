@@ -41,8 +41,9 @@ function App() {
 
   const types = [
     {typ: "add",    btn: "-a + b",        kbd: "a", txt: "Plus und Minus auf dem Zahlenstrahl"},
-    //{typ: "addtxt", btn: "+- EUR",        kbd: "q", txt: "Kontostand, Einzahlung, Auszahlung"},
+    {typ: "addtxt", btn: "+- EUR",        kbd: "q", txt: "Kontostand, Einzahlung, Auszahlung"},
     {typ: "addsub", btn: "a - (-+b)",     kbd: "b", txt: "Plus und Minus mit Klammern"},
+    {typ: "times",  btn: "1 x 1",         kbd: "p", txt: "Kleines Einmaleins", hasFilter: true},
     {typ: "lin1",   btn: "x + a = b",     kbd: "c", txt: "Plus-Minus-Gleichungen"},
     {typ: "prop",   btn: "PROP",          kbd: "g", txt: "Proportionalität & Dreisatz", hasFilter: true},
     {typ: "prozent", btn: "PROZENT",      kbd: "g", txt: "Anteile & Prozent", hasFilter: true},
@@ -52,7 +53,7 @@ function App() {
     {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
     {typ: "potenzen", btn: "^POWER",      kbd: "o", txt: "Potenzrechnung", hasFilter: true},
-    {typ: "times",  btn: "1 x 1",         kbd: "p", txt: "Kleines Einmaleins", hasFilter: true},
+   
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
     
@@ -73,7 +74,7 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('times');
+  const [selectedType, setSelectedType] = useState('addtxt');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
