@@ -338,7 +338,7 @@ function times(filter){
 
     
     //return [aufgabe, loesung, help, explainer,,,speak];
-    return [aufgabe_,loesung_,help_,explainer_,,menu, speak, speakhelp, speakexplainer]
+    return [aufgabe_,loesung_,help_,explainer_,undefined,menu, speak, speakhelp, speakexplainer]
  }
 
 export default times;

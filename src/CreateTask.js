@@ -1,6 +1,7 @@
 //import {useContext} from 'react';
 //import {FilterContext} from './App'
 import add from './components/add';
+import addtxt from './components/addtxt';
 import addsub from './components/addsub';
 import frac from './components/frac';
 import lin1 from './components/lin1';
@@ -26,6 +27,9 @@ function CreateTask(task) {
     switch(type){
         case "add":
             aufgabeDaten = add()
+        break;
+        case "addtxt":
+            aufgabeDaten = addtxt()
         break;
         case "addsub": 
             aufgabeDaten = addsub()
@@ -79,7 +83,7 @@ function CreateTask(task) {
     help: `${aufgabeDaten[2]}`,
     explainer: `${aufgabeDaten[3]}`,
     headerclass: `${aufgabeDaten[4]}`,
-    //menu: `${aufgabeDaten[5]}`
+    
     menu: aufgabeDaten[5],
     speak: aufgabeDaten[6],
     speakhelp: aufgabeDaten[7],

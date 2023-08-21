@@ -28,6 +28,14 @@ const templates = [
       //explainer:"<p>.Eine Zahl addieren heißt, die Gegenzahl subtrahieren.</p> <ul> <li>Beispiel, addiere 2: 3 + 2 = 3 - (-2), denn -2 ist die Gegenzahl zu </li> <li>Beispiel, addiere -2: 3 + (-2) = 3 - 2, denn 2 ist die Gegenzahl zu -2</li> </ul>"
     },
     {
+      name: "Add Sub 1",
+      type: "addtxt",
+      //val1: 10,
+      //val2: 20,
+      //help: "",
+      //explainer:"<p>.Eine Zahl addieren heißt, die Gegenzahl subtrahieren.</p> <ul> <li>Beispiel, addiere 2: 3 + 2 = 3 - (-2), denn -2 ist die Gegenzahl zu </li> <li>Beispiel, addiere -2: 3 + (-2) = 3 - 2, denn 2 ist die Gegenzahl zu -2</li> </ul>"
+    },
+    {
       name: "Add",
       type: "add",
       //val1: -10,
