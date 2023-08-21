@@ -108,6 +108,7 @@ function App() {
       const randomIndex = Math.floor(Math.random() * filteredTasks.length);
       const task = filteredTasks[randomIndex];
       if (filter && submenu) task.subfilter = selectedOption.val
+      console.log(selectedOption.val)
       const processedTask = CreateTask(task);
       setSubmenu(processedTask.menu);
       setCurrentTask(processedTask);

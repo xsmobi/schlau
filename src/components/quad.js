@@ -36,7 +36,7 @@ function quad() {
                 \\[-\\frac{p}{2} = ${-p/2}; (\\frac{p}{2})^2 = ${p**2/4}; q = ${q}\\]
                 \\[x_{1,2} = ${-p/2} \\pm \\sqrt{${p**2/4} ${add(-q)}} \\]
                 `//!
-                explainer = `(folgt)` 
+                explainer = `Folgt! Schau dir vorerst die Hilfe genau an!` 
             } else {
                 let pp = Math.abs(p)
                 //p = -4

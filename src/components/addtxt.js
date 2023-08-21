@@ -21,8 +21,8 @@ function addtxt(){
         ["Einzahlung, Endstand", zahlung3ein, loesungnum]
     ]
 
-    console.table(test)
-    console.log(test)
+    //console.table(test)
+    //console.log(test)
     
 
     
@@ -44,21 +44,21 @@ function addtxt(){
         <tr>
             <td>Start</td>
             <td>&nbsp;</td>
-            <td>${vorher}</td>
+            <td class="text-end">${vorher}</td>
         </tr> 
         <tr>
-            <td>${zahlung1 > 0 ? "Einzahlung" : "Auszahlung"}</td>
-            <td>${zahlung1}</td>
+            <td class="text-end">${zahlung1 > 0 ? "Einzahlung" : "Auszahlung"}</td>
+            <td class="text-end">${zahlung1}</td>
             <td>&nbsp;</td>
         </tr> 
         <tr>
             <td>Auszahlung</td>
-            <td>${zahlung2abb}</td>
+            <td class="text-end">${zahlung2abb}</td>
             <td>&nbsp;</td>
         </tr> 
         <tr>
             <td>Einzahlung</td>
-            <td>${zahlung3ein}</td>
+            <td class="text-end">${zahlung3ein}</td>
             <td>&nbsp;</td>
         </tr>
         </table>

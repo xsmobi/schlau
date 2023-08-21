@@ -370,6 +370,7 @@ function prop(filter) {
         title,
         description,
       }));
+      //console.log(menu)
 
       return [aufgabe_,loesung_,help_,explainer_,headerclass,menu]
 }
