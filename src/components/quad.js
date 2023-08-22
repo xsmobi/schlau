@@ -36,7 +36,7 @@ function quad() {
                 \\[-\\frac{p}{2} = ${-p/2}; (\\frac{p}{2})^2 = ${p**2/4}; q = ${q}\\]
                 \\[x_{1,2} = ${-p/2} \\pm \\sqrt{${p**2/4} ${add(-q)}} \\]
                 `//!
-                explainer = `Folgt! Schau dir vorerst die Hilfe genau an!` 
+                explainer = `Folgt! Schau dir vorerst die Hilfe <kbd>&nbsp; ? &nbsp;</kbd> genau an!` 
             } else {
                 let pp = Math.abs(p)
                 //p = -4
@@ -54,7 +54,7 @@ function quad() {
                 \\[x^2 ${add(p)} x + (\\frac{${pp}}{2})^2\\]
                 Das ist ein vollständiges Quadrat:
                 \\[(x ${add(p/2)})^2\\]
-                (binomische Formel!). Klick jetzt nochmals auf Hilfe für die ganze Rechnung.
+                (binomische Formel!). Klick jetzt nochmals auf <kbd>&nbsp; ? &nbsp;</kbd>für die ganze Rechnung.
                 `//A
             }
             loesung = x1===x2 ? `\\[x_{1,2}=${2*x1}\\]` : `\\[x_{1}=${2*x1}, x_{2}=${2*x2}\\]`
