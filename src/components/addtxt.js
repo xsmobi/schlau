@@ -38,8 +38,8 @@ function addtxt(){
         <table>
         <tr>
             <td>&nbsp;</td>
-            <td><b>Zahlung +/-</b></td>
-            <td><b>Stand</b></td>
+            <td class="text-end"><b>Zahlung +/-</b></td>
+            <td class="text-end"><b>Stand</b></td>
         </tr>
         <tr>
             <td>Start</td>
