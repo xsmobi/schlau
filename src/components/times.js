@@ -300,7 +300,7 @@ function times(filter){
         <br>1 Kilowattstunde (kWh) = 1 Kilowatt (kW) &middot; 1 Stunde (h)
         <br>E = ${op2} kW &middot; ${op1} h = ${op2} &middot; ${op1} kWh = ${loesungval} kWh
         `//!
-        speak = `Bei einer mittleren Leistungsaufnahme von ${op2} Kilowatt über ${op2} Stunden werdenn ${loesungval} Kilowattstunden Energie verbraucht.
+        speak = `Bei einer mittleren Leistungsaufnahme von ${op2} Kilowatt über ${op1} Stunden werdenn ${loesungval} Kilowattstunden Energie verbraucht. Rechne einfach ${op2} mal ${op1}
         `//!
     }
 
