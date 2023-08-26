@@ -250,7 +250,7 @@ function times(filter){
         speak = `Wenn pro Minute ${op1} Liter in das Planschbecken fließen, dann sind nach ${op2} Minuten ${loesungval} Liter drin, du rechnest ${op1} mal ${op2}.`
     
     } else if (typeof filter !== 'number' || filter === 7) {  // Filter: 7, Ohmsches Gesetz
-        aufgabe = `Durch einen elektrischen Widerstand von ${op1} Ohm fließt ein Strom von ${op2} Ampere. Welche Spannung wird an dem Widerstand gemessen?`
+        aufgabe = `Durch einen elektrischen Widerstand von ${op1} Ohm fließt ein Strom von ${op2} Amp&#232;re. Welche Spannung wird an dem Widerstand gemessen?`
         loesungval = op1*op2
         loesung = `Das Voltmeter zeigt ${loesungval} V`
         help = `Die Formel ist das Ohmsche Gesetz
@@ -264,6 +264,43 @@ function times(filter){
         Wenn der Strom I in Amp&#232;re (A) und der Widerstand R in Ohm (&Omega;) gegeben sind, dann ist die anliegende Spannung in Volt (V) einfach das Produkt.
         `//!
         speak = `Wenn durch einen Widerstand von ${op1} Ohm ein Strom von ${op2} Ampere fließt, dann fällt an dem Widerstand eine Spannung von ${loesungval} Volt ab.
+        `//!
+    
+    } else if (typeof filter !== 'number' || filter === 8) {  // Filter: 8, Leistung P = U * I
+        aufgabe = `An einem elektrischen Widerstand liegt eine Spannung von ${op1} Volt an und es fließt ein Strom von ${op2} Amp&#232;re. Welche elektrische Leistung wird verbraucht?`
+        loesungval = op1*op2
+        loesung = `Die Leistung beträgt ${loesungval} Watt`
+        help = `Die Formel:
+        <br>Leistung (in Watt) = Spannung (in Volt) mal Strom (in Amp&#232;re)
+        <br>Die Formelzeichen sind: Leistung P <i>wie Power</i>, Spannung U, Strom I
+        <br>Damit ist die elektrische Leistung: P = U &middot; I
+        <br>&Rarr; einfach das Produkt aus U und I ausrechnen!
+        `//!
+        explainer = `
+        Siehe Hilfe <kbd>?</kbd>
+        Wenn die Spannung U in Volt (V) und der Strom I in Amp&#232;re (A) gegeben sind, dann wird eine Leistung von ${op1} &middot; ${op2} Watt (W) verbraucht.
+        `//!
+        speak = `Wenn durch einen Verbraucher bei ${op1} Volt Anschlussspannung ein Strom von ${op2} Ampere fließt, dann verbraucht dieser eine Leistung von ${loesungval} Watt.
+        `//!
+    
+    } else if (typeof filter !== 'number' || filter === 9) {  // Filter: 9, Energie = Leistung mal Zeit
+        aufgabe = `In einem Haushalt nehmen Heizung und Geräte für ${op1} Stunden eine mittlere Leistung von ${op2} Kilowatt auf. Wieviel Energie haben sie in der Zeit verbraucht?`
+        loesungval = op1*op2
+        loesung = `Es wurde eine Energie ${loesungval} kWh verbraucht.`
+        help = `E = P &middot; t
+        <br>Formelzeichen:
+        <br>Einergie E, Leistung P <i>Power</i>, Zeit t <i>time</i>
+        <br>Einheiten:
+        <br>Kilowatt kW, Kilowattstunde kWh, Stunde h <i>(hour)</i>
+        <br>&Rarr; einfach P und t malnehmen, um E zu erhalten!
+        `//!
+        explainer = `
+        Siehe Hilfe <kbd>?</kbd>
+        <br>Die Energie wird in Kilowattstunden gemessen, egal, ob es sich im elektrische Energie oder eine andere Energieform handelt. Energie E ist Leistung P mal Zeit t.
+        <br>1 Kilowattstunde (kWh) = 1 Kilowatt (kW) &middot; 1 Stunde (h)
+        <br>E = ${op2} kW &middot; ${op1} h = ${op2} &middot; ${op1} kWh = ${loesungval} kWh
+        `//!
+        speak = `Bei einer mittleren Leistungsaufnahme von ${op2} Kilowatt über ${op2} Stunden werdenn ${loesungval} Kilowattstunden Energie verbraucht.
         `//!
     }
 
@@ -342,6 +379,26 @@ function times(filter){
         {
             nr:8,
             title: "Ohmsches Gesetz",
+            description: "",
+            aufgabe: aufgabe,
+            loesung: loesung,
+            help: help,
+            explainer: explainer,
+            speak: speak
+        },
+        {
+            nr:9,
+            title: "Leistung = Spannung mal Strom",
+            description: "",
+            aufgabe: aufgabe,
+            loesung: loesung,
+            help: help,
+            explainer: explainer,
+            speak: speak
+        },
+        {
+            nr:10,
+            title: "Energie = Leistung mal Zeit",
             description: "",
             aufgabe: aufgabe,
             loesung: loesung,
