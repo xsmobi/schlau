@@ -203,68 +203,6 @@ function times(filter){
         </ul>
         `//!
         speakexplainer = `Der Quotient aus ${dividend} und ${divisor} ist gleich ${quotient}`
-    } else if (typeof filter !== 'number' || filter === 5) {  // Filter: 5, Längen, Fläche
-        op10 = op1
-        op20 = op2
-        let mult = [1,10,100]
-        mult1 = mult[Math.floor(Math.random()*mult.length)]
-        mult2 = mult[Math.floor(Math.random()*mult.length)]
-        if (mult1 === 1 && mult2 === 1) mult1 = 10
-        op1 = op1 * mult1
-        op2 = op2 * mult2
-        mult1fac = mult1 !==1 ? `\\cdot ${mult1}` : ""
-        mult2fac = mult2 !==1 ? `\\cdot ${mult2}` : ""
-        mult12fac = mult1*mult2 !== 1 ? `\\cdot ${mult1*mult2}`: ""
-        //aufgabe = `\\[${op1} \\cdot ${op2} = \\]`
-        aufgabe = `Berechne den Flächeninhalt! Die Fläche ist rechteckig mit der Länge ${op1} m und der Breite ${op2} m`
-        loesungval = op1*op2
-        loesung = `\\[${op1} \\text{ m} \\cdot ${op2} \\text{ m}  = ${loesungval} \\text{ m}^2 \\]`
-        help = `\\[${op1} \\text{ m} \\cdot ${op2} \\text{ m}\\]
-        \\[= ${op1} \\cdot ${op2} \\cdot \\text{ m} \\cdot \\text{ m}\\]
-        \\[= ${op1} \\cdot ${op2} \\text{ m}^2\\]
-        `//!
-        explainer = `
-        \\[\\text{1 m} \\cdot \\text{1 m} \\text{ = 1 m}^2\\]
-        Die Meter (m) sind Längeneinheiten
-        <br>Beim Multiplizieren von Zahlen mit Einheiten - also statt den Zahlen \\(${op1} \\cdot ${op2}\\) die Längen \\(${op1} \\text{ m} \\cdot ${op2} \\text{ m}\\)  - müssen die Einheiten ebenfalls multipliziert werden.
-        <br>\\(\\text{m }\\cdot\\text{ m} = \\text{ m}^2\\)
-        <br>Meter &middot; Meter = Quadratmeter
-        `//!
-        speak = `Ein Rechteck mit den Abmessungen ${op1} Meter und ${op2} Meter hat eine Fläche von ${loesungval} Quadratmetern`
-    
-    } else if (typeof filter !== 'number' || filter === 6) {  // Filter: 6, Durchfluss - Kinderplanschbecken
-        op1 = 5 + getRandomInt(5)
-        aufgabe = `Ein Kinderplanschbecken wird mit einem Gartenschlauch gefüllt, durch den ${op1} Liter pro Minute fließen. Wieviel Wasser ist nach ${op2} Minuten eingefüllt?`
-        loesungval = op1*op2
-        loesung = `\\[${op1} \\text{ l/min} \\cdot ${op2} \\text{ min}  = ${loesungval} \\text{ l} \\]`
-        help = `Die Menge <i>pro</i> Minute mal die Zahl der Minuten gibt die Gesamtmenge.
-        `//!
-        explainer = `
-        Siehe Hilfe <kbd>?</kbd>
-        Die Einheiten sind Liter (l) für das Volumen und Minuten (min) für die Zeit.
-        <br>Wenn du bei der Rechnung die Einheiten korrekt mitnehmen willst, kannst du schreiben:
-        \\[${op1} \\frac{l}{min} \\cdot ${op2} min = ${loesungval} l\\]
-        denn
-        \\[\\frac{l}{min} \\cdot min  = l\\]
-        `//!
-        speak = `Wenn pro Minute ${op1} Liter in das Planschbecken fließen, dann sind nach ${op2} Minuten ${loesungval} Liter drin, du rechnest ${op1} mal ${op2}.`
-    
-    } else if (typeof filter !== 'number' || filter === 7) {  // Filter: 7, Ohmsches Gesetz
-        aufgabe = `Durch einen elektrischen Widerstand von ${op1} Ohm fließt ein Strom von ${op2} Ampere. Welche Spannung wird an dem Widerstand gemessen?`
-        loesungval = op1*op2
-        loesung = `Das Voltmeter zeigt ${loesungval} V`
-        help = `Die Formel ist das Ohmsche Gesetz
-        <br>Spannung (in Volt) = Strom (in Amp&#232;re) mal Widerstand (in Ohm, &Omega;)
-        <br>Die Formelzeichen sind: Spannung U, Strom I, Widerstand R
-        <br>Damit lautet das Ohmsche Gesetz: U = I &middot; R
-        <br>&Rarr; einfach das Produkt aus I und R ausrechnen!
-        `//!
-        explainer = `
-        Siehe Hilfe <kbd>?</kbd>
-        Wenn der Strom I in Amp&#232;re (A) und der Widerstand R in Ohm (&Omega;) gegeben sind, dann ist die anliegende Spannung in Volt (V) einfach das Produkt.
-        `//!
-        speak = `Wenn durch einen Widerstand von ${op1} Ohm ein Strom von ${op2} Ampere fließt, dann fällt an dem Widerstand eine Spannung von ${loesungval} Volt ab.
-        `//!
     }
 
     const aufgaben = 
@@ -301,7 +239,7 @@ function times(filter){
         },
         {
             nr:4, // filter 3
-            title: "Einmaleins mit negativen Faktoren",
+            title: "(-1) x 1, (-1) x (-1)",
             description: "",
                 aufgabe: aufgabe,
                 loesung: loesung,
@@ -319,39 +257,9 @@ function times(filter){
             explainer: explainer,
             speak: speak
         },
+        /*
         {
             nr:6,
-            title: "Flächenberechnung, Meter, Quadratmeter",
-            description: "",
-            aufgabe: aufgabe,
-            loesung: loesung,
-            help: help,
-            explainer: explainer,
-            speak: speak
-        },
-        {
-            nr:7,
-            title: "Kinderplanschbecken füllen",
-            description: "",
-            aufgabe: aufgabe,
-            loesung: loesung,
-            help: help,
-            explainer: explainer,
-            speak: speak
-        },
-        {
-            nr:8,
-            title: "Ohmsches Gesetz",
-            description: "",
-            aufgabe: aufgabe,
-            loesung: loesung,
-            help: help,
-            explainer: explainer,
-            speak: speak
-        },
-        /*
-                {
-            nr:7,
             title: "11 x 19",
             description: "",
                 aufgabe: ``,
@@ -361,7 +269,7 @@ function times(filter){
                 `//!
         },
         {
-            nr:8,
+            nr:7,
             title: "Binomische Formeln",
             description: "",
                 aufgabe: ``,
@@ -371,7 +279,7 @@ function times(filter){
                 `//!
         },
         {
-            nr98,
+            nr:8,
             title: "Flächen berechnen",
             description: "",
                 aufgabe: ``,
@@ -381,7 +289,7 @@ function times(filter){
                 `//!
         },
         {
-            nr:10,
+            nr:9,
             title: "Weg, Zeit, Geschwindigkeit",
             description: "",
                 aufgabe: ``,
@@ -391,7 +299,7 @@ function times(filter){
                 `//!
         },
         {
-            nr:11,
+            nr:10,
             title: "Energie und Leistung",
             description: "",
                 aufgabe: ``,
@@ -401,7 +309,7 @@ function times(filter){
                 `//!
         },
         {
-            nr:12,
+            nr:11,
             title: "Einkaufen",
             description: "",
                 aufgabe: ``,
