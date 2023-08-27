@@ -1,5 +1,5 @@
 function times(filter){    
-    let aufgabe, loesung, help, explainer, speak, speakhelp, speakexplainer
+    let aufgabe, loesung, help, explainer, speak, speakhelp, speakexplainer, rect
     
     let op1 = 2 + getRandomInt(8)
     let op2 = 2 + getRandomInt(8)
@@ -26,6 +26,7 @@ function times(filter){
         aufgabe = `\\[${op1} \\cdot ${op2} = ?\\]`
         loesungval = op1*op2
         loesung = `\\[${op1} \\cdot ${op2} = ${loesungval}\\]`
+        help = `${op1}///${op2}`
         speak = `${op1} mal ${op2} = ${loesungval}`
         explainer =
         op1 === 2 ?

@@ -2,6 +2,7 @@ import {React} from "react";
 import { MathJaxContext, MathJax } from "better-react-mathjax";
 //import prozentmenu from "./components/prozentmenu"
 import TextToSpeech from './TextToSpeech';
+import Rectangle from "./components/Rectangle";
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
@@ -20,6 +21,20 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     //console.log(headerclass, menu, speak)
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
   
+    let helptxt = help
+    let aa = 1, bb = 1
+    let isreactangle = false
+    if (help && help.includes("///")) {
+        let helparr = help.split("///")
+        helptxt = help.replace("///", " mal ")
+        helptxt = helptxt + " - Rechteck:"
+        //console.log(helparr)
+        aa = helparr[0]
+        bb = helparr[1]
+        isreactangle = true
+    }
+    //console.log(typeof help)
+
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
     
@@ -28,7 +43,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     <div className="Task">
 
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: text }} /></MathJax></h3>
-        {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: help }} /></MathJax>}
+        {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: helptxt }} /></MathJax>}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: explainer }} /></MathJax>}
 
@@ -36,6 +51,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
         {showResult && speak && (<TextToSpeech text={speak} />)}
         {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
         {showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)}
+        {showHelp && isreactangle && ( <Rectangle a={aa} b={bb} />)}
     </div>
     </MathJaxContext>
             

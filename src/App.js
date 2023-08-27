@@ -52,7 +52,7 @@ function App() {
     {typ: "prozent", btn: "PROZENT",      kbd: "g", txt: "Anteile & Prozent", hasFilter: true},
     {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POTENZEN",      kbd: "o", txt: "Potenzrechnung", hasFilter: true},
+    {typ: "potenzen", btn: "POTENZEN",    kbd: "o", txt: "Potenzrechnung", hasFilter: true},
    
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
@@ -74,7 +74,7 @@ function App() {
   ]
 
   
-  const [selectedType, setSelectedType] = useState('addtxt');
+  const [selectedType, setSelectedType] = useState('times');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -108,7 +108,7 @@ function App() {
       const randomIndex = Math.floor(Math.random() * filteredTasks.length);
       const task = filteredTasks[randomIndex];
       if (filter && submenu) task.subfilter = selectedOption.val
-      console.log(selectedOption.val)
+      //console.log(selectedOption.val)
       const processedTask = CreateTask(task);
       setSubmenu(processedTask.menu);
       setCurrentTask(processedTask);
