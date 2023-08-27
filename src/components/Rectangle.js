@@ -42,4 +42,3 @@ function Rectangle(props) {
 }
 
 export default Rectangle;
-
