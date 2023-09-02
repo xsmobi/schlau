@@ -10,3 +10,5 @@ btnexplainer: `button text-gray-900 bg-gradient-to-r from-gray-200 via-gray-400 
 .btnexplainer {color: black; background-color:lightgray}
 .greenb {color: green; font-weight: bold;}
 .ml-80 {margin-left: 80px;}
+.ul-square {list-style-type:square;}
+.bg-blue {background-color: #2790E4}
