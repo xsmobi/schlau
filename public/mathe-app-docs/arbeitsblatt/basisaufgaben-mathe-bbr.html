@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Basisaufgaben Mathe-BBR</title>
+<link rel="canonical" href="https://mathbydoing.app/mathe-arbeitsblaetter-uebungen/plus-minus-rechnen-auf-dem-zahlenstrahl.html">
+<meta name="description" content="Basisaufgaben zum Üben für den BBR-Abschluss in Mathematik. Typische Aufgaben, die beim schriftlichen BBR in Mathe zu erwarten sind und Grundlagen für Mathethemen der Jahrgänge 8-9 sind.">
+<link rel="apple-touch-icon" sizes="180x180" href="https://mathbydoing.app/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mathbydoing.app/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mathbydoing.app/favicon-16x16.png">
+<link rel="mask-icon" href="https://mathbydoing.app/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon" href="https://mathbydoing.app/icons_/icon192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="content">
+
+    <nav class="navbar no-print" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand no-print">
+        <a class="navbar-item" href="./">
+          <img src="https://mathbydoing.app/apple-touch-icon.png" width="28" height="28" class="image no-print" style="border-radius: 50%">
+        </a>
+       <!-- 
+        <a role="button" class="navbar-burger no-print" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        -->
+      </div>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a href="./" class="navbar-item">
+            Alle Arbeitsblätter
+          </a>
+          <a href="plus-minus-rechnen-auf-dem-zahlenstrahl.html" class="navbar-item">
+            Plus-/Minus Rechnen
+          </a>
+          <a href="brueche-kuerzen.html" class="navbar-item">
+            Brüche kürzen
+          </a>
+          <a href="plus-minus-terme-umstellen-nach-x-aufloesen.html" class="navbar-item">
+            Plus-/Minus Terme
+          </a>
+          <a href="mal-geteilt-terme-umstellen-nach-x-aufloesen.html" class="navbar-item">
+            Mal-/Geteilt Terme
+          </a>
+          <a href="basisaufgaben-mathe-bbr.html" class="navbar-item">
+            <span class="neu">Neu</span> Basisaufgaben BBR
+          </a>
+          <a href="https://www.youtube.com/watch?v=-t1Jt_9NPNE&list=PLiOTShCJH_CCBPfU29OSJ9j_isi_wwqjy" class="navbar-item" target="_blank">
+            <!--<img src="img/yt_icon_rgb.png" height="28" class="image no-print" >-->Playlist Mathe 8-9
+          </a>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+	  <h1>Basisaufgaben für den Mathe-BBR</h1>
+
+    <div class="columns is-mobile" id="aufgaben">
+      <div class="column">
+        <table id="tableData1" class = "table is-striped is-bordered"></table>
+      </div>
+    </div>
+
+    <p class="subtitle" id="loesungen">Lösungen</p>
+    
+    <div class="columns xis-mobile">
+      <div class="column">
+          <p id="loesungen1"></p>
+      </div>
+    </div>
+
+</div>  
+
+	
+
+   <!-- 
+    <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+          </p>
+        </div>
+    </footer>
+    -->
+
+<script>
+
+"use strict";
+
+let loesungen = [];
+let loesungen1 = [];
+
+let i = 0;
+let j = 0;
+let min = 0;
+let max = 0;
+let sign = 0;
+let n = 0;
+let m = 0;
+let tage = 0;
+let hyp = 0;
+let op1temp = 0;
+let op2temp = 0;
+let op1 = 0;
+let op2 = 0;
+const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+const sum = arr => arr.reduce( ( p, c ) => p + c, 0 );
+
+function insertObject() {
+
+let aufgaben = [{
+	"nr": 0,
+  "aufgabentext": " ",
+	"op1": "a",
+	"op2": "b",
+	"aufgabe": "Add / Sub",
+	"loesung": "Lösung",
+  },
+]
+let aufgaben_neu = { // wird überschrieben
+	"nr": 0,
+  "aufgabentext": " ",
+	"op1": " ",
+	"op2": " ",
+	"aufgabe": " ",
+	"loesung": " ",
+};
+
+let anzahl = 160;
+
+
+
+for (i = 1; i < anzahl + 1; i++) {
+aufgaben.push(aufgaben_neu);
+}
+
+let aufgabentyp = 1
+
+/*
+let min = -22;
+let max = 12;
+let nr = 0;
+let op = "&plus;";
+*/
+
+
+    let k = '<tbody>';
+    for (i = 1; i < aufgaben.length; i++) {
+
+      aufgabentyp = getRandomInt(40);
+      //aufgabentyp = 39;
+      //aufgaben[i].op1 = "";
+      aufgaben[i].op2 = "";
+
+      switch (aufgabentyp) {                          // Switch Aufgabentyp
+
+        case 0:                                       // Typ 0: Betrag und Gegenzahl
+          aufgaben[i].aufgabentext = "Nenne die Gegenzahl und den Betrag von ";
+          aufgaben[i].op1 = getRandomIntMinus(50);
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1;
+          aufgaben[i].loesung = aufgaben[i].op1*(-1) + "; " + Math.abs(aufgaben[i].op1);
+          break;
+        case 1:                                       // Typ 1: Quadrat
+          aufgaben[i].aufgabentext = "Berechne die Fläche A eines Quadrats mit einer Seitenlänge von a = ";
+          aufgaben[i].op1 = getRandomInt(10) + 3;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm"
+          aufgaben[i].loesung = aufgaben[i].op1**2 + " cm<sup>2</sup>";
+          break;
+        case 2:                                       // Typ 2: Wurzel, Seitenlänge Quadrat aus Fläche
+          aufgaben[i].aufgabentext = "Berechne die Seitenlänge a eines Quadrats mit einer Fläche von A = ";
+          aufgaben[i].op1 = (getRandomInt(10)+2)**2;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm<sup>2</sup>"
+          aufgaben[i].loesung = Math.sqrt(aufgaben[i].op1) + " cm";
+          break;
+        case 3:                                       // Typ 3: Kubik
+          aufgaben[i].aufgabentext = "Berechne das Volumen V eines Würfels mit der Seitenlänge a = ";
+          aufgaben[i].op1 = getRandomInt(5)+1;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm"
+          aufgaben[i].loesung = aufgaben[i].op1**3 + " cm<sup>3</sup>";
+          break;
+        case 4:                                       // Typ 4: Kubikwurzel
+          aufgaben[i].aufgabentext = "Berechne die Seitenlänge eines Würfels mit dem Volumen V = ";
+          aufgaben[i].op1 = (getRandomInt(5)+1)**3;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm<sup>3</sup>"
+          aufgaben[i].loesung = Math.cbrt(aufgaben[i].op1) + " cm";
+          break;
+        case 5:                                       // Typ 5: Doppelte, Hälfte, Drittel, Viertel
+          aufgaben[i].aufgabentext = "Berechne die Summe aus der Hälfte, einem Viertel und zwei Achteln der Zahl ";
+          aufgaben[i].op1 = getRandomInt(2000)+1000;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " ohne Taschenrechner"
+          aufgaben[i].loesung = aufgaben[i].op1;
+          break;
+        case 6:                                       // Halbieren und Quadrieren
+          aufgaben[i].aufgabentext = "Halbiere und quadriere den Koeffizenten von x in der Gleichung x<sup>2</sup> ";
+          aufgaben[i].op1 = getRandomInt(10)*2 - 20;
+          if (Math.sign(aufgaben[i].op1) == 1) {
+            sign = " &plus; " } else { sign = " &minus; "
+          }
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + sign + Math.abs(aufgaben[i].op1) + "x &minus; " + (getRandomInt(8)+2) + " = 0";
+          aufgaben[i].loesung = (aufgaben[i].op1/2)**2;
+          break;
+        case 7:                                       // Minuten, Sekunden
+          aufgaben[i].aufgabentext = "Gib das Zeitintervall von ";
+          aufgaben[i].op1 = getRandomInt(800) + 200;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " Sekunden in Minuten und Sekunden an";
+          aufgaben[i].loesung = Math.floor(aufgaben[i].op1/60) + " Minuten und " + aufgaben[i].op1 % 60 + " Sekunden";
+          break;
+        case 8:                                       // Stunden, Minuten ";
+          aufgaben[i].aufgabentext = "Gib den Zeitraum von ";
+          aufgaben[i].op1 = getRandomInt(800) + 200;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " Minuten in Stunden und Minuten an";
+          aufgaben[i].loesung = Math.floor(aufgaben[i].op1/60) + " Stunden und " + (aufgaben[i].op1 % 60) + " Minuten";
+          break; 
+        case 9:                                       // Tage, Stunden ";
+          aufgaben[i].aufgabentext = "Gib den Zeitraum von ";
+          aufgaben[i].op1 = getRandomInt(50) + 48;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " Stunden in Tagen und Stunden an sowie in Tagen als Dezimalzahl, gerundet auf Zehntel";
+          tage = aufgaben[i].op1/24
+          aufgaben[i].loesung = Math.floor(aufgaben[i].op1/24) + " Tage und " + aufgaben[i].op1 % 24 + " Stunden bzw. " + tage.toFixed(1) + " Tage";
+          break;
+        case 10:                                       // Tage, Stunden ";
+          aufgaben[i].aufgabentext = "Gib Anteile von 10%, 20%, 25%, 50% und 90% des Betrags ";
+          aufgaben[i].op1 = getRandomInt(10) * 50  + 100;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " &euro; an. Runde auf Cent.";
+          aufgaben[i].loesung = (aufgaben[i].op1*.1).toFixed(2) + "&nbsp;&euro;, " + (aufgaben[i].op1*.2).toFixed(2) + "&nbsp;&euro;, " + (aufgaben[i].op1*.25).toFixed(2) + "&nbsp;&euro;, " + (aufgaben[i].op1*.5).toFixed(2) + "&nbsp;&euro;, "  + (aufgaben[i].op1*.9).toFixed(2) + "&nbsp;&euro;"
+          break;
+        case 11:                                       // Diagonale eines Quadrats
+          aufgaben[i].aufgabentext = "Berechne die Diagonale c eines Quadrats mit einer Seitenlänge a = ";
+          aufgaben[i].op1 = getRandomInt(10) + 3;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm. Runde auf Millimeter."
+          aufgaben[i].loesung = "c = " + (aufgaben[i].op1*Math.sqrt(2)).toFixed(1) + " cm";
+          break;
+        case 12:                                       // Fläche rechtw., gleichsch. Dreieck
+          aufgaben[i].aufgabentext = "Berechne die Fläche A eines gleichschenkligen, rechtwinkligen Dreiecks mit der Kathetenlänge a = ";
+          aufgaben[i].op1 = getRandomInt(10) + 3;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm."
+          aufgaben[i].loesung = "A = " + (aufgaben[i].op1**2/2).toFixed(1) + " cm<sup>2</sup>";
+          break;
+        case 13:                                       // Umfang und Fläche eines Rechecks
+          aufgaben[i].aufgabentext = "Berechne den Umfang U und die Fläche A eines Rechtecks mit den Seitenlängen a = ";
+          aufgaben[i].op1 = getRandomInt(10) + 3;
+          aufgaben[i].op2 = getRandomInt(5) + 5;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm und b = " + aufgaben[i].op2 + " cm";
+          aufgaben[i].loesung = "U = " + 2*(aufgaben[i].op1+aufgaben[i].op2) + " cm. A = " + aufgaben[i].op1*aufgaben[i].op2 + " cm<sup>2</sup>";
+          break;
+        case 14:                                       // Fläche rechtwinkles Dreieck
+          aufgaben[i].aufgabentext = "Ein rechtwinkles Dreieck hat die Seitenlängen ";
+          op1temp = (getRandomInt(1000) + 300)/100;
+          op2temp = (getRandomInt(800) + 500)/100;
+          aufgaben[i].op1 = op1temp.toFixed(2);
+          aufgaben[i].op2 = op2temp.toFixed(2);
+          hyp = Math.sqrt(op1temp**2 + op2temp**2).toFixed(2);
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm, " + hyp + " cm, " + aufgaben[i].op2 + " cm. Berechne seine Fläche A."
+          aufgaben[i].loesung = "A = " + (op1temp*op2temp/2).toFixed(2) + " cm<sup>2</sup>";
+          break;
+        case 15:                                       // Wanderung, Strecken
+          let tour = [getRandomIntMinus(25)+30,getRandomIntMinus(25)+30,getRandomIntMinus(25)+30,getRandomIntMinus(25)+30,getRandomIntMinus(25)+30];
+          aufgaben[i].aufgabentext = "Auf einer Radtour von fünf Tagen werden die Strecken zurückgelegt: ";
+          for (j = 0; j < 5; j++) {
+            aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "Tag: " + (j+1) + ": " + tour[j] + " km ";
+          }
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + ". Gib die kleinste, die größte und die durchschnittliche Tagesleistung an."
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          let avg = average( tour ); // 5
+          aufgaben[i].loesung = "Min: " + Math.min(...tour) + "; Max: " + Math.max(...tour) + "; Arith. Mittel: " + avg;
+        break;
+        case 16:                                       // Summe Längen m, dm, cm
+          let masse = [getRandomIntMinus(7)+8,getRandomIntMinus(7)+8,getRandomIntMinus(50)+70];
+          aufgaben[i].aufgabentext = "Berechne die Summe der Längen ";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + masse[0] + " m, " + masse[1] + " dm, " + masse[2] + " cm";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          let cm = masse[0]*100 + masse[1]*10 + masse[2];
+          let m = cm/100
+          aufgaben[i].loesung = cm + " cm (" + m + " m)";
+        break;
+        case 17:                                       // Summe Längen km, m, dm
+          let massekm = [getRandomIntMinus(4)+5,getRandomIntMinus(700)+800,getRandomIntMinus(10)+12];
+          aufgaben[i].aufgabentext = "Berechne die Summe der Längen ";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + massekm[0] + " km, " + massekm[1] + " m, " + massekm[2] + " dm";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          let dm = massekm[0]*10000 + massekm[1]*10 + massekm[2];
+          let km = dm/10000;
+          aufgaben[i].loesung = dm + " dm (" + km + " km)";
+        break;
+        case 18:                                       // Zehnerpotenzen +/- Reihenfolge
+          let groessenordn = [.001,-.001,.01,-.01,.1,-.1];
+          groessenordn = shuffle(groessenordn).splice(3);
+          aufgaben[i].aufgabentext = "Bringe die Zahlen in aufsteigende Reihenfolge: &nbsp;&nbsp;";
+          for (n = 0; n < groessenordn.length; n++) {
+            aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + groessenordn[n] + "&nbsp;&nbsp;&nbsp;"
+          }
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = groessenordn.sort((a,b)=>a-b);
+        break;
+        case 19:                                       // Vergleiche Potenzen und Produkt
+          op1 = getRandomIntMinus(1) + 3;
+          op2 = getRandomIntMinus(1) + 3;
+          if (op2 === op1){
+            op2 = op2 + 4;
+          }
+          let potarr = [Math.pow(op1, op2), Math.pow(op2, op1), op1 * op2]
+          aufgaben[i].aufgabentext = "Bringe die Zahlen in aufsteigende Reihenfolge: &nbsp;&nbsp;";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1 + "<sup>" + op2 + "</sup>&nbsp;&nbsp;";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op2 + "<sup>" + op1 + "</sup>&nbsp;&nbsp;";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1 + " &middot;" + op2;
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung =potarr.sort((a,b)=>a-b);
+        break;
+        case 20:                                       // Laplace Wahrscheinlichkeit
+          aufgaben[i].aufgabentext = "In einer Urne sind rote und blaue Kugeln: "
+          let kugelarr = [];
+          let kugelarrlen = getRandomIntMinus(3) + 10;
+          let rote = 0;
+          let a = 0;
+          for (a = 0; a < kugelarrlen; a++){
+            //kugelarr[a] = "rot";
+            if (Math.random() < .5) {
+              kugelarr[a] = "rot";
+              rote = rote + 1;
+            } else {
+              kugelarr[a] = "blau";
+            }
+            aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + kugelarr[a] + "&nbsp;&nbsp;"
+          }
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + ".<br>Wie groß ist die Wahrscheinlichkeit, eine rote Kugel zu ziehen?"
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = (rote/kugelarrlen).toFixed(2);
+        break;
+        case 21:                                       // Zahlenstrahl
+          aufgaben[i].aufgabentext = "Welche Zahl liegt auf der Zahlengeraden genau in der Mitte zwischen den Zahlen ";
+          op1 = getRandomIntMinus(4)
+          let diff = getRandomInt(5) + 4
+          op2 = op1 + diff;
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1.toFixed(1) + " und " + op2.toFixed(1);
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = ((op1 + op2)/2).toFixed(1);
+        break;
+        case 22:                                       // Winkel Trapez
+          aufgaben[i].aufgabentext = "In einem Parallelogramm haben zwei Winkel die Größe ";
+          op1 = getRandomIntMinus(30) + 45
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1+ "&deg;. Wie groß sind jeweils die anderen beiden Winkel?";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = (180 - op1) + "&deg;";
+        break;
+        case 23:                                       // Winkel Trapez
+          aufgaben[i].aufgabentext = "In einem Parallelogramm hat ein Winkel die Größe ";
+          op1 = getRandomIntMinus(30) + 45
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1+ "&deg;. Wie groß sind die anderen drei Winkel?";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = (180 - op1) + "&deg;" + (180 - op1) + "&deg;" + op1  + "&deg;";
+        break;
+        case 24:                                       // Winkel Trapez
+          aufgaben[i].aufgabentext = "Mache dir eine Planfigur für ein Rechteck, dass aus ";
+          op1 = getRandomIntMinus(1)*2 + 8
+          op2 = getRandomIntMinus(1)*2 + 4
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1 + " gleichgroßen Quadraten besteht, die jeweils eine Fläche von " + op2**2 + " cm<sup>2</sup> haben. Wie groß ist der Umfang U des Rechtecks?";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = "U = " + (op1+4)*op2 + " cm";
+        break;
+        case 25:                                       // Winkel Trapez
+          aufgaben[i].aufgabentext = "Ein Glücksrad hat ";
+          op1 = getRandomIntMinus(1)*2 + 8
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1 + " gleichgroße Felder mit den Nummern 1 bis " + op1 + ". Wie groß ist die Wahrscheinlichkeit P, eine gerade Zahl zu drehen? Gib die Wahrscheinlichkeit als Bruch, als Dezimalbruch und in Prozent an.";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = "P = 1/2 = 0.5 = 50%";
+        break;
+        case 26:                                       // Winkel Trapez
+          aufgaben[i].aufgabentext = "Ein Glücksrad hat ";
+          op1 = getRandomIntMinus(1)*2 + 8
+          op2 = getRandomInt(op1)+1
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + op1 + " gleichgroße Felder mit den Nummern 1 bis " + op1 + ". Gib die Wahrscheinlichkeit, eine " + op2 + " zu drehen als Bruch, als Dezimalbruch und in Prozent an.";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          let p26 = 1/op1;
+          aufgaben[i].loesung = "P = 1/" + op1 + " = " + p26.toFixed(3) + " = " + (p26*100).toFixed(1) + "%";
+        break;
+        case 27:                                       // Döner
+          let doener = [getRandomIntMinus(20)+80,getRandomIntMinus(20)+80,getRandomIntMinus(20)+80,getRandomIntMinus(20)+80,getRandomIntMinus(20)+80,getRandomIntMinus(20)+80];
+          op1 = (getRandomIntMinus(20)+100)*7
+          aufgaben[i].aufgabentext = "Eine Dönerbude verkaufte in einer Woche, an sechs Tagen ab Montag, diese Tagesmengen Döner: ";
+          for (j = 0; j < 6; j++) {
+            aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "Tag: " + (j+1) + ": " + doener[j] + " Döner. ";
+          }
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "Leider fehlt der Umsatz für den Sonntag. Der Dönermann möchte den Sonntagsumsatz schätzen. Er kennt seinen durchschnittlichen Wochenumsatz, es sind " + op1 + " Döner. Hilf ihm, den fehlenden Sonntagsumsatz zu schätzen."
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          let sonntagdoener = (op1 - sum( doener ))/7 ; 
+          aufgaben[i].loesung = "Sonntag: " + sonntagdoener.toFixed(0) + " Döner";
+        break;
+        case 28:                                       // Kreis: U und A aus r
+          aufgaben[i].aufgabentext = "Berechne den Umfang U und die Fläche A eines Kreises mit dem Radius r = ";
+          aufgaben[i].op1 = getRandomInt(13) + 3;
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm. Runde auf 1 Nachkommastelle";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = "U = " + (2*Math.PI*aufgaben[i].op1).toFixed(1) + " cm; A = " + (Math.PI*aufgaben[i].op1**2).toFixed(1) + " cm<sup>2</sup>";
+          break;
+        case 29:                                       // Kreis: U und A aus d
+          aufgaben[i].aufgabentext = "Berechne den Umfang U und die Fläche A eines Kreises mit dem Durchmesser d = ";
+          aufgaben[i].op1 = getRandomInt(24) + 3;
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + aufgaben[i].op1 + " cm. Runde auf 1 Nachkommastelle";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext;
+          aufgaben[i].loesung = "U = " + (Math.PI*aufgaben[i].op1).toFixed(1) + " cm; A = " + (Math.PI*(aufgaben[i].op1/2)**2).toFixed(1) + " cm<sup>2</sup>";
+          break;
+        case 30:                                       // Döner
+          op1 = getRandomIntMinus(3)+15
+          op2 = getRandomIntMinus(3)+18
+          aufgaben[i].aufgabentext = "An einem Wochenende waren die durchschnittlichen Tagestemperaturen: Sa. " + op1 + "&deg; und So. " + op2 + "&deg;. ";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "Berechne die Durchschnittstemperatur am Wochenende!"
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = "Sa/So im Schnitt: " + ((op1+op2)/2).toFixed(1) + "&deg;";
+        break;
+        case 31:                                       // Gleichseitiges Dreieck Umfang
+          op1 = getRandomIntMinus(12)+15
+          aufgaben[i].aufgabentext = "Berechne den Umfang eines gleichseitigen Dreiecks mit der Seitenlänge " + op1 + " cm";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = 3*op1 + " cm<sup></sup>";
+        break;
+        case 32:                                       // Gleichseitiges Dreieck Fläche
+          op1 = getRandomIntMinus(8)+15
+          aufgaben[i].aufgabentext = "Berechne die Fläche eines gleichseitigen Dreiecks mit der Seitenlänge " + op1 + " cm";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = (op1*Math.sqrt(3)/2).toFixed(1) + " cm<sup>2</sup>";
+        break;
+        case 33:                                       // Flächenmaße, Verhältnis
+          op1 = getRandomIntMinus(8)+10
+          op2 = getRandomIntMinus(2)+4 // Faktor
+          let op = op1*op2
+          aufgaben[i].aufgabentext = "Zwei Quadrate haben die Flächen A1 = " + (op2*op1)**2 + " cm<sup>2</sup> und A2 = " + op1**2 + " cm<sup>2</sup>. In welchem Verhältnis zueinander stehen die Seitenlängen a1 und a2? Berechne x = a1/a2";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = "x = " + op2;
+        break;
+        case 34:                                       // Flächenmaße, mm2 und dm2
+          op1 = (getRandomIntMinus(8)*10000) + 90000
+          op2 = getRandomIntMinus(20)+22 
+          aufgaben[i].aufgabentext = "(a) Rechne die Fläche A1 = " + op1 + " mm<sup>2</sup> in die Einheit dm<sup>2</sup> um <br>";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "(b) Rechne die Fläche A2 = " + op2 + " dm<sup>2</sup> in die Einheit mm<sup>2</sup> um <br>"
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = op1/10000 + " dm<sup>2</sup>, " + op2*10000 + " mm<sup>2</sup>";
+        break;
+        case 35:                                       // Flächenmaße, cm2 und m2
+          op1 = (getRandomIntMinus(8)*10000) + 90000
+          op2 = getRandomIntMinus(10)+11 
+          aufgaben[i].aufgabentext = "(a) Rechne die Fläche A1 = " + op1 + " cm<sup>2</sup> in die Einheit m<sup>2</sup> um <br>";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "(b) Rechne die Fläche A2 = " + op2 + " m<sup>2</sup> in die Einheit cm<sup>2</sup> um <br>"
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = op1/10000 + " m<sup>2</sup>, " + op2*10000 + " cm<sup>2</sup>";
+        break;
+        case 36:                                       // Flächenmaße, m2 und km2
+          op1 = (getRandomIntMinus(8)*1000000) + 9000000
+          op2 = getRandomIntMinus(4)+5
+          aufgaben[i].aufgabentext = "(a) Rechne die Fläche A1 = " + op1 + " m<sup>2</sup> in die Einheit km<sup>2</sup> um <br>";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "(b) Rechne die Fläche A2 = " + op2 + " km<sup>2</sup> in die Einheit m<sup>2</sup> um <br>"
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = op1/1000000 + " km<sup>2</sup>, " + op2*1000000 + " m<sup>2</sup>";
+        break;
+        case 37:                                       // Raummaße, cm3 und dm3(l)
+          op1 = (getRandomIntMinus(8)*1000) + 9000
+          op2 = getRandomIntMinus(4)+5
+          aufgaben[i].aufgabentext = "(a) Rechne das Volumen V1 = " + op1 + " cm<sup>3</sup> in die Einheit dm<sup>3</sup> (Liter l) um <br>";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "(b) Rechne das Volumen V2 = " + op2 + " dm<sup>3</sup> (Liter l) in die Einheit cm<sup>3</sup> um <br>"
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = op1/1000 + " dm<sup>3</sup>, " + op2*1000 + " cm<sup>3</sup>";
+        break;
+        case 38:                                       // Raummaße, dm3(l) und m3
+          op1 = (getRandomIntMinus(8)*1000) + 9000
+          op2 = getRandomIntMinus(4)+5
+          aufgaben[i].aufgabentext = "(a) Rechne das Volumen V1y = " + op1 + " dm<sup>3</sup> in die Einheit m<sup>3</sup> um <br>";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "(b) Rechne das Volumen V1 = " + op2 + " m<sup>3</sup> in die Einheit dm<sup>3</sup> um <br>"
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          aufgaben[i].loesung = op1/1000 + " m<sup>3</sup>, " + op2*1000 + " dm<sup>3</sup>";
+        break;
+        case 39:                                       // Zahlenstrahl
+          op1 = getRandomIntMinus(10) // Start
+          op2 = (getRandomIntMinus(9)+10)*0.05 //Differenz
+          let op3 = getRandomIntMinus(10) // Start
+          let op4 = (getRandomIntMinus(9)+10)*0.05 //Differenz
+          aufgaben[i].aufgabentext = "(a) Welche Zahl ist um  " + op2.toFixed(2) + " kleiner als " + op1 + "?<br>";
+          aufgaben[i].aufgabentext = aufgaben[i].aufgabentext + "(b) Welche Zahl ist um  " + op4.toFixed(2) + " größer als " + op3 + "?";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext; 
+          let loea = op1 - op2;
+          let loeb = op3 + op4
+          aufgaben[i].loesung = "a: " + loea.toFixed(2) + ". b: " + loeb.toFixed(2);
+        break;
+
+
+
+
+
+        
+
+    
+
+        default:
+          aufgaben[i].aufgabentext = "";
+          aufgaben[i].op1 = "";
+          aufgaben[i].aufgabe = aufgaben[i].aufgabentext + aufgaben[i].op1;
+          aufgaben[i].loesung = "";
+         
+      }
+
+
+
+      switch (true) {
+        case i < 12 : min = -22; max = 12; break;
+        case i < 31 : min = -30; max = 30;
+        case i < 51 : min = -40; max = 40;
+        default     : min = -50; max = 50;
+      }
+
+
+
+      /*
+      aufgaben[i].op1 = getRandomInt(max-min) + min;
+      aufgaben[i].op2 = getRandomInt(max-min) + min;
+      if (Math.random() < 0.5){
+        op = "&plus;";
+        aufgaben[i].loesung = aufgaben[i].op1 + aufgaben[i].op2;
+      } else {
+        op = "&minus;";
+        aufgaben[i].loesung = aufgaben[i].op1 - aufgaben[i].op2;
+      }
+      if (aufgaben[i].op2 < 0) {
+        aufgaben[i].aufgabe = aufgaben[i].op1 + op + "(" + aufgaben[i].op2 + ")";
+      } else {
+        aufgaben[i].aufgabe = aufgaben[i].op1 + op + aufgaben[i].op2;
+      }
+      */
+
+      
+
+      loesungen[i] = aufgaben[i].loesung;
+
+      k += '<tr>';
+      //k += '<td class="nr">' + aufgaben[i].nr + ' / ' + aufgabentyp + '</td>';
+      k += '<td class="nr">' + aufgaben[i].nr + '</td>';
+      k += '<td class="aufgabe">' + aufgaben[i].aufgabe + '</td>';
+      //k += '<td>' + aufgaben[i].loesung + '</td>'; // ausblenden!*********************
+      k += '</tr>';
+      aufgaben[i].nr ++;
+
+    }
+    k += '</tbody>';
+
+    document.getElementById('tableData1').innerHTML = k;
+    for (n = 1; n < loesungen.length; n++) {
+      m = n - 1;
+      document.getElementById('loesungen1').innerHTML += "<b>" + m + "</b>: " + loesungen[n] + "; ";
+    }
+  
+}
+
+insertObject();
+
+
+
+function getRandomInt(max) { 
+  return Math.floor(Math.random() * max); // +n die Null ausschl.
+  //console.log(Math.floor(Math.random()));
+}
+function getRandomIntMinus(max) { 
+  return Math.floor(Math.random() * 2 * max - max); // +n die Null ausschl.
+  //console.log(Math.floor(Math.random()));
+}
+
+function getlowestfraction(x0) {
+    var eps = 1.0E-15;
+    var h, h1, h2, k, k1, k2, a, x;
+
+    x = x0;
+    a = Math.floor(x);
+    h1 = 1;
+    k1 = 0;
+    h = a;
+    k = 1;
+
+    while (x-a > eps*k*k) {
+        x = 1/(x-a);
+        a = Math.floor(x);
+        h2 = h1; h1 = h;
+        k2 = k1; k1 = k;
+        h = h2 + a*h1;
+        k = k2 + a*k1;
+    }
+
+    return h + "/" + k;
+}
+
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+  return array;
+  //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+}
+
+
+</script>
+
+</body>
+</html>
