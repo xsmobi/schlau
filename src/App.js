@@ -17,7 +17,7 @@ import Select from 'react-select'
 const style={
   bg:`h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
   container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
-  heading: `text-3xl font-bold text-center text-gray-800 p-2`,
+  heading: `text-3xl font-bold text-center text-gray-800 p-2 notranslate`,
   //subheading: `text-1xl font-bold text-center text-gray-800 p-2`,
   subheading: `prose prose-xl p-2`,
   subheadingbold: `prose prose-xl p-2 font-bold`,
@@ -52,7 +52,7 @@ function App() {
     {typ: "prozent", btn: "PROZENT",      kbd: "g", txt: "Anteile & Prozent", hasFilter: true},
     {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POTENZEN",    kbd: "o", txt: "Potenzrechnung", hasFilter: true},
+    {typ: "potenzen", btn: "POWERs",    kbd: "o", txt: "Potenzrechnung", hasFilter: true},
    
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
@@ -180,11 +180,11 @@ return (
 
     <div className={style.container}>
         <nav className="relative flex w-full flex-wrap items-center justify-between bg-neutral-100 py-2 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4">
-            <div className="flex w-full flex-wrap items-center justify-between px-3">
+            <div className="flex w-full flex-wrap items-center justify-between px-3 bg-red-white">
                   <div>
                       <a href="https://schlau.app" className="my-1 mr-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 lg:mb-0 lg:mt-0">
                         <img className="mr-2 h-12 w-12 rounded-md" src="https://mathbydoing.app/apple-touch-icon.png" alt="schlau.app Logo" loading="lazy" />
-                        <span className={style.heading}>schlau.app</span>
+                        <span className={style.heading} translate="no">schlau.app</span>
                       </a>
                   </div>
               </div>
