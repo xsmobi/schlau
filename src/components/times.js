@@ -28,6 +28,7 @@ function times(filter){
         loesung = `\\[${op1} \\cdot ${op2} = ${loesungval}\\]`
         help = `${op1}///${op2}`
         speak = `${op1} mal ${op2} = ${loesungval}`
+        speakhelp = hilfevoice(op1, op2)
         explainer =
         op1 === 2 ?
         `\\[2 \\cdot ${op2} = ${op2} + ${op2} = ${loesungval}\\]`
@@ -499,4 +500,27 @@ function getRandomInt(n) {
 
 function brac(n) {
     return n < 0 ? n = "("+n+")" : n.toString()
+}
+
+function hilfevoice(n, m) {
+    const texts = [
+        `Stell dir vor, du hast ${n} Reihen von Dohnats von links nach rechts, und in jeder Reihe gibt es ${m} Dohnats. Wie viele Dohnats sind dasinsgesamt?`,
+        `Vor dir liegen ${n} Stapel Bücher, und in jedem Stapel sind ${m} Bücher. Wie viele Bücher sind das zusammen?`,
+        `Du willst ${n} Leuten Gummibären geben. Jeder soll ${m} kriegen. Wie viele Gummibären musst du hergeben?`,
+        `Du hast ${n} Hefter, und in jedem Hefter sind ${m} Blätter drin. Wie viele Blätter sind insgesamt in den Heftern?`,
+        `Stell dir die rote Fläche als einen Fußboden vor, den du verfliesen musst. In jede Reihe von links nach rechts passen ${n} Fliesen. Wenn du von oben nach unten zählst, gibt es ${m} solche Reihen. Wie viele Fliesen passen also insgesamt auf die Fläche?`,
+        `Stell dir die rote Fläche als einen Fußboden vor, den du verfliesen musst. In jede Reihe von oben nach unten passen ${m} Fliesen. Wenn du von links nach rechts zählst, gibt es ${n} solche Reihen. Wie viele Fliesen passen also insgesamt auf die Fläche?`,
+        `Stell dir die rote Fläche vor als ein Rasenstück von ${n} Meter Länge und ${m} Meter Breite. Der neue, ultraschnelle Mähroboter Rasen-Raser schafft laut Stiftung Warentest einen Streifen von ${n} Meter Länge und 1 Meter Breite in ${n} Minuten. Wie viele solche Streifen hat die Fläche? Wie viele Minuten braucht also Rasen-Raser für den ganzen Rasen?`
+    ]
+    ;
+
+    
+  
+    const randomIndex = Math.floor(Math.random() * texts.length);
+    
+    //console.log(texts[randomIndex]);
+
+    return texts[randomIndex];
   }
+  
+
