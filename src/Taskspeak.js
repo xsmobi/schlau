@@ -39,24 +39,21 @@ function Task({ task, showHelp, showResult, showExplainer }) {
 
     const [currentStep, setCurrentStep] = useState(0);
     const [highlight, setHighlight] = useState(null);
-    const duration = 2000; // Milliseconds
-    //console.log(speakexplainer)
-    
-    /*
+    const duration = 2000;
+/*
     useEffect(() => {
-        if (speakexplainer && speakexplainer.length === 1) {
+        if (speakexplainer.length === 1) {
             // If there is only one element in speakexplainer, then just speak it as before and do not highlight anything.
             const synth = window.speechSynthesis;
             const u = new SpeechSynthesisUtterance(speakexplainer[0]);
             u.lang = "de-DE";
             synth.speak(u);
-        } else if (speakexplainer && speakexplainer.length > 1) {
+        } else {
             // Otherwise, iterate through the elements of speakexplainer and speak the current one, while highlighting the corresponding div in explainer.
             for (let i = 0; i < speakexplainer.length; i++) {
                 const divId = `t${i}`;
                 if (explainer.includes(`id="${divId}"`)) {
                     // If the div with id divId exists in explainer, then highlight it.
-                   
                     setHighlight(divId);
                     // Speak the corresponding element of speakexplainer.
                     const synth = window.speechSynthesis;
@@ -72,18 +69,10 @@ function Task({ task, showHelp, showResult, showExplainer }) {
                 }
             }
         }
-
-        const element = document.querySelector(`#${highlight}`);
-        if (element) {
-            element.classList.add(style.bgyellow);
-            setTimeout(() => {
-                element.classList.remove(style.bgyellow);
-            }, duration);
-        }
-
     }, [speakexplainer, explainer]);
-    */
 
+    */
+  
     // neu 0916 /////////////////////////////////
 
     const sanitizedExplainer = DOMPurify.sanitize(explainer);

@@ -38,51 +38,47 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     // neu 0916 /////////////////////////////////
 
     const [currentStep, setCurrentStep] = useState(0);
-    const [highlight, setHighlight] = useState(null);
+    const [highlightedDiv, setHighlightedDiv] = useState(null);
     const duration = 2000; // Milliseconds
-    //console.log(speakexplainer)
-    
-    /*
+    //const divs = Array.from(new DOMParser().parseFromString(explainer, 'text/html').querySelectorAll("div[id^='t']"));
+    const divs = document.querySelectorAll("div[id^='t']");
+    //const divs = ["id0", "id1", "id2"]
+    //console.log(divs)
     useEffect(() => {
-        if (speakexplainer && speakexplainer.length === 1) {
-            // If there is only one element in speakexplainer, then just speak it as before and do not highlight anything.
-            const synth = window.speechSynthesis;
-            const u = new SpeechSynthesisUtterance(speakexplainer[0]);
-            u.lang = "de-DE";
-            synth.speak(u);
-        } else if (speakexplainer && speakexplainer.length > 1) {
-            // Otherwise, iterate through the elements of speakexplainer and speak the current one, while highlighting the corresponding div in explainer.
-            for (let i = 0; i < speakexplainer.length; i++) {
-                const divId = `t${i}`;
-                if (explainer.includes(`id="${divId}"`)) {
-                    // If the div with id divId exists in explainer, then highlight it.
-                   
-                    setHighlight(divId);
-                    // Speak the corresponding element of speakexplainer.
-                    const synth = window.speechSynthesis;
-                    const u = new SpeechSynthesisUtterance(speakexplainer[i]);
-                    u.lang = "de-DE";
-                    synth.speak(u);
-                    // Wait for the duration of the step before moving on to the next step.
-                    setTimeout(() => {
-                        setCurrentStep(i + 1);
-                        setHighlight(null);
-                    }, duration);
-                    break;
-                }
-            }
-        }
+      const speakExplainer = Array.isArray(speakexplainer) ? speakexplainer : [speakexplainer];
+      //const divs = document.querySelectorAll("div[id^='t']");
+      //console.log(divs.length)
+      const interval = setInterval(() => {
+        if (currentStep < divs.length && currentStep < speakExplainer.length) {
+          const currentDiv = divs[currentStep];
+          
+          //currentDiv.classList.add(style.bgyellow);//////////////////////////////
+          setHighlightedDiv(currentDiv);
+          
+          const textToSpeak = speakExplainer[currentStep];
+  
+          // Update the TextToSpeech component to speak the text
+          TextToSpeech.speak(textToSpeak);
 
-        const element = document.querySelector(`#${highlight}`);
-        if (element) {
-            element.classList.add(style.bgyellow);
-            setTimeout(() => {
-                element.classList.remove(style.bgyellow);
-            }, duration);
-        }
 
-    }, [speakexplainer, explainer]);
-    */
+        // Remove the highlight from the previous div
+        /*
+        if (currentStep > 0) {
+            const previousDiv = divs[currentStep - 1];
+            previousDiv.classList.remove(style.bgyellow);
+          }
+        */
+        
+          setCurrentStep(currentStep + 1);
+        } else {
+          clearInterval(interval);
+        }
+      }, duration);
+  
+      return () => {
+        clearInterval(interval);
+      };
+    }, [currentStep, duration, speakexplainer]);
 
     // neu 0916 /////////////////////////////////
 
@@ -108,4 +104,3 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     );
 }
 export default Task;
-

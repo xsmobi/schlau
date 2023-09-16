@@ -1,19 +1,24 @@
 function lin1() {
     let aufgabe, loesung, help, explainer, explainer1, explainer2
+    // neu 0914
+    let speak, speakhelp, speakexplainer, speakexplainer1, speakexplainer2
+
+
     let a = getRandomInt(30) + 1; // > 0
     let b = getRandomInt(20) - 10; // > 0
     if (b === 0) b=21
     const casex = getRandomInt(8)
     //const casex = 7
-    explainer1 = `Ziel: das unbekannte <b>x</b> soll alleine stehen.
-    <br>Was heißt das? Gleichung beginnt mit "x ="
-    <br>Du musst also die Gleichung umformen!
+    explainer1 = `<div id="t0">Ziel: das unbekannte <b>x</b> soll alleine stehen.</div>
+    <div id="t1">Was heißt das? Gleichung beginnt mit "x ="</div>
+    <div id="t2">Du musst also die Gleichung umformen!</div>
     <br>
     <br>"Ich forme die Gleichung so um, dass sie mit "x =" beginnt." oder:
     <br>"Ich löse die Gleichung nach x auf"
     <br><br>
     `//!
     explainer2 = ""
+    speakexplainer = ["Das unbekannte x soll alleine stehen", "Das heißt: die Gleichung muss mit x = beginnen", "Du musst also die Gleichung umformen"]
     //explainer2a = ""
     //console.log(casex)
     switch(casex) {
@@ -124,7 +129,9 @@ function lin1() {
     }
     */
     explainer = explainer1 + explainer2;
-    return [aufgabe, loesung, help, explainer];
+    //return [aufgabe, loesung, help, explainer];
+    // neu 0914
+    return [aufgabe,loesung,help,explainer,undefined,undefined, speak, speakhelp, speakexplainer]
 }
 
 export default lin1;
