@@ -87,7 +87,8 @@ function CreateTask(task) {
     menu: aufgabeDaten[5],
     speak: aufgabeDaten[6],
     speakhelp: aufgabeDaten[7],
-    speakexplainer: aufgabeDaten[8]
+    speakexplainer: aufgabeDaten[8],
+    tutor: aufgabeDaten[9]
     };
  
     return processedTask;

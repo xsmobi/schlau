@@ -16,7 +16,7 @@ const style={
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
-    const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer, tutor: tutorArray } = task;
+    const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer } = task;
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
   
     let helptxt = help
@@ -37,8 +37,8 @@ function Task({ task, showHelp, showResult, showExplainer }) {
 
     // neu 0916 /////////////////////////////////
 
-    //const [currentStep, setCurrentStep] = useState(0);
-    //const [highlight, setHighlight] = useState(null);
+    const [currentStep, setCurrentStep] = useState(0);
+    const [highlight, setHighlight] = useState(null);
     const duration = 2000; // Milliseconds
     //console.log(speakexplainer)
     
@@ -88,39 +88,6 @@ function Task({ task, showHelp, showResult, showExplainer }) {
 
     const sanitizedExplainer = DOMPurify.sanitize(explainer);
 
-    const [currentLineIndex, setCurrentLineIndex] = useState(0);
-const [isSpeaking, setIsSpeaking] = useState(false);
-
-useEffect(() => {
-  if (isSpeaking) {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
-
-    utterance.lang = "de-DE";
-    synth.speak(utterance);
-
-    utterance.onend = () => {
-      setIsSpeaking(false);
-
-      // If we're not on the last line, increment the line index and start speaking the next line
-      if (currentLineIndex < tutorArray.length - 1) {
-        setCurrentLineIndex(currentLineIndex + 1);
-        setIsSpeaking(true);
-      } else {
-        // If we're on the last line, reset the line index to the beginning and stop speaking
-        setCurrentLineIndex(0);
-      }
-    };
-  }
-}, [isSpeaking, currentLineIndex, tutorArray]);
-
-const handlePlay = () => {
-  setIsSpeaking(!isSpeaking);
-};
-
-const handleStop = () => {
-  setIsSpeaking(false);
-};
     
     return (
     <MathJaxContext>
@@ -131,21 +98,6 @@ const handleStop = () => {
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
         {/*  */}
-        {/* Incremental, stepwise display of the lines of tutor with simultaneous speech */}
-        {showExplainer && tutorArray.length > 0 && (
-        <div>
-          {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
-            <div key={index} className={style.bgyellow}>{line[0]}</div>
-          ))}
-          <button onClick={handlePlay}>Start/Pause</button>
-          <button onClick={handleStop}>Stop</button>
-        </div>
-      )}
-
-
-
-
-
         {showResult && speak && (<TextToSpeech text={speak} />)}
         {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
         {showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)}

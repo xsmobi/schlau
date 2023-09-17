@@ -15,6 +15,8 @@ const style={
     bgyellow: `bg-yellow-50`
 }
 
+
+
 function Task({ task, showHelp, showResult, showExplainer }) {
     const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer, tutor: tutorArray } = task;
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
@@ -31,14 +33,18 @@ function Task({ task, showHelp, showResult, showExplainer }) {
         isreactangle = true
     }
 
+
+
+
+
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
 
 
     // neu 0916 /////////////////////////////////
 
-    //const [currentStep, setCurrentStep] = useState(0);
-    //const [highlight, setHighlight] = useState(null);
+    const [currentStep, setCurrentStep] = useState(0);
+    const [highlight, setHighlight] = useState(null);
     const duration = 2000; // Milliseconds
     //console.log(speakexplainer)
     
@@ -88,39 +94,32 @@ function Task({ task, showHelp, showResult, showExplainer }) {
 
     const sanitizedExplainer = DOMPurify.sanitize(explainer);
 
-    const [currentLineIndex, setCurrentLineIndex] = useState(0);
-const [isSpeaking, setIsSpeaking] = useState(false);
+    // neu 0917 Tutor
 
-useEffect(() => {
-  if (isSpeaking) {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
+    //const [tutor, setTutor] = useState([]);
+    const [tutor, setTutor] = useState(tutorArray || []);
+    console.log(tutorArray)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    utterance.lang = "de-DE";
-    synth.speak(utterance);
+  useEffect(() => {
+    if (tutor && tutor.length > 0) {
+      const intervalId = setInterval(() => {
+        if (currentIndex < tutor.length) {
+          const [line, spokenText] = tutor[currentIndex];
+          setCurrentIndex(currentIndex + 1);
+          TextToSpeech({ text: spokenText });
+        }
+      }, 2000);
 
-    utterance.onend = () => {
-      setIsSpeaking(false);
+      return () => clearInterval(intervalId);
+    }
+  }, [tutor, currentIndex]);
 
-      // If we're not on the last line, increment the line index and start speaking the next line
-      if (currentLineIndex < tutorArray.length - 1) {
-        setCurrentLineIndex(currentLineIndex + 1);
-        setIsSpeaking(true);
-      } else {
-        // If we're on the last line, reset the line index to the beginning and stop speaking
-        setCurrentLineIndex(0);
-      }
-    };
-  }
-}, [isSpeaking, currentLineIndex, tutorArray]);
+  const handleSpeakTutor = () => {
+    setCurrentIndex(0);
+  };
 
-const handlePlay = () => {
-  setIsSpeaking(!isSpeaking);
-};
-
-const handleStop = () => {
-  setIsSpeaking(false);
-};
+    // neu 0917 Tutor
     
     return (
     <MathJaxContext>
@@ -131,24 +130,35 @@ const handleStop = () => {
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
         {/*  */}
-        {/* Incremental, stepwise display of the lines of tutor with simultaneous speech */}
-        {showExplainer && tutorArray.length > 0 && (
-        <div>
-          {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
-            <div key={index} className={style.bgyellow}>{line[0]}</div>
-          ))}
-          <button onClick={handlePlay}>Start/Pause</button>
-          <button onClick={handleStop}>Stop</button>
-        </div>
+        {showResult && speak && (<TextToSpeech text={speak} />)}
+        {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
+        {/*showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)*/}
+
+        {showExplainer && speakexplainer && (
+        <>
+          <TextToSpeech text={speakexplainer} />
+          {tutor && tutor.length > 0 && (
+            <>
+              <button onClick={handleSpeakTutor} className="speak-button">
+                Speak Tutor
+              </button>
+              <div className="tutor-lines">
+                {tutor.map(([line, spokenText], index) => (
+                  <div key={index} className={currentIndex === index ? 'highlighted-line' : ''}>
+                    {line}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </>
       )}
 
 
 
 
 
-        {showResult && speak && (<TextToSpeech text={speak} />)}
-        {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
-        {showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)}
+
         {showHelp && isreactangle && ( <Rectangle a={aa} b={bb} />)}
     </div>
     </MathJaxContext>

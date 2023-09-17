@@ -1,7 +1,13 @@
 function lin1() {
     let aufgabe, loesung, help, explainer, explainer1, explainer2
     // neu 0914
-    let speak, speakhelp, speakexplainer, speakexplainer1, speakexplainer2
+    let speak, speakhelp, speakexplainer, speakexplainer1, speakexplainer2, tutor
+
+    tutor = [
+        ["This is line one of text", "Hallo, das ist die Zeile eins"],
+        ["This is line two of text", "Hier spreche ich die Gleichung 4 mal 3 = 12"],
+        ["This is line three of text", "Hallo, das ist die schnelle Ansage"]
+      ];
 
 
     let a = getRandomInt(30) + 1; // > 0
@@ -131,7 +137,7 @@ function lin1() {
     explainer = explainer1 + explainer2;
     //return [aufgabe, loesung, help, explainer];
     // neu 0914
-    return [aufgabe,loesung,help,explainer,undefined,undefined, speak, speakhelp, speakexplainer]
+    return [aufgabe,loesung,help,explainer,undefined,undefined, speak, speakhelp, speakexplainer, tutor]
 }
 
 export default lin1;
