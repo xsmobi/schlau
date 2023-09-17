@@ -3,16 +3,20 @@ import DOMPurify from 'dompurify';
 import { MathJaxContext, MathJax } from "better-react-mathjax";
 import TextToSpeech from './TextToSpeech';
 import Rectangle from "./components/Rectangle";
+import { HiSpeakerWave } from "react-icons/hi2";
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
     helptext: `prose prose-lg border-solid border-2 border-red-600 px-2 py-2 mb-2 rounded-md`,
+    speechtext: `prose prose-lg`,
     resulttext: `prose prose-lg`,
     explainertext: `prose prose-lg border-solid border-2 border-gray-400 px-2 my-2 rounded-md`,
     subheader: `prose prose-lg`,
     subheader2: `prose prose-2xl`,
     subheader3: `prose prose-2xl font-black`,
-    bgyellow: `bg-yellow-50`
+    bgyellow: `bg-yellow-50`,
+    btnspeak: `button text-white bg-gradient-to-r from-black-400 via-black-500 to-black-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-1 text-center mt-2 mr-2 mb-2 mt-3 text-xl`,
+    center: `content-center`
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
@@ -33,58 +37,6 @@ function Task({ task, showHelp, showResult, showExplainer }) {
 
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
-
-
-    // neu 0916 /////////////////////////////////
-
-    //const [currentStep, setCurrentStep] = useState(0);
-    //const [highlight, setHighlight] = useState(null);
-    const duration = 2000; // Milliseconds
-    //console.log(speakexplainer)
-    
-    /*
-    useEffect(() => {
-        if (speakexplainer && speakexplainer.length === 1) {
-            // If there is only one element in speakexplainer, then just speak it as before and do not highlight anything.
-            const synth = window.speechSynthesis;
-            const u = new SpeechSynthesisUtterance(speakexplainer[0]);
-            u.lang = "de-DE";
-            synth.speak(u);
-        } else if (speakexplainer && speakexplainer.length > 1) {
-            // Otherwise, iterate through the elements of speakexplainer and speak the current one, while highlighting the corresponding div in explainer.
-            for (let i = 0; i < speakexplainer.length; i++) {
-                const divId = `t${i}`;
-                if (explainer.includes(`id="${divId}"`)) {
-                    // If the div with id divId exists in explainer, then highlight it.
-                   
-                    setHighlight(divId);
-                    // Speak the corresponding element of speakexplainer.
-                    const synth = window.speechSynthesis;
-                    const u = new SpeechSynthesisUtterance(speakexplainer[i]);
-                    u.lang = "de-DE";
-                    synth.speak(u);
-                    // Wait for the duration of the step before moving on to the next step.
-                    setTimeout(() => {
-                        setCurrentStep(i + 1);
-                        setHighlight(null);
-                    }, duration);
-                    break;
-                }
-            }
-        }
-
-        const element = document.querySelector(`#${highlight}`);
-        if (element) {
-            element.classList.add(style.bgyellow);
-            setTimeout(() => {
-                element.classList.remove(style.bgyellow);
-            }, duration);
-        }
-
-    }, [speakexplainer, explainer]);
-    */
-
-    // neu 0916 /////////////////////////////////
 
     const sanitizedExplainer = DOMPurify.sanitize(explainer);
 
@@ -129,23 +81,19 @@ const handleStop = () => {
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: text }} /></MathJax></h3>
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: helptxt }} /></MathJax>}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
-        {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
-        {/*  */}
-        {/* Incremental, stepwise display of the lines of tutor with simultaneous speech */}
+
         {showExplainer && tutorArray.length > 0 && (
-        <div>
-          {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
-            <div key={index} className={style.bgyellow}>{line[0]}</div>
-          ))}
-          <button onClick={handlePlay}>Start/Pause</button>
-          <button onClick={handleStop}>Stop</button>
-        </div>
-      )}
-
-
-
-
-
+          <div>
+            {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
+            <div key={index} className={style.speechtext}>{line[0]}</div>
+            ))}
+            <div className="buttons-container">
+            <button className={style.btnspeak} onClick={handlePlay}><HiSpeakerWave size={20} /></button>
+            {/*<button onClick={handleStop}>Stop</button>*/}
+            </div>
+          </div>
+        )}
+        {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
         {showResult && speak && (<TextToSpeech text={speak} />)}
         {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
         {showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)}
