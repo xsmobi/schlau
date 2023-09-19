@@ -214,6 +214,7 @@ function lin1() {
         ["This is line two of text", "Hier spreche ich die Gleichung 4 mal 3 = 12"],
         ["This is line three of text", "Hallo, das ist die schnelle Ansage"]
       ];
+      tutor =""
     return [aufgabe,loesung,help,explainer,undefined,undefined, speak, speakhelp, speakexplainer, tutor]
 }
 
