@@ -209,12 +209,10 @@ function lin1() {
     //return [aufgabe, loesung, help, explainer];
     // neu 0914
 
-    tutor = [
-        ["This is line one of text", "Hallo, das ist die Zeile eins"],
-        ["This is line two of text", "Hier spreche ich die Gleichung 4 mal 3 = 12"],
-        ["This is line three of text", "Hallo, das ist die schnelle Ansage"]
-      ];
-      tutor =""
+    tutor = [...tutor, ["Das ist ein schneller Trick, um eine Gleichung zu lösen. Vom How zum Why? Dann lies unten weiter!", "Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst genau wissen, wie es gemacht wird? Dann lies unten weiter!"]]
+
+
+
     return [aufgabe,loesung,help,explainer,undefined,undefined, speak, speakhelp, speakexplainer, tutor]
 }
 
