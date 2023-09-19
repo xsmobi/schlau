@@ -41,7 +41,7 @@ const TextToSpeech = ({ text }) => {
 
     setIsPaused(true);
   };
-
+ 
   const handleStop = () => {
     const synth = window.speechSynthesis;
 
@@ -49,7 +49,7 @@ const TextToSpeech = ({ text }) => {
 
     setIsPaused(false);
   };
-  */
+ */
   return (
     <div className="buttons-container">
       <button onClick={handlePlay} className={style.btnspeak}><HiSpeakerWave size={20} /></button>

@@ -41,35 +41,31 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     const sanitizedExplainer = DOMPurify.sanitize(explainer);
 
     const [currentLineIndex, setCurrentLineIndex] = useState(0);
-    const [isSpeaking, setIsSpeaking] = useState(false);
+const [isSpeaking, setIsSpeaking] = useState(false);
 
-    let isTutor
-    tutorArray !== undefined && tutorArray.length > 0 ? isTutor = true : isTutor = false
+useEffect(() => {
+  //if (isSpeaking) {
+    if (tutorArray !== undefined && tutorArray.length > 0 && isSpeaking) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
 
-    useEffect(() => {
-        //if (isSpeaking) {
-        // if (tutorArray !== undefined && tutorArray.length > 0 && isSpeaking) {
-        if (isTutor && isSpeaking) {
-        const synth = window.speechSynthesis;
-        const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
+    utterance.lang = "de-DE";
+    synth.speak(utterance);
 
-        utterance.lang = "de-DE";
-        synth.speak(utterance);
+    utterance.onend = () => {
+      setIsSpeaking(false);
 
-        utterance.onend = () => {
-          setIsSpeaking(false);
-
-          // If we're not on the last line, increment the line index and start speaking the next line
-          if (currentLineIndex < tutorArray.length - 1) {
-            setCurrentLineIndex(currentLineIndex + 1);
-            setIsSpeaking(true);
-          } else {
-            // If we're on the last line, reset the line index to the beginning and stop speaking
-            setCurrentLineIndex(0);
-          }
-        };
+      // If we're not on the last line, increment the line index and start speaking the next line
+      if (currentLineIndex < tutorArray.length - 1) {
+        setCurrentLineIndex(currentLineIndex + 1);
+        setIsSpeaking(true);
+      } else {
+        // If we're on the last line, reset the line index to the beginning and stop speaking
+        setCurrentLineIndex(0);
       }
-    }, [isSpeaking, currentLineIndex, tutorArray]);
+    };
+  }
+}, [isSpeaking, currentLineIndex, tutorArray]);
 
 const handlePlay = () => {
   setIsSpeaking(!isSpeaking);
@@ -87,11 +83,10 @@ const handleStop = () => {
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: helptxt }} /></MathJax>}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
 
-        {showExplainer && isTutor && (
+        {showExplainer && tutorArray !== undefined && tutorArray.length > 0 && (
           <div>
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
-            //<div key={index} className={style.speechtext}>{line[0]}</div>
-            <div key={index} className={style.speechtext} dangerouslySetInnerHTML={{ __html: line[0] }} />
+            <div key={index} className={style.speechtext}>{line[0]}</div>
             ))}
             <div className="buttons-container">
             <button className={style.btnspeak} onClick={handlePlay}><HiSpeakerWave size={20} /></button>
