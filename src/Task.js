@@ -99,7 +99,7 @@ const handleStop = () => {
             </div>
           </div>
         )}
-        {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
+        {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: explainer }} /></MathJax>}
         {showResult && speak && (<TextToSpeech text={speak} />)}
         {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
         {showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)}
