@@ -23,8 +23,8 @@ function lin1() {
     let b = getRandomInt(20) - 10; 
     //let b = getRandomInt(20) + 1; // > 0
     if (b === 0) b=21
-    //const casex = getRandomInt(8)
-    const casex = 3
+    const casex = getRandomInt(8)
+    //const casex = 3
     explainer1 = `<div id="t0">Ziel: das unbekannte <b>x</b> soll alleine stehen.</div>
     <div id="t1">Was heißt das? Gleichung beginnt mit "x ="</div>
     <div id="t2">Du musst also die Gleichung umformen!</div>
