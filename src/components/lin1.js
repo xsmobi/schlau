@@ -208,6 +208,12 @@ function lin1() {
     explainer = explainer1 + explainer2;
     //return [aufgabe, loesung, help, explainer];
     // neu 0914
+
+    tutor = [
+        ["This is line one of text", "Hallo, das ist die Zeile eins"],
+        ["This is line two of text", "Hier spreche ich die Gleichung 4 mal 3 = 12"],
+        ["This is line three of text", "Hallo, das ist die schnelle Ansage"]
+      ];
     return [aufgabe,loesung,help,explainer,undefined,undefined, speak, speakhelp, speakexplainer, tutor]
 }
 
