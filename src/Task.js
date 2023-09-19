@@ -38,7 +38,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
 
-    const sanitizedExplainer = DOMPurify.sanitize(explainer);
+    //const sanitizedExplainer = DOMPurify.sanitize(explainer);
 
     const [currentLineIndex, setCurrentLineIndex] = useState(0);
     const [isSpeaking, setIsSpeaking] = useState(false);
