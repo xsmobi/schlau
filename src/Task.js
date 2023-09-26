@@ -23,7 +23,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer, tutor: tutorArray } = task;
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
 
-    console.log(tutorArray)
+    //console.log(tutorArray)
   
     let helptxt = help
     let aa = 1, bb = 1

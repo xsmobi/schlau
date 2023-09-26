@@ -77,7 +77,9 @@ function add(){
     <br>Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du landest bei <b>${loesungtxt}</b>.`
     explainer = explainer + `${ op1 > 0 ? "<br><br>(Beim ersten Term wird kein Vorzeichen angezeigt, also hat er Plus)" : ""}`
     
-    tutor = [[`Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du erreichst die <b>${loesungtxt}</b>.`,`Mit Schritten: von 0 gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du erreichst die ${loesungtxt}.`]]
+    let max12 = Math.max(Math.abs(op1), Math.abs(op2))
+    max12 = Math.ceil(max12/5)*5
+    tutor = [[`Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}`, `Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}`],[`Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die <b>${loesungtxt}</b>.`,`Mit Schritten: von 0 gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die ${loesungtxt} .`]]
 
     //return [aufgabe, loesung, help, explainer];
     return [aufgabe,loesung,help,explainer,undefined,undefined, undefined, undefined, undefined, tutor]
