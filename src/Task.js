@@ -46,13 +46,14 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     let isTutor
     tutorArray !== undefined && tutorArray.length > 0 ? isTutor = true : isTutor = false
 
+    /*
     useEffect(() => {
         if (isTutor && isSpeaking) {
         const synth = window.speechSynthesis;
         const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
         //const utterance = new SpeechSynthesisUtterance("das ist ein Test") // hilft beim DuckDuckGo Problem nicht!
         utterance.lang = "de-DE";
-        //synth.speak(utterance);
+        synth.speak(utterance); // Auskommentieren hilft beim DuckDuckGo Problem nicht!
 
         utterance.onend = () => {
           setIsSpeaking(false);
@@ -68,7 +69,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
         };
       }
     }, [isSpeaking, currentLineIndex, tutorArray]);
-
+*/
 const handlePlay = () => {
   setIsSpeaking(!isSpeaking);
 };
