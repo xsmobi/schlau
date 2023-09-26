@@ -87,6 +87,7 @@ const handleStop = () => {
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: helptxt }} /></MathJax>}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
 
+        {/*
         {showExplainer && isTutor && (
           <div>
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
@@ -97,11 +98,12 @@ const handleStop = () => {
             
             ))}
             <div className="buttons-container">
-            {/*<button className={style.btnspeak} onClick={handlePlay}><HiSpeakerWave size={20} /></button>*/}
-            {/*<button onClick={handleStop}>Stop</button>*/}
+            <button className={style.btnspeak} onClick={handlePlay}><HiSpeakerWave size={20} /></button>
+
             </div>
           </div>
         )}
+        */}
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
         {showResult && speak && (<TextToSpeech text={speak} />)}
         {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
