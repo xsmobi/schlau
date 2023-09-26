@@ -1,5 +1,5 @@
 function add(){    
-    let op, aufgabe, loesung, help, help1, help2, explainer
+    let op, aufgabe, loesung, help, help1, help2, explainer, tutor
     let op1 = getRandomInt(20) - 10;
     if (op1 === 0) op1++
     let op2 = getRandomInt(30) + 1;  
@@ -77,7 +77,10 @@ function add(){
     <br>Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du landest bei <b>${loesungtxt}</b>.`
     explainer = explainer + `${ op1 > 0 ? "<br><br>(Beim ersten Term wird kein Vorzeichen angezeigt, also hat er Plus)" : ""}`
     
-    return [aufgabe, loesung, help, explainer];
+    tutor = [[`Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du erreichst die <b>${loesungtxt}</b>.`,`Mit Schritten: von 0 gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du erreichst die ${loesungtxt}.`]]
+
+    //return [aufgabe, loesung, help, explainer];
+    return [aufgabe,loesung,help,explainer,undefined,undefined, undefined, undefined, undefined, tutor]
 }
 
 export default add;

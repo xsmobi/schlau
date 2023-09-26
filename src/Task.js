@@ -22,6 +22,8 @@ const style={
 function Task({ task, showHelp, showResult, showExplainer }) {
     const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer, tutor: tutorArray } = task;
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
+
+    console.log(tutorArray)
   
     let helptxt = help
     let aa = 1, bb = 1
@@ -87,7 +89,7 @@ const handleStop = () => {
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
 
         
-        {/*showExplainer && isTutor && (
+        {showExplainer && isTutor && (
           <div>
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
             //<div key={index} className={style.speechtext}>{line[0]}</div>
@@ -101,7 +103,7 @@ const handleStop = () => {
 
             </div>
           </div>
-            )*/}
+            )}
         
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
         {showResult && speak && (<TextToSpeech text={speak} />)}

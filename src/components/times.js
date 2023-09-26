@@ -1,5 +1,5 @@
 function times(filter){    
-    let aufgabe, loesung, help, explainer, speak, speakhelp, speakexplainer, rect
+    let aufgabe, loesung, help, explainer, speak, speakhelp, speakexplainer
     
     let op1 = 2 + getRandomInt(8)
     let op2 = 2 + getRandomInt(8)
@@ -205,6 +205,7 @@ function times(filter){
         </ul>
         `//!
         speakexplainer = `Der Quotient aus ${dividend} und ${divisor} ist gleich ${quotient}`
+        //tutor = [[speakexplainer],[speakexplainer]]
     } else if (typeof filter !== 'number' || filter === 5) {  // Filter: 5, Längen, Fläche
         op10 = op1
         op20 = op2
@@ -487,8 +488,9 @@ function times(filter){
       }));
    
 
-    
+      
     //return [aufgabe, loesung, help, explainer,,,speak];
+    //console.log(tutor)
     return [aufgabe_,loesung_,help_,explainer_,undefined,menu, speak, speakhelp, speakexplainer]
  }
 

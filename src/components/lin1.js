@@ -209,7 +209,7 @@ function lin1() {
     //return [aufgabe, loesung, help, explainer];
     // neu 0914
 
-    tutor = [...tutor, ["Das ist ein schneller Trick, um eine Gleichung zu lösen. Vom How zum Why? Dann lies unten weiter!", "Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst genau wissen, wie es gemacht wird? Dann lies unten weiter!"]]
+    tutor = [...tutor, ["Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst wissen, warum das mathematisch korrekt ist? Dann lies unten weiter!", "Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst genau wissen, warum dieser Trick mathematisch korrekt ist? Dann lies unten weiter!"]]
 
 
 
