@@ -87,7 +87,7 @@ const handleStop = () => {
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
 
         
-        {showExplainer && isTutor && (
+        {/*showExplainer && isTutor && (
           <div>
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
             //<div key={index} className={style.speechtext}>{line[0]}</div>
@@ -101,7 +101,7 @@ const handleStop = () => {
 
             </div>
           </div>
-        )}
+            )*/}
         
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
         {showResult && speak && (<TextToSpeech text={speak} />)}
