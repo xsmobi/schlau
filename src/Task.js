@@ -91,10 +91,14 @@ const handleStop = () => {
           <div>
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
             //<div key={index} className={style.speechtext}>{line[0]}</div>
+            
+            {/* 
             <div key={index} className={style.speechtext} dangerouslySetInnerHTML={{ __html: line[0] }} />
+            */}
+            
             ))}
             <div className="buttons-container">
-            <button className={style.btnspeak} onClick={handlePlay}><HiSpeakerWave size={20} /></button>
+            {/*<button className={style.btnspeak} onClick={handlePlay}><HiSpeakerWave size={20} /></button>*/}
             {/*<button onClick={handleStop}>Stop</button>*/}
             </div>
           </div>
