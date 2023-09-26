@@ -46,7 +46,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     let isTutor
     tutorArray !== undefined && tutorArray.length > 0 ? isTutor = true : isTutor = false
 
-    /*
+    // Auskommentieren des useEffect löst das DuckDuckGo Problem nicht
     useEffect(() => {
         if (isTutor && isSpeaking) {
         const synth = window.speechSynthesis;
@@ -69,7 +69,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
         };
       }
     }, [isSpeaking, currentLineIndex, tutorArray]);
-*/
+
 const handlePlay = () => {
   setIsSpeaking(!isSpeaking);
 };
