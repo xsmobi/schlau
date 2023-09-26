@@ -49,10 +49,10 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     useEffect(() => {
         if (isTutor && isSpeaking) {
         const synth = window.speechSynthesis;
-        //const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
-        const utterance = new SpeechSynthesisUtterance("das ist ein Test")
+        const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
+        //const utterance = new SpeechSynthesisUtterance("das ist ein Test") // hilft beim DuckDuckGo Problem nicht!
         utterance.lang = "de-DE";
-        synth.speak(utterance);
+        //synth.speak(utterance);
 
         utterance.onend = () => {
           setIsSpeaking(false);
