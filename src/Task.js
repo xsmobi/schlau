@@ -92,9 +92,8 @@ const handleStop = () => {
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
             //<div key={index} className={style.speechtext}>{line[0]}</div>
             
-            {/* 
             <div key={index} className={style.speechtext} dangerouslySetInnerHTML={{ __html: line[0] }} />
-            */}
+            
             
             ))}
             <div className="buttons-container">
