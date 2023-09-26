@@ -47,12 +47,10 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     tutorArray !== undefined && tutorArray.length > 0 ? isTutor = true : isTutor = false
 
     useEffect(() => {
-        //if (isSpeaking) {
-        // if (tutorArray !== undefined && tutorArray.length > 0 && isSpeaking) {
         if (isTutor && isSpeaking) {
         const synth = window.speechSynthesis;
-        const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
-
+        //const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
+        const utterance = new SpeechSynthesisUtterance("das ist ein Test")
         utterance.lang = "de-DE";
         synth.speak(utterance);
 
@@ -87,7 +85,7 @@ const handleStop = () => {
         {showHelp && <MathJax inline dynamic><div className={style.helptext} dangerouslySetInnerHTML={{ __html: helptxt }} /></MathJax>}
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
 
-        {/*
+        
         {showExplainer && isTutor && (
           <div>
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
@@ -103,7 +101,7 @@ const handleStop = () => {
             </div>
           </div>
         )}
-        */}
+        
         {showExplainer && <MathJax inline dynamic><div  className={style.explainertext} dangerouslySetInnerHTML={{ __html: sanitizedExplainer }} /></MathJax>}
         {showResult && speak && (<TextToSpeech text={speak} />)}
         {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
