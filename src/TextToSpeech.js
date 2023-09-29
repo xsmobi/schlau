@@ -27,8 +27,12 @@ const TextToSpeech = ({ text }) => {
       synth.resume();
     }
 
-    utterance.lang = "de-DE"; // *****
-    synth.speak(utterance); // *****
+    //utterance.lang = "de-DE"; // *****
+    //synth.speak(utterance); // *****
+    if (!synth.speaking) {
+      utterance.lang = "de-DE";
+      synth.speak(utterance);
+    }
     setIsPaused(false);
   };
 
