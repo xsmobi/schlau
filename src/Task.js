@@ -22,6 +22,14 @@ const style={
 function Task({ task, showHelp, showResult, showExplainer }) {
     const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer, tutor: tutorArray } = task;
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
+    
+    let isSpeak = true
+    const isDuckDuckGoMobile = navigator.userAgent.includes("DuckDuckGo");
+    if (isDuckDuckGoMobile) {
+      isSpeak = false;
+    }
+
+    
 
     //console.log(tutorArray)
   
@@ -50,7 +58,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
 
     // Auskommentieren des useEffect löst das DuckDuckGo Problem nicht
     useEffect(() => {
-        if (isTutor && isSpeaking) {
+        if (isTutor && isSpeaking && isSpeak) {
         const synth = window.speechSynthesis;
         const utterance = new SpeechSynthesisUtterance(tutorArray[currentLineIndex][1]); // Get the spoken text for the current line
         //const utterance = new SpeechSynthesisUtterance("das ist ein Test") // hilft beim DuckDuckGo Problem nicht!
@@ -79,6 +87,8 @@ const handlePlay = () => {
 const handleStop = () => {
   setIsSpeaking(false);
 };
+
+
     
     return (
     <MathJaxContext>
@@ -89,7 +99,7 @@ const handleStop = () => {
         {showResult && <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: answer }} /></MathJax></h3>}
 
         
-        {showExplainer && isTutor && (
+        {showExplainer && isTutor && isSpeak && (
           <div>
             {tutorArray.slice(0, currentLineIndex + 1).map((line, index) => (
             //<div key={index} className={style.speechtext}>{line[0]}</div>
