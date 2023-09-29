@@ -29,7 +29,7 @@ const TextToSpeech = ({ text }) => {
 
     utterance.lang = "de-DE";
     //synth.speak(utterance); // Test
-    //console.log(utterance.lang)
+    console.log(utterance.lang)
 
     setIsPaused(false);
   };
@@ -55,9 +55,9 @@ const TextToSpeech = ({ text }) => {
   return (
     <div className="buttons-container">
       <button onClick={handlePlay} className={style.btnspeak}><HiSpeakerWave size={20} /></button>
-    </div>
+  </div>
   );
-  
+
 };
 
 export default TextToSpeech;
