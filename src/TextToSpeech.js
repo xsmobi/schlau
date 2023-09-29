@@ -11,7 +11,7 @@ const TextToSpeech = ({ text }) => {
   
   useEffect(() => {
     const synth = window.speechSynthesis;
-    const u = new SpeechSynthesisUtterance(text);
+    //const u = new SpeechSynthesisUtterance(text);
 
     //setUtterance(u);
 
