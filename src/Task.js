@@ -28,7 +28,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     if (isDuckDuckGoMobile) {
       isSpeak = false;
     }
-
+    //console.log(window.navigator.userAgent)
     
 
     //console.log(tutorArray)

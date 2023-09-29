@@ -23,8 +23,8 @@ function lin1() {
     let b = getRandomInt(20) - 10; 
     //let b = getRandomInt(20) + 1; // > 0
     if (b === 0) b=21
-    const casex = getRandomInt(8)
-    //const casex = 3
+    //const casex = getRandomInt(8)
+    const casex = 2
     explainer1 = `<div id="t0">Ziel: das unbekannte <b>x</b> soll alleine stehen.</div>
     <div id="t1">Was heißt das? Gleichung beginnt mit "x ="</div>
     <div id="t2">Du musst also die Gleichung umformen!</div>
@@ -70,7 +70,7 @@ function lin1() {
             [`x <kbd> - ${a} </kbd> = ${b}`, `So geht es: die ${a} hat ein Minus. `], 
             [`x = ${b} <kbd> + ${a} </kbd>`, `Sie wechselt die Seite und hat jetzt ein Plus`],                  
             [`x = ${b} + ${a}`, `Jetzt steht x alleine und du kannst es ausrechnen!`],
-            [`x = ${b + a} `, `x ist ${b} plus ${a} und das ist ${b + a}`],
+            [`x = ${b + a} `, `x ist ${b < 0 ? "minus " : " "}${Math.abs(b)} plus ${a} und das ist ${b + a}`],
             ]
         break;
         case 2:
@@ -89,7 +89,7 @@ function lin1() {
             [`-x <kbd>+ ${a} </kbd> = ${b}`, `So geht es: die ${a} hat ein Plus. `], 
             [`-x = ${b} <kbd> - ${a} </kbd>`, `Sie wechselt die Seite und hat jetzt ein Minus`],                  
             [`-x = ${b} - ${a}`, `Jetzt steht minus x alleine und du kannst es ausrechnen!`],
-            [`-x = ${b - a} `, `Minus x ist ${b} minus ${a} und das ist ${b - a}`],
+            [`-x = ${b - a} `, `Minus x ist ${b < 0 ? "minus " : " "}${Math.abs(b)} minus ${a} und das ist ${b - a}`],
             [`x = ${a - b} `, `x ist das Negative von ${b - a} und das ist ${a - b}`],
             ]
         break;
@@ -129,7 +129,7 @@ function lin1() {
             [`<kbd>+ ${a}</kbd> + x = ${b}`, `So geht es: die ${a} hat kein Vorzeichen, also ein Plus`], 
             [`x = ${b} <kbd>- ${a}</kbd>`, `Sie wechselt die Seite und hat jetzt ein Minus`],                  
             [`x = ${b} - ${a}`, `Jetzt steht x alleine und du kannst es ausrechnen!`],
-            [`x = ${b - a} `, `x ist ${b} minus ${a} und das ist ${b - a}`],
+            [`x = ${b - a} `, `x ist ${b < 0 ? "minus " : " "}${Math.abs(b)} minus ${a} und das ist ${b - a}`],
             ]
         break;
         case 5:
@@ -147,7 +147,7 @@ function lin1() {
             [`<kbd>- ${a}</kbd> + x = ${b}`, `So geht es: die ${a} hat ein Minus. `], 
             [`x = ${b} <kbd> + ${a} </kbd>`, `Sie wechselt die Seite und hat jetzt ein Plus`],                  
             [`x = ${b} + ${a}`, `Jetzt steht x alleine und du kannst es ausrechnen!`],
-            [`x = ${b + a} `, `x ist ${b} plus ${a} und das ist ${b + a}`],
+            [`x = ${b + a} `, `x ist ${b < 0 ? "minus " : " "}${Math.abs(b)} plus ${a} und das ist ${b + a}`],
             ]
 
         break;
@@ -168,7 +168,7 @@ function lin1() {
             [`<kbd>+ ${a}</kbd> - x  = ${b}`, `So geht es: die ${a} hat ein Plus. `], 
             [`-x = ${b} <kbd> - ${a} </kbd>`, `Sie wechselt die Seite und hat jetzt ein Minus`],                  
             [`-x = ${b} - ${a}`, `Jetzt steht minus x alleine und du kannst es ausrechnen!`],
-            [`-x = ${b - a} `, `Minus x ist ${b} minus ${a} und das ist ${b - a}`],
+            [`-x = ${b - a} `, `Minus x ist ${b < 0 ? "minus " : " "}${Math.abs(b)} minus ${a} und das ist ${b - a}`],
             [`x = ${a - b} `, `x ist das Negative von ${b - a} und das ist ${a - b}`],
             ]
         break;
@@ -209,7 +209,7 @@ function lin1() {
     //return [aufgabe, loesung, help, explainer];
     // neu 0914
 
-    tutor = [...tutor, ["Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst wissen, warum das mathematisch korrekt ist? Dann lies unten weiter!", "Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst genau wissen, warum dieser Trick mathematisch korrekt ist? Dann lies unten weiter!"]]
+    //tutor = [...tutor, ["Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst wissen, warum das mathematisch korrekt ist? Dann lies unten weiter!", "Das ist ein schneller Trick, um eine Gleichung zu lösen. Du willst genau wissen, warum dieser Trick mathematisch korrekt ist? Dann lies unten weiter!"]]
 
 
 
