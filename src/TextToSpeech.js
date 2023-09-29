@@ -8,18 +8,18 @@ const style={
 const TextToSpeech = ({ text }) => {
   const [isPaused, setIsPaused] = useState(false);
   const [utterance, setUtterance] = useState(null);
-
+  
   useEffect(() => {
     const synth = window.speechSynthesis;
-    const u = new SpeechSynthesisUtterance(text);
+    //const u = new SpeechSynthesisUtterance(text);
 
-    setUtterance(u);
+    //setUtterance(u);
 
     return () => {
       synth.cancel();
     };
   }, [text]);
-
+  
   const handlePlay = () => {
     const synth = window.speechSynthesis;
 
@@ -27,9 +27,9 @@ const TextToSpeech = ({ text }) => {
       synth.resume();
     }
 
-    utterance.lang = "de-DE";
+    //utterance.lang = "de-DE";
     //synth.speak(utterance); // Test
-    console.log(utterance.lang)
+    //console.log(utterance.lang)
 
     setIsPaused(false);
   };
