@@ -11,9 +11,9 @@ const TextToSpeech = ({ text }) => {
   
   useEffect(() => {
     const synth = window.speechSynthesis;
-    const u = new SpeechSynthesisUtterance(text);
+    const u = new SpeechSynthesisUtterance(text); // ***** If this is commented out, and consequently setUtterance
 
-    //setUtterance(u);
+    setUtterance(u); // *****
 
     return () => {
       synth.cancel();
@@ -27,10 +27,8 @@ const TextToSpeech = ({ text }) => {
       synth.resume();
     }
 
-    //utterance.lang = "de-DE";
-    //synth.speak(utterance); // Test
-    //console.log(utterance.lang)
-
+    utterance.lang = "de-DE"; // *****
+    synth.speak(utterance); // *****
     setIsPaused(false);
   };
 

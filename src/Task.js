@@ -99,7 +99,7 @@ const handleStop = () => {
             
             ))}
             <div className="buttons-container">
-            <button className={style.btnspeak} onClick={alert("test1030")}><HiSpeakerWave size={20} /></button>
+            <button className={style.btnspeak} onClick={handlePlay}><HiSpeakerWave size={20} /></button>
 
             </div>
           </div>
