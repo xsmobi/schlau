@@ -3,6 +3,7 @@ import DOMPurify from 'dompurify';
 import { MathJaxContext, MathJax } from "better-react-mathjax";
 import TextToSpeech from './TextToSpeech';
 import Rectangle from "./components/Rectangle";
+import NumberLineAddition from "./components/NumberLineAddition"
 import { HiSpeakerWave } from "react-icons/hi2";
 const style={
     taskheader:`text-center prose prose-lg`,
@@ -20,8 +21,10 @@ const style={
 }
 
 function Task({ task, showHelp, showResult, showExplainer }) {
-    const { text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer, tutor: tutorArray } = task;
+    const { type, text, help, answer, explainer, headerclass, menu, speak, speakhelp, speakexplainer, tutor: tutorArray } = task;
     const headerClassName = headerclass ? style[headerclass] : style.taskheader;
+
+    //console.log(task)
     
     let isSpeak = true
     const isDuckDuckGoMobile = navigator.userAgent.includes("DuckDuckGo");
@@ -35,15 +38,26 @@ function Task({ task, showHelp, showResult, showExplainer }) {
   
     let helptxt = help
     let aa = 1, bb = 1
-    let isreactangle = false
+    let isrectangle = false
     if (help && help.includes("///")) {
         let helparr = help.split("///")
         helptxt = help.replace("///", " mal ")
         helptxt = helptxt + " - Rechteck:"
         aa = helparr[0]
         bb = helparr[1]
-        isreactangle = true
+        isrectangle = true
     }
+    let isnumberline = false
+    if (help && help.includes("/a/")) {
+      let helparr = help.split("/a/")
+      aa = Number(helparr[0])
+      bb = Number(helparr[1])
+      helptxt = `Auf dem Zahlenstrahl von 0 ab: ${Math.abs(aa)} nach ${aa < 0 ? "links" : "rechts"}, dann ${Math.abs(bb)} nach ${bb < 0 ? "links" : "rechts"}.`
+      //aa = 3
+      //bb = 4
+      isnumberline = true
+    }
+    //console.log(aa, bb)
 
     let menu_display = menu === "undefined" ? "" : menu
     menu_display = "" // klappte, aber jetzt neu über component TaskMenu
@@ -119,7 +133,9 @@ const handleStop = () => {
         {showResult && speak && (<TextToSpeech text={speak} />)}
         {showHelp && speakhelp && (<TextToSpeech text={speakhelp} />)}
         {showExplainer && speakexplainer && (<TextToSpeech text={speakexplainer} />)}
-        {showHelp && isreactangle && ( <Rectangle a={aa} b={bb} />)}
+        {showHelp && isrectangle && ( <Rectangle a={aa} b={bb} />)}
+        {showHelp && isnumberline && ( <NumberLineAddition num1={aa} num2={bb} /> )}
+
     </div>
     </MathJaxContext>
             

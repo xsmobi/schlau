@@ -49,23 +49,10 @@ function add(){
         </ul>
         `//!
 
-
-    /* //20230814
-    } else {                            // Fälle mit Klammern
-        if (op === "+"){  
-            //help1 = `<b>Eine Zahl addieren heißt, die Gegenzahl subtrahieren.</b>`                  // Fall +(-6)
-            help2 = `<br>Du addierst eine negative Zahl, nämlich <b>${op2}.</b> Das ist so, wie wenn du die positive Zahl <b>${-op2}</b> subtrahierst!
-            <br><b>+ (${op2})</b> ist dasselbe wie <b>- ${-op2}</b>. Oder, auf dem Zahlenstrahl betrachtet: etwas Negatives addieren heißt, du musst nach links.
-            <br>Mache den Zwischenschritt schriftlich: <b>${op1} + (${op2}) = ${op1} - ${-op2} =</b>`
-        } else {    
-            help1 = `<b>Eine Zahl subtrahieren heißt, die Gegenzahl addieren.</b>`                         // Fall -(-6)
-            help2 = `<br>Du subtrahierst eine negative Zahl, nämlich <b>${op2}.</b> Das ist so, wie wenn du die positive Zahl <b>${-op2}</b> addierst!
-            <br><b>- (${op2})</b> ist dasselbe wie <b>+ ${-op2}</b>. Oder, etwas Negatives minus rechnen (das Gegenteil vom Gegenteil!) ist wie einfach das Positive plus rechnen. Auf dem Zahlenstrahl geht es nach rechts.
-            <br>Mache den Zwischenschritt schriftlich: <b>${op1} - (${op2}) = ${op1} + ${-op2} =</b>`
-        }
-    }
-    */ //20230814
     help = help1 + help2;
+    
+    let op22 = op === "+" ? op2 : -op2;
+    help = `${op1}/a/${op22}`
 
     explainer = `Jede Zahl hat ein Plus (+) oder ein Minus (-).
     <br>Kein Vorzeichen? Dann Plus.

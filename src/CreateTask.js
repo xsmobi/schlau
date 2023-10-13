@@ -72,7 +72,7 @@ function CreateTask(task) {
         aufgabeDaten = times(filter)
         break; 
         default: 
-            aufgabeDaten = add(val1,val2)
+            aufgabeDaten = add()
     }
 
     const processedTask = {

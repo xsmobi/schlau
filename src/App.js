@@ -170,13 +170,7 @@ return (
 
 
 <div className={style.bg}>
-    {/* 
-    <SEO
-      title='Learning React Helmet!'
-      description='Beginner friendly page for learning React Helmet.'
-      name='Company name.'
-      type='article' />
-    */}
+
 
     <div className={style.container}>
         <nav className="relative flex w-full flex-wrap items-center justify-between bg-neutral-100 py-2 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4">
@@ -217,19 +211,6 @@ return (
                 //filterx={3}
               />
             )}
-
-              {/*filter && (
-              <TaskMenu
-                key={currentTask.name}
-                task={currentTask}
-                showHelp={showHelp}
-                toggleShowHelp={toggleShowHelp}
-                showResult={showResult}
-                toggleShowResult={toggleShowResult}
-                showExplainer={showExplainer}
-                toggleShowExplainer={toggleShowExplainer}
-              />
-              )*/}
 
               {filter && submenu && (
                   <div className="mt-4">
