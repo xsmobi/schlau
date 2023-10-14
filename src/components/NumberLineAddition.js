@@ -6,7 +6,8 @@ const NumberLineAddition = ({ num1, num2 }) => {
     const minNum = Math.min(0, num1, sum);
     const lineLength = maxNum - minNum;
 
-    const viewportWidth = 310;  // You can adjust this to fit your requirements
+    const viewportWidth = Math.min(window.innerWidth, 300);  // You can adjust this to fit your requirements
+    // const viewportWidth = 300;
     const UNIT = viewportWidth / (lineLength + 2);  // Formula for UNIT based on lineLength
 
     const LIFT = 15;  // Amount by which the second arrow is lifted
@@ -71,6 +72,8 @@ const NumberLineAddition = ({ num1, num2 }) => {
         </svg>
     );
 }
+
+//console.log(window.innerWidth);
 
 export default NumberLineAddition;
 
