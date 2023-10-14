@@ -54,19 +54,22 @@ function add(){
     let op22 = op === "+" ? op2 : -op2;
     help = `${op1}/a/${op22}`
 
-    explainer = `Jede Zahl hat ein Plus (+) oder ein Minus (-).
-    <br>Kein Vorzeichen? Dann Plus.
-    <br>Plus: auf Zahlenstrahl nach rechts &rarr;
-    <br>Minus: auf Zahlenstrahl nach links &larr;
+    explainer = `Jede Zahl ist Plus (+) oder Minus (-). Kein Vorzeichen? Dann Plus.
     <br>
-    <br>Mit Pfeilen (s. Hilfe): die Länge des Pfeils ist die Größe (Betrag) der Zahl.
+    <br>Plus: auf Zahlenstrahl nach rechts
+    <br>Minus: auf Zahlenstrahl nach links
     <br>
-    <br>Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du landest bei <b>${loesungtxt}</b>.`
+    <br>Klick auf Hilfe <kbd>&nbsp;?&nbsp;</kbd> für die Zahlenstrahl-Grafik!
+    <br>
+    <br>Die wichtigen Punkte auf dem Zahlenstrahl sind: <b>0</b>, <b>${op1}</b> und <b>${loesungtxt}</b>
+    <br>
+    <br>Ablauf: von 0 gehe ${Math.abs(op1)} Schritte nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} Schritte nach ${zahlenstrahlop2} und du landest bei ${loesungtxt}.`
+    
     explainer = explainer + `${ op1 > 0 ? "<br><br>(Beim ersten Term wird kein Vorzeichen angezeigt, also hat er Plus)" : ""}`
     
-    let max12 = Math.max(Math.abs(op1), Math.abs(op2))
+    let max12 = Math.max(Math.abs(op1), Math.abs(op2), loesungtxt)
     max12 = Math.ceil(max12/5)*5
-    tutor = [[`Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}`, `Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}`],[`Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die <b>${loesungtxt}</b>.`,`Mit Schritten: von 0 gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die ${loesungtxt} .`]]
+    tutor = [[`Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}. Dann hören &#x1F508`, `Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}`],[`<br>Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die <b>${loesungtxt}</b>.`,`Mit Schritten: von 0 gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die ${loesungtxt} .`]]
 
     //return [aufgabe, loesung, help, explainer];
     return [aufgabe,loesung,help,explainer,undefined,undefined, undefined, undefined, undefined, tutor]

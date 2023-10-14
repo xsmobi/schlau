@@ -44,7 +44,7 @@ const TextToSpeech = ({ text }) => {
 
     setIsPaused(true);
   };
- 
+ */
   const handleStop = () => {
     const synth = window.speechSynthesis;
 
@@ -52,7 +52,7 @@ const TextToSpeech = ({ text }) => {
 
     setIsPaused(false);
   };
- */
+ 
   
   return (
     <div className="buttons-container">

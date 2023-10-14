@@ -40,9 +40,9 @@ function App() {
   const [showExplainer, setShowExplainer] = useState(false);
 
   const types = [
-    {typ: "add",    btn: "-a + b",        kbd: "a", txt: "Plus und Minus auf dem Zahlenstrahl"},
+    {typ: "add",    btn: "-a + b",        kbd: "a", txt: "Plus Minus & Zahlenstrahl"},
     {typ: "addtxt", btn: "+- EUR",        kbd: "q", txt: "Kontostand, Einzahlung, Auszahlung"},
-    {typ: "addsub", btn: "a - (-+b)",     kbd: "b", txt: "Plus und Minus mit Klammern"},
+    {typ: "addsub", btn: "a - (-+b)",     kbd: "b", txt: "Plus Minus & Klammern"},
     {typ: "times",  btn: "1 x EINS",      kbd: "p", txt: "Einmaleins", hasFilter: true},
     {typ: "lin1",   btn: "x + a = b",     kbd: "c", txt: "Plus-Minus-Gleichungen"},
     {typ: "prop",   btn: "PROP",          kbd: "g", txt: "Proportionalität & Dreisatz", hasFilter: true},
@@ -52,7 +52,7 @@ function App() {
     {typ: "prozent", btn: "PROZENT",      kbd: "g", txt: "Anteile & Prozent", hasFilter: true},
     {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
     {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POWERs",    kbd: "o", txt: "Potenzrechnung", hasFilter: true},
+    {typ: "potenzen", btn: "POWERs",      kbd: "o", txt: "Potenzrechnung", hasFilter: true},
    
     /*
     {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
@@ -116,12 +116,20 @@ function App() {
       setShowResult(false);
       setShowExplainer(false);
     }
+    handleStop1();
 };
 //console.log(submenu)
 
 // Damit GetRandomTask auch bei Typ-Wechsel
 const onClear = () => {
   setSelectedOption(0);  // funktioniert, wenn selectedType ohne options
+};
+
+const handleStop1 = () => {
+  const synth = window.speechSynthesis;
+
+  synth.cancel();
+
 };
 
 useEffect(() => {
