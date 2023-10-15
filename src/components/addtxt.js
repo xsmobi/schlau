@@ -47,13 +47,13 @@ function addtxt(){
             <td class="text-end">${vorher}</td>
         </tr> 
         <tr>
-            <td class="text-end">${zahlung1 > 0 ? "Einzahlung" : "Auszahlung"}</td>
+            <td class="text-endx">${zahlung1 > 0 ? "Einzahlung" : "Auszahlung"}</td>
             <td class="text-end">${zahlung1}</td>
             <td>&nbsp;</td>
         </tr> 
         <tr>
             <td>Auszahlung</td>
-            <td class="text-end">${zahlung2abb}</td>
+            <td class="text-endx">${zahlung2abb}</td>
             <td>&nbsp;</td>
         </tr> 
         <tr>
@@ -75,22 +75,22 @@ explainer = `1. <u>Übersichtliche Methode</u>
             <tr>
                 <td>Start</td>
                 <td>&nbsp;</td>
-                <td class="text-end">${vorher}</td>
+                <td class="text-end" align="right">${vorher}</td>
         </tr> 
         <tr>
                 <td>${zahlung1 > 0 ? "Einzahlung" : "Auszahlung"}</td>
-                <td class="text-end">${zahlung1}</td>
-                <td class="text-end">${stand1}</td>
+                <td class="text-end" align="right">${zahlung1}</td>
+                <td class="text-end" align="right">${stand1}</td>
         </tr> 
         <tr>
                 <td>Auszahlung, Überziehung</td>
-                <td class="text-end">${zahlung2abb}</td>
-                <td class="text-end">${stand2}</td>
+                <td class="text-end" align="right">${zahlung2abb}</td>
+                <td class="text-end" align="right">${stand2}</td>
         </tr> 
         <tr>
                 <td>Einzahlung, Endstand</td>
-                <td class="text-end">${zahlung3ein}</td>
-                <td class="text-end">${loesungnum}</td>
+                <td class="text-end" align="right">${zahlung3ein}</td>
+                <td class="text-end" align="right">${loesungnum}</td>
         </tr>
         </table>
 
