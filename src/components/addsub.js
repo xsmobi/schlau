@@ -2,15 +2,14 @@ function addsub(){
     const v1 = 10
     const v2 = 20
     let aufgabe, loesung, help, explainer, op1, op2
-    let plusminuscase = getRandomInt(4);
-    //console.log(plusminuscase)
-    //plusminuscase = 1 // test, später plusminuscase weg und switch direkt
-    //plusminuscase = 3
+    // let plusminuscase = getRandomInt(4);
+    // neu 15.10.: die ersten beiden Fälle (die ohne Klammern) werden auskommentiert:
+    let plusminuscase = 2 + getRandomInt(2);
     switch(plusminuscase) { 
+        /*
         case 1:  // 3 - 5, Zahl minus größere Zahl
             op1 = getRandomInt(v1);
             op2 = v1 + getRandomInt(v2) + 1; // v1, v2 = 20
-            //aufgabe = `${op1} - ${op2} = `
             aufgabe = `\\[${op1}-${op2}=\\]`
             loesung = op1 - op2;
             help = `(${op1} - ${op2}) ist das Negative von (${op2} - ${op1})!`
@@ -26,7 +25,6 @@ function addsub(){
         case 2:  // -3 - 5, minus neg Zahl minus neg Zahl
             op1 = getRandomInt(v1);
             op2 = getRandomInt(v2); // v1, v2 = 20
-            //aufgabe = `- ${op1} - ${op2} = `
             aufgabe = `\\[-${op1}-${op2}=\\]`
             loesung = - op1 - op2;
             help = `(- ${op1} - ${op2}) ist das Negative von (+${op1} + ${op2})!`
@@ -44,6 +42,7 @@ function addsub(){
             <br>Davon das Negative = ${loesung}
             `//!
         break;
+        */
         case 3:  // ... +(-5)
             op1 = getRandomInt(v1) - getRandomInt(2*v1);
             if (op1 === 0) op1++

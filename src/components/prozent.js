@@ -145,7 +145,7 @@ function prozent(filter) {
         nr:3,
         title: "EU-Länder: Budget für Bildung, % >> Euro/Kopf",
         description: "",
-        aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
+        aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${bildungprozbip}% des Bruttoinlandsprodukts (BIP) von ${bip} Mrd. Euro für Bildung ausgegeben. Wieviel ist das pro Kopf der Bevölkerung?`,
         loesung: `${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro werden ${in_land} pro Kopf ausgegeben.`,
         help: `\\[Euro/Kopf = \\frac{BIP \\cdot ${(bildungprozbip/100).toFixed(3)}}{Bevölkerung} \\]`,
         explainer: `Rechne praktischer BIP und Bevölkerung in Millionen, dann kürzen sich diese weg: Die Bildungsausgaben pro Kopf sind (s. Formel bei Hilfe): 
@@ -159,7 +159,7 @@ function prozent(filter) {
         title: "EU-Länder: Budget für Bildung, Euro/Kopf >> %",
         description: "",
         aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro pro Kopf für Bildung ausgegeben. Wieviel Prozent des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro gibt das Land aus?`,
-        loesung: `${bildungprozbip}% Euro des BIP werden ${in_land} für Bildung ausgegeben.`,
+        loesung: `${bildungprozbip}% des BIP werden ${in_land} für Bildung ausgegeben.`,
         help: `Erst die Bildungsausgabe des gesamten Landes berechnen, das sind ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro mal ${pop} Millionen Leute. Diesen Betrag ins Verhältnis setzen zu den ${bip} Mrd. Euro.`,
         explainer: `Bildungsausgabe = \\(${Math.round(bip*bildungprozbip*0.01*1000/(pop))} \\cdot ${pop} \\) Mio. Euro
         <br>Beachte, bevor du drauf los rechnest, die Größenordnung des Ergebnisses: der Betrag pro Kopf liegt in der Größenordnung 1000 und die Bevölkerung wird in Millionen angegeben. Das Ergebnis sind Milliarden - und die werden durch die Milliarden des BIP geteilt.

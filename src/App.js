@@ -43,7 +43,7 @@ function App() {
     {typ: "add",    btn: "-a + b",        kbd: "a", txt: "Plus Minus & Zahlenstrahl"},
     {typ: "addtxt", btn: "+- EUR",        kbd: "q", txt: "Kontostand, Einzahlung, Auszahlung"},
     {typ: "addsub", btn: "a - (-+b)",     kbd: "b", txt: "Plus Minus & Klammern"},
-    {typ: "times",  btn: "1 x EINS",      kbd: "p", txt: "Einmaleins", hasFilter: true},
+    {typ: "times",  btn: "1 x EINS",      kbd: "p", txt: "Kleines Einmaleins mit Variationen", hasFilter: true},
     {typ: "lin1",   btn: "x + a = b",     kbd: "c", txt: "Plus-Minus-Gleichungen"},
     {typ: "prop",   btn: "PROP",          kbd: "g", txt: "Proportionalität & Dreisatz", hasFilter: true},
     {typ: "lin3",   btn: "a * x = b",     kbd: "j", txt: "Mal-Geteilt-Gleichungen"},
