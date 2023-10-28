@@ -158,7 +158,7 @@ function prozent(filter) {
         nr:4,
         title: "EU-Länder: Budget für Bildung, Euro/Kopf >> %",
         description: "",
-        aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro pro Kopf für Bildung ausgegeben. Wieviel Prozent des Bruttoninlandsprodukts (BIP) von ${bip} Mrd. Euro gibt das Land aus?`,
+        aufgabe: `${first(in_land)} (Bevölkerung ${pop} Mio.) werden jährlich ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro pro Kopf für Bildung ausgegeben. Wieviel Prozent des Bruttoinlandsprodukts (BIP) von ${bip} Mrd. Euro gibt das Land aus?`,
         loesung: `${bildungprozbip}% des BIP werden ${in_land} für Bildung ausgegeben.`,
         help: `Erst die Bildungsausgabe des gesamten Landes berechnen, das sind ${Math.round(bip*bildungprozbip*0.01*1000/(pop))} Euro mal ${pop} Millionen Leute. Diesen Betrag ins Verhältnis setzen zu den ${bip} Mrd. Euro.`,
         explainer: `Bildungsausgabe = \\(${Math.round(bip*bildungprozbip*0.01*1000/(pop))} \\cdot ${pop} \\) Mio. Euro
