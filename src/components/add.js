@@ -71,8 +71,18 @@ function add(){
     max12 = Math.ceil(max12/5)*5
     tutor = [[`Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}. Dann hören &#x1F508`, `Zeichne einen Zahlenstrahl von minus ${max12} bis plus ${max12}`],[`<br>Mit Schritten: von <b>0</b> gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die <b>${loesungtxt}</b>.`,`Mit Schritten: von 0 gehe ${Math.abs(op1)} ${Math.abs(op1)>1?"Schritte":"Schritt"} nach ${op1<0 ? "links" : "rechts" }, dann ${Math.abs(op2)} ${Math.abs(op2)>1?"Schritte":"Schritt"} nach ${zahlenstrahlop2} und du erreichst die ${loesungtxt} .`]]
 
-    //return [aufgabe, loesung, help, explainer];
-    return [aufgabe,loesung,help,explainer,undefined,undefined, undefined, undefined, undefined, tutor]
+    return {
+        text: aufgabe,
+        answer: loesung,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor
+    }
 }
 
 export default add;

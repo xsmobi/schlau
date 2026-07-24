@@ -75,6 +75,14 @@ function CreateTask(task) {
             aufgabeDaten = add()
     }
 
+    // Generators are being migrated from positional arrays to named objects
+    // one at a time (see CLAUDE.md migration plan, step 1). Once a generator
+    // returns its object shape directly, pass it through unchanged; the rest
+    // still return arrays and go through the positional mapping below.
+    if (!Array.isArray(aufgabeDaten)) {
+        return aufgabeDaten;
+    }
+
     const processedTask = {
     //id: id,
     //templateid: id,
