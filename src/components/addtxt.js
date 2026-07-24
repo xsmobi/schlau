@@ -115,7 +115,18 @@ ${zahlung3ein} werden eingezahlt.
 
     
 
-    return [aufgabe, loesung, help, explainer,undefined,undefined,speak,speakhelp];
+    return {
+        text: aufgabe,
+        answer: loesung,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak,
+        speakhelp,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
 }
 
 export default addtxt;
