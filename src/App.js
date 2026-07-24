@@ -1,7 +1,6 @@
 import "./App.css";
 import { React, useState, useEffect } from "react";
 import Task from "./Task";
-//import TaskMenu from "./TaskMenu";
 import CreateTask from "./CreateTask";
 import taskTypes from "./taskTypes";
 import {AiOutlinePlus} from 'react-icons/ai'
@@ -9,7 +8,6 @@ import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
 import Select from 'react-select'
-//import SEO from './SEO'
 //import prozent from './components/prozent';
 
 
