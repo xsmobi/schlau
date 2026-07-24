@@ -1,5 +1,6 @@
 import "./App.css";
 import { React, useState, useEffect } from "react";
+import Link from "next/link";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
 import taskTypes from "./taskTypes";
@@ -29,44 +30,22 @@ const style={
   sel: `p-2 text-sm`
 }
 
-function App() {
+function App({ type }) {
   //const [filterType, setFilterType] = useState('')
- 
+
   const [currentTask, setCurrentTask] = useState({});
   const [showHelp, setShowHelp] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [showExplainer, setShowExplainer] = useState(false);
 
-  const [selectedType, setSelectedType] = useState('lin1');
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const atype = searchParams.get('atype');
-    if (atype) {
-      const type = taskTypes.find(type => type.type === atype);
-      if (type) {
-        setSelectedType(type.type);
-      } else {
-        setSelectedType('potenzen');
-      }
-    }
-  }, []);
-  // Update the URL parameter when selectedType changes
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set('atype', selectedType);
-    const newURL = window.location.origin
-    window.history.pushState({}, '', newURL);
-  }, [selectedType]);
-
-  let i = taskTypes.findIndex(item => item.type === selectedType)
+  let i = taskTypes.findIndex(item => item.type === type)
   let filter = taskTypes[i].hasFilter ? true : false
 
   const [selectedOption, setSelectedOption] = useState(0);
   const [submenu, setSubmenu] = useState("")
 
   const getRandomTask = () => {
-    const task = { type: selectedType };
+    const task = { type };
     if (filter && submenu) task.subfilter = selectedOption.val
     //console.log(selectedOption.val)
     const processedTask = CreateTask(task);
@@ -94,7 +73,7 @@ const handleStop1 = () => {
 useEffect(() => {
   getRandomTask();
   onClear();
-}, [selectedType]) // eslint-disable-line react-hooks/exhaustive-deps
+}, [type]) // eslint-disable-line react-hooks/exhaustive-deps
 useEffect(() => {
   getRandomTask();
 }, [selectedOption]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -115,12 +94,6 @@ const toggleShowExplainer = () => {
 setShowExplainer(!showExplainer);
 setShowHelp(false);
 setShowResult(false);
-};
-
-
-const handleTypeSelection = (type) => {
-  //setSelectedOption({ val: 0, label: 'alle Einzelthemen ...' }); // zu spät! Erst beim nächsten Klick!   
-  setSelectedType(type);
 };
 
 
@@ -151,7 +124,7 @@ return (
               </div>
         </nav>
 
-        <h4 id="typedesc" className={style.subheadingbold}>{selectedType ? taskTypes.find((type) => type.type === selectedType).txt : 'Practice Math and Boost Your Brainpower!'}</h4>
+        <h4 id="typedesc" className={style.subheadingbold}>{taskTypes.find((t) => t.type === type).txt}</h4>
             
         <main>
             <div className="buttons-container">
@@ -192,18 +165,16 @@ return (
             
 
             <div className="types">
-                {taskTypes.map((type) => (
-                  <button  type="button"
-                    key={type.type}
-                    accessKey = {type.kbd}
-                    onClick={() => handleTypeSelection(type.type)}
-                    //disabled={selectedType === type.type}
-                    //style={{ backgroundColor: selectedType === type.type ? '#00b7eb' : '' }}
-                    className={selectedType === type.type ? style.taskbuttonactive : style.taskbuttons}
-                    title={type.txt + ' Key: alt + '+ type.kbd}
+                {taskTypes.map((t) => (
+                  <Link
+                    key={t.type}
+                    href={`/${t.type}`}
+                    accessKey = {t.kbd}
+                    className={type === t.type ? style.taskbuttonactive : style.taskbuttons}
+                    title={t.txt + ' Key: alt + '+ t.kbd}
                   >
-                    {type.btn}
-                  </button>
+                    {t.btn}
+                  </Link>
                 ))}
             </div>
 
