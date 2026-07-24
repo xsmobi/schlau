@@ -489,9 +489,18 @@ function times(filter){
    
 
       
-    //return [aufgabe, loesung, help, explainer,,,speak];
-    //console.log(tutor)
-    return [aufgabe_,loesung_,help_,explainer_,undefined,menu, speak, speakhelp, speakexplainer]
+    return {
+        text: aufgabe_,
+        answer: loesung_,
+        help: help_,
+        explainer: explainer_,
+        headerclass: undefined,
+        menu,
+        speak,
+        speakhelp,
+        speakexplainer,
+        tutor: undefined
+    }
  }
 
 export default times;
