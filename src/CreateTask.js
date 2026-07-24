@@ -75,31 +75,7 @@ function CreateTask(task) {
             aufgabeDaten = add()
     }
 
-    // Generators are being migrated from positional arrays to named objects
-    // one at a time (see CLAUDE.md migration plan, step 1). Once a generator
-    // returns its object shape directly, pass it through unchanged; the rest
-    // still return arrays and go through the positional mapping below.
-    if (!Array.isArray(aufgabeDaten)) {
-        return aufgabeDaten;
-    }
-
-    const processedTask = {
-    //id: id,
-    //templateid: id,
-    text: `${aufgabeDaten[0]}`,
-    answer: `${aufgabeDaten[1]}`,
-    help: `${aufgabeDaten[2]}`,
-    explainer: `${aufgabeDaten[3]}`,
-    headerclass: `${aufgabeDaten[4]}`,
-    
-    menu: aufgabeDaten[5],
-    speak: aufgabeDaten[6],
-    speakhelp: aufgabeDaten[7],
-    speakexplainer: aufgabeDaten[8],
-    tutor: aufgabeDaten[9]
-    };
- 
-    return processedTask;
+    return aufgabeDaten;
 }
     
 export default CreateTask;
