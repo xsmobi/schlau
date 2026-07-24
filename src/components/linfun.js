@@ -224,7 +224,18 @@ function linfun() {
             explainer = `Fehler, wähle eine andere Aufgabe`
     }
 
-    return [aufgabe, loesung, help, explainer];
+    return {
+        text: aufgabe,
+        answer: loesung,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
 }
 
 export default linfun;
