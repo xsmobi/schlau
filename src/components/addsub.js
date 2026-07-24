@@ -91,7 +91,18 @@ function addsub(){
         default:
     }
     loesung = `\\[${loesung}\\]`
-    return [aufgabe, loesung, help, explainer];
+    return {
+        text: aufgabe,
+        answer: loesung,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
 }
 
 export default addsub;
