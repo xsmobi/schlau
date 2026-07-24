@@ -372,7 +372,18 @@ function prop(filter) {
       }));
       //console.log(menu)
 
-      return [aufgabe_,loesung_,help_,explainer_,headerclass,menu]
+      return {
+        text: aufgabe_,
+        answer: loesung_,
+        help: help_,
+        explainer: explainer_,
+        headerclass,
+        menu,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+      }
 }
 
 export default prop;
