@@ -1,87 +1,15 @@
-//import {useContext} from 'react';
-//import {FilterContext} from './App'
-import add from './components/add';
-import addtxt from './components/addtxt';
-import addsub from './components/addsub';
-import frac from './components/frac';
-import lin1 from './components/lin1';
-import lin2 from './components/lin2';
-import lin3 from './components/lin3';
-import prop from './components/prop';
-import prozent from './components/prozent';
-import linfun from './components/linfun';
-import quad from './components/quad';
-import proba1 from './components/proba1';
-import potenzen from './components/potenzen';
-import times from './components/times';
-
+import taskTypes from './taskTypes';
 
 function CreateTask(task) {
 
-    const { type, val1, val2, subfilter } = task;
-   
-    let aufgabeDaten = []
+    const { type, subfilter } = task;
+
     let filter = subfilter ? subfilter-1 : " "
     //console.log("endfilter", filter)
-   
-    switch(type){
-        case "add":
-            aufgabeDaten = add()
-        break;
-        case "addtxt":
-            aufgabeDaten = addtxt()
-        break;
-        case "addsub": 
-            aufgabeDaten = addsub()
-        break;
-        case "frac":
-            //aufgabeDaten = addsub(val1,val2,explainer)  
-            aufgabeDaten = frac(val1,val2)
-        break;
-        case "lin1": 
-           // aufgabeDaten = lin1(val1,val2,explainer)
-           aufgabeDaten = lin1()
-        break;
-        case "lin2": 
-            aufgabeDaten = lin2(val1,val2)
-        break;
-        case "lin3": 
-            aufgabeDaten = lin3(val1,val2)
-        break;    
-        case "prop": 
-            aufgabeDaten = prop(filter)
-        break; 
-        case "prozent": 
-            aufgabeDaten = prozent(filter)
-            //console.log(subfilter, filter)
-        break; 
-        case "linfun": 
-            aufgabeDaten = linfun()
-        break;   
-        case "quad": 
-            aufgabeDaten = quad()
-            //console.log("quad!")
-        break;      
-        case "proba1": 
-            aufgabeDaten = proba1()
-        break; 
-        case "potenzen": 
-            aufgabeDaten = potenzen(filter)
-        break; 
-        case "times": 
-        aufgabeDaten = times(filter)
-        break; 
-        default: 
-            aufgabeDaten = add()
-    }
 
-    return aufgabeDaten;
+    const taskType = taskTypes.find(t => t.type === type) || taskTypes.find(t => t.type === "add")
+
+    return taskType.generate(filter);
 }
-    
+
 export default CreateTask;
-
-
-
-
-
-    

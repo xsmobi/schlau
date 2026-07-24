@@ -3,7 +3,7 @@ import { React, useState, useEffect } from "react";
 import Task from "./Task";
 //import TaskMenu from "./TaskMenu";
 import CreateTask from "./CreateTask";
-import templates from "./components/_templates";
+import taskTypes from "./taskTypes";
 import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
@@ -39,55 +39,20 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [showExplainer, setShowExplainer] = useState(false);
 
-  const types = [
-    {typ: "add",    btn: "-a + b",        kbd: "a", txt: "Plus Minus & Zahlenstrahl"},
-    {typ: "addtxt", btn: "+- EUR",        kbd: "q", txt: "Kontostand, Einzahlung, Auszahlung"},
-    {typ: "addsub", btn: "a - (-+b)",     kbd: "b", txt: "Plus Minus & Klammern"},
-    {typ: "times",  btn: "1 x EINS",      kbd: "p", txt: "Kleines Einmaleins mit Variationen", hasFilter: true},
-    {typ: "lin1",   btn: "x + a = b",     kbd: "c", txt: "Plus-Minus-Gleichungen"},
-    {typ: "prop",   btn: "PROP",          kbd: "g", txt: "Proportionalität & Dreisatz", hasFilter: true},
-    {typ: "lin3",   btn: "a * x = b",     kbd: "j", txt: "Mal-Geteilt-Gleichungen"},
-    {typ: "lin2",   btn: "ax + b = c",    kbd: "k", txt: "Lineare Gleichungen"},
-    {typ: "frac",   btn: "x / y",         kbd: "l", txt: "Brüche kürzen"},
-    {typ: "prozent", btn: "PROZENT",      kbd: "g", txt: "Anteile & Prozent", hasFilter: true},
-    {typ: "linfun", btn: "LINEAR y(x)",   kbd: "m", txt: "Lineare Funktionen"}, 
-    {typ: "quad",   btn: "QUAD y(x)",     kbd: "n", txt: "Quadratische Funktionen", hasFilter: true},
-    {typ: "potenzen", btn: "POWERs",      kbd: "o", txt: "Potenzrechnung", hasFilter: true},
-   
-    /*
-    {typ: "proba1",  btn: "Zufall!",       txt: "Einfache Wahrscheinlichkeiten"},
-    
-    {typ: "inhalt", btn: "abc",           txt: "Strecke, Fläche, Volumen"},
-    {typ: "brac",   btn: "( (...) )",   txt: "Klammerregeln"},
-    {typ: "frac2",  btn: "1/2 + 1/3",   txt: "Brüche add/sub & mal/geteilt"},
-    {typ: "terme3", btn: "Terme xyz^n", txt: "Komplexe Terme umstellen"},
-    {typ: "zoom",   btn: "Zoom",        txt: "Strahlensatz, Ähnlichkeit, Zoom"},
-    {typ: "drei",   btn: "ABCabc",      txt: "Dreiecke, Pythagoras"}, 
-    {typ: "lin3",   btn: "I = II",    txt: "Lineare Gleichungssysteme"},
-
-    {typ: "sincos", btn: "sin&cos",     txt: "Sinus, Cosinus, Tangens"},
-    {typ: "sincos2", btn: "sin(a)/a",    txt: "Sinussatz, Cosinussatz"},
-    {typ: "type1",  btn: "Test 1",      txt: "Test 1"},
-    {typ: "type2",  btn: "Test 2",      txt: "Test 2"},
-    {typ: "type3",  btn: "Test 3",      txt: "Test 3"},
-    */
-  ]
-
-  
   const [selectedType, setSelectedType] = useState('lin1');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const atype = searchParams.get('atype');
     if (atype) {
-      const type = types.find(type => type.typ === atype);
+      const type = taskTypes.find(type => type.type === atype);
       if (type) {
-        setSelectedType(type.typ);
+        setSelectedType(type.type);
       } else {
         setSelectedType('potenzen');
       }
     }
-  }, [types]);
+  }, []);
   // Update the URL parameter when selectedType changes
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -96,26 +61,22 @@ function App() {
     window.history.pushState({}, '', newURL);
   }, [selectedType]);
 
-  let i = types.findIndex(item => item.typ === selectedType)
-  let filter = types[i].hasFilter ? true : false
+  let i = taskTypes.findIndex(item => item.type === selectedType)
+  let filter = taskTypes[i].hasFilter ? true : false
 
   const [selectedOption, setSelectedOption] = useState(0);
   const [submenu, setSubmenu] = useState("")
 
   const getRandomTask = () => {
-    const filteredTasks = templates.filter((task) => task.type === selectedType);  // tasks filter
-    if (filteredTasks.length > 0) {
-      const randomIndex = Math.floor(Math.random() * filteredTasks.length);
-      const task = filteredTasks[randomIndex];
-      if (filter && submenu) task.subfilter = selectedOption.val
-      //console.log(selectedOption.val)
-      const processedTask = CreateTask(task);
-      setSubmenu(processedTask.menu);
-      setCurrentTask(processedTask);
-      setShowHelp(false);
-      setShowResult(false);
-      setShowExplainer(false);
-    }
+    const task = { type: selectedType };
+    if (filter && submenu) task.subfilter = selectedOption.val
+    //console.log(selectedOption.val)
+    const processedTask = CreateTask(task);
+    setSubmenu(processedTask.menu);
+    setCurrentTask(processedTask);
+    setShowHelp(false);
+    setShowResult(false);
+    setShowExplainer(false);
     handleStop1();
 };
 //console.log(submenu)
@@ -192,7 +153,7 @@ return (
               </div>
         </nav>
 
-        <h4 id="typedesc" className={style.subheadingbold}>{selectedType ? types.find((type) => type.typ === selectedType).txt : 'Practice Math and Boost Your Brainpower!'}</h4>
+        <h4 id="typedesc" className={style.subheadingbold}>{selectedType ? taskTypes.find((type) => type.type === selectedType).txt : 'Practice Math and Boost Your Brainpower!'}</h4>
             
         <main>
             <div className="buttons-container">
@@ -233,14 +194,14 @@ return (
             
 
             <div className="types">
-                {types.map((type) => (
+                {taskTypes.map((type) => (
                   <button  type="button"
-                    key={type.typ}
+                    key={type.type}
                     accessKey = {type.kbd}
-                    onClick={() => handleTypeSelection(type.typ)}
-                    //disabled={selectedType === type.typ}
-                    //style={{ backgroundColor: selectedType === type.typ ? '#00b7eb' : '' }}
-                    className={selectedType === type.typ ? style.taskbuttonactive : style.taskbuttons}
+                    onClick={() => handleTypeSelection(type.type)}
+                    //disabled={selectedType === type.type}
+                    //style={{ backgroundColor: selectedType === type.type ? '#00b7eb' : '' }}
+                    className={selectedType === type.type ? style.taskbuttonactive : style.taskbuttons}
                     title={type.txt + ' Key: alt + '+ type.kbd}
                   >
                     {type.btn}
