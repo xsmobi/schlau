@@ -93,7 +93,18 @@ function lin2(min, max){
     
     //console.log(b)
 
-    return [problem, solution, help, explainer];
+    return {
+        text: problem,
+        answer: solution,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
 }
 
 export default lin2;
