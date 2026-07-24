@@ -23,7 +23,18 @@ function frac(){
     <br><br>Wenn du den Zähler ${num} und den Nenner ${den} durch den ggT, also ${gcd} teilst, erhältst du den gekürzten Bruch.
     ${gcd === den ? "<br><br>(Da der Nenner des Ergebnisbruchs = 1 ist, hat der Ergebnisbruch einfach den Wert des Zählers.)" : ""}
     `//!
-    return [aufgabe, loesung, help, explainer];
+    return {
+        text: aufgabe,
+        answer: loesung,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
 }
 export default frac;
 
