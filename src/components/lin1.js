@@ -213,7 +213,18 @@ function lin1() {
 
 
 
-    return [aufgabe,loesung,help,explainer,undefined,undefined, speak, speakhelp, speakexplainer, tutor]
+    return {
+        text: aufgabe,
+        answer: loesung,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak,
+        speakhelp,
+        speakexplainer,
+        tutor
+    }
 }
 
 export default lin1;
