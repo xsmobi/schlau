@@ -231,7 +231,18 @@ function lin3(max, min) {
     }
     */
     explainer = explainer1 + explainer2;
-    return [aufgabe, loesung, help, explainer];
+    return {
+        text: aufgabe,
+        answer: loesung,
+        help,
+        explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
 }
 
 export default lin3;
