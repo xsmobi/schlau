@@ -28,7 +28,18 @@ function prozent() {
     ]
     //const i = Math.floor(Math.random()*aufgaben.length);
     const i = 0
-    return [aufgaben[i].aufgabe,aufgaben[i].loesung,aufgaben[i].help,aufgaben[i].explainer,headerclass]
+    return {
+        text: aufgaben[i].aufgabe,
+        answer: aufgaben[i].loesung,
+        help: aufgaben[i].help,
+        explainer: aufgaben[i].explainer,
+        headerclass,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
 }
 
 export default prozent;
