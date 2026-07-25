@@ -1,6 +1,7 @@
 import "./App.css";
 import { React, useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
 import taskTypes from "./taskTypes";
@@ -8,7 +9,6 @@ import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
-import Select from 'react-select'
 //import prozent from './components/prozent';
 
 
@@ -30,8 +30,10 @@ const style={
   sel: `p-2 text-sm`
 }
 
-function App({ type }) {
+function App({ type, subtype }) {
   //const [filterType, setFilterType] = useState('')
+
+  const router = useRouter();
 
   const [currentTask, setCurrentTask] = useState({});
   const [showHelp, setShowHelp] = useState(false);
@@ -41,13 +43,10 @@ function App({ type }) {
   let i = taskTypes.findIndex(item => item.type === type)
   let filter = taskTypes[i].hasFilter ? true : false
 
-  const [selectedOption, setSelectedOption] = useState(0);
   const [submenu, setSubmenu] = useState("")
 
   const getRandomTask = () => {
-    const task = { type };
-    if (filter && submenu) task.subfilter = selectedOption.val
-    //console.log(selectedOption.val)
+    const task = { type, subtype };
     const processedTask = CreateTask(task);
     setSubmenu(processedTask.menu);
     setCurrentTask(processedTask);
@@ -58,11 +57,6 @@ function App({ type }) {
 };
 //console.log(submenu)
 
-// Damit GetRandomTask auch bei Typ-Wechsel
-const onClear = () => {
-  setSelectedOption(0);  // funktioniert, wenn selectedType ohne options
-};
-
 const handleStop1 = () => {
   const synth = window.speechSynthesis;
 
@@ -72,11 +66,7 @@ const handleStop1 = () => {
 
 useEffect(() => {
   getRandomTask();
-  onClear();
-}, [type]) // eslint-disable-line react-hooks/exhaustive-deps
-useEffect(() => {
-  getRandomTask();
-}, [selectedOption]) // eslint-disable-line react-hooks/exhaustive-deps
+}, [type, subtype]) // eslint-disable-line react-hooks/exhaustive-deps
 
 const toggleShowHelp = () => {
 setShowHelp(!showHelp);
@@ -95,15 +85,6 @@ setShowExplainer(!showExplainer);
 setShowHelp(false);
 setShowResult(false);
 };
-
-
-let options
-if (filter && submenu) {
-  options = [
-    { val: 0, label: 'alle Einzelthemen' },
-          ...submenu.map(item => ({ val: item.nr, label: item.title })),
-  ];
-}
 
 
 return (
@@ -154,12 +135,19 @@ return (
 
               {filter && submenu && (
                   <div className="mt-4">
-                    <Select
-                      defaultValue={selectedOption}
-                      onChange={setSelectedOption}
-                      options={options}
+                    <select
+                      value={subtype ?? 0}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        router.push(val === 0 ? `/${type}` : `/${type}/${val}`);
+                      }}
                       className={style.sel}
-                    />
+                    >
+                      <option value={0}>alle Einzelthemen</option>
+                      {submenu.map((item) => (
+                        <option key={item.nr} value={item.nr}>{item.title}</option>
+                      ))}
+                    </select>
                   </div>
               )}
             
