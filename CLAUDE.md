@@ -6,8 +6,13 @@ entirely client-side.
 
 ## Branching / deploy safety
 - `master` = production, auto-deployed to Netlify on push. NEVER commit or
-  push directly to master.
+  push directly to master. Netlify remains the deploy target for `master`
+  only, untouched throughout this migration.
 - All work happens on feature branches (currently: dev/nextjs-migration).
+- The project also deploys to Vercel: pushes to `dev/nextjs-migration` get
+  an auto-updating preview URL. Vercel's "Production Branch" setting still
+  points at `main` (the empty placeholder branch, not `master`) and hasn't
+  been changed — intentional for now, not a bug.
 - Before starting work in a new session, confirm current branch.
 
 ## Current architecture (as of this migration's start)
