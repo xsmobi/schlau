@@ -19,10 +19,9 @@ import potenzen from './components/potenzen';
 // CLAUDE.md).
 //
 // generate() call args intentionally mirror the pre-registry CreateTask.js
-// switch exactly, including its pre-existing quirks: lin3/lin2/frac receive
-// hardcoded values that their own generator signatures largely ignore, and
-// quad ignores the filter argument despite hasFilter being true. These are
-// known follow-ups, not fixed here.
+// switch exactly, including its pre-existing quirk: lin3/lin2/frac receive
+// hardcoded values that their own generator signatures largely ignore. This
+// is a known follow-up, not fixed here.
 const taskTypes = [
     { type: "add",      btn: "-a + b",       kbd: "a", txt: "Plus Minus & Zahlenstrahl",             generate: () => add() },
     { type: "addtxt",   btn: "+- EUR",       kbd: "q", txt: "Kontostand, Einzahlung, Auszahlung",    generate: () => addtxt() },
@@ -35,7 +34,7 @@ const taskTypes = [
     { type: "frac",     btn: "x / y",        kbd: "l", txt: "Brüche kürzen",                           generate: () => frac(20, 20) },
     { type: "prozent",  btn: "PROZENT",      kbd: "g", txt: "Anteile & Prozent",                      hasFilter: true, generate: (filter) => prozent(filter) },
     { type: "linfun",   btn: "LINEAR y(x)",  kbd: "m", txt: "Lineare Funktionen",                      generate: () => linfun() },
-    { type: "quad",     btn: "QUAD y(x)",    kbd: "n", txt: "Quadratische Funktionen",                hasFilter: true, generate: () => quad() },
+    { type: "quad",     btn: "QUAD y(x)",    kbd: "n", txt: "Quadratische Funktionen",                generate: () => quad() },
     { type: "potenzen", btn: "POWERs",       kbd: "o", txt: "Potenzrechnung",                         hasFilter: true, generate: (filter) => potenzen(filter) },
 ]
 
