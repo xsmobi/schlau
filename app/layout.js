@@ -1,5 +1,7 @@
 import Script from 'next/script';
 import '../src/index.css';
+import { createClient } from '../src/lib/supabase/server';
+import AuthControls from '../src/components/AuthControls';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -17,7 +19,10 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <html lang="de">
       <head>
@@ -73,6 +78,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
+        <AuthControls initialUser={user} />
         {children}
         <Script id="matomo-tag-manager" strategy="afterInteractive">
           {`
