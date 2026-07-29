@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
 import taskTypes from "./taskTypes";
+import { init as initRewards, recordPlusClick, recordHelp, recordExplainer, recordSolution } from "./lib/rewards/accumulator";
 import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
@@ -68,22 +69,34 @@ useEffect(() => {
   getRandomTask();
 }, [type, subtype]) // eslint-disable-line react-hooks/exhaustive-deps
 
+useEffect(() => {
+  initRewards();
+}, [])
+
+const handlePlusClick = () => {
+  getRandomTask();
+  recordPlusClick(subtype != null ? `${type}${subtype}` : type);
+};
+
 const toggleShowHelp = () => {
 setShowHelp(!showHelp);
 setShowResult(false);
 setShowExplainer(false);
+recordHelp();
 };
 
 const toggleShowResult = () => {
 setShowResult(!showResult);
 setShowHelp(false);
 setShowExplainer(false);
+recordSolution();
 };
 
 const toggleShowExplainer = () => {
 setShowExplainer(!showExplainer);
 setShowHelp(false);
 setShowResult(false);
+recordExplainer();
 };
 
 
@@ -110,7 +123,7 @@ return (
         <main>
             <div className="buttons-container">
               <button title="New task - Key: alt + '+'" type="button" accessKey="+" className={style.btnadd}
-                onClick={getRandomTask}><AiOutlinePlus size={20} /></button>
+                onClick={handlePlusClick}><AiOutlinePlus size={20} /></button>
               <button title="Help - Key: alt + '?'" type="button" accessKey="?" className={style.btnhelp}
                 onClick={toggleShowHelp}><AiOutlineQuestion size={20} /></button>
               <button title="Result - Key: alt + '='" type="button" accessKey="=" className={style.btnresult}
