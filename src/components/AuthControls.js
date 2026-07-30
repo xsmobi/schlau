@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
 
@@ -46,6 +47,7 @@ export default function AuthControls({ initialUser }) {
     return (
       <div className={style.bar}>
         <span>{user.email}</span>
+        <Link href="/badges" className={style.button}>Meine Abzeichen</Link>
         <button type="button" className={style.button} onClick={signOut}>Abmelden</button>
       </div>
     );
