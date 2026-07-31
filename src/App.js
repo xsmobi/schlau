@@ -10,6 +10,7 @@ import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineQuestion} from 'react-icons/ai'
 import {CgMathEqual} from 'react-icons/cg'
 import {AiOutlineZoomIn} from 'react-icons/ai'
+import {AiOutlineClockCircle} from 'react-icons/ai'
 //import prozent from './components/prozent';
 
 
@@ -42,6 +43,12 @@ const RESULT_HARD_COOLDOWN_MS = 2000;
 const HELP_HARD_COOLDOWN_MS = 2000;
 const EXPLAINER_HARD_COOLDOWN_MS = 2000;
 
+// Separate, independent rate limit on reward-earning itself: rapid "+"
+// spamming still loads a new task instantly every time, but no unit is
+// recorded while this is active. Distinct from PLUS_SOFT_COOLDOWN_MS above,
+// which is about the "=" -> "+" interaction, not raw click rate.
+const PLUS_REWARD_COOLDOWN_MS = 1500;
+
 function App({ type, subtype }) {
   //const [filterType, setFilterType] = useState('')
 
@@ -56,11 +63,13 @@ function App({ type, subtype }) {
   const [resultDisabled, setResultDisabled] = useState(false);
   const [helpDisabled, setHelpDisabled] = useState(false);
   const [explainerDisabled, setExplainerDisabled] = useState(false);
+  const [plusRewardCoolingDown, setPlusRewardCoolingDown] = useState(false);
 
   const plusTimeoutRef = useRef(null);
   const resultTimeoutRef = useRef(null);
   const helpTimeoutRef = useRef(null);
   const explainerTimeoutRef = useRef(null);
+  const plusRewardTimeoutRef = useRef(null);
 
   const startCooldown = (setFlag, timeoutRef, durationMs) => {
     setFlag(true);
@@ -73,7 +82,7 @@ function App({ type, subtype }) {
 
   useEffect(() => {
     return () => {
-      [plusTimeoutRef, resultTimeoutRef, helpTimeoutRef, explainerTimeoutRef].forEach((ref) => {
+      [plusTimeoutRef, resultTimeoutRef, helpTimeoutRef, explainerTimeoutRef, plusRewardTimeoutRef].forEach((ref) => {
         if (ref.current) clearTimeout(ref.current);
       });
     };
@@ -121,7 +130,10 @@ const handlePlusClick = () => {
     plusTimeoutRef.current = null;
   }
   getRandomTask();
-  recordPlusClick(subtype != null ? `${type}${subtype}` : type);
+  if (!plusRewardCoolingDown) {
+    recordPlusClick(subtype != null ? `${type}${subtype}` : type);
+    startCooldown(setPlusRewardCoolingDown, plusRewardTimeoutRef, PLUS_REWARD_COOLDOWN_MS);
+  }
 };
 
 const toggleShowHelp = () => {
@@ -187,6 +199,11 @@ return (
               <button title="Explainer - Key: alt + '0'" type="button" accessKey="0"
                 className={`${style.btnexplainer} ${explainerDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={toggleShowExplainer} disabled={explainerDisabled}><AiOutlineZoomIn size={20} /></button>
+              {plusRewardCoolingDown && (
+                <span className="inline-flex items-center text-gray-400" title="Punkte sammeln kurz pausiert">
+                  <AiOutlineClockCircle size={18} />
+                </span>
+              )}
             </div>
 
             {currentTask && (
