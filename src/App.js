@@ -1,5 +1,5 @@
 import "./App.css";
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Task from "./Task";
@@ -31,6 +31,17 @@ const style={
   sel: `p-2 text-sm`
 }
 
+// Anti-spam cooldowns (Phase 4). "+" is only ever soft-throttled (dimmed,
+// still clickable) so a genuine "let me check the solution then move on"
+// student is never blocked; clicking through it early is what triggers the
+// harder, shorter cooldown on "=" for the next task. Help/explainer only
+// cooldown on a direct self-close click, not on being closed as a side
+// effect of opening a different panel - moving between them stays frictionless.
+const PLUS_SOFT_COOLDOWN_MS = 4000;
+const RESULT_HARD_COOLDOWN_MS = 2000;
+const HELP_HARD_COOLDOWN_MS = 2000;
+const EXPLAINER_HARD_COOLDOWN_MS = 2000;
+
 function App({ type, subtype }) {
   //const [filterType, setFilterType] = useState('')
 
@@ -40,6 +51,33 @@ function App({ type, subtype }) {
   const [showHelp, setShowHelp] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [showExplainer, setShowExplainer] = useState(false);
+
+  const [plusCoolingDown, setPlusCoolingDown] = useState(false);
+  const [resultDisabled, setResultDisabled] = useState(false);
+  const [helpDisabled, setHelpDisabled] = useState(false);
+  const [explainerDisabled, setExplainerDisabled] = useState(false);
+
+  const plusTimeoutRef = useRef(null);
+  const resultTimeoutRef = useRef(null);
+  const helpTimeoutRef = useRef(null);
+  const explainerTimeoutRef = useRef(null);
+
+  const startCooldown = (setFlag, timeoutRef, durationMs) => {
+    setFlag(true);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setFlag(false);
+      timeoutRef.current = null;
+    }, durationMs);
+  };
+
+  useEffect(() => {
+    return () => {
+      [plusTimeoutRef, resultTimeoutRef, helpTimeoutRef, explainerTimeoutRef].forEach((ref) => {
+        if (ref.current) clearTimeout(ref.current);
+      });
+    };
+  }, []);
 
   let i = taskTypes.findIndex(item => item.type === type)
   let filter = taskTypes[i].hasFilter ? true : false
@@ -74,11 +112,22 @@ useEffect(() => {
 }, [])
 
 const handlePlusClick = () => {
+  if (plusCoolingDown) {
+    startCooldown(setResultDisabled, resultTimeoutRef, RESULT_HARD_COOLDOWN_MS);
+  }
+  setPlusCoolingDown(false);
+  if (plusTimeoutRef.current) {
+    clearTimeout(plusTimeoutRef.current);
+    plusTimeoutRef.current = null;
+  }
   getRandomTask();
   recordPlusClick(subtype != null ? `${type}${subtype}` : type);
 };
 
 const toggleShowHelp = () => {
+if (showHelp) {
+  startCooldown(setHelpDisabled, helpTimeoutRef, HELP_HARD_COOLDOWN_MS);
+}
 setShowHelp(!showHelp);
 setShowResult(false);
 setShowExplainer(false);
@@ -90,9 +139,13 @@ setShowResult(!showResult);
 setShowHelp(false);
 setShowExplainer(false);
 recordSolution();
+startCooldown(setPlusCoolingDown, plusTimeoutRef, PLUS_SOFT_COOLDOWN_MS);
 };
 
 const toggleShowExplainer = () => {
+if (showExplainer) {
+  startCooldown(setExplainerDisabled, explainerTimeoutRef, EXPLAINER_HARD_COOLDOWN_MS);
+}
 setShowExplainer(!showExplainer);
 setShowHelp(false);
 setShowResult(false);
@@ -122,14 +175,18 @@ return (
             
         <main>
             <div className="buttons-container">
-              <button title="New task - Key: alt + '+'" type="button" accessKey="+" className={style.btnadd}
+              <button title="New task - Key: alt + '+'" type="button" accessKey="+"
+                className={`${style.btnadd} ${plusCoolingDown ? 'opacity-50' : ''}`}
                 onClick={handlePlusClick}><AiOutlinePlus size={20} /></button>
-              <button title="Help - Key: alt + '?'" type="button" accessKey="?" className={style.btnhelp}
-                onClick={toggleShowHelp}><AiOutlineQuestion size={20} /></button>
-              <button title="Result - Key: alt + '='" type="button" accessKey="=" className={style.btnresult}
-                onClick={toggleShowResult}><CgMathEqual size={20} /></button>
-              <button title="Explainer - Key: alt + '0'" type="button" accessKey="0" className={style.btnexplainer}
-                onClick={toggleShowExplainer}><AiOutlineZoomIn size={20} /></button>
+              <button title="Help - Key: alt + '?'" type="button" accessKey="?"
+                className={`${style.btnhelp} ${helpDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={toggleShowHelp} disabled={helpDisabled}><AiOutlineQuestion size={20} /></button>
+              <button title="Result - Key: alt + '='" type="button" accessKey="="
+                className={`${style.btnresult} ${resultDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={toggleShowResult} disabled={resultDisabled}><CgMathEqual size={20} /></button>
+              <button title="Explainer - Key: alt + '0'" type="button" accessKey="0"
+                className={`${style.btnexplainer} ${explainerDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={toggleShowExplainer} disabled={explainerDisabled}><AiOutlineZoomIn size={20} /></button>
             </div>
 
             {currentTask && (
