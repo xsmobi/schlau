@@ -1,4 +1,5 @@
 import { createClient } from '../supabase/client';
+import { signalActivity, resetChannel } from './leaderboardChannel';
 
 // Thresholds are lifetime cumulative counts at which a tier is reached.
 // Checked highest-first so the first match is the current tier.
@@ -31,10 +32,25 @@ function todayLocalDate() {
 
 let supabase = null;
 let userId = null;
+let classId = null;
 let lifetime = { units: 0, help: 0, explainer: 0, solution: 0 };
 let pending = {}; // { [date]: { [category]: amount } }
 let actionsSinceFlush = 0;
 let initialized = false;
+
+async function fetchClassId() {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('class_id')
+    .eq('id', userId)
+    .single();
+
+  if (error) {
+    console.error('rewards: failed to fetch class_id', error);
+    return;
+  }
+  classId = data?.class_id ?? null;
+}
 
 async function seedFromServer() {
   const { data, error } = await supabase
@@ -63,10 +79,15 @@ async function seedFromServer() {
 
 function resetForUser(nextUserId) {
   userId = nextUserId;
+  classId = null;
   lifetime = { units: 0, help: 0, explainer: 0, solution: 0 };
   pending = {};
   actionsSinceFlush = 0;
-  if (userId) seedFromServer();
+  resetChannel();
+  if (userId) {
+    seedFromServer();
+    fetchClassId();
+  }
 }
 
 function bump(category) {
@@ -86,9 +107,9 @@ export function flush() {
   pending = {};
   actionsSinceFlush = 0;
 
-  for (const date of dates) {
+  const results = dates.map((date) => {
     const deltas = batch[date];
-    supabase.rpc('increment_daily_progress', { p_date: date, p_deltas: deltas })
+    return supabase.rpc('increment_daily_progress', { p_date: date, p_deltas: deltas })
       .then(({ error }) => {
         if (error) {
           console.error('rewards: flush failed, will retry next flush', error);
@@ -96,9 +117,15 @@ export function flush() {
           for (const [category, amount] of Object.entries(deltas)) {
             pending[date][category] = (pending[date][category] || 0) + amount;
           }
+          return false;
         }
+        return true;
       });
-  }
+  });
+
+  Promise.all(results).then((succeeded) => {
+    if (succeeded.some(Boolean)) signalActivity(classId);
+  });
 }
 
 export function init() {
