@@ -22,6 +22,11 @@ const jsonLd = {
 export default async function RootLayout({ children }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  let role = null;
+  if (user) {
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    role = profile?.role ?? null;
+  }
 
   return (
     <html lang="de">
@@ -78,7 +83,7 @@ export default async function RootLayout({ children }) {
       </head>
       <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <AuthControls initialUser={user} />
+        <AuthControls initialUser={user} initialRole={role} />
         {children}
         <Script id="matomo-tag-manager" strategy="afterInteractive">
           {`

@@ -10,8 +10,9 @@ const style = {
   input: `rounded-md border border-gray-300 px-2 py-1 text-sm text-neutral-800`,
 };
 
-export default function AuthControls({ initialUser }) {
+export default function AuthControls({ initialUser, initialRole }) {
   const [user, setUser] = useState(initialUser ?? null);
+  const [role] = useState(initialRole ?? null);
   const [supabase] = useState(() => createClient());
   const [email, setEmail] = useState('');
   const [magicLinkSent, setMagicLinkSent] = useState(false);
@@ -48,6 +49,11 @@ export default function AuthControls({ initialUser }) {
       <div className={style.bar}>
         <span>{user.email}</span>
         <Link href="/badges" className={style.button}>Meine Abzeichen</Link>
+        {role === 'teacher' ? (
+          <Link href="/class" className={style.button}>Meine Klasse</Link>
+        ) : (
+          <Link href="/join" className={style.button}>Klasse beitreten</Link>
+        )}
         <button type="button" className={style.button} onClick={signOut}>Abmelden</button>
       </div>
     );
