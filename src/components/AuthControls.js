@@ -54,6 +54,7 @@ export default function AuthControls({ initialUser, initialRole }) {
         ) : (
           <Link href="/join" className={style.button}>Klasse beitreten</Link>
         )}
+        <Link href="/leaderboard" className={style.button}>Bestenliste</Link>
         <button type="button" className={style.button} onClick={signOut}>Abmelden</button>
       </div>
     );
