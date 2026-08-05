@@ -1,8 +1,22 @@
 import Link from 'next/link';
 import { createClient } from '../../src/lib/supabase/server';
+import { A_TIERS, B_HELP_TIERS, B_SOLUTION_TIERS } from '../../src/lib/rewards/tiers';
 
-const A_TIERS = ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9'];
-const B_TIERS = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6'];
+const ALL_TIER_CODES = [...A_TIERS, ...B_HELP_TIERS, ...B_SOLUTION_TIERS].map(([code]) => code).concat('b3');
+
+// Each bump() call in accumulator.js writes to whichever tier is current
+// at that moment, so lower tiers a user has since passed freeze with
+// whatever count they'd reached (e.g. b4 stuck at 99) while the current
+// tier keeps growing (b5 at 11) - totals per individual code are not the
+// lifetime count. Highest-first order means the first code with a nonzero
+// total is the highest tier reached; summing the whole group recovers the
+// true lifetime count (99 + 11 = 110).
+function highestTierEntry(totals, tierGroup) {
+  const total = tierGroup.reduce((sum, [code]) => sum + (totals[code] || 0), 0);
+  if (total === 0) return null;
+  const [code] = tierGroup.find(([c]) => (totals[c] || 0) > 0);
+  return [code, total];
+}
 
 const style = {
   bg: `min-h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -66,10 +80,17 @@ export default async function BadgesPage() {
     }
   }
 
-  const activity = A_TIERS.filter((code) => totals[code] > 0).map((code) => [code, totals[code]]);
-  const bonus = B_TIERS.filter((code) => totals[code] > 0).map((code) => [code, totals[code]]);
+  const activityEntry = highestTierEntry(totals, A_TIERS);
+  const activity = activityEntry ? [activityEntry] : [];
+
+  const helpEntry = highestTierEntry(totals, B_HELP_TIERS);
+  const explainerCount = totals.b3 || 0;
+  const explainerEntry = explainerCount > 0 ? ['b3', explainerCount] : null;
+  const solutionEntry = highestTierEntry(totals, B_SOLUTION_TIERS);
+  const bonus = [helpEntry, explainerEntry, solutionEntry].filter(Boolean);
+
   const topics = Object.keys(totals)
-    .filter((code) => !A_TIERS.includes(code) && !B_TIERS.includes(code) && totals[code] > 0)
+    .filter((code) => !ALL_TIER_CODES.includes(code) && totals[code] > 0)
     .sort()
     .map((code) => [code, totals[code]]);
 

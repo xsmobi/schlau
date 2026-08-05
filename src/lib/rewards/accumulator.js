@@ -1,14 +1,7 @@
 import { createClient } from '../supabase/client';
 import { signalActivity, resetChannel } from './leaderboardChannel';
+import { A_TIERS, B_HELP_TIERS, B_SOLUTION_TIERS } from './tiers';
 
-// Thresholds are lifetime cumulative counts at which a tier is reached.
-// Checked highest-first so the first match is the current tier.
-const A_TIERS = [
-  ['a9', 1000], ['a8', 500], ['a7', 200], ['a6', 100],
-  ['a5', 50], ['a4', 20], ['a3', 10], ['a2', 5], ['a1', 1],
-];
-const B_HELP_TIERS = [['b2', 50], ['b1', 1]];
-const B_SOLUTION_TIERS = [['b6', 200], ['b5', 100], ['b4', 1]];
 const ALL_TIER_CODES = ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6'];
 
 const FLUSH_INTERVAL_MS = 20000;
