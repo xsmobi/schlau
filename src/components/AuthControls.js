@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
 
@@ -10,12 +11,24 @@ const style = {
   input: `rounded-md border border-gray-300 px-2 py-1 text-sm text-neutral-800`,
 };
 
+// Renders the link to `href` normally, unless we're already on that page -
+// then it becomes a "back to tasks" link instead of a redundant active
+// link. Centralized here so any page added to the nav bar later gets this
+// behavior automatically instead of needing its own patch.
+function NavLink({ href, label, pathname }) {
+  if (pathname === href) {
+    return <Link href="/" className={style.button}>Back to Tasks</Link>;
+  }
+  return <Link href={href} className={style.button}>{label}</Link>;
+}
+
 export default function AuthControls({ initialUser, initialRole }) {
   const [user, setUser] = useState(initialUser ?? null);
   const [role] = useState(initialRole ?? null);
   const [supabase] = useState(() => createClient());
   const [email, setEmail] = useState('');
   const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -23,6 +36,13 @@ export default function AuthControls({ initialUser, initialRole }) {
     });
     return () => subscription.unsubscribe();
   }, [supabase]);
+
+  // The magic-link confirmation page is a standalone flow step, not part
+  // of the app's regular navigation - it must show only the confirm
+  // button, no nav bar in any auth state.
+  if (pathname === '/auth/confirm') {
+    return null;
+  }
 
   const signIn = (provider) => {
     supabase.auth.signInWithOAuth({
@@ -48,14 +68,14 @@ export default function AuthControls({ initialUser, initialRole }) {
     return (
       <div className={style.bar}>
         <span>{user.email}</span>
-        <Link href="/badges" className={style.button}>Meine Abzeichen</Link>
+        <NavLink href="/badges" label="My Badges" pathname={pathname} />
         {role === 'teacher' ? (
-          <Link href="/class" className={style.button}>Meine Klasse</Link>
+          <NavLink href="/class" label="My Class" pathname={pathname} />
         ) : (
-          <Link href="/join" className={style.button}>Klasse beitreten</Link>
+          <NavLink href="/join" label="Join Class" pathname={pathname} />
         )}
-        <Link href="/leaderboard" className={style.button}>Bestenliste</Link>
-        <button type="button" className={style.button} onClick={signOut}>Abmelden</button>
+        <NavLink href="/leaderboard" label="Leaderboard" pathname={pathname} />
+        <button type="button" className={style.button} onClick={signOut}>Sign Out</button>
       </div>
     );
   }

@@ -16,6 +16,7 @@ function ConfirmForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pending, setPending] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   const tokenHash = searchParams.get('token_hash');
   const type = searchParams.get('type');
@@ -30,11 +31,28 @@ function ConfirmForm() {
     setPending(true);
     const supabase = createClient();
     const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type });
-    window.location.href = error ? '/auth/auth-code-error' : '/';
+    setPending(false);
+    if (error) {
+      window.location.href = '/auth/auth-code-error';
+      return;
+    }
+    setConfirmed(true);
   };
 
   if (!tokenHash || !type) {
     return null;
+  }
+
+  // Magic links open in a new tab, and there's no reliable way to close
+  // that tab and hand control back to the original one across browsers -
+  // so instead of auto-redirecting, tell the user to return there manually.
+  if (confirmed) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <h1>Angemeldet!</h1>
+        <p>Du kannst diesen Tab jetzt schließen und zu deinem ursprünglichen Tab zurückkehren.</p>
+      </div>
+    );
   }
 
   return (

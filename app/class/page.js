@@ -43,7 +43,6 @@ export default async function ClassPage() {
             <JoinCodeCard key={c.id} classId={c.id} name={c.name} initialCode={c.join_code} />
           ))
         )}
-        <Link href="/" className={style.back}>Zurück zu schlau.app</Link>
       </div>
     </div>
   );

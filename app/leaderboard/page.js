@@ -62,7 +62,6 @@ export default async function LeaderboardPage() {
         ) : (
           <Leaderboard classes={classes} />
         )}
-        <Link href="/" className={style.back}>Zurück zu schlau.app</Link>
       </div>
     </div>
   );

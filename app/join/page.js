@@ -30,7 +30,6 @@ export default async function JoinPage() {
       <div className={style.container}>
         <h1 className={style.heading}>Klasse beitreten</h1>
         <JoinClassForm />
-        <Link href="/" className={style.back}>Zurück zu schlau.app</Link>
       </div>
     </div>
   );

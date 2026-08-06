@@ -101,7 +101,6 @@ export default async function BadgesPage() {
         <Section title="Aktivität" entries={activity} />
         <Section title="Themen" entries={topics} />
         <Section title="Bonus" entries={bonus} />
-        <Link href="/" className={style.back}>Zurück zu schlau.app</Link>
       </div>
     </div>
   );
