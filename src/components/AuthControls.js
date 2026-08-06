@@ -31,8 +31,18 @@ export default function AuthControls({ initialUser, initialRole }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    // AuthControls lives in the root layout and stays mounted across
+    // client-side navigation, so its state outlives whatever page a sign-
+    // out happens to be triggered from. Without resetting magicLinkSent/
+    // email here, requesting a link once and later signing out - from any
+    // page - would keep showing the stale "link sent" message forever
+    // instead of the plain sign-in form.
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
+      if (event === 'SIGNED_OUT') {
+        setMagicLinkSent(false);
+        setEmail('');
+      }
     });
     return () => subscription.unsubscribe();
   }, [supabase]);

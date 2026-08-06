@@ -29,7 +29,7 @@ const PERIODS = [
 // purely a client-side re-order of the same rows.
 const SORT_KEYS = [
   { value: 'activity_count', label: 'Activity' },
-  { value: 'explainer_count', label: 'Explainers' },
+  { value: 'engagement', label: 'Engagement' },
 ];
 
 export default function Leaderboard({ classes, initialClassId }) {
@@ -139,7 +139,7 @@ export default function Leaderboard({ classes, initialClassId }) {
                 <td className={style.td}>{i + 1}</td>
                 <td className={style.td}>{row.pseudonym}</td>
                 <td className={style.td}>{row.activity_count}</td>
-                <td className={style.td}>{row.explainer_count}</td>
+                <td className={style.td}>{row.engagement.toFixed(1)}</td>
               </tr>
             ))}
           </tbody>
