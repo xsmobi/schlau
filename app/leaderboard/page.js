@@ -10,7 +10,7 @@ const style = {
   back: `inline-block mt-6 text-sm text-blue-700 underline`,
 };
 
-export default async function LeaderboardPage() {
+export default async function LeaderboardPage({ searchParams }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -18,7 +18,7 @@ export default async function LeaderboardPage() {
     return (
       <div className={style.bg}>
         <div className={style.container}>
-          <h1 className={style.heading}>Bestenliste</h1>
+          <h1 className={style.heading}>Leaderboard</h1>
           <p className="text-center p-2">Bitte melde dich an, um die Bestenliste zu sehen.</p>
           <Link href="/" className={style.back}>Zurück zu schlau.app</Link>
         </div>
@@ -49,18 +49,26 @@ export default async function LeaderboardPage() {
     if (data) classes = [data];
   }
 
+  // Teachers reach this page via a specific class's "Leaderboard" button
+  // on /class (see JoinCodeCard), not a generic nav link - ?class=
+  // preselects that class instead of always defaulting to the first one.
+  const { class: requestedClassId } = await searchParams;
+  const initialClassId = classes.some((c) => c.id === requestedClassId) ? requestedClassId : undefined;
+
   return (
     <div className={style.bg}>
       <div className={style.container}>
-        <h1 className={style.heading}>Bestenliste</h1>
         {classes.length === 0 ? (
-          <p className={style.empty}>
-            {profile?.role === 'teacher'
-              ? 'Du hast noch keine Klasse.'
-              : 'Du bist noch keiner Klasse zugeordnet.'}
-          </p>
+          <>
+            <h1 className={style.heading}>Leaderboard</h1>
+            <p className={style.empty}>
+              {profile?.role === 'teacher'
+                ? 'Du hast noch keine Klasse.'
+                : 'Du bist noch keiner Klasse zugeordnet.'}
+            </p>
+          </>
         ) : (
-          <Leaderboard classes={classes} />
+          <Leaderboard classes={classes} initialClassId={initialClassId} />
         )}
       </div>
     </div>

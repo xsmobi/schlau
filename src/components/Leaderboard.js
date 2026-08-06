@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
 
 const style = {
+  heading: `text-3xl font-bold text-center text-gray-800 p-2`,
   controls: `flex flex-wrap items-center justify-center gap-2 mt-4`,
   select: `rounded-md border border-gray-300 px-2 py-1 text-sm text-neutral-800`,
   toggleGroup: `flex rounded-md overflow-hidden border border-gray-300`,
@@ -19,21 +20,21 @@ const style = {
 
 // 'day' | 'week' map directly to get_class_leaderboard's p_period.
 const PERIODS = [
-  { value: 'day', label: 'Heute' },
-  { value: 'week', label: 'Diese Woche' },
+  { value: 'day', label: 'Today' },
+  { value: 'week', label: 'This Week' },
 ];
 
 // Which count column drives the current sort - both are always fetched
 // together (get_class_leaderboard returns both per period), sorting is
 // purely a client-side re-order of the same rows.
 const SORT_KEYS = [
-  { value: 'activity_count', label: 'Aktivität' },
-  { value: 'explainer_count', label: 'Erklärungen' },
+  { value: 'activity_count', label: 'Activity' },
+  { value: 'explainer_count', label: 'Explainers' },
 ];
 
-export default function Leaderboard({ classes }) {
+export default function Leaderboard({ classes, initialClassId }) {
   const [supabase] = useState(() => createClient());
-  const [classId, setClassId] = useState(classes[0]?.id ?? null);
+  const [classId, setClassId] = useState(initialClassId ?? classes[0]?.id ?? null);
   const [period, setPeriod] = useState('day');
   const [sortBy, setSortBy] = useState('activity_count');
   const [rows, setRows] = useState([]);
@@ -74,9 +75,12 @@ export default function Leaderboard({ classes }) {
   }, [supabase, classId, period]);
 
   const sorted = [...rows].sort((a, b) => b[sortBy] - a[sortBy]);
+  const currentClass = classes.find((c) => c.id === classId);
 
   return (
     <div>
+      <h1 className={style.heading}>Leaderboard{currentClass ? ` ${currentClass.name}` : ''}</h1>
+
       {classes.length > 1 && (
         <div className={style.controls}>
           <select

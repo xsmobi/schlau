@@ -70,11 +70,16 @@ export default function AuthControls({ initialUser, initialRole }) {
         <span>{user.email}</span>
         <NavLink href="/badges" label="My Badges" pathname={pathname} />
         {role === 'teacher' ? (
+          // Teachers reach a given class's leaderboard from that class's
+          // card on /class instead - a top-level link here would be
+          // ambiguous once a teacher owns more than one class.
           <NavLink href="/class" label="My Class" pathname={pathname} />
         ) : (
-          <NavLink href="/join" label="Join Class" pathname={pathname} />
+          <>
+            <NavLink href="/join" label="Join Class" pathname={pathname} />
+            <NavLink href="/leaderboard" label="Leaderboard" pathname={pathname} />
+          </>
         )}
-        <NavLink href="/leaderboard" label="Leaderboard" pathname={pathname} />
         <button type="button" className={style.button} onClick={signOut}>Sign Out</button>
       </div>
     );
@@ -94,15 +99,15 @@ export default function AuthControls({ initialUser, initialRole }) {
         <input
           type="email"
           required
-          placeholder="E-Mail"
+          placeholder="Email"
           className={style.input}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
-        <button type="submit" className={style.button}>Link anfordern</button>
+        <button type="submit" className={style.button}>Request Link</button>
       </form>
       <button type="button" className={style.button} onClick={() => signIn('google')}>
-        Mit Google anmelden
+        Sign in with Google
       </button>
     </div>
   );

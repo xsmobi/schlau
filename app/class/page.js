@@ -18,7 +18,7 @@ export default async function ClassPage() {
     return (
       <div className={style.bg}>
         <div className={style.container}>
-          <h1 className={style.heading}>Meine Klasse</h1>
+          <h1 className={style.heading}>My Class</h1>
           <p className="text-center p-2">Bitte melde dich an, um deine Klasse zu sehen.</p>
           <Link href="/" className={style.back}>Zurück zu schlau.app</Link>
         </div>
@@ -35,7 +35,7 @@ export default async function ClassPage() {
   return (
     <div className={style.bg}>
       <div className={style.container}>
-        <h1 className={style.heading}>Meine Klasse</h1>
+        <h1 className={style.heading}>My Class</h1>
         {!classes || classes.length === 0 ? (
           <p className={style.empty}>Du hast noch keine Klasse.</p>
         ) : (

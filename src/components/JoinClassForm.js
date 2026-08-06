@@ -19,13 +19,16 @@ function messageFor(error) {
   return 'Etwas ist schiefgelaufen, bitte versuche es erneut.';
 }
 
-export default function JoinClassForm() {
+export default function JoinClassForm({ alreadyInClass = false }) {
   const [supabase] = useState(() => createClient());
   const [code, setCode] = useState('');
   const [step, setStep] = useState('input'); // 'input' | 'confirm' | 'success'
   const [preview, setPreview] = useState(null); // { class_id, class_name }
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const actionLabel = alreadyInClass ? 'Change Class' : 'Join Class';
+  const actionPendingLabel = alreadyInClass ? 'Changing…' : 'Joining…';
 
   const lookup = async (event) => {
     event.preventDefault();
@@ -69,10 +72,10 @@ export default function JoinClassForm() {
       <div>
         <p className={style.confirm}>Klasse „{preview?.class_name}“ beitreten?</p>
         <button type="button" className={style.button} onClick={confirmJoin} disabled={loading}>
-          {loading ? 'Wird beigetreten...' : 'Beitreten'}
+          {loading ? actionPendingLabel : actionLabel}
         </button>
         <button type="button" className={style.secondaryButton} onClick={cancel} disabled={loading}>
-          Abbrechen
+          Cancel
         </button>
         {error && <p className={style.error}>{error}</p>}
       </div>
@@ -93,7 +96,7 @@ export default function JoinClassForm() {
         onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))}
       />
       <button type="submit" className={style.button} disabled={loading || code.length !== 6}>
-        {loading ? 'Wird gesucht...' : 'Weiter'}
+        {loading ? 'Searching…' : 'Continue'}
       </button>
       {error && <p className={style.error}>{error}</p>}
     </form>

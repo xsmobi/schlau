@@ -60,7 +60,7 @@ export default async function BadgesPage() {
     return (
       <div className={style.bg}>
         <div className={style.container}>
-          <h1 className={style.heading}>Abzeichen</h1>
+          <h1 className={style.heading}>Badges</h1>
           <p className="text-center p-2">Bitte melde dich an, um deine Abzeichen zu sehen.</p>
           <Link href="/" className={style.back}>Zurück zu schlau.app</Link>
         </div>
@@ -97,7 +97,7 @@ export default async function BadgesPage() {
   return (
     <div className={style.bg}>
       <div className={style.container}>
-        <h1 className={style.heading}>Deine Abzeichen</h1>
+        <h1 className={style.heading}>My Badges</h1>
         <Section title="Aktivität" entries={activity} />
         <Section title="Themen" entries={topics} />
         <Section title="Bonus" entries={bonus} />
