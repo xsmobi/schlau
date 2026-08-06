@@ -139,7 +139,7 @@ export default function Leaderboard({ classes, initialClassId }) {
                 <td className={style.td}>{i + 1}</td>
                 <td className={style.td}>{row.pseudonym}</td>
                 <td className={style.td}>{row.activity_count}</td>
-                <td className={style.td}>{row.engagement.toFixed(1)}</td>
+                <td className={style.td}>{Math.round(row.engagement)}</td>
               </tr>
             ))}
           </tbody>

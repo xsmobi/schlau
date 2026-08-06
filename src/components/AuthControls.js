@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
 
@@ -29,6 +29,7 @@ export default function AuthControls({ initialUser, initialRole }) {
   const [email, setEmail] = useState('');
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     // AuthControls lives in the root layout and stays mounted across
@@ -70,8 +71,22 @@ export default function AuthControls({ initialUser, initialRole }) {
     setMagicLinkSent(true);
   };
 
-  const signOut = () => {
-    supabase.auth.signOut();
+  // Pages like /badges, /class, /join, /leaderboard fetch user-specific
+  // data server-side (gated by `if (!user) return <signed-out view>`) and
+  // hand some of it to client components with their own local state
+  // (Leaderboard's fetched rows, JoinClassForm's step, etc). Signing out
+  // only updates AuthControls' own `user` state via onAuthStateChange -
+  // nothing tells those server components to re-fetch, so their stale
+  // authenticated output (and any client state under it) stays on screen.
+  // router.refresh() re-runs every server component on the current route
+  // once the session cookie is actually cleared, which flips each page to
+  // its signed-out branch and - since that's a structurally different
+  // tree - unmounts any stale client children along with it. One fix
+  // here covers every current and future page with this shape, instead
+  // of each page needing its own auth listener.
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
   };
 
   if (user) {
