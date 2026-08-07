@@ -8,6 +8,8 @@ const style = {
   heading: `text-3xl font-bold text-center text-gray-800 p-2`,
   empty: `text-sm text-gray-600 text-center`,
   back: `inline-block mt-6 text-sm text-blue-700 underline`,
+  invite: `text-sm text-gray-600 text-center mt-6`,
+  inviteLink: `text-blue-700 underline`,
 };
 
 export default async function ClassPage() {
@@ -26,11 +28,15 @@ export default async function ClassPage() {
     );
   }
 
-  const { data: classes } = await supabase
-    .from('classes')
-    .select('id, name, join_code')
-    .eq('teacher_id', user.id)
-    .order('created_at');
+  const [{ data: classes }, { data: profile }] = await Promise.all([
+    supabase
+      .from('classes')
+      .select('id, name, join_code')
+      .eq('teacher_id', user.id)
+      .order('created_at'),
+    supabase.from('profiles').select('role').eq('id', user.id).single(),
+  ]);
+  const isTeacher = profile?.role === 'teacher';
 
   return (
     <div className={style.bg}>
@@ -42,6 +48,12 @@ export default async function ClassPage() {
           classes.map((c) => (
             <JoinCodeCard key={c.id} classId={c.id} name={c.name} initialCode={c.join_code} />
           ))
+        )}
+        {isTeacher && (
+          <p className={style.invite}>
+            Invite a colleague to teach:{' '}
+            <Link href="/redeem" className={style.inviteLink}>schlau.app/redeem</Link>
+          </p>
         )}
       </div>
     </div>
