@@ -14,6 +14,7 @@ const style = {
   accountButton: `flex items-center justify-center w-11 h-11 rounded-full text-gray-700 hover:bg-gray-100`,
   accountMenu: `absolute right-0 top-12 z-50 min-w-[200px] rounded-md border border-gray-200 bg-white p-3 text-sm shadow-lg`,
   accountMenuEmail: `mb-2 block truncate text-neutral-600`,
+  textLink: `text-xs underline text-neutral-600 hover:text-neutral-800`,
 };
 
 // Same {href, label} pairs the desktop nav has always used, built once and
@@ -179,6 +180,12 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
     return (
       <div className={style.bar}>
         <span>Link an {email} gesendet, bitte E-Mails prüfen.</span>
+        {/* Otherwise a mistyped email is a dead end short of a full page
+            reload - this just steps back to the input, keeping what was
+            typed so a typo can be fixed instead of retyped from scratch. */}
+        <button type="button" className={style.textLink} onClick={() => setMagicLinkSent(false)}>
+          Wrong email? Go back
+        </button>
       </div>
     );
   }
