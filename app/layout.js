@@ -23,9 +23,11 @@ export default async function RootLayout({ children }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   let role = null;
+  let hasClass = false;
   if (user) {
-    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    const { data: profile } = await supabase.from('profiles').select('role, class_id').eq('id', user.id).single();
     role = profile?.role ?? null;
+    hasClass = !!profile?.class_id;
   }
 
   return (
@@ -83,8 +85,10 @@ export default async function RootLayout({ children }) {
       </head>
       <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <AuthControls initialUser={user} initialRole={role} />
-        {children}
+        <AuthControls initialUser={user} initialRole={role} initialHasClass={hasClass} />
+        {/* Bottom padding clears the fixed mobile tab bar (signed-in only,
+            hidden from md up) so it doesn't cover page content. */}
+        <div className={user ? 'pb-16 md:pb-0' : undefined}>{children}</div>
         <Script id="matomo-tag-manager" strategy="afterInteractive">
           {`
             var _mtm = window._mtm = window._mtm || [];

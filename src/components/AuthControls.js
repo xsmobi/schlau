@@ -3,13 +3,35 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { AiOutlineBarChart, AiOutlineHome, AiOutlineTeam, AiOutlineTrophy, AiOutlineUser } from 'react-icons/ai';
 import { createClient } from '../lib/supabase/client';
+import MobileTabBar from './MobileTabBar';
 
 const style = {
-  bar: `flex items-center justify-end gap-2 px-3 py-1 text-sm text-neutral-600`,
+  bar: `flex items-center justify-end gap-2 px-3 py-1 text-sm text-neutral-600 relative`,
   button: `rounded-md px-3 py-1 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900`,
   input: `rounded-md border border-gray-300 px-2 py-1 text-sm text-neutral-800`,
+  accountButton: `flex items-center justify-center w-11 h-11 rounded-full text-gray-700 hover:bg-gray-100`,
+  accountMenu: `absolute right-0 top-12 z-50 min-w-[200px] rounded-md border border-gray-200 bg-white p-3 text-sm shadow-lg`,
+  accountMenuEmail: `mb-2 block truncate text-neutral-600`,
 };
+
+// Same {href, label} pairs the desktop nav has always used, built once and
+// shared with the mobile bottom tab bar so both surfaces agree on
+// destinations and labels instead of listing them twice. Teachers don't
+// get a Leaderboard entry here - same reasoning as the desktop nav: it's
+// ambiguous once a teacher owns more than one class, so they reach a
+// specific class's leaderboard from that class's card on /class instead.
+function buildNavItems(role, hasClass) {
+  const items = [{ href: '/badges', label: 'My Badges', icon: AiOutlineTrophy }];
+  if (role === 'teacher') {
+    items.push({ href: '/class', label: 'My Class', icon: AiOutlineTeam });
+  } else {
+    items.push({ href: '/join', label: hasClass ? 'Change Class' : 'Join Class', icon: AiOutlineTeam });
+    items.push({ href: '/leaderboard', label: 'Leaderboard', icon: AiOutlineBarChart });
+  }
+  return items;
+}
 
 // Renders the link to `href` normally, unless we're already on that page -
 // then it becomes a "back to tasks" link instead of a redundant active
@@ -22,14 +44,27 @@ function NavLink({ href, label, pathname }) {
   return <Link href={href} className={style.button}>{label}</Link>;
 }
 
-export default function AuthControls({ initialUser, initialRole }) {
+export default function AuthControls({ initialUser, initialRole, initialHasClass }) {
   const [user, setUser] = useState(initialUser ?? null);
   const [role] = useState(initialRole ?? null);
+  const [hasClass] = useState(initialHasClass ?? false);
   const [supabase] = useState(() => createClient());
   const [email, setEmail] = useState('');
   const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [lastPathname, setLastPathname] = useState(pathname);
+
+  // Close the account menu on navigation instead of leaving it open over
+  // whatever page the user just tapped through to. Derived during render
+  // (React's recommended pattern for "reset state when a value changes")
+  // rather than in an effect, which would call setState synchronously on
+  // every navigation and trigger an extra cascading render.
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setAccountMenuOpen(false);
+  }
 
   useEffect(() => {
     // AuthControls lives in the root layout and stays mounted across
@@ -90,22 +125,52 @@ export default function AuthControls({ initialUser, initialRole }) {
   };
 
   if (user) {
+    const navItems = buildNavItems(role, hasClass);
+    const mobileTabs = [{ href: '/', label: 'Tasks', icon: AiOutlineHome, isHome: true }, ...navItems];
+
     return (
       <div className={style.bar}>
-        <span>{user.email}</span>
-        <NavLink href="/badges" label="My Badges" pathname={pathname} />
-        {role === 'teacher' ? (
-          // Teachers reach a given class's leaderboard from that class's
-          // card on /class instead - a top-level link here would be
-          // ambiguous once a teacher owns more than one class.
-          <NavLink href="/class" label="My Class" pathname={pathname} />
-        ) : (
-          <>
-            <NavLink href="/join" label="Join Class" pathname={pathname} />
-            <NavLink href="/leaderboard" label="Leaderboard" pathname={pathname} />
-          </>
-        )}
-        <button type="button" className={style.button} onClick={signOut}>Sign Out</button>
+        {/* Desktop/tablet: unchanged from before - email, full nav links,
+            inline Sign Out button. Hidden below md. */}
+        <div className="hidden items-center gap-2 md:flex">
+          <span>{user.email}</span>
+          {navItems.map((item) => (
+            <NavLink key={item.href} href={item.href} label={item.label} pathname={pathname} />
+          ))}
+          <button type="button" className={style.button} onClick={signOut}>Sign Out</button>
+        </div>
+
+        {/* Mobile: email + Sign Out collapse into a small account menu,
+            since they're infrequent actions rather than primary
+            destinations - those live in the bottom tab bar instead. */}
+        <div className="flex md:hidden">
+          <button
+            type="button"
+            className={style.accountButton}
+            onClick={() => setAccountMenuOpen((open) => !open)}
+            aria-label="Account menu"
+            aria-expanded={accountMenuOpen}
+          >
+            <AiOutlineUser className="h-6 w-6" />
+          </button>
+          {accountMenuOpen && (
+            <div className={style.accountMenu}>
+              <span className={style.accountMenuEmail}>{user.email}</span>
+              <button
+                type="button"
+                className={style.button}
+                onClick={() => {
+                  setAccountMenuOpen(false);
+                  signOut();
+                }}
+              >
+                Sign Out
+              </button>
+            </div>
+          )}
+        </div>
+
+        <MobileTabBar tabs={mobileTabs} pathname={pathname} />
       </div>
     );
   }
