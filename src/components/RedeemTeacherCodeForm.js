@@ -36,8 +36,11 @@ export default function RedeemTeacherCodeForm() {
     // initial role once at mount, so a client-side navigation wouldn't
     // pick up the change - a hard navigation guarantees every page,
     // including the nav, sees the fresh profile row. Landing on /class
-    // also doubles as visible confirmation that the redemption worked.
-    window.location.href = '/class';
+    // alone read as ambiguous in testing (no confirmation, just silently
+    // the teacher view) - ?welcome=1 tells that page to show an explicit
+    // "You're now a teacher!" banner instead of relying on the view
+    // itself to imply success.
+    window.location.href = '/class?welcome=1';
   };
 
   return (

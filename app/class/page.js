@@ -1,18 +1,20 @@
 import Link from 'next/link';
 import { createClient } from '../../src/lib/supabase/server';
 import JoinCodeCard from '../../src/components/JoinCodeCard';
+import CreateClassForm from '../../src/components/CreateClassForm';
 
 const style = {
   bg: `min-h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
   container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
   heading: `text-3xl font-bold text-center text-gray-800 p-2`,
+  welcome: `mb-4 rounded-md border border-green-200 bg-green-50 p-3 text-center text-sm text-green-800`,
   empty: `text-sm text-gray-600 text-center`,
   back: `inline-block mt-6 text-sm text-blue-700 underline`,
-  invite: `text-sm text-gray-600 text-center mt-6`,
+  invite: `text-xs text-gray-500 text-center mt-6`,
   inviteLink: `text-blue-700 underline`,
 };
 
-export default async function ClassPage() {
+export default async function ClassPage({ searchParams }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -37,18 +39,22 @@ export default async function ClassPage() {
     supabase.from('profiles').select('role').eq('id', user.id).single(),
   ]);
   const isTeacher = profile?.role === 'teacher';
+  const hasClasses = !!classes && classes.length > 0;
+  const { welcome } = await searchParams;
 
   return (
     <div className={style.bg}>
       <div className={style.container}>
         <h1 className={style.heading}>My Class</h1>
-        {!classes || classes.length === 0 ? (
-          <p className={style.empty}>Du hast noch keine Klasse.</p>
-        ) : (
+        {welcome && <p className={style.welcome}>You&apos;re now a teacher!</p>}
+        {hasClasses ? (
           classes.map((c) => (
             <JoinCodeCard key={c.id} classId={c.id} name={c.name} initialCode={c.join_code} />
           ))
+        ) : (
+          !isTeacher && <p className={style.empty}>Du hast noch keine Klasse.</p>
         )}
+        {isTeacher && <CreateClassForm primary={!hasClasses} />}
         {isTeacher && (
           <p className={style.invite}>
             Invite a colleague to teach:{' '}
