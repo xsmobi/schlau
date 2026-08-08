@@ -9,7 +9,6 @@ const style = {
   secondaryButton: `mt-2 w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300`,
   error: `mt-2 text-sm text-red-600 text-center`,
   confirm: `mt-4 text-center text-lg text-gray-800`,
-  success: `mt-4 text-center text-lg text-green-700`,
 };
 
 function messageFor(error) {
@@ -22,7 +21,7 @@ function messageFor(error) {
 export default function JoinClassForm({ alreadyInClass = false }) {
   const [supabase] = useState(() => createClient());
   const [code, setCode] = useState('');
-  const [step, setStep] = useState('input'); // 'input' | 'confirm' | 'success'
+  const [step, setStep] = useState('input'); // 'input' | 'confirm'
   const [preview, setPreview] = useState(null); // { class_id, class_name }
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -48,24 +47,28 @@ export default function JoinClassForm({ alreadyInClass = false }) {
     setLoading(true);
     setError(null);
     const { data, error } = await supabase.rpc('join_class', { p_code: code });
-    setLoading(false);
     if (error) {
+      setLoading(false);
       setError(messageFor(error));
       setStep('input');
       return;
     }
-    setPreview(data?.[0] ?? preview);
-    setStep('success');
+    const className = data?.[0]?.class_name ?? preview?.class_name ?? '';
+    // AuthControls' hasClass - and this page's own alreadyInClass prop -
+    // are both captured once from server-rendered props at mount and
+    // never react to a client-side change, same reason
+    // RedeemTeacherCodeForm hard-navigates after redeeming a code.
+    // Without this, the nav bar's Class tab (desktop and mobile both,
+    // since they read the exact same buildNavItems() output) would keep
+    // showing "Join Class" after a student already joined, until some
+    // unrelated hard reload happened to fix it.
+    window.location.href = `/join?joined=${encodeURIComponent(className)}`;
   };
 
   const cancel = () => {
     setStep('input');
     setPreview(null);
   };
-
-  if (step === 'success') {
-    return <p className={style.success}>Du bist jetzt Mitglied von {preview?.class_name}!</p>;
-  }
 
   if (step === 'confirm') {
     return (
