@@ -100,10 +100,11 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
 
   const sendMagicLink = (event) => {
     event.preventDefault();
-    supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${window.location.origin}/auth/confirm` },
-    });
+    // Omitting emailRedirectTo makes signInWithOtp send a 6-digit numeric
+    // code instead of a clickable magic link - the code-entry UI to
+    // consume it isn't built yet (next step); this only switches what
+    // the email itself contains.
+    supabase.auth.signInWithOtp({ email });
     setMagicLinkSent(true);
   };
 
