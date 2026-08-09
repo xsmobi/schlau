@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlineBarChart, AiOutlineHome, AiOutlineTeam, AiOutlineTrophy, AiOutlineUser } from 'react-icons/ai';
 import { createClient } from '../lib/supabase/client';
 import MobileTabBar from './MobileTabBar';
@@ -14,8 +14,13 @@ const style = {
   accountButton: `flex items-center justify-center w-11 h-11 rounded-full text-gray-700 hover:bg-gray-100`,
   accountMenu: `absolute right-0 top-12 z-50 min-w-[200px] rounded-md border border-gray-200 bg-white p-3 text-sm shadow-lg`,
   accountMenuEmail: `mb-2 block truncate text-neutral-600`,
-  textLink: `text-xs underline text-neutral-600 hover:text-neutral-800`,
+  textLink: `text-xs underline text-neutral-600 hover:text-neutral-800 disabled:no-underline disabled:text-neutral-400`,
+  codeStatus: `text-xs text-neutral-600`,
+  codeError: `text-xs text-red-600`,
 };
+
+// Avoids hammering signInWithOtp if a student mashes "Resend Code".
+const RESEND_COOLDOWN_MS = 30000;
 
 // Same {href, label} pairs the desktop nav has always used, built once and
 // shared with the mobile bottom tab bar so both surfaces agree on
@@ -51,11 +56,23 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
   const [hasClass] = useState(initialHasClass ?? false);
   const [supabase] = useState(() => createClient());
   const [email, setEmail] = useState('');
-  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [codeSent, setCodeSent] = useState(false);
+  const [code, setCode] = useState('');
+  const [verifying, setVerifying] = useState(false);
+  const [verifyError, setVerifyError] = useState(null);
+  const [resending, setResending] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const [lastPathname, setLastPathname] = useState(pathname);
+  const resendTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (resendTimeoutRef.current) clearTimeout(resendTimeoutRef.current);
+    };
+  }, []);
 
   // Close the account menu on navigation instead of leaving it open over
   // whatever page the user just tapped through to. Derived during render
@@ -70,15 +87,22 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
   useEffect(() => {
     // AuthControls lives in the root layout and stays mounted across
     // client-side navigation, so its state outlives whatever page a sign-
-    // out happens to be triggered from. Without resetting magicLinkSent/
-    // email here, requesting a link once and later signing out - from any
-    // page - would keep showing the stale "link sent" message forever
-    // instead of the plain sign-in form.
+    // out happens to be triggered from. Without resetting this here,
+    // requesting a code once and later signing out - from any page -
+    // would keep showing the stale code-entry step forever instead of
+    // the plain sign-in form.
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
       if (event === 'SIGNED_OUT') {
-        setMagicLinkSent(false);
+        setCodeSent(false);
         setEmail('');
+        setCode('');
+        setVerifyError(null);
+        setResendCooldown(false);
+        if (resendTimeoutRef.current) {
+          clearTimeout(resendTimeoutRef.current);
+          resendTimeoutRef.current = null;
+        }
       }
     });
     return () => subscription.unsubscribe();
@@ -98,14 +122,58 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
     });
   };
 
-  const sendMagicLink = (event) => {
+  const sendCode = (event) => {
     event.preventDefault();
-    // Omitting emailRedirectTo makes signInWithOtp send a 6-digit numeric
-    // code instead of a clickable magic link - the code-entry UI to
-    // consume it isn't built yet (next step); this only switches what
-    // the email itself contains.
+    // Omitting emailRedirectTo makes signInWithOtp send a 6-to-8-digit
+    // numeric code instead of a clickable magic link.
     supabase.auth.signInWithOtp({ email });
-    setMagicLinkSent(true);
+    setCodeSent(true);
+  };
+
+  const verifyCode = async (event) => {
+    event.preventDefault();
+    setVerifying(true);
+    setVerifyError(null);
+    const { error } = await supabase.auth.verifyOtp({ email, token: code, type: 'email' });
+    if (error) {
+      setVerifying(false);
+      // Any failure here is essentially always a wrong/expired/already-used
+      // code from the student's point of view - not worth trying to
+      // string-match Supabase's exact error text for a more specific
+      // message.
+      setVerifyError('Code ungültig oder abgelaufen, bitte versuche es erneut.');
+      return;
+    }
+    // AuthControls' role/hasClass are captured once from server-rendered
+    // props at mount - onAuthStateChange updates `user` reactively, but
+    // not those - so a reload is needed for the nav to show the correct
+    // role-driven links, same reasoning as every other sign-in-adjacent
+    // flow in this app (join_class, redeem_teacher_code). Reloading the
+    // current page (rather than redirecting anywhere) since sign-in was
+    // never about "going somewhere new" - just continuing where the
+    // student already was, signed in.
+    window.location.reload();
+  };
+
+  const resendCode = async () => {
+    if (resendCooldown || resending) return;
+    setResending(true);
+    setVerifyError(null);
+    await supabase.auth.signInWithOtp({ email });
+    setResending(false);
+    setCode('');
+    setResendCooldown(true);
+    if (resendTimeoutRef.current) clearTimeout(resendTimeoutRef.current);
+    resendTimeoutRef.current = setTimeout(() => {
+      setResendCooldown(false);
+      resendTimeoutRef.current = null;
+    }, RESEND_COOLDOWN_MS);
+  };
+
+  const goBackToEmail = () => {
+    setCodeSent(false);
+    setCode('');
+    setVerifyError(null);
   };
 
   // Pages like /badges, /class, /join, /leaderboard fetch user-specific
@@ -177,23 +245,46 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
     );
   }
 
-  if (magicLinkSent) {
+  if (codeSent) {
     return (
       <div className={style.bar}>
-        <span>Link an {email} gesendet, bitte E-Mails prüfen.</span>
+        <span className={style.codeStatus}>Code an {email} gesendet.</span>
+        <form className="flex items-center gap-2" onSubmit={verifyCode}>
+          <input
+            type="text"
+            inputMode="numeric"
+            required
+            placeholder="Code"
+            className={style.input}
+            value={code}
+            onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 8))}
+          />
+          <button type="submit" className={style.button} disabled={verifying || code.length < 6}>
+            {verifying ? 'Wird geprüft…' : 'Verify Code'}
+          </button>
+        </form>
+        <button
+          type="button"
+          className={style.textLink}
+          onClick={resendCode}
+          disabled={resendCooldown || resending}
+        >
+          {resending ? 'Wird gesendet…' : resendCooldown ? 'Code gesendet' : 'Resend Code'}
+        </button>
         {/* Otherwise a mistyped email is a dead end short of a full page
-            reload - this just steps back to the input, keeping what was
+            reload - this steps back to the email input, keeping what was
             typed so a typo can be fixed instead of retyped from scratch. */}
-        <button type="button" className={style.textLink} onClick={() => setMagicLinkSent(false)}>
+        <button type="button" className={style.textLink} onClick={goBackToEmail}>
           Wrong email? Go back
         </button>
+        {verifyError && <p className={style.codeError}>{verifyError}</p>}
       </div>
     );
   }
 
   return (
     <div className={style.bar}>
-      <form className="flex items-center gap-2" onSubmit={sendMagicLink}>
+      <form className="flex items-center gap-2" onSubmit={sendCode}>
         <input
           type="email"
           required
@@ -202,7 +293,7 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
-        <button type="submit" className={style.button}>Request Link</button>
+        <button type="submit" className={style.button}>Request Code</button>
       </form>
       <button type="button" className={style.button} onClick={() => signIn('google')}>
         Sign in with Google
