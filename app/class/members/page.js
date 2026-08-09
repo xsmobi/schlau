@@ -52,19 +52,23 @@ export default async function ClassMembersPage({ searchParams }) {
     );
   }
 
-  const { data: members } = await supabase.rpc('get_class_members', { p_class_id: classId });
+  const { data: members, error: membersError } = await supabase.rpc('get_class_members', {
+    p_class_id: classId,
+  });
 
   return (
     <div className={style.bg}>
       <div className={style.container}>
         <h1 className={style.heading}>{classInfo.name}</h1>
-        {!members || members.length === 0 ? (
+        {membersError ? (
+          <p className={style.empty}>Mitglieder konnten nicht geladen werden.</p>
+        ) : !members || members.length === 0 ? (
           <p className={style.empty}>Noch keine Mitglieder in dieser Klasse.</p>
         ) : (
           members.map((member) => (
-            <div key={member.id} className={style.row}>
+            <div key={member.student_id} className={style.row}>
               <span className={style.email}>{member.email}</span>
-              <RemoveMemberButton studentId={member.id} />
+              <RemoveMemberButton studentId={member.student_id} />
             </div>
           ))
         )}
