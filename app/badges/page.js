@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LuActivity, LuSigma, LuStar } from 'react-icons/lu';
 import { createClient } from '../../src/lib/supabase/server';
 import { A_TIERS, B_HELP_TIERS, B_SOLUTION_TIERS } from '../../src/lib/rewards/tiers';
 
@@ -23,10 +24,14 @@ const style = {
   container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
   heading: `text-3xl font-bold text-center text-gray-800 p-2`,
   section: `mt-6`,
-  // Centered - left-alignment read oddly for a heading sitting directly
-  // above a centered icon grid. Themen picks this up too via Section
-  // below, for visual consistency with the quality-of-work pair above it.
-  sectionTitle: `text-xl font-bold text-gray-800 mb-2 text-center`,
+  // Icon + label as one centered flex group (not bare centered text) -
+  // "Aktivität" alone at text-xl overflowed its narrow single-column box,
+  // and adding an icon without shrinking the text would only make that
+  // worse. text-lg (down from text-xl) applies to Aktivität, Bonus, and
+  // Themen alike so all three stay visually consistent with each other,
+  // even though only Aktivität strictly needs the extra room.
+  sectionTitle: `flex items-center justify-center gap-2 text-lg font-bold text-gray-800 mb-2`,
+  sectionIcon: `w-5 h-5 shrink-0`,
   grid: `grid grid-cols-4 gap-3`,
   tile: `flex flex-col items-center text-center`,
   icon: `w-16 h-16 rounded-md shadow`,
@@ -42,10 +47,22 @@ const style = {
   qualityBox: `rounded-2xl border border-gray-300 bg-white p-3`,
 };
 
-function Section({ title, entries }) {
+// Shared by Section (Themen) and QualityOfWorkSection (Aktivität, Bonus)
+// so all three headings get identical icon+label treatment rather than
+// three separate implementations that could drift out of sync.
+function SectionTitle({ icon: Icon, children }) {
+  return (
+    <h2 className={style.sectionTitle}>
+      <Icon className={style.sectionIcon} />
+      <span>{children}</span>
+    </h2>
+  );
+}
+
+function Section({ title, icon, entries }) {
   return (
     <div className={style.section}>
-      <h2 className={style.sectionTitle}>{title}</h2>
+      <SectionTitle icon={icon}>{title}</SectionTitle>
       {entries.length === 0 ? (
         <p className={style.empty}>Noch keine Abzeichen in dieser Kategorie.</p>
       ) : (
@@ -70,7 +87,7 @@ function QualityOfWorkSection({ activity, bonus }) {
   return (
     <div className="mt-6 grid grid-cols-4 gap-3">
       <div className={style.qualityBox}>
-        <h2 className={style.sectionTitle}>Aktivität</h2>
+        <SectionTitle icon={LuActivity}>Aktivität</SectionTitle>
         {activity.length === 0 ? (
           <p className={style.empty}>Noch keine Abzeichen in dieser Kategorie.</p>
         ) : (
@@ -85,7 +102,7 @@ function QualityOfWorkSection({ activity, bonus }) {
         )}
       </div>
       <div className={`${style.qualityBox} col-span-3`}>
-        <h2 className={style.sectionTitle}>Bonus</h2>
+        <SectionTitle icon={LuStar}>Bonus</SectionTitle>
         {bonus.length === 0 ? (
           <p className={style.empty}>Noch keine Abzeichen in dieser Kategorie.</p>
         ) : (
@@ -150,7 +167,7 @@ export default async function BadgesPage() {
       <div className={style.container}>
         <h1 className={style.heading}>My Badges</h1>
         <QualityOfWorkSection activity={activity} bonus={bonus} />
-        <Section title="Themen" entries={topics} />
+        <Section title="Themen" icon={LuSigma} entries={topics} />
       </div>
     </div>
   );
