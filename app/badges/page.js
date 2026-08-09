@@ -18,8 +18,6 @@ function highestTierEntry(totals, tierGroup) {
   return [code, total];
 }
 
-const BONUS_COL_START = ['col-start-2', 'col-start-3', 'col-start-4'];
-
 const style = {
   bg: `min-h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
   container: `bg-slate-100 max-w-[500px] w-full m-auto rounded-md shadow-xl p-4`,
@@ -36,17 +34,12 @@ const style = {
   empty: `text-sm text-gray-600`,
   back: `inline-block mt-6 text-sm text-blue-700 underline`,
   // Aktivität + Bonus are two performance criteria that together read as
-  // one "quality of work" unit - grouped in a shared card, distinct from
-  // Themen below (which can grow to ~40 icons and stays a plain,
-  // uncarded section). Same 4-col grid as Themen's, split into a 1-icon
-  // Aktivität column and a 3-icon Bonus column.
-  qualityCard: `mt-6 rounded-md bg-white p-4 shadow`,
-  qualityGrid: `grid grid-cols-4 gap-3`,
-  // Smaller than sectionTitle: these sit above a single narrow column
-  // (Aktivität) or a 3-icon-wide one (Bonus), not the full row width, so
-  // sectionTitle's larger text-xl weight would wrap or overflow its column.
-  qualityLabel: `col-start-1 row-start-1 mb-2 text-center text-sm font-semibold text-gray-700`,
-  qualityLabelBonus: `col-start-2 col-span-3 row-start-1 mb-2 text-center text-sm font-semibold text-gray-700`,
+  // one "quality of work" pair, but each needs to read as its own
+  // distinct group - two separate bordered boxes side by side (not one
+  // shared card) sitting directly on the page background, same as
+  // Themen below does. Reuses sectionTitle for the labels so they match
+  // Themen's heading size exactly.
+  qualityBox: `rounded-2xl border border-gray-300 bg-white p-3`,
 };
 
 function Section({ title, entries }) {
@@ -69,37 +62,42 @@ function Section({ title, entries }) {
   );
 }
 
-// Aktivität (max 1 icon) and Bonus (max 3 icons) render as two centered
-// labels over their own icon columns within one shared grid, instead of
-// Section's single full-width heading - explicit col-start placement
-// (rather than relying on grid auto-flow) keeps each icon under its
-// label regardless of which specific badges are/aren't earned yet.
+// Aktivität (max 1 icon) and Bonus (max 3 icons) each get their own
+// bordered box with a centered label, side by side in a 4-col outer grid
+// (Aktivität takes 1 column's width, Bonus takes the other 3) so the pair
+// reads as two distinct groups rather than one merged section.
 function QualityOfWorkSection({ activity, bonus }) {
-  if (activity.length === 0 && bonus.length === 0) {
-    return (
-      <div className={style.qualityCard}>
-        <p className={style.empty}>Noch keine Abzeichen in dieser Kategorie.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className={style.qualityCard}>
-      <div className={style.qualityGrid}>
-        <h2 className={style.qualityLabel}>Aktivität</h2>
-        <h2 className={style.qualityLabelBonus}>Bonus</h2>
-        {activity.map(([code, count]) => (
-          <div key={code} className={`${style.tile} col-start-1 row-start-2`}>
-            <img src={`/icons/${code}.png`} alt={code} title={code} className={style.icon} />
-            <span className={style.count}>{count}</span>
+    <div className="mt-6 grid grid-cols-4 gap-3">
+      <div className={style.qualityBox}>
+        <h2 className={style.sectionTitle}>Aktivität</h2>
+        {activity.length === 0 ? (
+          <p className={style.empty}>Noch keine Abzeichen in dieser Kategorie.</p>
+        ) : (
+          <div className="grid grid-cols-1 gap-3">
+            {activity.map(([code, count]) => (
+              <div key={code} className={style.tile}>
+                <img src={`/icons/${code}.png`} alt={code} title={code} className={style.icon} />
+                <span className={style.count}>{count}</span>
+              </div>
+            ))}
           </div>
-        ))}
-        {bonus.map(([code, count], i) => (
-          <div key={code} className={`${style.tile} ${BONUS_COL_START[i]} row-start-2`}>
-            <img src={`/icons/${code}.png`} alt={code} title={code} className={style.icon} />
-            <span className={style.count}>{count}</span>
+        )}
+      </div>
+      <div className={`${style.qualityBox} col-span-3`}>
+        <h2 className={style.sectionTitle}>Bonus</h2>
+        {bonus.length === 0 ? (
+          <p className={style.empty}>Noch keine Abzeichen in dieser Kategorie.</p>
+        ) : (
+          <div className="grid grid-cols-3 gap-3">
+            {bonus.map(([code, count]) => (
+              <div key={code} className={style.tile}>
+                <img src={`/icons/${code}.png`} alt={code} title={code} className={style.icon} />
+                <span className={style.count}>{count}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
