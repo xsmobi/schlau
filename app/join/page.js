@@ -49,9 +49,12 @@ export default async function JoinPage({ searchParams }) {
     <div className={style.bg}>
       <div className={style.container}>
         <h1 className={style.heading}>Join Class</h1>
-        {joined && <p className={style.welcome}>You&apos;re now a member of {joined}!</p>}
-        {currentClassName && (
-          <p className={style.currentClass}>You&apos;re currently in: {currentClassName}</p>
+        {joined ? (
+          <p className={style.welcome}>You&apos;re now a member of {joined}!</p>
+        ) : (
+          currentClassName && (
+            <p className={style.currentClass}>You&apos;re currently in: {currentClassName}</p>
+          )
         )}
         <JoinClassForm alreadyInClass={!!currentClassName} />
       </div>
