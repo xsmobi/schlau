@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { createClient } from '../../src/lib/supabase/server';
 import JoinClassForm from '../../src/components/JoinClassForm';
+import LeaveClassButton from '../../src/components/LeaveClassButton';
 
 const style = {
   bg: `min-h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -56,6 +57,7 @@ export default async function JoinPage({ searchParams }) {
             <p className={style.currentClass}>You&apos;re currently in: {currentClassName}</p>
           )
         )}
+        {currentClassName && <LeaveClassButton className={currentClassName} />}
         <JoinClassForm alreadyInClass={!!currentClassName} />
       </div>
     </div>

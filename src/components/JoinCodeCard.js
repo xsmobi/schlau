@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { LuRefreshCw, LuTrophy, LuUsers } from 'react-icons/lu';
 import { createClient } from '../lib/supabase/client';
 
 const style = {
@@ -9,9 +10,13 @@ const style = {
   name: `text-lg font-semibold text-gray-800`,
   code: `mt-2 font-mono text-6xl tracking-[0.2em] text-gray-900`,
   copyButton: `mt-1 text-xs text-blue-700 underline disabled:no-underline disabled:text-gray-500`,
+  // Icon above a small label, not inline icon+text or text alone - German
+  // labels ("Regenerate Code" etc.) don't reliably fit at readable sizes
+  // in a 3-across row otherwise. w-full so all three buttons/links share
+  // equal width regardless of being a <button> or <Link>.
   actions: `mt-4 flex items-center justify-center gap-2`,
-  button: `rounded-md px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900 disabled:opacity-50`,
-  linkButton: `rounded-md px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900`,
+  actionButton: `flex w-full flex-col items-center gap-1 rounded-md px-2 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-50`,
+  actionIcon: `w-6 h-6`,
   error: `mt-2 text-sm text-red-600`,
 };
 
@@ -61,10 +66,18 @@ export default function JoinCodeCard({ classId, name, initialCode }) {
       </button>
       {copyFailed && <p className={style.error}>Copy failed - please copy the code above by hand.</p>}
       <div className={style.actions}>
-        <button type="button" className={style.button} onClick={regenerate} disabled={loading}>
-          {loading ? 'Regenerating…' : 'Regenerate Code'}
+        <button type="button" className={style.actionButton} onClick={regenerate} disabled={loading}>
+          <LuRefreshCw className={style.actionIcon} />
+          <span>{loading ? 'Regenerating…' : 'Regenerate Code'}</span>
         </button>
-        <Link href={`/leaderboard?class=${classId}`} className={style.linkButton}>Leaderboard</Link>
+        <Link href={`/leaderboard?class=${classId}`} className={style.actionButton}>
+          <LuTrophy className={style.actionIcon} />
+          <span>Leaderboard</span>
+        </Link>
+        <Link href={`/class/members?class=${classId}`} className={style.actionButton}>
+          <LuUsers className={style.actionIcon} />
+          <span>Members</span>
+        </Link>
       </div>
       {error && <p className={style.error}>{error}</p>}
     </div>
