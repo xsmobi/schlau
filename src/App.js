@@ -49,6 +49,14 @@ const EXPLAINER_HARD_COOLDOWN_MS = 2000;
 // which is about the "=" -> "+" interaction, not raw click rate.
 const PLUS_REWARD_COOLDOWN_MS = 1500;
 
+// Same reward-only rate limit as PLUS_REWARD_COOLDOWN_MS, mirrored onto "="
+// itself: mass-clicking "=" still toggles the result every time, but no
+// unit is recorded while this is active. Independent of - and composes
+// alongside - the existing "=" -> "+" hard-lock state machine above
+// (PLUS_SOFT_COOLDOWN_MS / RESULT_HARD_COOLDOWN_MS), which is about that
+// specific interaction, not raw "=" click rate.
+const RESULT_REWARD_COOLDOWN_MS = 1500;
+
 function App({ type, subtype }) {
   //const [filterType, setFilterType] = useState('')
 
@@ -64,12 +72,14 @@ function App({ type, subtype }) {
   const [helpDisabled, setHelpDisabled] = useState(false);
   const [explainerDisabled, setExplainerDisabled] = useState(false);
   const [plusRewardCoolingDown, setPlusRewardCoolingDown] = useState(false);
+  const [resultRewardCoolingDown, setResultRewardCoolingDown] = useState(false);
 
   const plusTimeoutRef = useRef(null);
   const resultTimeoutRef = useRef(null);
   const helpTimeoutRef = useRef(null);
   const explainerTimeoutRef = useRef(null);
   const plusRewardTimeoutRef = useRef(null);
+  const resultRewardTimeoutRef = useRef(null);
 
   const startCooldown = (setFlag, timeoutRef, durationMs) => {
     setFlag(true);
@@ -82,7 +92,7 @@ function App({ type, subtype }) {
 
   useEffect(() => {
     return () => {
-      [plusTimeoutRef, resultTimeoutRef, helpTimeoutRef, explainerTimeoutRef, plusRewardTimeoutRef].forEach((ref) => {
+      [plusTimeoutRef, resultTimeoutRef, helpTimeoutRef, explainerTimeoutRef, plusRewardTimeoutRef, resultRewardTimeoutRef].forEach((ref) => {
         if (ref.current) clearTimeout(ref.current);
       });
     };
@@ -150,7 +160,10 @@ const toggleShowResult = () => {
 setShowResult(!showResult);
 setShowHelp(false);
 setShowExplainer(false);
-recordSolution();
+if (!resultRewardCoolingDown) {
+  recordSolution();
+  startCooldown(setResultRewardCoolingDown, resultRewardTimeoutRef, RESULT_REWARD_COOLDOWN_MS);
+}
 startCooldown(setPlusCoolingDown, plusTimeoutRef, PLUS_SOFT_COOLDOWN_MS);
 };
 
@@ -199,7 +212,7 @@ return (
               <button title="Explainer - Key: alt + '0'" type="button" accessKey="0"
                 className={`${style.btnexplainer} ${explainerDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={toggleShowExplainer} disabled={explainerDisabled}><AiOutlineZoomIn size={20} /></button>
-              {plusRewardCoolingDown && (
+              {(plusRewardCoolingDown || resultRewardCoolingDown) && (
                 <span className="inline-flex items-center text-gray-400" title="Punkte sammeln kurz pausiert">
                   <AiOutlineClockCircle size={18} />
                 </span>
