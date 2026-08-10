@@ -39,7 +39,11 @@ const style = {
   signedOutBar: `flex flex-col items-stretch justify-end gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 shadow-sm relative sm:flex-row sm:items-center`,
   signedOutForm: `flex flex-col items-stretch gap-2 sm:flex-row sm:items-center`,
   input: `rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-800 placeholder:text-slate-400`,
-  primaryButton: `flex items-center justify-center gap-1.5 rounded-md bg-slate-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50`,
+  // Light fill + dark text, same as googleButton below, rather than the
+  // dark-bg/white-text pattern this header is meant to move away from.
+  // The blue border (this app's accent color elsewhere - the "+" button,
+  // the page gradient) is what marks it as the primary action instead.
+  primaryButton: `flex items-center justify-center gap-1.5 rounded-md border border-blue-400 bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-800 hover:bg-slate-200 disabled:opacity-50`,
   // Google's standard "light" sign-in button: white background, subtle
   // border, dark gray text - not a colored/dark button, per their brand
   // guidelines.
