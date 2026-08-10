@@ -270,12 +270,7 @@ return (
 
         <footer className="mt-12  text-center dark:bg-neutral-700 lg:text-left">
             <div className="p-0 text-center text-neutral-700 dark:text-neutral-200">
-              <a target="_blank" href="/mathe-app-docs/index.html">Schüler</a>  |
-              <a target="_blank" href="/mathe-app-docs/mathetraining-mit-lehrwert-per-mathe-app.html"> Lehrer</a>  |
-              <a target="_blank" href="/mathe-app-docs/mathespiel-matheprofi-im-klassenraum.html"> Mathespiel</a>  |              
-              {/*Leitfaden / Prüfungsvorbereitung erstmal weg */}
-              {/*<a target="_blank" href="/mathe-app-docs/pruefungsvorbereitung-mathematik.html">Leitfaden</a>  | */}
-              &nbsp;<a href="https://www.youtube.com/@mathbydoing" target="_blank" rel="noreferrer">YouTube</a> | <a href="https://goo.gl/maps/Nt5q2Ag7vqkJsEgV7" target="_blank" rel="noreferrer">Kontakt</a>
+              <Link href="/impressum">Impressum</Link> | <Link href="/datenschutz">Datenschutz</Link> | <a href="https://docs.schlau.app">Docs</a>
             </div>
         </footer>
     </div>
