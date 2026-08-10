@@ -4,18 +4,48 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineBarChart, AiOutlineHome, AiOutlineTeam, AiOutlineTrophy, AiOutlineUser } from 'react-icons/ai';
+import { LuKey } from 'react-icons/lu';
 import { createClient } from '../lib/supabase/client';
 import MobileTabBar from './MobileTabBar';
+
+// Google's official multicolor "G" mark - sign-in buttons are required to
+// use this exact asset rather than an approximation. No such asset exists
+// in the repo yet, so it's embedded inline here (only used in this one
+// place).
+function GoogleLogo() {
+  return (
+    <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
+      <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" />
+      <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" />
+      <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" />
+      <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" />
+    </svg>
+  );
+}
 
 const style = {
   bar: `flex items-center justify-end gap-2 px-3 py-1 text-sm text-neutral-600 relative`,
   button: `rounded-md px-3 py-1 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900`,
-  input: `rounded-md border border-gray-300 px-2 py-1 text-sm text-neutral-800`,
   accountButton: `flex items-center justify-center w-11 h-11 rounded-full text-gray-700 hover:bg-gray-100`,
   accountMenu: `absolute right-0 top-12 z-50 min-w-[200px] rounded-md border border-gray-200 bg-white p-3 text-sm shadow-lg`,
   accountMenuEmail: `mb-2 block truncate text-neutral-600`,
-  textLink: `text-xs underline text-neutral-600 hover:text-neutral-800 disabled:no-underline disabled:text-neutral-400`,
-  codeStatus: `text-xs text-neutral-600`,
+  // Not-signed-in header only: its own calm, neutral, "technical" identity
+  // - deliberately distinct from the dark task-interaction buttons (the
+  // "=" button is a near-black gradient) and the blue gradient page
+  // background below it, since this is the first thing new users see.
+  // flex-col by default, row from sm: up, so nothing has to wrap/cram at
+  // ~360px widths - same "icon+label over cramped text" lesson as the
+  // /badges and /class work earlier this session.
+  signedOutBar: `flex flex-col items-stretch justify-end gap-2 border-b border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 shadow-sm relative sm:flex-row sm:items-center`,
+  signedOutForm: `flex flex-col items-stretch gap-2 sm:flex-row sm:items-center`,
+  input: `rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-800 placeholder:text-slate-400`,
+  primaryButton: `flex items-center justify-center gap-1.5 rounded-md bg-slate-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50`,
+  // Google's standard "light" sign-in button: white background, subtle
+  // border, dark gray text - not a colored/dark button, per their brand
+  // guidelines.
+  googleButton: `flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50`,
+  textLink: `text-xs underline text-slate-600 hover:text-slate-800 disabled:no-underline disabled:text-slate-400`,
+  codeStatus: `text-xs text-slate-600`,
   codeError: `text-xs text-red-600`,
 };
 
@@ -260,9 +290,9 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
 
   if (codeSent) {
     return (
-      <div className={style.bar}>
+      <div className={style.signedOutBar}>
         <span className={style.codeStatus}>Code an {email} gesendet.</span>
-        <form className="flex items-center gap-2" onSubmit={verifyCode}>
+        <form className={style.signedOutForm} onSubmit={verifyCode}>
           <input
             type="text"
             inputMode="numeric"
@@ -272,8 +302,9 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
             value={code}
             onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 8))}
           />
-          <button type="submit" className={style.button} disabled={verifying || code.length < 6}>
-            {verifying ? 'Wird geprüft…' : 'Verify Code'}
+          <button type="submit" className={style.primaryButton} disabled={verifying || code.length < 6}>
+            <LuKey className="h-4 w-4" />
+            <span>{verifying ? 'Wird geprüft…' : 'Verify Code'}</span>
           </button>
         </form>
         <button
@@ -296,8 +327,8 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
   }
 
   return (
-    <div className={style.bar}>
-      <form className="flex items-center gap-2" onSubmit={sendCode}>
+    <div className={style.signedOutBar}>
+      <form className={style.signedOutForm} onSubmit={sendCode}>
         <input
           type="email"
           required
@@ -306,10 +337,14 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
-        <button type="submit" className={style.button}>Request Code</button>
+        <button type="submit" className={style.primaryButton}>
+          <LuKey className="h-4 w-4" />
+          <span>Request Code</span>
+        </button>
       </form>
-      <button type="button" className={style.button} onClick={() => signIn('google')}>
-        Sign in with Google
+      <button type="button" className={style.googleButton} onClick={() => signIn('google')}>
+        <GoogleLogo />
+        <span>Sign in with Google</span>
       </button>
     </div>
   );
