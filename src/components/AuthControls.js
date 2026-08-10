@@ -134,7 +134,20 @@ export default function AuthControls({ initialUser, initialRole, initialHasClass
     event.preventDefault();
     setVerifying(true);
     setVerifyError(null);
-    const { error } = await supabase.auth.verifyOtp({ email, token: code, type: 'email' });
+    // verifyOtp's `type` has to match which email Supabase actually sent -
+    // "email" (magic link/OTP template) for a returning user, "signup"
+    // (confirm signup template) for an email that's never signed in
+    // before - and the client has no way to know which applies to a given
+    // address ahead of time. Supabase's SDK doesn't expose a type value
+    // covering both or a pre-check for this (confirmed against
+    // @supabase/auth-js's own type definitions - EmailOtpType has no
+    // wildcard, and there's no client-callable "does this user exist"
+    // check without the service role key), so try the more common case
+    // first and fall back to the other before surfacing an error.
+    let { error } = await supabase.auth.verifyOtp({ email, token: code, type: 'email' });
+    if (error) {
+      ({ error } = await supabase.auth.verifyOtp({ email, token: code, type: 'signup' }));
+    }
     if (error) {
       setVerifying(false);
       // Any failure here is essentially always a wrong/expired/already-used
