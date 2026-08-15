@@ -10,9 +10,13 @@ entirely client-side.
   only, untouched throughout this migration.
 - All work happens on feature branches (currently: dev/nextjs-migration).
 - The project also deploys to Vercel: pushes to `dev/nextjs-migration` get
-  an auto-updating preview URL. Vercel's "Production Branch" setting still
-  points at `main` (the empty placeholder branch, not `master`) and hasn't
-  been changed — intentional for now, not a bug.
+  an auto-updating preview URL. Vercel's "Production Branch" setting points
+  at `main`. As of 2026-08-15, `main` was force-updated to match `master`
+  (previously it was an empty placeholder stuck at its initial commit, so
+  Vercel's production deploy was never actually live). `main` and `master`
+  now both track the same migration content and should be kept in sync
+  together going forward — updating one without the other will cause
+  Netlify (master) and Vercel (main) to diverge.
 - Before starting work in a new session, confirm current branch.
 
 ## Current architecture (as of this migration's start)
