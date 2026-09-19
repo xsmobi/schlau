@@ -19,11 +19,16 @@
 // per task, "Ausmultiplizieren" (distribute a factor over a bracket) or
 // "Ausklammern" (extract a common factor) - each its own generator, Help,
 // and Explainer, per a reference spec with two worked examples per case.
+//
+// Option 4 (addsub4) = "Binomische Formeln": randomly one of three cases
+// ((a+b)^2, (a-b)^2, (a+b)(a-b)), each its own generator, per a reference
+// spec with worked examples per case.
 function addsub(filter) {
     const menu = [
         { nr: 1, title: "Vorzeichen bei einer Klammer", description: "" },
         { nr: 2, title: "Klammern auflösen", description: "" },
         { nr: 3, title: "Distributivgesetz", description: "" },
+        { nr: 4, title: "Binomische Formeln", description: "" },
     ];
 
     // filter arrives as a 0-based index (see CreateTask.js: filter = subtype - 1).
@@ -31,9 +36,10 @@ function addsub(filter) {
     // array position, so a future reordering/edit of `menu` above can't
     // silently desync option numbers from generator branches (see the
     // nr-vs-index drift already present in prop.js/prozent.js/potenzen.js).
-    const nr = typeof filter === 'number' ? filter + 1 : getRandomInt(3);
+    const nr = typeof filter === 'number' ? filter + 1 : getRandomInt(4);
 
-    const result = nr === 3 ? addsubDistributiv() : nr === 2 ? addsubKlammern() : addsubClassic();
+    const result =
+        nr === 4 ? addsubBinomisch() : nr === 3 ? addsubDistributiv() : nr === 2 ? addsubKlammern() : addsubClassic();
 
     return {
         ...result,
@@ -586,6 +592,190 @@ function addsubDistributiv() {
     }
 
     const built = Math.random() < 0.5 ? buildCase2() : buildCase1()
+
+    return {
+        text: `\\[${built.aufgabe}\\]`,
+        answer: `\\[${built.resultLine}\\]`,
+        help: built.help,
+        explainer: built.explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
+}
+
+// Option 4: "Binomische Formeln". Picks one of three cases with equal
+// probability: 1. Binomische Formel (a+b)^2, 2. Binomische Formel (a-b)^2,
+// or 3. Binomische Formel (a+b)(a-b). Cases 1-2 get the full staged FOIL
+// derivation with [...] grouping and red highlighting; Case 3 is the
+// shorter, uncolored, ungrouped form (the middle terms visibly cancel
+// instead of needing to be tracked through several steps).
+function addsubBinomisch() {
+    // Excludes a/b: the formula statement itself always uses "a" and "b"
+    // as its abstract placeholders (e.g. "(a + b)^2 = a^2 + 2ab + b^2"),
+    // so substituting a value that's also literally named "a" or "b"
+    // would read as "setze für a... den Wert a ein" - confusing, even
+    // though harmless mathematically.
+    const VARS = ['c', 'x', 'y']
+
+    function randInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+    function pick(arr) {
+        return arr[randInt(0, arr.length - 1)]
+    }
+    function randomVar() {
+        return pick(VARS)
+    }
+
+    // Same {coef, vars} term shape as addsubDistributiv (kept local/
+    // self-contained per this file's established per-option convention).
+    function term(coef, vars) {
+        return { coef, vars: vars || [] }
+    }
+    function multiplyTerms(t1, t2) {
+        return term(t1.coef * t2.coef, [...t1.vars, ...t2.vars])
+    }
+    // Power-notation rule: same variable twice -> var^2, never "aa".
+    // highlight uses the {\color{red}...} switch-form-in-a-group MathJax
+    // needs to actually scope the color (see addsubKlammern's formatTerms
+    // for why the two-argument \color{red}{...} form can't be used).
+    function formatTerm(t, highlight) {
+        const counts = {}
+        for (const v of t.vars) counts[v] = (counts[v] || 0) + 1
+        const varStr = Object.keys(counts)
+            .sort()
+            .map((v) => (counts[v] === 1 ? v : `${v}^${counts[v]}`))
+            .join('')
+        let str
+        if (varStr === '') str = String(t.coef)
+        else if (t.coef === 1) str = varStr
+        else str = `${t.coef}${varStr}`
+        return highlight ? `{\\color{red}${str}}` : str
+    }
+    function randomSimpleTerm() {
+        return Math.random() < 0.5 ? term(randInt(2, 9), []) : term(1, [randomVar()])
+    }
+    function sameTerm(t1, t2) {
+        return t1.coef === t2.coef && (t1.vars[0] || null) === (t2.vars[0] || null)
+    }
+
+    // a and b: at least one variable (otherwise this is just arithmetic,
+    // not a binomial-formula exercise over variables), and never equal -
+    // "die Werte x und x" reads oddly for Cases 1-2, and degenerates
+    // Case 3 to (2a)(0) = 0.
+    function randomAB() {
+        const a = randomSimpleTerm()
+        let b = randomSimpleTerm()
+        let guard = 0
+        while (((a.vars.length === 0 && b.vars.length === 0) || sameTerm(a, b)) && guard < 30) {
+            b = randomSimpleTerm()
+            guard++
+        }
+        return [a, b]
+    }
+
+    function crossDoubled(a, b) {
+        const c = multiplyTerms(a, b)
+        return formatTerm(term(c.coef * 2, c.vars))
+    }
+
+    // ---- Case 1: "1. Binomische Formel" - (a+b)^2 = a^2 + 2ab + b^2 ----
+    function buildCase1(a, b) {
+        const fa = formatTerm(a)
+        const fb = formatTerm(b)
+        const cross = formatTerm(multiplyTerms(a, b))
+        const finalResult = `${formatTerm(multiplyTerms(a, a))} + ${crossDoubled(a, b)} + ${formatTerm(multiplyTerms(b, b))}`
+
+        const aufgabe = `(${fa} + ${fb})^2`
+
+        const help = `1. Binomische Formel
+        <br>\\[(a + b)^2 = a^2 + 2ab + b^2\\]
+        <br>Setze für die Platzhalter (Variablen) a und b die Werte ${fa} und ${fb} ein.
+        <br>
+        <br>\\[(${fa} + ${fb}) · (${fa} + ${fb}) =\\]
+        <br>\\[${fa} · (${fa} + ${fb}) + ${fb} · (${fa} + ${fb})=\\]
+        <br>\\[${fa}· ${fa} + ${fa}· ${fb} + ${fb} · ${fa} + ${fb} · ${fb} =\\]
+        <br>\\[${finalResult}\\]`
+
+        const explainer = `Schritt für Schritt:
+        <br>\\[(${fa} + ${fb}) · {\\color{red}(${fa} + ${fb})} =\\]
+        <br>\\[${fa} · {\\color{red}(${fa} + ${fb})} + ${fb} · {\\color{red}(${fa} + ${fb})} =\\]
+        <br>\\[[{\\color{red}${fa}} · (${fa} + ${fb}) ] + [{\\color{red}${fb}} · (${fa} + ${fb})] =\\]
+        <br>\\[[{\\color{red}${fa}} · ${fa} + {\\color{red}${fa}} · ${fb}] + [{\\color{red}${fb}} · ${fa} + {\\color{red}${fb}} · ${fb})] =\\]
+        <br>\\[${fa}· ${fa} + ${cross} + ${cross} + ${fb} · ${fb} =\\]
+        <br>\\[${finalResult}\\]`
+
+        return { aufgabe, help, explainer, resultLine: finalResult }
+    }
+
+    // ---- Case 2: "2. Binomische Formel" - (a-b)^2 = a^2 - 2ab + b^2 ----
+    function buildCase2(a, b) {
+        const fa = formatTerm(a)
+        const fb = formatTerm(b)
+        const cross = formatTerm(multiplyTerms(a, b))
+        const finalResult = `${formatTerm(multiplyTerms(a, a))} - ${crossDoubled(a, b)} + ${formatTerm(multiplyTerms(b, b))}`
+
+        const aufgabe = `(${fa} - ${fb})^2`
+
+        const help = `2. Binomische Formel
+        <br>\\[(a - b)^2 = a^2 - 2ab + b^2\\]
+        <br>Setze für die Platzhalter (Variablen) a und b die Werte ${fa} und ${fb} ein.
+        <br>
+        <br>\\[(${fa} - ${fb}) · (${fa} - ${fb}) =\\]
+        <br>\\[${fa} · (${fa} - ${fb}) - ${fb} · (${fa} - ${fb})=\\]
+        <br>\\[${fa}· ${fa} - ${fa}· ${fb} - ${fb} · ${fa} + ${fb} · ${fb} =\\]
+        <br>\\[${finalResult}\\]`
+
+        // Bracket 2 stays in the same plain form as bracket 1 throughout -
+        // no "(-x)·(-x)" double-negative device anywhere (that version
+        // didn't actually chain algebraically; verified by hand before
+        // this was written).
+        const explainer = `Schritt für Schritt:
+        <br>\\[(${fa} - ${fb}) · {\\color{red}(${fa} - ${fb})} =\\]
+        <br>\\[${fa} · {\\color{red}(${fa} - ${fb})} - ${fb} · {\\color{red}(${fa} - ${fb})} =\\]
+        <br>\\[[{\\color{red}${fa}} · (${fa} - ${fb})] - [{\\color{red}${fb}} · (${fa} - ${fb})] =\\]
+        <br>\\[[{\\color{red}${fa}} · ${fa} - {\\color{red}${fa}} · ${fb}] - [{\\color{red}${fb}} · ${fa} - {\\color{red}${fb}} · ${fb}] =\\]
+        <br>\\[${fa}· ${fa} - ${cross} - ${cross} + ${fb} · ${fb} =\\]
+        <br>\\[${finalResult}\\]`
+
+        return { aufgabe, help, explainer, resultLine: finalResult }
+    }
+
+    // ---- Case 3: "3. Binomische Formel" - (a+b)(a-b) = a^2 - b^2 ----
+    // Shorter, uncolored, ungrouped: goes straight to the four-term
+    // expansion and shows the middle terms cancelling, rather than the
+    // staged bracket-by-bracket derivation Cases 1-2 use.
+    function buildCase3(a, b) {
+        const fa = formatTerm(a)
+        const fb = formatTerm(b)
+        const sqA = formatTerm(multiplyTerms(a, a))
+        const sqB = formatTerm(multiplyTerms(b, b))
+
+        const aufgabe = `(${fa} + ${fb})(${fa} - ${fb})`
+
+        // Shorter Help too, matching the reference exactly: states the
+        // formula and the substitution, no worked computation line.
+        const help = `3. Binomische Formel
+        <br>\\[(a + b)(a - b) = a^2 - b^2\\]
+        <br>
+        <br>Setze für die Platzhalter (Variablen) a und b die Werte ${fa} und ${fb} ein.`
+
+        const explainer = `Schritt für Schritt
+        <br>\\[(${fa} + ${fb})(${fa} - ${fb}) =\\]
+        <br>\\[${fa}·${fa} - ${fa}·${fb} + ${fb}·${fa} - ${fb}·${fb} =\\]
+        <br>\\[${fa} ·${fa} - ${fb} · ${fb}, da -${fa} · ${fb} + ${fb} · ${fa} = 0!\\]`
+
+        return { aufgabe, help, explainer, resultLine: `${sqA} - ${sqB}` }
+    }
+
+    const [a, b] = randomAB()
+    const caseChoice = pick(['case1', 'case2', 'case3'])
+    const built =
+        caseChoice === 'case1' ? buildCase1(a, b) : caseChoice === 'case2' ? buildCase2(a, b) : buildCase3(a, b)
 
     return {
         text: `\\[${built.aufgabe}\\]`,
