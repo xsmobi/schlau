@@ -14,10 +14,16 @@
 // prototype: lead ± (atom1 sign atom2 sign ... atomN), N = 2..7 atoms drawn
 // from numbers and variables - a separate, independent randomization from
 // option 1's plusminuscase, and unrelated to it.
+//
+// Option 3 (addsub3) = "Distributivgesetz": randomly one of two sub-cases
+// per task, "Ausmultiplizieren" (distribute a factor over a bracket) or
+// "Ausklammern" (extract a common factor) - each its own generator, Help,
+// and Explainer, per a reference spec with two worked examples per case.
 function addsub(filter) {
     const menu = [
         { nr: 1, title: "Vorzeichen bei einer Klammer", description: "" },
         { nr: 2, title: "Klammern auflösen", description: "" },
+        { nr: 3, title: "Distributivgesetz", description: "" },
     ];
 
     // filter arrives as a 0-based index (see CreateTask.js: filter = subtype - 1).
@@ -25,9 +31,9 @@ function addsub(filter) {
     // array position, so a future reordering/edit of `menu` above can't
     // silently desync option numbers from generator branches (see the
     // nr-vs-index drift already present in prop.js/prozent.js/potenzen.js).
-    const nr = typeof filter === 'number' ? filter + 1 : getRandomInt(2);
+    const nr = typeof filter === 'number' ? filter + 1 : getRandomInt(3);
 
-    const result = nr === 2 ? addsubKlammern() : addsubClassic();
+    const result = nr === 3 ? addsubDistributiv() : nr === 2 ? addsubKlammern() : addsubClassic();
 
     return {
         ...result,
@@ -365,6 +371,227 @@ function addsubKlammern() {
         answer: loesung,
         help,
         explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
+}
+
+// Option 3: "Distributivgesetz". Picks Case 1 "Ausmultiplizieren" or Case 2
+// "Ausklammern" with equal probability, each its own generator.
+function addsubDistributiv() {
+    const VARS = ['a', 'b', 'c', 'x', 'y']
+
+    function randInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+    function pick(arr) {
+        return arr[randInt(0, arr.length - 1)]
+    }
+    function randomVar() {
+        return pick(VARS)
+    }
+
+    // A term is {coef, vars}: vars holds 0-2 variable letters (at most one
+    // from each of the two factors ever multiplied together here). coef=1
+    // with a non-empty vars list means "no visible coefficient" (just "a",
+    // not "1a").
+    function term(coef, vars) {
+        return { coef, vars: vars || [] }
+    }
+    function multiplyTerms(t1, t2) {
+        return term(t1.coef * t2.coef, [...t1.vars, ...t2.vars])
+    }
+
+    // Power-notation rule: the same variable appearing twice in one term's
+    // vars list - only possible here as the direct result of multiplying
+    // two terms that each carried that variable - renders as var^2, not
+    // "aa". Every term (task, Help, or Explainer alike) goes through this
+    // one function, so the rule applies consistently everywhere.
+    //
+    // highlight uses the same {\color{red}...} switch-form-in-a-group
+    // MathJax needs to actually scope the color (see addsubKlammern's
+    // formatTerms above for why the two-argument \color{red}{...} form
+    // can't be used) - never re-introduce that bug here.
+    function formatTerm(t, highlight) {
+        const counts = {}
+        for (const v of t.vars) counts[v] = (counts[v] || 0) + 1
+        const varStr = Object.keys(counts)
+            .sort()
+            .map((v) => (counts[v] === 1 ? v : `${v}^${counts[v]}`))
+            .join('')
+        let str
+        if (varStr === '') str = String(t.coef)
+        else if (t.coef === 1) str = varStr
+        else str = `${t.coef}${varStr}`
+        return highlight ? `{\\color{red}${str}}` : str
+    }
+
+    // A term embedded mid-sentence needs inline (not display) math - only
+    // used where that term must be colored, since \color has no effect
+    // outside a math context; plain (uncolored) mentions stay plain text,
+    // matching how addsubClassic embeds bare numbers directly in prose.
+    function inlineTerm(t, highlight) {
+        return `\\(${formatTerm(t, highlight)}\\)`
+    }
+
+    function randomSimpleTerm() {
+        return Math.random() < 0.5 ? term(randInt(2, 9), []) : term(1, [randomVar()])
+    }
+
+    // Both t1 and t2 are always simple (0-1 vars), so a coef+first-var
+    // comparison is enough to tell if two terms are the same value.
+    function sameTerm(t1, t2) {
+        return t1.coef === t2.coef && (t1.vars[0] || null) === (t2.vars[0] || null)
+    }
+
+    // ---- Case 1: "Ausmultiplizieren" - factor(term1 OP term2) ----
+    function buildCase1() {
+        const factorBefore = Math.random() < 0.5
+        const factor = randomSimpleTerm()
+        const t1 = randomSimpleTerm()
+        let t2 = randomSimpleTerm()
+        // Keep it algebraic (at least one variable somewhere, otherwise
+        // this is just arithmetic, not the distributive law over
+        // variables), and keep t1/t2 distinct - "in der Klammer stehen a
+        // und a" (let alone factor=a too) reads as a degenerate drill, not
+        // a distribution example.
+        let guard = 0
+        while (
+            (factor.vars.length === 0 && t1.vars.length === 0 && t2.vars.length === 0 || sameTerm(t1, t2)) &&
+            guard < 30
+        ) {
+            t2 = randomSimpleTerm()
+            guard++
+        }
+        const op = Math.random() < 0.5 ? '+' : '-'
+
+        const bracket = `${formatTerm(t1)} ${op} ${formatTerm(t2)}`
+        const aufgabe = factorBefore ? `${formatTerm(factor)}(${bracket}) =` : `(${bracket})${formatTerm(factor)} =`
+
+        const product1 = multiplyTerms(factor, t1)
+        const product2 = multiplyTerms(factor, t2)
+        const resultLine = `${formatTerm(product1)} ${op} ${formatTerm(product2)}`
+
+        // "factor · term" or "term · factor", consistently, on both sides -
+        // matching whichever side the factor started on.
+        function distributed(highlightFactor) {
+            const f = formatTerm(factor, highlightFactor)
+            return factorBefore
+                ? `${f} · ${formatTerm(t1)} ${op} ${f} · ${formatTerm(t2)}`
+                : `${formatTerm(t1)} · ${f} ${op} ${formatTerm(t2)} · ${f}`
+        }
+        const bracketWithDot = (highlightFactor) => {
+            const f = formatTerm(factor, highlightFactor)
+            return factorBefore ? `${f} · (${bracket})` : `(${bracket}) · ${f}`
+        }
+
+        const help = `\\[${bracketWithDot(false)} = ${distributed(false)}\\]`
+
+        const t2Signed = op === '-' ? `(-${formatTerm(t2)})` : formatTerm(t2)
+        const explainer = `Der Faktor ${formatTerm(factor)} gilt für beide Teile der Klammer.
+        <br>In der Klammer stehen ${formatTerm(t1)} und ${t2Signed}.
+        <br>Multipliziere deshalb beide mit ${formatTerm(factor)}:
+        <br>\\[${bracketWithDot(true)} = ${distributed(true)} = ${resultLine}\\]
+        <br>Jeder Summand der Klammer wird mit der gleichen Zahl multipliziert.`
+
+        return { aufgabe, help, explainer, resultLine }
+    }
+
+    // ---- Case 2: "Ausklammern" - term1 OP term2, sharing a common factor ----
+    // GCF is always "simple" (a bare variable) or "compound" (number times
+    // variable) - never a bare number. A bare-number GCF risks an
+    // all-numeric bracket in the final factored form (e.g. "8(8 - 1)")
+    // that's left unsimplified for no algebraic reason, since nothing but
+    // the exercise's own framing stops a student from just computing it -
+    // unlike Case 1, where an all-numeric bracket is still a legitimate
+    // "multiply this out" starting point, Case 2's bracket is the *answer*.
+    function randomGCF() {
+        return Math.random() < 0.5 ? term(1, [randomVar()]) : term(randInt(2, 9), [randomVar()])
+    }
+
+    function randomLeftover(gcf) {
+        const options = ['trivial', 'number', 'variable']
+        if (gcf.vars.length > 0) options.push('sameVar') // deliberately exercises the power-notation rule
+        const choice = pick(options)
+        if (choice === 'trivial') return term(1, [])
+        if (choice === 'number') return term(randInt(2, 9), [])
+        if (choice === 'sameVar') return term(1, [gcf.vars[0]])
+        let v = randomVar()
+        let guard = 0
+        while (gcf.vars.includes(v) && guard < 30) {
+            v = randomVar()
+            guard++
+        }
+        return term(1, [v])
+    }
+
+    function buildCase2() {
+        const gcf = randomGCF()
+        const leftover1 = randomLeftover(gcf)
+        let leftover2 = randomLeftover(gcf)
+        // The bracket in the final factored form is (leftover1 OP leftover2)
+        // - if both leftovers are numeric (the trivial "1" case included,
+        // e.g. a term equals the GCF outright), that bracket is left
+        // unsimplified for no algebraic reason, since nothing stops a
+        // student from just computing it (unlike Case 1's bracket, which is
+        // the *starting* material, not the answer). This also rules out
+        // both terms trivially equaling the GCF (e.g. "2a + 2a"), which
+        // isn't a spot-the-factor exercise anyway. Also keep the two
+        // leftovers distinct - equal leftovers make term1 === term2 (e.g.
+        // "welcher Faktor steckt in b^2 UND in b^2?" if both happened to
+        // pick the sameVar leftover), which isn't a spot-the-common-factor
+        // exercise between two different terms either.
+        let guard = 0
+        while (
+            (leftover1.vars.length === 0 && leftover2.vars.length === 0 || sameTerm(leftover1, leftover2)) &&
+            guard < 30
+        ) {
+            leftover2 = randomLeftover(gcf)
+            guard++
+        }
+        const op = Math.random() < 0.5 ? '+' : '-'
+
+        const term1 = multiplyTerms(gcf, leftover1)
+        const term2 = multiplyTerms(gcf, leftover2)
+        const aufgabe = `${formatTerm(term1)} ${op} ${formatTerm(term2)}`
+
+        const bracket = `${formatTerm(leftover1)} ${op} ${formatTerm(leftover2)}`
+
+        // Every explicit GCF occurrence is colored, consistently, no
+        // exceptions - including the final dot-free factored form.
+        const decomposition = (highlightGCF) => {
+            const g = formatTerm(gcf, highlightGCF)
+            return `${g} · ${formatTerm(leftover1)} ${op} ${g} · ${formatTerm(leftover2)}`
+        }
+        const factoredWithDot = (highlightGCF) => `${formatTerm(gcf, highlightGCF)} · (${bracket})`
+        const factoredNoDot = (highlightGCF) => `${formatTerm(gcf, highlightGCF)}(${bracket})`
+
+        const help = `\\[${decomposition(false)} = ${factoredWithDot(false)}\\]`
+
+        // Mache die Probe: redistribute the factored form back out, to
+        // verify - no coloring here, matching the reference.
+        const explainer = `Welcher Faktor steckt in beiden Teilen der Summe, also in ${formatTerm(term1)} UND in ${formatTerm(term2)}?
+        <br>Es ist die Größe ${inlineTerm(gcf, true)}.
+        <br>Daher \\[${decomposition(true)} = ${factoredWithDot(true)} = ${factoredNoDot(true)}\\]
+        <br>Mache die Probe:
+        <br>\\[${factoredNoDot(false)} = ${decomposition(false)} = ${formatTerm(term1)} ${op} ${formatTerm(term2)}\\]`
+
+        const resultLine = factoredNoDot(false)
+
+        return { aufgabe, help, explainer, resultLine }
+    }
+
+    const built = Math.random() < 0.5 ? buildCase2() : buildCase1()
+
+    return {
+        text: `\\[${built.aufgabe}\\]`,
+        answer: `\\[${built.resultLine}\\]`,
+        help: built.help,
+        explainer: built.explainer,
         headerclass: undefined,
         menu: undefined,
         speak: undefined,
