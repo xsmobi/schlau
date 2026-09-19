@@ -212,14 +212,22 @@ function addsubKlammern() {
     // reference's task-string convention (nobody writes "(+3 - x)"); the
     // Explainer's "Vorzeichen sichtbar machen" step deliberately turns that
     // implicit leading "+" into a visible one, so it's passed false there.
-    // highlightIndex optionally wraps one term's sign in MathJax's
-    // \color{red}{} - used by the Explainer's Reveal step to call out the
-    // newly-visible leading sign.
+    // highlightIndex optionally colors one term's sign red - used by the
+    // Explainer's Reveal step to call out the newly-visible leading sign.
+    //
+    // Coloring uses MathJax's "switch" color form wrapped in an explicit
+    // TeX group - {\color{red}...} - not the two-argument \color{red}{...}.
+    // Verified empirically (MathJax 3.2.2, this app's version): the
+    // two-argument form does NOT reliably end its own scope, so anything
+    // typeset after it keeps inheriting red until the next \color command,
+    // regardless of that command's own closing brace. {\color{red}...}
+    // (switch set inside an explicit group) correctly reverts to the
+    // inherited color as soon as that group's "}" is reached.
     function formatTerms(atoms, signs, suppressLeadingPlus, highlightIndex = -1) {
         return atoms
             .map((atom, i) => {
                 if (i === 0 && suppressLeadingPlus && signs[i] === '+') return atom
-                const signStr = i === highlightIndex ? `\\color{red}{${signs[i]}}` : signs[i]
+                const signStr = i === highlightIndex ? `{\\color{red}${signs[i]}}` : signs[i]
                 return `${signStr} ${atom}`
             })
             .join(' ')
@@ -263,7 +271,12 @@ function addsubKlammern() {
     const aufgabeExpr = `${lead} ${outerSign} (${formatTerms(atoms, signs, true)})`
     const revealExpr = `${lead} ${outerSign} (${formatTerms(atoms, signs, false, 0)})`
     const flipExpr = `${lead} + (${formatTerms(atoms, flipped, false)})`
-    const markExpr = `${lead} \\color{red}{+} (${formatTerms(atoms, flipped, false)}\\color{red}{)}`
+    // Exactly three red tokens: the connector "+", the opening "(", and the
+    // closing ")" - everything inside the brackets stays the inherited
+    // color, unchanged from the previous step. "+" and "(" are one
+    // {\color{red}...} group (see formatTerms above for why the two-arg
+    // \color{red}{...} form can't be used here).
+    const markExpr = `${lead} {\\color{red}+ (}${formatTerms(atoms, flipped, false)}{\\color{red})}`
     const resultExpr = solutionLine
 
     const explainerSteps = [{ label: 'Aufgabe', expr: aufgabeExpr }]
