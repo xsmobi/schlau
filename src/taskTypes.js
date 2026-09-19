@@ -25,7 +25,7 @@ import potenzen from './components/potenzen';
 const taskTypes = [
     { type: "add",      btn: "-a + b",       kbd: "a", txt: "Plus Minus & Zahlenstrahl",             generate: () => add() },
     { type: "addtxt",   btn: "+- EUR",       kbd: "q", txt: "Kontostand, Einzahlung, Auszahlung",    generate: () => addtxt() },
-    { type: "addsub",   btn: "a - (-+b)",    kbd: "b", txt: "Plus Minus & Klammern",                 generate: () => addsub() },
+    { type: "addsub",   btn: "a - (-+b)",    kbd: "b", txt: "Plus Minus & Klammern",                 hasFilter: true, generate: (filter) => addsub(filter) },
     { type: "times",    btn: "1 x EINS",     kbd: "p", txt: "Kleines Einmaleins mit Variationen",    hasFilter: true, generate: (filter) => times(filter) },
     { type: "lin1",     btn: "x + a = b",    kbd: "c", txt: "Plus-Minus-Gleichungen",                 generate: () => lin1() },
     { type: "prop",     btn: "PROP",         kbd: "g", txt: "Proportionalität & Dreisatz",           hasFilter: true, generate: (filter) => prop(filter) },
