@@ -177,29 +177,86 @@ function addsubKlammern() {
         return randInt(6, 7)
     }
 
+    // Two adjacent atoms both being plain numbers (e.g. -14 - 5), or the
+    // same variable repeated (e.g. ab ... ab), lets a student mentally
+    // combine them - defeating the point of practicing bracket/sign rules
+    // rather than arithmetic. Different variables adjacent (x next to y)
+    // are fine.
+    //
+    // Type (numeric vs. variable) and value are decided in two separate
+    // passes because coupling them in one rejection-sampling pass can get
+    // stuck: e.g. for a 3-slot chain [lead, atom0, atom1], if the single
+    // numeric slot that emerges lands in the middle, BOTH remaining slots
+    // are adjacent to it and neither can become numeric without a
+    // violation - there is no valid "just add one more" move, only
+    // "reconsider the pattern" (this was caught by generating 200 samples
+    // and checking the >=2-numeric guard explicitly, not just adjacency).
+    //
+    // buildNumericPattern decides which of the `length` slots (lead +
+    // atoms) are numeric, guaranteeing no two adjacent and at least 2
+    // overall - always possible for length >= 3 (weightedInnerCount's
+    // minimum of 2 inner atoms means length is never less than 3): the
+    // first and last slots are never adjacent to each other, so forcing
+    // those two is always a valid fallback.
+    function buildNumericPattern(length) {
+        const isNumSlot = new Array(length).fill(false)
+        const order = Array.from({ length }, (_, i) => i)
+        for (let i = order.length - 1; i > 0; i--) {
+            const j = randInt(0, i)
+            const tmp = order[i]
+            order[i] = order[j]
+            order[j] = tmp
+        }
+        for (const i of order) {
+            const leftIsNum = i > 0 && isNumSlot[i - 1]
+            const rightIsNum = i < length - 1 && isNumSlot[i + 1]
+            if (!leftIsNum && !rightIsNum && Math.random() < 0.55) {
+                isNumSlot[i] = true
+            }
+        }
+        if (isNumSlot.filter(Boolean).length < 2) {
+            isNumSlot[1] = false
+            isNumSlot[length - 2] = false
+            isNumSlot[0] = true
+            isNumSlot[length - 1] = true
+        }
+        return isNumSlot
+    }
+
+    // Fills in actual values left-to-right: numeric slots get an
+    // independent random int, variable slots reroll only against their
+    // already-filled left neighbor (the right neighbor isn't decided yet -
+    // it will do the same check when its own turn comes), which is enough
+    // to guarantee every adjacent variable-variable pair differs.
+    function fillValues(isNumSlot) {
+        const seq = []
+        for (let i = 0; i < isNumSlot.length; i++) {
+            if (isNumSlot[i]) {
+                seq.push(String(randInt(2, 20)))
+                continue
+            }
+            const leftVar = i > 0 && !isNumSlot[i - 1] ? seq[i - 1] : null
+            let candidate = pick(VARS)
+            let guard = 0
+            while (candidate === leftVar && guard < 30) {
+                candidate = pick(VARS)
+                guard++
+            }
+            seq.push(candidate)
+        }
+        return seq
+    }
+
     function generateTask() {
         const innerCount = weightedInnerCount()
-        const lead = randomAtom()
+        const length = innerCount + 1 // lead + inner atoms, as one chain
+
+        const isNumSlot = buildNumericPattern(length)
+        const seq = fillValues(isNumSlot)
+
+        const [lead, ...atoms] = seq
+        const signs = atoms.map(() => randomSign())
         const outerSign = Math.random() < 0.78 ? '-' : '+'
-
-        const atoms = []
-        const signs = []
-        for (let i = 0; i < innerCount; i++) {
-            atoms.push(randomAtom())
-            signs.push(randomSign())
-        }
-
-        // Numeric-atom guard: ensure at least 2 numeric atoms per task.
-        let numCount = (isNum(lead) ? 1 : 0) + atoms.filter(isNum).length
-        let guard = 0
-        while (numCount < 2 && guard < 30) {
-            const idx = randInt(0, atoms.length - 1)
-            if (!isNum(atoms[idx])) {
-                atoms[idx] = String(randInt(2, 20))
-                numCount++
-            }
-            guard++
-        }
 
         return { lead, outerSign, atoms, signs }
     }
@@ -252,10 +309,13 @@ function addsubKlammern() {
     const step2 = `${lead} + (${formatTerms(atoms, flipped, false)})`
     const step3 = solutionLine
 
-    // Help: same three steps, bare (no labels).
-    const help = `\\[${step1}\\]
-    <br>\\[${step2}\\]
-    <br>\\[${step3}\\]`
+    // Help: same three steps, bare (no labels). step1 and step2 are
+    // textually identical whenever no flip was needed (outer sign already
+    // "+", so flipped === signs) - showing that line twice tells the
+    // student nothing, so collapse a step that repeats the immediately
+    // preceding one.
+    const helpSteps = [step1, step2, step3].filter((step, i, arr) => i === 0 || step !== arr[i - 1])
+    const help = helpSteps.map((step) => `\\[${step}\\]`).join('\n    <br>')
 
     // Explainer: 5-step sequence. Reveal and Sign-flip are each
     // independently conditional (0, 1, or both may apply, depending on the
