@@ -23,12 +23,31 @@
 // Option 4 (addsub4) = "Binomische Formeln": randomly one of three cases
 // ((a+b)^2, (a-b)^2, (a+b)(a-b)), each its own generator, per a reference
 // spec with worked examples per case.
+//
+// Option 5 (addsub5) = "Klammern multiplizieren": randomly one of two cases,
+// per a reference spec (worked example table) with four Case-1 examples and
+// three Case-2 examples.
+// Case 1: all-positive (X1+X2)(X3+X4), each Xi independently a positive
+// integer or single variable. FOIL's four raw products are grouped by
+// variable signature (not by which pair produced them) to combine like
+// terms - but only in the final Ergebnis; the Explainer's own "Summe der
+// Gruppen" step shows the raw, uncombined sum, matching the reference's
+// (a+3)(a+4) example where that step still reads "a^2 + 4a + 3a + 12" and
+// only Ergebnis shows "a^2 + 7a + 12".
+// Case 2: (X1 s1 X2)(X3 s2 X4) for the three non-all-positive sign
+// combinations (+,-)/(-,+)/(-,-). X1/X3 (each bracket's leading term) are
+// always effectively positive; s1 governs X2's sign, s2 governs X4's sign.
+// Cross-term signs: X1X3 always '+', X1X4 = s2, X2X3 = s1, X2X4 = s1*s2 -
+// only the (-,-) combo ever multiplies two actually-negative terms together
+// (s1*s2 = (-1)*(-1)), which is why only that combo's sign-rule sentence
+// needs the third "minus mal minus gibt plus" clause.
 function addsub(filter) {
     const menu = [
         { nr: 1, title: "Vorzeichen bei einer Klammer", description: "" },
         { nr: 2, title: "Klammern auflösen", description: "" },
         { nr: 3, title: "Distributivgesetz", description: "" },
         { nr: 4, title: "Binomische Formeln", description: "" },
+        { nr: 5, title: "Klammern multiplizieren", description: "" },
     ];
 
     // filter arrives as a 0-based index (see CreateTask.js: filter = subtype - 1).
@@ -36,10 +55,10 @@ function addsub(filter) {
     // array position, so a future reordering/edit of `menu` above can't
     // silently desync option numbers from generator branches (see the
     // nr-vs-index drift already present in prop.js/prozent.js/potenzen.js).
-    const nr = typeof filter === 'number' ? filter + 1 : getRandomInt(4);
+    const nr = typeof filter === 'number' ? filter + 1 : getRandomInt(5);
 
     const result =
-        nr === 4 ? addsubBinomisch() : nr === 3 ? addsubDistributiv() : nr === 2 ? addsubKlammern() : addsubClassic();
+        nr === 5 ? addsubMultiplizieren() : nr === 4 ? addsubBinomisch() : nr === 3 ? addsubDistributiv() : nr === 2 ? addsubKlammern() : addsubClassic();
 
     return {
         ...result,
@@ -776,6 +795,238 @@ function addsubBinomisch() {
     const caseChoice = pick(['case1', 'case2', 'case3'])
     const built =
         caseChoice === 'case1' ? buildCase1(a, b) : caseChoice === 'case2' ? buildCase2(a, b) : buildCase3(a, b)
+
+    return {
+        text: `\\[${built.aufgabe}\\]`,
+        answer: `\\[${built.resultLine}\\]`,
+        help: built.help,
+        explainer: built.explainer,
+        headerclass: undefined,
+        menu: undefined,
+        speak: undefined,
+        speakhelp: undefined,
+        speakexplainer: undefined,
+        tutor: undefined
+    }
+}
+
+// Option 5: "Klammern multiplizieren". Picks Case 1 (all-positive) or Case 2
+// (mixed/negative signs) with equal probability. See the header comment
+// block above for the sign-algebra and combine-like-terms rules this
+// implements.
+function addsubMultiplizieren() {
+    const VARS = ['a', 'b', 'c', 'x', 'y']
+
+    function randInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+    function pick(arr) {
+        return arr[randInt(0, arr.length - 1)]
+    }
+    function randomVar() {
+        return pick(VARS)
+    }
+
+    // Same {coef, vars} term shape as addsubDistributiv/addsubBinomisch
+    // (kept local/self-contained per this file's established per-option
+    // convention).
+    function term(coef, vars) {
+        return { coef, vars: vars || [] }
+    }
+    function multiplyTerms(t1, t2) {
+        return term(t1.coef * t2.coef, [...t1.vars, ...t2.vars])
+    }
+    // Power-notation rule: same variable twice -> var^2, never "aa". color
+    // (when given) uses the {\color{...}...} switch-form-in-a-group MathJax
+    // needs to actually scope the color (see addsubKlammern's formatTerms
+    // for why the two-argument \color{red}{...} form can't be used) - two
+    // colors are needed here (X1 red, X2 blue), unlike the other options'
+    // single-color boolean flag.
+    function formatTerm(t, color) {
+        const counts = {}
+        for (const v of t.vars) counts[v] = (counts[v] || 0) + 1
+        const varStr = Object.keys(counts)
+            .sort()
+            .map((v) => (counts[v] === 1 ? v : `${v}^${counts[v]}`))
+            .join('')
+        let str
+        if (varStr === '') str = String(t.coef)
+        else if (t.coef === 1) str = varStr
+        else str = `${t.coef}${varStr}`
+        return color ? `{\\color{${color}}${str}}` : str
+    }
+    function randomSimpleTerm() {
+        return Math.random() < 0.5 ? term(randInt(2, 9), []) : term(1, [randomVar()])
+    }
+    function sameTerm(t1, t2) {
+        return t1.coef === t2.coef && (t1.vars[0] || null) === (t2.vars[0] || null)
+    }
+
+    // Canonical signature for grouping like terms, independent of which pair
+    // of slots produced the term (e.g. X1*X4 and X2*X3 can land in the same
+    // group).
+    function signature(t) {
+        const counts = {}
+        for (const v of t.vars) counts[v] = (counts[v] || 0) + 1
+        return Object.keys(counts).sort().map((v) => `${v}${counts[v]}`).join('')
+    }
+
+    // Combines a signed, ordered sequence of raw product terms into like-term
+    // groups, each kept at the position of its first occurrence - NOT
+    // resorted by degree. Verified against the reference: (a+3)(a+4)'s raw
+    // sequence a^2, 4a, 3a, 12 combines the two single-'a' entries in place,
+    // giving a^2 + 7a + 12 - the same left-to-right shape as the raw
+    // sequence, not a degree-sorted rearrangement.
+    function combineLikeTerms(signedTerms) {
+        const order = []
+        const bySignature = {}
+        for (const { sign, t } of signedTerms) {
+            const sig = signature(t)
+            if (!(sig in bySignature)) {
+                bySignature[sig] = { coef: 0, vars: t.vars }
+                order.push(sig)
+            }
+            bySignature[sig].coef += sign * t.coef
+        }
+        return order.map((sig) => bySignature[sig]).filter((t) => t.coef !== 0)
+    }
+
+    // Formats a sequence of signed terms as a sum string: first term
+    // unsigned (always positive here - X1*X3's sign is always '+', and it's
+    // always the first entry), each later term with an explicit ' + '/' - '
+    // and its absolute value.
+    function formatSignedSum(terms) {
+        return terms
+            .map((t, i) => {
+                const sign = t.coef < 0 ? '-' : '+'
+                const abs = formatTerm(term(Math.abs(t.coef), t.vars))
+                return i === 0 ? abs : `${sign} ${abs}`
+            })
+            .join(' ')
+    }
+
+    // X1/X2 (bracket 1) and X3/X4 (bracket 2), shared by both cases: reroll
+    // while degenerate - X1===X2 or X3===X4 (a pre-simplifiable bracket like
+    // "(a+a)"), or all four slots numeric (no algebraic content at all).
+    function randomSlots() {
+        let X1, X2, X3, X4
+        let guard = 0
+        do {
+            X1 = randomSimpleTerm()
+            X2 = randomSimpleTerm()
+            X3 = randomSimpleTerm()
+            X4 = randomSimpleTerm()
+            guard++
+        } while (
+            (sameTerm(X1, X2) ||
+                sameTerm(X3, X4) ||
+                (X1.vars.length === 0 && X2.vars.length === 0 && X3.vars.length === 0 && X4.vars.length === 0)) &&
+            guard < 30
+        )
+        return [X1, X2, X3, X4]
+    }
+
+    // ---- Case 1: all-positive (X1+X2)(X3+X4) ----
+    function buildCase1() {
+        const [X1, X2, X3, X4] = randomSlots()
+        const bracket2 = `${formatTerm(X3)} + ${formatTerm(X4)}`
+        const bracket1 = `${formatTerm(X1)} + ${formatTerm(X2)}`
+
+        const aufgabe = `(${bracket1})(${bracket2})`
+
+        const distributed = (c1, c2) =>
+            `${formatTerm(X1, c1)} · (${bracket2}) + ${formatTerm(X2, c2)} · (${bracket2})`
+
+        const help = [`\\[(${bracket1}) · (${bracket2}) =\\]`, `\\[${distributed()}\\]`].join('\n    <br>')
+
+        const p13 = multiplyTerms(X1, X3)
+        const p14 = multiplyTerms(X1, X4)
+        const p23 = multiplyTerms(X2, X3)
+        const p24 = multiplyTerms(X2, X4)
+        const group1Line = `${formatTerm(X1, 'red')} · (${bracket2}) = ${formatTerm(p13)} + ${formatTerm(p14)}`
+        const group2Line = `${formatTerm(X2, 'blue')} · (${bracket2}) = ${formatTerm(p23)} + ${formatTerm(p24)}`
+        const rawSumLine = `${formatTerm(p13)} + ${formatTerm(p14)} + ${formatTerm(p23)} + ${formatTerm(p24)}`
+
+        const explainer = [
+            `1. Betrachte (${bracket2}) als eine Einheit:`,
+            `\\[(${bracket1}) · (${bracket2}) =\\]`,
+            `\\[${distributed('red', 'blue')}\\]`,
+            `2. Multipliziere jetzt beide Gruppen aus:`,
+            `\\[${group1Line}\\]`,
+            `\\[${group2Line}\\]`,
+            `3. Die Summe der Gruppen ist:`,
+            `\\[${rawSumLine}\\]`,
+        ].join('\n    <br>')
+
+        const combined = combineLikeTerms([
+            { sign: 1, t: p13 },
+            { sign: 1, t: p14 },
+            { sign: 1, t: p23 },
+            { sign: 1, t: p24 },
+        ])
+        const resultLine = formatSignedSum(combined)
+
+        return { aufgabe, help, explainer, resultLine }
+    }
+
+    // ---- Case 2: (X1 s1 X2)(X3 s2 X4), (s1,s2) in {(+,-),(-,+),(-,-)} ----
+    function buildCase2() {
+        const combo = pick(['pm', 'mp', 'mm'])
+        const s1 = combo === 'mp' || combo === 'mm' ? -1 : 1
+        const s2 = combo === 'pm' || combo === 'mm' ? -1 : 1
+
+        const [X1, X2, X3, X4] = randomSlots()
+        const bracket1 = `${formatTerm(X1)} ${s1 === 1 ? '+' : '-'} ${formatTerm(X2)}`
+        const bracket2 = `${formatTerm(X3)} ${s2 === 1 ? '+' : '-'} ${formatTerm(X4)}`
+
+        const aufgabe = `(${bracket1})(${bracket2})`
+
+        const p13 = multiplyTerms(X1, X3)
+        const p14 = multiplyTerms(X1, X4)
+        const p23 = multiplyTerms(X2, X3)
+        const p24 = multiplyTerms(X2, X4)
+        // Raw (un-multiplied) FOIL pairs, e.g. "a · 4" not "4a" - matches
+        // the reference, which stays at this literal-factors stage through
+        // both Help and Explainer; only Ergebnis actually computes/combines.
+        const rawPairs = [
+            { sign: 1, factors: [X1, X3] },
+            { sign: s2, factors: [X1, X4] },
+            { sign: s1, factors: [X2, X3] },
+            { sign: s1 * s2, factors: [X2, X4] },
+        ]
+        const expansionLine = rawPairs
+            .map(({ sign, factors }, i) => {
+                const raw = `${formatTerm(factors[0])} · ${formatTerm(factors[1])}`
+                return i === 0 ? raw : `${sign < 0 ? '-' : '+'} ${raw}`
+            })
+            .join(' ')
+
+        const help = [`\\[(${bracket1}) · (${bracket2}) =\\]`, `\\[= ${expansionLine}\\]`].join('\n    <br>')
+
+        const ruleSentence =
+            combo === 'mm'
+                ? 'Beim Multiplizieren: plus mal plus gibt plus, plus mal minus gibt minus und minus mal minus gibt plus.'
+                : 'Beim Multiplizieren: plus mal plus gibt plus, plus mal minus gibt minus.'
+
+        const explainer = [
+            `\\[(${bracket1}) · (${bracket2})\\]`,
+            `Jeder Term der ersten Klammer wird mit jedem Term der zweiten Klammer multipliziert.`,
+            `\\[= ${expansionLine}\\]`,
+            ruleSentence,
+        ].join('\n    <br>')
+
+        const combined = combineLikeTerms([
+            { sign: 1, t: p13 },
+            { sign: s2, t: p14 },
+            { sign: s1, t: p23 },
+            { sign: s1 * s2, t: p24 },
+        ])
+        const resultLine = formatSignedSum(combined)
+
+        return { aufgabe, help, explainer, resultLine }
+    }
+
+    const built = Math.random() < 0.5 ? buildCase1() : buildCase2()
 
     return {
         text: `\\[${built.aufgabe}\\]`,
