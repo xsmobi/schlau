@@ -158,7 +158,7 @@ Google OAuth secrets would live in the Supabase dashboard (**UNVERIFIED**).
   It is now built in `src/components/Leaderboard.js`. The comment is stale.
 - **Privacy text vs. code:** `/datenschutz` says "keine Tracking-Tools Dritter", but
   `app/layout.js` loads Matomo Tag Manager on every page. It also doesn't mention Google
-  as an OAuth processor in the hosting section, or Vercel/Netlify hosting.
+  as an OAuth processor in the hosting section, or Vercel hosting.
 - **Admin role is half-supported:** `/class` and `/leaderboard` check `role === 'teacher'` only.
   An admin is treated like a student there and can't see the create-class UI, although
   `create_class` allows admins.

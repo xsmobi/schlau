@@ -5,18 +5,14 @@ Next.js (App Router) + Tailwind CSS, Supabase for auth and data. Task
 generation is still entirely client-side. Full details: ARCHITECTURE.md.
 
 ## Branching / deploy safety
-- `master` = production, auto-deployed to Netlify on push. NEVER commit or
-  push directly to master. Netlify remains the deploy target for `master`
-  only, untouched throughout this migration.
-- All work happens on feature branches (currently: dev/nextjs-migration).
-- The project also deploys to Vercel: pushes to `dev/nextjs-migration` get
-  an auto-updating preview URL. Vercel's "Production Branch" setting points
-  at `main`. As of 2026-08-15, `main` was force-updated to match `master`
-  (previously it was an empty placeholder stuck at its initial commit, so
-  Vercel's production deploy was never actually live). `main` and `master`
-  now both track the same migration content and should be kept in sync
-  together going forward — updating one without the other will cause
-  Netlify (master) and Vercel (main) to diverge.
+- `main` = Vercel production branch. NEVER commit directly to main; all
+  work happens on feature branches.
+- `master` = legacy branch from the Netlify setup, kept in sync with
+  `main`. Always push both, then verify with
+  `git ls-remote origin main master` that both point to the same commit.
+- Netlify is retired: its old webhook still fires on pushes to `master` but
+  deploys nothing.
+- Feature branches get a Vercel preview URL on every push.
 - Before starting work in a new session, confirm current branch.
 
 ## Current architecture (short — see ARCHITECTURE.md for details)

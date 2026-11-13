@@ -33,7 +33,10 @@ Database schema lives in `supabase/migrations/` and is applied to the
 Supabase project by hand, in numeric order.
 
 ## Branches and deploys
-- `main` is production, deployed by Vercel.
-- `master` is kept in sync with `main`. A legacy Netlify webhook still
-  fires on pushes to `master` but deploys nothing.
-- Work happens on feature branches; Vercel builds a preview for each.
+- `main` is the Vercel production branch. Never commit to it directly.
+- `master` is a legacy branch from the Netlify setup, kept in sync with
+  `main`. Always push both, then verify with
+  `git ls-remote origin main master` that both point to the same commit.
+- Netlify is retired: its old webhook still fires on pushes to `master` but
+  deploys nothing.
+- Work happens on feature branches; each gets a Vercel preview URL.
