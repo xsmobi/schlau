@@ -6,14 +6,10 @@ generation is still entirely client-side. Full details: ARCHITECTURE.md (local f
 committed to the public repo).
 
 ## Branching / deploy safety
-- `main` = Vercel production branch. NEVER commit directly to main; all
-  work happens on feature branches.
-- `master` = legacy branch from the Netlify setup, kept in sync with
-  `main`. Always push both, then verify with
-  `git ls-remote origin main master` that both point to the same commit.
-- Netlify is retired: its old webhook still fires on pushes to `master` but
-  deploys nothing.
-- Feature branches get a Vercel preview URL on every push.
+- `main` is the only production branch (Vercel deploys from it; it is the
+  GitHub default). NEVER commit directly to main.
+- All work happens on feature branches. Each push gets a Vercel preview
+  URL. Changes reach main only via a squash-merged PR.
 - Before starting work in a new session, confirm current branch.
 
 ## Current architecture (short — see ARCHITECTURE.md (local file, not committed to the public repo) for details)
