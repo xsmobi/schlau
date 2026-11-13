@@ -9,6 +9,9 @@
 /.next
 /out
 
+# MathJax build copied from node_modules by scripts/copy-mathjax.mjs
+/public/mathjax
+
 # misc
 .DS_Store
 .env.local

@@ -189,7 +189,7 @@ return (
             <div className="flex w-full flex-wrap items-center justify-between px-3 bg-red-white">
                   <div>
                       <a href="https://schlau.app" className="my-1 mr-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 lg:mb-0 lg:mt-0">
-                        <img className="mr-2 h-12 w-12 rounded-md" src="https://mathbydoing.app/apple-touch-icon.png" alt="schlau.app Logo" loading="lazy" />
+                        <img className="mr-2 h-12 w-12 rounded-md" src="/apple-touch-icon.png" alt="schlau.app Logo" loading="lazy" />
                         <span className={style.heading} translate="no">schlau.app</span>
                       </a>
                   </div>

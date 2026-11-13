@@ -5,6 +5,9 @@ import TextToSpeech from './TextToSpeech';
 import Rectangle from "./components/Rectangle";
 import NumberLineAddition from "./components/NumberLineAddition"
 import { HiSpeakerWave } from "react-icons/hi2";
+// Self-hosted MathJax 3.2.2 (same build better-react-mathjax loads from cdnjs
+// by default), copied into public/mathjax by scripts/copy-mathjax.mjs.
+const MATHJAX_SRC = "/mathjax/tex-mml-chtml.js";
 const style={
     taskheader:`text-center prose prose-lg`,
     tasktext: `prose prose-sm`,
@@ -105,7 +108,7 @@ const handleStop = () => {
 
     
     return (
-    <MathJaxContext>
+    <MathJaxContext src={MATHJAX_SRC}>
     <div className="Task">
 
         <h3 className={headerClassName || style.taskheader}><MathJax inline dynamic><span  dangerouslySetInnerHTML={{ __html: text }} /></MathJax></h3>
