@@ -13,9 +13,6 @@ code) create classes and manage their roster.
 - Task generation runs entirely in the browser (`src/components/*.js`,
   registered in `src/taskTypes.js`)
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for routes, database, auth flow and
-data logging.
-
 ## Run locally
 Requires Node.js 20.9 or newer.
 

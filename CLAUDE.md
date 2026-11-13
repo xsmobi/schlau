@@ -2,7 +2,8 @@
 
 German-language math practice web app ("Mathe by Doing") for grades 7–10.
 Next.js (App Router) + Tailwind CSS, Supabase for auth and data. Task
-generation is still entirely client-side. Full details: ARCHITECTURE.md.
+generation is still entirely client-side. Full details: ARCHITECTURE.md (local file, not
+committed to the public repo).
 
 ## Branching / deploy safety
 - `main` = Vercel production branch. NEVER commit directly to main; all
@@ -15,7 +16,7 @@ generation is still entirely client-side. Full details: ARCHITECTURE.md.
 - Feature branches get a Vercel preview URL on every push.
 - Before starting work in a new session, confirm current branch.
 
-## Current architecture (short — see ARCHITECTURE.md for details)
+## Current architecture (short — see ARCHITECTURE.md (local file, not committed to the public repo) for details)
 - Routes (app/): `/`, `/[type]`, `/[type]/[subtype]` render the practice
   app; `/badges`, `/join`, `/leaderboard`, `/class`, `/class/members`,
   `/redeem` are signed-in pages; `/auth/callback`, `/auth/confirm`,
