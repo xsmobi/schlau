@@ -60,7 +60,7 @@ function Task({ task, showHelp, showResult, showExplainer }) {
     //console.log(aa, bb)
 
     let menu_display = menu === "undefined" ? "" : menu
-    menu_display = "" // klappte, aber jetzt neu über component TaskMenu
+    menu_display = "" // sub-topic menu is rendered by App.js (submenu dropdown), not here
 
     const sanitizedExplainer = DOMPurify.sanitize(explainer);
 
