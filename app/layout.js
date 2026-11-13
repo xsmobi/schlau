@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import '../src/index.css';
 import { createClient } from '../src/lib/supabase/server';
 import AuthControls from '../src/components/AuthControls';
@@ -88,14 +87,6 @@ export default async function RootLayout({ children }) {
         {/* Bottom padding clears the fixed mobile tab bar (signed-in only,
             hidden from md up) so it doesn't cover page content. */}
         <div className={user ? 'pb-16 md:pb-0' : undefined}>{children}</div>
-        <Script id="matomo-tag-manager" strategy="afterInteractive">
-          {`
-            var _mtm = window._mtm = window._mtm || [];
-            _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.async=true; g.src='https://cdn.matomo.cloud/schlau.matomo.cloud/container_b0yLXaLv.js'; s.parentNode.insertBefore(g,s);
-          `}
-        </Script>
       </body>
     </html>
   );
