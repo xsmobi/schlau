@@ -1,58 +1,70 @@
 # schlau.app
 
 German-language math practice web app ("Mathe by Doing") for grades 7–10.
-Currently Create React App + Tailwind CSS, no backend — task generation is
-entirely client-side.
+Next.js (App Router) + Tailwind CSS, Supabase for auth and data. Task
+generation is still entirely client-side. Full details: ARCHITECTURE.md (local file, not
+committed to the public repo).
 
 ## Branching / deploy safety
-- `master` = production, auto-deployed to Netlify on push. NEVER commit or
-  push directly to master. Netlify remains the deploy target for `master`
-  only, untouched throughout this migration.
-- All work happens on feature branches (currently: dev/nextjs-migration).
-- The project also deploys to Vercel: pushes to `dev/nextjs-migration` get
-  an auto-updating preview URL. Vercel's "Production Branch" setting points
-  at `main`. As of 2026-08-15, `main` was force-updated to match `master`
-  (previously it was an empty placeholder stuck at its initial commit, so
-  Vercel's production deploy was never actually live). `main` and `master`
-  now both track the same migration content and should be kept in sync
-  together going forward — updating one without the other will cause
-  Netlify (master) and Vercel (main) to diverge.
+- `main` = Vercel production branch. NEVER commit directly to main; all
+  work happens on feature branches.
+- `master` = legacy branch from the Netlify setup, kept in sync with
+  `main`. Always push both, then verify with
+  `git ls-remote origin main master` that both point to the same commit.
+- Netlify is retired: its old webhook still fires on pushes to `master` but
+  deploys nothing.
+- Feature branches get a Vercel preview URL on every push.
 - Before starting work in a new session, confirm current branch.
 
-## Current architecture (as of this migration's start)
-- src/App.js: single component holding a hardcoded `types` array (task
-  types), selectedType state, and inline submenu/filter logic.
-- src/components/_templates.js: flat list of template objects, `type` field
-  used as dispatch key.
-- src/CreateTask.js: switch(type) dispatching to generator functions in
-  src/components/*.js (add.js, lin1.js, prop.js, quad.js, potenzen.js, etc.)
-- Generators return POSITIONAL arrays:
-  [aufgabe, lösung, help, explainer, headerclass, menu, speak, speakhelp,
-  speakexplainer, tutor]
-  — fragile, planned to convert to named objects.
-- src/Task.js: renders task (MathJax via better-react-mathjax, sanitized
-  HTML via dompurify, magic-marker visual aids in help strings).
-- src/FilterContext.js and src/TaskMenu.js: DEAD CODE, not wired into App.
-  Do not assume these are active; do not build on them without an explicit
-  decision to revive them first.
-- Navigation: no router in active use (react-router-dom is installed but
-  unused). Current "navigation" = button clicks + a single `?atype=`
-  query param written via window.history.pushState.
-- hasFilter task types (times, prop, prozent, quad, potenzen) have a
-  sub-topic dropdown; generator's return[5] supplies the dropdown options.
+## Current architecture (short — see ARCHITECTURE.md (local file, not committed to the public repo) for details)
+- Routes (app/): `/`, `/[type]`, `/[type]/[subtype]` render the practice
+  app; `/badges`, `/join`, `/leaderboard`, `/class`, `/class/members`,
+  `/redeem` are signed-in pages; `/auth/callback`, `/auth/confirm`,
+  `/auth/auth-code-error` handle sign-in; `/impressum`, `/datenschutz`.
+- src/App.js: practice UI, loaded client-only via app/AppClient.js.
+  src/Task.js renders a task (MathJax via better-react-mathjax, sanitized
+  HTML via dompurify, visual aids in help strings).
+- src/taskTypes.js: task-type registry (single source of truth). Each entry
+  has UI metadata plus `generate()`; generators in src/components/*.js
+  return named objects ({text, answer, help, explainer, menu, ...}).
+  src/CreateTask.js looks types up in the registry.
+- hasFilter types (addsub, times, prop, prozent, potenzen) have sub-topics;
+  the generator's `menu` supplies them and they map to `/[type]/[subtype]`.
+- Auth: Supabase via @supabase/ssr (src/lib/supabase/*, session refresh in
+  proxy.js). Email one-time code or Google OAuth, UI in
+  src/components/AuthControls.js. No passwords.
+- Roles in `profiles.role`: student (default), teacher (via invite code
+  RPC `redeem_teacher_code`), admin (SQL only). Clients can't write `role`
+  or `class_id` directly (triggers); all such changes go through security
+  definer RPCs.
+- Data: supabase/migrations/0001–0019 (profiles, daily_progress, classes,
+  teacher_invite_codes, code_redemptions, daily_pseudonyms). Progress is
+  daily per-category counters, batched by src/lib/rewards/accumulator.js
+  into `increment_daily_progress`. Leaderboard is pseudonymous and live
+  via Realtime Broadcast on `leaderboard:{class_id}`.
+- Env vars: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY.
+- FilterContext/TaskMenu and _templates.js no longer exist; react-router-dom
+  and the `?atype=` query param are gone.
 
 ## Migration plan (in order — do not skip ahead)
-1. Refactor generator return values from positional arrays to named objects
-   ({text, answer, help, explainer, headerclass, menu, speak, speakhelp,
-   speakexplainer, tutor}). Must be behavior-preserving — no visible change
-   to the app.
-2. Introduce a lightweight task-type registry so adding a new type requires
-   editing/adding one file, not three separate locations.
-3. Migrate to Next.js (App Router), replacing the query-param navigation
-   hack with real routes. Decide fate of FilterContext/TaskMenu as part of
-   this, don't carry the dead code forward silently.
-4. Add auth (social login only, no password reset flow).
-5. Add backend/database for points, rewards, streaks, leaderboards.
+1. DONE. Refactor generator return values from positional arrays to named
+   objects ({text, answer, help, explainer, headerclass, menu, speak,
+   speakhelp, speakexplainer, tutor}). Must be behavior-preserving — no
+   visible change to the app.
+2. DONE. Introduce a lightweight task-type registry so adding a new type
+   requires editing/adding one file, not three separate locations
+   (src/taskTypes.js).
+3. DONE. Migrate to Next.js (App Router), replacing the query-param
+   navigation hack with real routes. FilterContext/TaskMenu were removed.
+4. DONE. Add auth: Google OAuth plus email one-time code (Supabase), no
+   passwords and therefore no password reset flow.
+5. MOSTLY BUILT. Add backend/database for points, rewards, streaks,
+   leaderboards. Built: daily per-category progress counters, badge tiers
+   (/badges), classes with join codes, teacher invite codes, pseudonymous
+   live class leaderboard (day/week). Still missing:
+   - Streaks: nothing computes or shows consecutive active days.
+   - Points: there is no separate points score; "points" are the raw
+     daily_progress counts behind badges and the leaderboard.
 
 ## Working style
 - Prefer small, reviewable, behavior-preserving steps over large rewrites.

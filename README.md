@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# schlau.app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+German-language math practice web app ("Mathe by Doing") for grades 7–10.
+Students get randomly generated tasks with help, solution and step-by-step
+explainer. Signed-in students collect badges, join a class with a 6-digit
+code and appear pseudonymously on a class leaderboard. Teachers (via invite
+code) create classes and manage their roster.
 
-## Available Scripts
+## Stack
+- Next.js 16 (App Router), React 18, Tailwind CSS 3
+- Supabase: Postgres, Auth (email one-time code, Google OAuth), Realtime
+- MathJax via `better-react-mathjax`, sanitized HTML via `dompurify`
+- Task generation runs entirely in the browser (`src/components/*.js`,
+  registered in `src/taskTypes.js`)
 
-In the project directory, you can run:
+## Run locally
+Requires Node.js 20.9 or newer.
 
-### `npm start`
+1. `npm install`
+2. Create `.env.local` with:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+   ```
+3. `npm run dev`, then open http://localhost:3000
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Other scripts: `npm run build`, `npm run lint`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Database schema lives in `supabase/migrations/` and is applied to the
+Supabase project by hand, in numeric order.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Branches and deploys
+- `main` is the Vercel production branch. Never commit to it directly.
+- `master` is a legacy branch from the Netlify setup, kept in sync with
+  `main`. Always push both, then verify with
+  `git ls-remote origin main master` that both point to the same commit.
+- Netlify is retired: its old webhook still fires on pushes to `master` but
+  deploys nothing.
+- Work happens on feature branches; each gets a Vercel preview URL.

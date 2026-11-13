@@ -38,7 +38,6 @@ export default async function RootLayout({ children }) {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <link rel="apple-touch-icon" href="/icons_/icon192.png" />
         <meta name="theme-color" content="#317EFB" />
@@ -84,7 +83,7 @@ export default async function RootLayout({ children }) {
         />
       </head>
       <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <noscript>Bitte aktiviere JavaScript in deinem Browser, um schlau.app zu nutzen.</noscript>
         <AuthControls initialUser={user} initialRole={role} initialHasClass={hasClass} />
         {/* Bottom padding clears the fixed mobile tab bar (signed-in only,
             hidden from md up) so it doesn't cover page content. */}
