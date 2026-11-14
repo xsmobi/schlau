@@ -33,11 +33,17 @@ committed to the public repo).
   RPC `redeem_teacher_code`), admin (SQL only). Clients can't write `role`
   or `class_id` directly (triggers); all such changes go through security
   definer RPCs.
-- Data: supabase/migrations/0001–0019 (profiles, daily_progress, classes,
+- Data: supabase/migrations/0001–0020 (profiles, daily_progress, classes,
   teacher_invite_codes, code_redemptions, daily_pseudonyms). Progress is
   daily per-category counters, batched by src/lib/rewards/accumulator.js
-  into `increment_daily_progress`. Leaderboard is pseudonymous and live
-  via Realtime Broadcast on `leaderboard:{class_id}`.
+  into `increment_daily_progress`. "Day" is the Europe/Berlin date from
+  `berlin_today()`, computed on the server (the client's p_date is
+  ignored). Leaderboard is pseudonymous and live via Realtime Broadcast
+  on `leaderboard:{class_id}`.
+- supabase/rollbacks/ holds rollback scripts for individual migrations
+  (e.g. 0020_berlin_day_rollback.sql). Migrations are applied by hand in
+  numeric order; NEVER run anything from supabase/rollbacks/ as part of
+  that sequence — only deliberately, to undo that one migration.
 - Env vars: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY.
 - FilterContext/TaskMenu and _templates.js no longer exist; react-router-dom
   and the `?atype=` query param are gone.
