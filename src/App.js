@@ -81,6 +81,12 @@ function App({ type, subtype }) {
   const plusRewardTimeoutRef = useRef(null);
   const resultRewardTimeoutRef = useRef(null);
 
+  // Help/explainer are counted at most once per task, and only on open -
+  // reopening or closing the panel never counts again. Reset whenever a new
+  // task is loaded (getRandomTask).
+  const helpCountedRef = useRef(false);
+  const explainerCountedRef = useRef(false);
+
   const startCooldown = (setFlag, timeoutRef, durationMs) => {
     setFlag(true);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -111,6 +117,8 @@ function App({ type, subtype }) {
     setShowHelp(false);
     setShowResult(false);
     setShowExplainer(false);
+    helpCountedRef.current = false;
+    explainerCountedRef.current = false;
     handleStop1();
 };
 //console.log(submenu)
@@ -153,7 +161,10 @@ if (showHelp) {
 setShowHelp(!showHelp);
 setShowResult(false);
 setShowExplainer(false);
-recordHelp();
+if (!showHelp && !helpCountedRef.current) {
+  helpCountedRef.current = true;
+  recordHelp();
+}
 };
 
 const toggleShowResult = () => {
@@ -174,7 +185,10 @@ if (showExplainer) {
 setShowExplainer(!showExplainer);
 setShowHelp(false);
 setShowResult(false);
-recordExplainer();
+if (!showExplainer && !explainerCountedRef.current) {
+  explainerCountedRef.current = true;
+  recordExplainer();
+}
 };
 
 
