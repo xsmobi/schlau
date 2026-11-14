@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { createClient } from '../../src/lib/supabase/server';
 import JoinCodeCard from '../../src/components/JoinCodeCard';
 import CreateClassForm from '../../src/components/CreateClassForm';
+import { hasTeacherView } from '../../src/lib/roles';
 
 const style = {
   bg: `min-h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -38,7 +39,7 @@ export default async function ClassPage({ searchParams }) {
       .order('created_at'),
     supabase.from('profiles').select('role').eq('id', user.id).single(),
   ]);
-  const isTeacher = profile?.role === 'teacher';
+  const isTeacher = hasTeacherView(profile?.role);
   const hasClasses = !!classes && classes.length > 0;
   const { welcome } = await searchParams;
 
