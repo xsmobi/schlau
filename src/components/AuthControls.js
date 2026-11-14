@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AiOutlineBarChart, AiOutlineHome, AiOutlineTeam, AiOutlineTrophy, AiOutlineUser } from 'react-icons/ai';
 import { LuKey } from 'react-icons/lu';
 import { createClient } from '../lib/supabase/client';
+import { hasTeacherView } from '../lib/roles';
 import MobileTabBar from './MobileTabBar';
 
 // Google's official multicolor "G" mark - sign-in buttons are required to
@@ -64,7 +65,7 @@ const RESEND_COOLDOWN_MS = 30000;
 // specific class's leaderboard from that class's card on /class instead.
 function buildNavItems(role, hasClass) {
   const items = [{ href: '/badges', label: 'My Badges', icon: AiOutlineTrophy }];
-  if (role === 'teacher') {
+  if (hasTeacherView(role)) {
     items.push({ href: '/class', label: 'My Class', icon: AiOutlineTeam });
   } else {
     items.push({ href: '/join', label: hasClass ? 'Change Class' : 'Join Class', icon: AiOutlineTeam });

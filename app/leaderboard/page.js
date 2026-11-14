@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { createClient } from '../../src/lib/supabase/server';
 import Leaderboard from '../../src/components/Leaderboard';
+import { hasTeacherView } from '../../src/lib/roles';
 
 const style = {
   bg: `min-h-screen w-screen p-4 bg-gradient-to-r from-[#2f80ed] to-[#1cb5e0]`,
@@ -32,8 +33,9 @@ export default async function LeaderboardPage({ searchParams }) {
     .eq('id', user.id)
     .single();
 
+  const isTeacher = hasTeacherView(profile?.role);
   let classes = [];
-  if (profile?.role === 'teacher') {
+  if (isTeacher) {
     const { data } = await supabase
       .from('classes')
       .select('id, name')
@@ -62,7 +64,7 @@ export default async function LeaderboardPage({ searchParams }) {
           <>
             <h1 className={style.heading}>Leaderboard</h1>
             <p className={style.empty}>
-              {profile?.role === 'teacher'
+              {isTeacher
                 ? 'Du hast noch keine Klasse.'
                 : 'Du bist noch keiner Klasse zugeordnet.'}
             </p>
